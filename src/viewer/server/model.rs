@@ -41,14 +41,10 @@ use crate::{
     GlobalState, RootEvent, GLOBAL_STATE, QUEUE,
 };
 
-// const MAIN_LOADED_TOOLPATH: &str = "main"; // HACK: This is a solution to ease the dev when only one toolpath is loaded which is the only supported(for now)
-
 #[derive(thiserror::Error, Debug)]
 pub enum Error {
     #[error("{0}")]
     LoadError(LoadError),
-    #[error("NoGeometryObject")]
-    NoGeometryObject,
 }
 
 #[derive(Debug)]
@@ -66,7 +62,7 @@ pub struct CADModelHandle {
     mesh: ObjectMesh,
 }
 
-type CADModelResult = Result<LoadResult, CADModelError>;
+type CADModelResult = Result<LoadResult, Error>;
 
 // TODO also use vertex indices
 #[derive(Debug)]
@@ -166,7 +162,7 @@ impl CADModelServer {
             let mesh = match (shared::loader::STLLoader {}).load(&path) {
                 Ok(model) => model,
                 Err(e) => {
-                    tx.send(Err(CADModelError::LoadError(e))).unwrap();
+                    tx.send(Err(Error::LoadError(e))).unwrap();
 
                     return;
                 }
@@ -413,7 +409,7 @@ Clustering models"
         &self.root_hitbox
     }
 
-    pub fn models<'a>(&'a self, settings: &'a Settings) -> Vec<ObjectMesh> {
+    pub fn prepare_objects<'a>(&'a self, settings: &'a Settings) -> Vec<ObjectMesh> {
         self.models
             .values()
             .map(|model| {
@@ -673,16 +669,6 @@ impl TransformMut for CADModel {
             Self::Face { face } => face.get_mut().transform(transform),
         }
     }
-}
-
-#[derive(thiserror::Error, Debug)]
-pub enum CADModelError {
-    #[error("File not found {0}")]
-    FileNotFound(String),
-    #[error("Load Error {0}")]
-    LoadError(LoadError),
-    #[error("NoGeometryObject")]
-    NoGeometryObject,
 }
 
 #[derive(Debug, Clone)]

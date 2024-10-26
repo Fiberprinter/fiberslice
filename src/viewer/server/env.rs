@@ -2,7 +2,6 @@ use std::fmt::Debug;
 
 use crate::{
     prelude::WgpuContext,
-    render::Vertex,
     viewer::{select::Selector, volume::Volume, RenderServer},
 };
 

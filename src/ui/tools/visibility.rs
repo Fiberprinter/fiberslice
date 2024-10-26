@@ -82,13 +82,7 @@ impl Tool for VisibilityTool<'_> {
                     let old_travel = self.state.travel;
                     let old_setup = self.state.setup;
 
-                    if let Some(count_map) = global_state
-                        .viewer
-                        .toolpath_server
-                        .read()
-                        .get_toolpath()
-                        .map(|toolpath| &toolpath.count_map)
-                    {
+                    if let Some(count_map) = global_state.viewer.sliced_count_map() {
                         egui::CollapsingHeader::new("Print Types")
                             .default_open(true)
                             .show(ui, |ui| {
@@ -176,11 +170,7 @@ impl Tool for VisibilityTool<'_> {
 
                         visibility |= if self.state.setup { 0x01 } else { 0 };
 
-                        global_state
-                            .viewer
-                            .toolpath_server
-                            .write()
-                            .set_visibility(visibility);
+                        global_state.viewer.update_gpu_max_layer(visibility);
                     }
 
                     ui.separator();

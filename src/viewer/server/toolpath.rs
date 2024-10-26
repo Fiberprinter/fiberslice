@@ -250,7 +250,7 @@ impl ToolpathServer {
         Ok(())
     }
 
-    pub fn set_visibility(&mut self, value: u32) {
+    pub fn update_visibility(&mut self, value: u32) {
         self.toolpath_context.visibility = value;
 
         let queue_read = QUEUE.read();
@@ -282,7 +282,7 @@ impl ToolpathServer {
         );
     }
 
-    pub fn set_min_layer(&mut self, min: u32) {
+    pub fn update_min_layer(&mut self, min: u32) {
         self.toolpath_context.min_layer = min;
 
         let queue_read = QUEUE.read();
@@ -295,7 +295,7 @@ impl ToolpathServer {
         );
     }
 
-    pub fn set_max_layer(&mut self, max: u32) {
+    pub fn update_max_layer(&mut self, max: u32) {
         self.toolpath_context.max_layer = max;
 
         let queue_read = QUEUE.read();

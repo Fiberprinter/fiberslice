@@ -221,25 +221,14 @@ impl<'a> Addons<'a> {
                                 ui.available_height(),
                                 |ui| &mut ui.spacing_mut().slider_width,
                                 |ui| {
-                                    let max = global_state
-                                        .viewer
-                                        .toolpath_server
-                                        .read()
-                                        .get_toolpath()
-                                        .map(|toolpath| toolpath.max_layer as u32);
-
-                                    if let Some(max) = max {
+                                    if let Some(max) = global_state.viewer.sliced_max_layer() {
                                         let slider = egui::Slider::new(layer_max, 0..=max)
                                             .orientation(egui::SliderOrientation::Vertical);
 
                                         let response = ui.add_sized(ui.available_size(), slider);
 
                                         if response.changed() {
-                                            global_state
-                                                .viewer
-                                                .toolpath_server
-                                                .write()
-                                                .set_max_layer(*layer_max);
+                                            global_state.viewer.update_gpu_max_layer(*layer_max);
                                         }
                                     }
                                 },

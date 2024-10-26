@@ -1,10 +1,4 @@
-use std::sync::Arc;
-
-use interact::InteractiveModel;
-use winit::{
-    event::{DeviceEvent, ElementState, KeyEvent, MouseButton, WindowEvent},
-    keyboard::{KeyCode, PhysicalKey},
-};
+use winit::event::{DeviceEvent, ElementState, MouseButton, WindowEvent};
 
 use crate::{
     prelude::{
@@ -24,6 +18,12 @@ pub use ray::Ray;
 #[derive(Debug)]
 pub enum PickingEvent {
     Pick,
+}
+
+pub struct MouseInputEvent {
+    pub ray: Ray,
+    pub button: MouseButton,
+    pub state: ElementState,
 }
 
 #[derive(Debug, Clone)]
@@ -73,30 +73,15 @@ impl FrameHandle<'_, RootEvent, (), &CameraResult> for InputAdapter {
             {
                 match event {
                     WindowEvent::MouseInput { button, state, .. } => {
-                        if *state == ElementState::Pressed && *button == MouseButton::Right {
-                            if let Some((x, y)) = global_state.ctx.mouse_position {
-                                let now = std::time::Instant::now();
+                        let (x, y) = global_state.ctx.mouse_position.unwrap_or((0.0, 0.0));
 
-                                let ray = Ray::from_view(viewport, (x, y), view, proj, eye);
+                        let ray = Ray::from_view(viewport, (x, y), view, proj, eye);
 
-                                {
-                                    let server = global_state.viewer.model_server.read();
-
-                                    if let Some(model) = server.check_hit(&ray, 0, true) {
-                                        let interact_model = model as Arc<dyn InteractiveModel>;
-
-                                        global_state
-                                            .viewer
-                                            .env_server
-                                            .write()
-                                            .selector_mut()
-                                            .select(interact_model);
-                                    }
-                                }
-
-                                println!("PickingAdapter: Picking took {:?}", now.elapsed());
-                            }
-                        }
+                        global_state.viewer.mouse_input(MouseInputEvent {
+                            ray,
+                            button: *button,
+                            state: *state,
+                        });
 
                         match button {
                             winit::event::MouseButton::Left => {
@@ -109,25 +94,7 @@ impl FrameHandle<'_, RootEvent, (), &CameraResult> for InputAdapter {
                         }
                     }
                     WindowEvent::KeyboardInput { event, .. } => {
-                        let KeyEvent {
-                            physical_key,
-                            state,
-                            ..
-                        } = event;
-
-                        match physical_key {
-                            PhysicalKey::Code(KeyCode::Delete) => {
-                                if *state == ElementState::Pressed {
-                                    global_state
-                                        .viewer
-                                        .env_server
-                                        .write()
-                                        .selector_mut()
-                                        .delete_selected();
-                                }
-                            }
-                            _ => (),
-                        }
+                        global_state.viewer.keyboard_input(event.clone());
                     }
                     _ => (),
                 }
@@ -160,6 +127,8 @@ impl FrameHandle<'_, RootEvent, (), &CameraResult> for InputAdapter {
         if !pointer_in_use {
             match event {
                 DeviceEvent::MouseMotion { delta } => {
+                    global_state.viewer.mouse_delta((delta.0, delta.1));
+
                     if self.state.is_drag_left {
                         println!("PickingAdapter: Dragging Left Click");
                     }

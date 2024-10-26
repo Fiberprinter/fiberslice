@@ -1,4 +1,4 @@
-use glam::{vec3, vec4, Vec2, Vec3, Vec4};
+use glam::{vec3, vec4, Vec2, Vec4};
 
 use crate::{
     geometry::{mesh::construct_triangle_vertices, BoundingBox},
@@ -11,11 +11,7 @@ pub struct Volume {
     pub bed: Model<Vertex>,
     pub grid_model: Model<Vertex>,
     pub r#box: Model<Vertex>,
-
-    pub bounding_box: BoundingBox,
 }
-
-pub const REFERENCE_POINT_BED: Vec3 = vec3(-110.0, 0.0, -110.0);
 
 impl Volume {
     pub fn instance() -> Self {
@@ -50,7 +46,6 @@ impl Volume {
             bed,
             r#box,
             grid_model,
-            bounding_box,
         }
     }
 

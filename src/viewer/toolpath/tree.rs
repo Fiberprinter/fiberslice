@@ -129,6 +129,8 @@ impl ToolpathTree {
                     // child.update_offset(current_offset);
                     current_offset += child.size();
                 }
+
+                // TODO: Update the offset of the children
             }
             Self::Move { offset: o, .. } => *o = offset,
             Self::Travel { offset: o, .. } => *o = offset,

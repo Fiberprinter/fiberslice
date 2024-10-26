@@ -30,6 +30,7 @@ impl std::fmt::Debug for Selector {
     }
 }
 
+#[allow(dead_code)]
 impl Selector {
     pub fn instance() -> Self {
         Self {
@@ -124,8 +125,6 @@ impl Selector {
     }
 
     pub fn transform(&mut self, mut r#fn: impl FnMut(&mut Mat4) -> bool) {
-        println!("Transform {:?}", self.selected.len());
-
         if self.selected.len() == 1 {
             let mut transform = self.selected[0].transformation();
 

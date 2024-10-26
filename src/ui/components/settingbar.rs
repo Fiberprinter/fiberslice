@@ -241,18 +241,12 @@ impl<'a> UiComponent for Settingsbar<'a> {
 
                                 if ui
                                     .add_enabled(
-                                        shared_state
-                                            .1
-                                            .viewer
-                                            .toolpath_server
-                                            .read()
-                                            .get_toolpath()
-                                            .is_some(),
+                                        shared_state.1.viewer.already_sliced(),
                                         export_button,
                                     )
                                     .clicked()
                                 {
-                                    shared_state.1.viewer.toolpath_server.read().export();
+                                    shared_state.1.viewer.export_gcode();
                                 }
 
                                 let rich_text = RichText::new("Slice")

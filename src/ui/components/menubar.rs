@@ -127,7 +127,7 @@ fn file_button(ui: &mut Ui, (_ui_state, global_state): &(UiState, GlobalState<Ro
 
             match path {
                 Some(path) => {
-                    global_state.viewer.model_server.write().load(path);
+                    global_state.viewer.load_object_from_file(path);
                 }
                 None => {
                     println!("No file selected")

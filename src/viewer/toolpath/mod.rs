@@ -14,7 +14,6 @@ use wgpu::BufferAddress;
 use crate::geometry::mesh::Mesh;
 
 pub mod mesh;
-pub mod movement;
 pub mod tree;
 pub mod vertex;
 
@@ -37,6 +36,7 @@ pub fn bit_representation(print_type: &MovePrintType) -> u32 {
     0x01 << ((*print_type as u32) + 0x02)
 }
 
+#[allow(dead_code)]
 pub const fn bit_representation_travel() -> u32 {
     0x02
 }

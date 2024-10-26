@@ -21,10 +21,9 @@ impl Slicer {
             }
         }
 
-        let model_server_read = global_state.viewer.model_server.read();
-
         let settings = self.settings.clone();
-        let models: Vec<ObjectMesh> = model_server_read.models(&settings);
+        let objects: Vec<ObjectMesh> = global_state.viewer.prepare_objects(&settings);
+        let masks: Vec<ObjectMesh> = global_state.viewer.prepare_masks(&settings);
 
         let global_state = global_state.clone();
 
@@ -34,21 +33,10 @@ impl Slicer {
                 .write()
                 .add(SLICING_PROGRESS, trim_text::<20, 4>("Slicing model"));
 
-            let result = slicer::slice(
-                SliceInput {
-                    objects: models,
-                    masks: vec![],
-                },
-                &settings,
-                &process,
-            )
-            .expect("Failed to slice model");
+            let result = slicer::slice(SliceInput { objects, masks }, &settings, &process)
+                .expect("Failed to slice model");
 
-            global_state
-                .viewer
-                .toolpath_server
-                .write()
-                .load_from_slice_result(result, process);
+            global_state.viewer.load_sliced(result, process);
 
             global_state
                 .ui_event_writer
