@@ -1,34 +1,9 @@
-use glam::{Mat4, Quat, Vec3};
+use glam::{Mat4, Vec3};
 use wgpu::util::DeviceExt;
 
 use crate::{render::Renderable, DEVICE, QUEUE};
-
-pub trait TranslateMut {
-    fn translate(&mut self, translation: glam::Vec3);
-}
-
-pub trait RotateMut {
-    fn rotate(&mut self, rotation: glam::Quat);
-}
-
-pub trait ScaleMut {
-    fn scale(&mut self, scale: glam::Vec3);
-}
-
 pub trait TransformMut {
     fn transform(&mut self, transform: glam::Mat4);
-}
-
-pub trait Translate {
-    fn translate(&self, translation: glam::Vec3);
-}
-
-pub trait Rotate {
-    fn rotate(&self, rotation: glam::Quat);
-}
-
-pub trait Scale {
-    fn scale(&self, scale: glam::Vec3);
 }
 
 pub trait Transform {
@@ -282,60 +257,6 @@ impl<T> Drop for Model<T> {
         }
 
         self.destroyed = true;
-    }
-}
-
-impl<T> TranslateMut for Model<T> {
-    fn translate(&mut self, translation: Vec3) {
-        let queue_read = QUEUE.read();
-        let queue = queue_read.as_ref().unwrap();
-
-        self.transform *= Mat4::from_translation(translation);
-        let transform_uniform = TransformUniform {
-            transform: self.transform.to_cols_array_2d(),
-        };
-
-        queue.write_buffer(
-            &self.transform_buffer,
-            0,
-            bytemuck::cast_slice(&[transform_uniform]),
-        );
-    }
-}
-
-impl<T> RotateMut for Model<T> {
-    fn rotate(&mut self, rotation: Quat) {
-        let queue_read = QUEUE.read();
-        let queue = queue_read.as_ref().unwrap();
-
-        self.transform *= Mat4::from_quat(rotation);
-        let transform_uniform = TransformUniform {
-            transform: self.transform.to_cols_array_2d(),
-        };
-
-        queue.write_buffer(
-            &self.transform_buffer,
-            0,
-            bytemuck::cast_slice(&[transform_uniform]),
-        );
-    }
-}
-
-impl<T> ScaleMut for Model<T> {
-    fn scale(&mut self, scale: Vec3) {
-        let queue_read = QUEUE.read();
-        let queue = queue_read.as_ref().unwrap();
-
-        self.transform *= Mat4::from_scale(scale);
-        let transform_uniform = TransformUniform {
-            transform: self.transform.to_cols_array_2d(),
-        };
-
-        queue.write_buffer(
-            &self.transform_buffer,
-            0,
-            bytemuck::cast_slice(&[transform_uniform]),
-        );
     }
 }
 

@@ -6,17 +6,18 @@ use wgpu::{util::DeviceExt, CommandEncoder};
 use crate::{
     prelude::*,
     ui::UiUpdateOutput,
-    viewer::{
-        Server, {CameraResult, CameraUniform},
-    },
+    viewer::{CameraResult, CameraUniform},
     GlobalState, RootEvent,
 };
 
+mod descriptor;
 mod light;
 mod texture;
 mod vertex;
 
 pub mod model;
+
+pub use descriptor::RenderDescriptor;
 
 pub use light::*;
 pub use texture::*;
@@ -69,14 +70,18 @@ impl RenderState {
     }
 }
 
+pub struct Pipelines {
+    pub back_cull: wgpu::RenderPipeline,
+    pub no_cull: wgpu::RenderPipeline,
+    pub line: wgpu::RenderPipeline,
+}
+
 pub struct RenderAdapter {
     multisampled_framebuffer: wgpu::TextureView,
 
     egui_rpass: egui_wgpu_backend::RenderPass,
 
-    back_cull_pipline: wgpu::RenderPipeline,
-    no_cull_pipline: wgpu::RenderPipeline,
-    line_pipline: wgpu::RenderPipeline,
+    pipelines: Pipelines,
 
     render_state: RenderState,
 
@@ -87,14 +92,10 @@ impl RenderAdapter {
     fn render(
         &self,
         encoder: &mut CommandEncoder,
-        view: &wgpu::TextureView,
+        texture_view: &wgpu::TextureView,
         viewport: &Viewport,
         global_state: &GlobalState<RootEvent>,
     ) {
-        let toolpath_server_read = global_state.viewer.toolpath_server.read();
-        let env_server_read = global_state.viewer.env_server.read();
-        let model_server_read = global_state.viewer.model_server.read();
-
         let clear_color = wgpu::Color {
             r: 0.7,
             g: 0.7,
@@ -102,10 +103,8 @@ impl RenderAdapter {
             a: 1.0,
         };
 
-        let (x, y, width, height) = *viewport;
-
         let rpass_color_attachment = wgpu::RenderPassColorAttachment {
-            view,
+            view: texture_view,
             resolve_target: None,
             ops: wgpu::Operations {
                 load: wgpu::LoadOp::Clear(clear_color),
@@ -113,7 +112,7 @@ impl RenderAdapter {
             },
         };
 
-        let mut render_pass = encoder.begin_render_pass(&wgpu::RenderPassDescriptor {
+        let pass_descriptor = wgpu::RenderPassDescriptor {
             label: Some("Render Pass"),
             color_attachments: &[Some(rpass_color_attachment)],
             depth_stencil_attachment: Some(wgpu::RenderPassDepthStencilAttachment {
@@ -126,61 +125,33 @@ impl RenderAdapter {
             }),
             timestamp_writes: None,
             occlusion_query_set: None,
-        });
+        };
 
-        if width > 0.0 && height > 0.0 {
-            render_pass.set_viewport(x, y, width, height, 0.0, 1.0);
-            // render_pass.set_scissor_rect(x as u32, y as u32, width as , height);
-            // render_pass.set_pipeline(&self.render_pipeline);
+        let descriptor = RenderDescriptor {
+            pipelines: &self.pipelines,
+            bind_groups: &[
+                &self.render_state.camera_bind_group,
+                &self.render_state.light_bind_group,
+            ],
+            encoder,
+            viewport,
+            pass_descriptor,
+        };
 
-            render_pass.set_bind_group(0, &self.render_state.camera_bind_group, &[]);
-            render_pass.set_bind_group(1, &self.render_state.light_bind_group, &[]);
-
-            global_state.ui_state.mode.read_with_fn(|mode| match mode {
-                Mode::Preview => {
-                    render_pass.set_pipeline(&self.back_cull_pipline);
-                    toolpath_server_read.render(&mut render_pass);
-
-                    render_pass.set_pipeline(&self.no_cull_pipline);
-                    env_server_read.render(&mut render_pass);
-
-                    render_pass.set_pipeline(&self.line_pipline);
-                    env_server_read.render_lines(&mut render_pass);
-                }
-                Mode::Prepare => {
-                    render_pass.set_pipeline(&self.back_cull_pipline);
-                    model_server_read.render(&mut render_pass);
-
-                    render_pass.set_pipeline(&self.no_cull_pipline);
-                    env_server_read.render(&mut render_pass);
-
-                    render_pass.set_pipeline(&self.line_pipline);
-                    env_server_read.render_lines(&mut render_pass);
-                }
-                Mode::ForceAnalytics => {
-                    render_pass.set_pipeline(&self.no_cull_pipline);
-                    env_server_read.render(&mut render_pass);
-
-                    render_pass.set_pipeline(&self.line_pipline);
-                    env_server_read.render_lines(&mut render_pass);
-                }
-            });
-        }
+        global_state
+            .viewer
+            .render(descriptor, *global_state.ui_state.mode.read());
     }
 
     fn render_widgets(
         &self,
         encoder: &mut CommandEncoder,
-        view: &wgpu::TextureView,
+        texture_view: &wgpu::TextureView,
         viewport: &Viewport,
         global_state: &GlobalState<RootEvent>,
     ) {
-        let model_server_read = global_state.viewer.model_server.read();
-
-        let (x, y, width, height) = *viewport;
-
         let rpass_color_attachment = wgpu::RenderPassColorAttachment {
-            view,
+            view: texture_view,
             resolve_target: None,
             ops: wgpu::Operations {
                 load: wgpu::LoadOp::Load,
@@ -188,7 +159,7 @@ impl RenderAdapter {
             },
         };
 
-        let mut render_pass = encoder.begin_render_pass(&wgpu::RenderPassDescriptor {
+        let pass_descriptor = wgpu::RenderPassDescriptor {
             label: Some("Render Pass"),
             color_attachments: &[Some(rpass_color_attachment)],
             depth_stencil_attachment: Some(wgpu::RenderPassDepthStencilAttachment {
@@ -201,28 +172,22 @@ impl RenderAdapter {
             }),
             timestamp_writes: None,
             occlusion_query_set: None,
-        });
+        };
 
-        if width > 0.0 && height > 0.0 {
-            render_pass.set_viewport(x, y, width, height, 0.0, 1.0);
-            // render_pass.set_scissor_rect(x as u32, y as u32, width as , height);
-            // render_pass.set_pipeline(&self.render_pipeline);
+        let descriptor = RenderDescriptor {
+            pipelines: &self.pipelines,
+            bind_groups: &[
+                &self.render_state.camera_bind_group,
+                &self.render_state.light_bind_group,
+            ],
+            encoder,
+            viewport,
+            pass_descriptor,
+        };
 
-            render_pass.set_bind_group(0, &self.render_state.camera_bind_group, &[]);
-            render_pass.set_bind_group(1, &self.render_state.light_bind_group, &[]);
-
-            global_state.ui_state.mode.read_with_fn(|mode| match mode {
-                Mode::Preview => {
-                    render_pass.set_pipeline(&self.back_cull_pipline);
-                    model_server_read.render(&mut render_pass);
-                }
-                Mode::Prepare => {}
-                Mode::ForceAnalytics => {
-                    render_pass.set_pipeline(&self.back_cull_pipline);
-                    model_server_read.render(&mut render_pass);
-                }
-            });
-        }
+        global_state
+            .viewer
+            .render_widgets(descriptor, *global_state.ui_state.mode.read());
     }
 }
 
@@ -456,27 +421,29 @@ impl<'a> Adapter<'a, RootEvent, (), (), (Option<UiUpdateOutput>, &CameraResult),
 
                 egui_rpass,
 
-                back_cull_pipline: create_pipline(
-                    context,
-                    &render_pipeline_layout,
-                    &shader,
-                    wgpu::PrimitiveTopology::TriangleList,
-                    Some(wgpu::Face::Back),
-                ),
-                no_cull_pipline: create_pipline(
-                    context,
-                    &render_pipeline_layout,
-                    &shader,
-                    wgpu::PrimitiveTopology::TriangleList,
-                    None,
-                ),
-                line_pipline: create_pipline(
-                    context,
-                    &render_pipeline_layout,
-                    &shader,
-                    wgpu::PrimitiveTopology::LineList,
-                    None,
-                ),
+                pipelines: Pipelines {
+                    back_cull: create_pipline(
+                        context,
+                        &render_pipeline_layout,
+                        &shader,
+                        wgpu::PrimitiveTopology::TriangleList,
+                        Some(wgpu::Face::Back),
+                    ),
+                    no_cull: create_pipline(
+                        context,
+                        &render_pipeline_layout,
+                        &shader,
+                        wgpu::PrimitiveTopology::TriangleList,
+                        None,
+                    ),
+                    line: create_pipline(
+                        context,
+                        &render_pipeline_layout,
+                        &shader,
+                        wgpu::PrimitiveTopology::LineList,
+                        None,
+                    ),
+                },
 
                 render_state,
 

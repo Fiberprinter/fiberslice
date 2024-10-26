@@ -1,4 +1,4 @@
-use egui::{Color32, RichText};
+use egui::Color32;
 use egui_code_editor::{ColorTheme, Syntax};
 
 use crate::{

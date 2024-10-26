@@ -11,10 +11,9 @@ pub use crate::error::Error;
 use crate::{GlobalState, RootEvent};
 
 pub mod shared;
-pub mod wrap;
 
 pub use shared::*;
-pub use wrap::*;
+
 pub type Viewport = (f32, f32, f32, f32);
 
 #[derive(Debug, Clone)]
@@ -185,6 +184,8 @@ impl WgpuContext {
     }
 }
 
+#[allow(dead_code)]
+#[allow(unused_variables)]
 pub trait FrameHandle<'a, E, T, C> {
     fn update(&mut self, start_time: std::time::Instant) {}
 
@@ -216,10 +217,11 @@ pub trait FrameHandle<'a, E, T, C> {
 
 pub type AdapterCreation<S, E, A> = (S, EventWriter<E>, A);
 
+#[allow(dead_code)]
+#[allow(unused_variables)]
 pub trait Adapter<'a, WinitE, S: Sized, T, C, E: Debug>: FrameHandle<'a, WinitE, T, C> {
     fn create(wgpu_context: &WgpuContext) -> AdapterCreation<S, E, Self>;
 
-    #[allow(dead_code)]
     fn get_adapter_description(&self) -> String;
 
     fn get_reader(&self) -> EventReader<E>;

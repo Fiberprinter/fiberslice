@@ -6,10 +6,7 @@ use crate::{
         QuadFace,
     },
     input::{hitbox::Hitbox, Ray},
-    render::{
-        model::{RotateMut, ScaleMut, TranslateMut},
-        Vertex,
-    },
+    render::Vertex,
 };
 
 #[derive(Debug, Clone, Copy)]
@@ -84,38 +81,6 @@ impl ProfileCross {
 
     pub fn max(&self) -> Vec3 {
         self.a.max(self.c).max(self.b).max(self.d)
-    }
-}
-
-impl TranslateMut for ProfileCross {
-    fn translate(&mut self, translation: Vec3) {
-        self.a += translation;
-        self.c += translation;
-        self.b += translation;
-        self.d += translation;
-    }
-}
-
-impl RotateMut for ProfileCross {
-    fn rotate(&mut self, rotation: glam::Quat) {
-        self.a = rotation * self.a;
-        self.c = rotation * self.c;
-        self.b = rotation * self.b;
-        self.d = rotation * self.d;
-    }
-}
-
-impl ScaleMut for ProfileCross {
-    fn scale(&mut self, scale: Vec3) {
-        let diagonal_1 = (self.a - self.c) * scale;
-        let diagonal_2 = (self.b - self.d) * scale;
-
-        let center = (self.a + self.c + self.b + self.d) / 4.0;
-
-        self.a = center + diagonal_1 / 2.0;
-        self.c = center - diagonal_1 / 2.0;
-        self.b = center + diagonal_2 / 2.0;
-        self.d = center - diagonal_2 / 2.0;
     }
 }
 

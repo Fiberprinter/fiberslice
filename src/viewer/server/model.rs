@@ -33,14 +33,11 @@ use crate::{
     },
     prelude::{LockModel, WgpuContext},
     render::{
-        model::{
-            Model, ModelColorUniform, Rotate, RotateMut, Scale, ScaleMut, Transform, TransformMut,
-            Translate, TranslateMut,
-        },
+        model::{Model, ModelColorUniform, Transform, TransformMut},
         Renderable, Vertex,
     },
     ui::{api::trim_text, custom_toasts::MODEL_LOAD_PROGRESS},
-    viewer::Server,
+    viewer::RenderServer,
     GlobalState, RootEvent, GLOBAL_STATE, QUEUE,
 };
 
@@ -87,7 +84,7 @@ pub struct CADModelServer {
     color_bind_group: wgpu::BindGroup,
 }
 
-impl Server for CADModelServer {
+impl RenderServer for CADModelServer {
     fn instance(context: &WgpuContext) -> Self {
         let color = [1.0, 1.0, 1.0, 1.0];
 
@@ -949,30 +946,6 @@ impl Hitbox for PolygonFace {
 
     fn get_max(&self) -> Vec3 {
         self.max
-    }
-}
-
-impl RotateMut for PolygonFace {
-    fn rotate(&mut self, rotation: glam::Quat) {
-        self.plane.normal = rotation * self.plane.normal;
-        self.plane.point = rotation * self.plane.point;
-
-        self.min = rotation * self.min;
-        self.max = rotation * self.max;
-    }
-}
-
-impl TranslateMut for PolygonFace {
-    fn translate(&mut self, translation: Vec3) {
-        self.plane.point += translation;
-        self.min += translation;
-        self.max += translation;
-    }
-}
-
-impl ScaleMut for PolygonFace {
-    fn scale(&mut self, _scale: Vec3) {
-        panic!("Not implemented")
     }
 }
 

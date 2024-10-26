@@ -37,7 +37,7 @@ use crate::{
     GlobalState, RootEvent,
 };
 
-use self::boundary::Boundary;
+use boundary::Boundary;
 
 #[derive(Debug, Clone)]
 pub enum UiEvent {
@@ -45,7 +45,6 @@ pub enum UiEvent {
     ShowSuccess(String),
     ShowError(String),
     ShowProgressBar(u32, String),
-
     FocusGCode(ReadSection),
 }
 
@@ -56,7 +55,7 @@ pub struct UiState {
     pub mode: SharedMut<Mode>,
 
     pub layer_max: SharedMut<u32>,
-    pub time_stamp: SharedMut<u16>,
+    pub time_stamp: SharedMut<u32>,
 }
 
 impl Default for UiState {
@@ -67,7 +66,7 @@ impl Default for UiState {
             mode: SharedMut::from_inner(Mode::Prepare),
 
             layer_max: SharedMut::from_inner(u32::MAX),
-            time_stamp: SharedMut::from_inner(u16::MAX),
+            time_stamp: SharedMut::from_inner(u32::MAX),
         }
     }
 }

@@ -6,12 +6,7 @@ pub mod mesh;
 
 pub use r#box::BoundingBox;
 
-use crate::{
-    input::hitbox::Hitbox,
-    render::model::{RotateMut, ScaleMut, TranslateMut},
-    render::Vertex,
-    viewer::toolpath::mesh::ProfileCross,
-};
+use crate::{input::hitbox::Hitbox, render::Vertex, viewer::toolpath::mesh::ProfileCross};
 
 #[derive(Debug, Clone, Copy)]
 pub struct QuadFace {
@@ -163,7 +158,7 @@ impl SelectBox {
         self
     }
 
-    pub const fn traingle_vertex_count() -> usize {
+    pub const fn triangle_vertex_count() -> usize {
         72
     }
 

@@ -3,7 +3,7 @@ use std::fmt::Debug;
 use crate::{
     prelude::WgpuContext,
     render::Vertex,
-    viewer::{select::Selector, volume::Volume, Server},
+    viewer::{select::Selector, volume::Volume, RenderServer},
 };
 
 #[derive(Debug)]
@@ -12,7 +12,7 @@ pub struct EnvironmentServer {
     selector: Selector,
 }
 
-impl Server for EnvironmentServer {
+impl RenderServer for EnvironmentServer {
     fn instance(_context: &WgpuContext) -> Self {
         Self {
             volume: Volume::instance(),

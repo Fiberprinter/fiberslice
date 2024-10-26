@@ -13,7 +13,7 @@ use crate::input::hitbox::HitboxRoot;
 use crate::render::Renderable;
 use crate::viewer::toolpath::vertex::{ToolpathContext, ToolpathVertex};
 use crate::viewer::toolpath::Toolpath;
-use crate::viewer::Server;
+use crate::viewer::RenderServer;
 use crate::QUEUE;
 use crate::{prelude::WgpuContext, GlobalState, RootEvent};
 
@@ -42,7 +42,7 @@ pub struct ToolpathServer {
     toolpath_context_bind_group: wgpu::BindGroup,
 }
 
-impl Server for ToolpathServer {
+impl RenderServer for ToolpathServer {
     fn instance(context: &WgpuContext) -> Self {
         let toolpath_context = ToolpathContext::default();
 

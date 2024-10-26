@@ -1,18 +1,12 @@
 use std::sync::Arc;
 
-use hitbox::HitboxNode;
 use interact::InteractiveModel;
-use tokio::task::JoinHandle;
 use winit::{
-    event::{DeviceEvent, ElementState, KeyEvent, MouseButton, RawKeyEvent, WindowEvent},
+    event::{DeviceEvent, ElementState, KeyEvent, MouseButton, WindowEvent},
     keyboard::{KeyCode, PhysicalKey},
 };
 
 use crate::{
-    geometry::{
-        mesh::{Mesh, WireMesh},
-        BoundingBox, SelectBox,
-    },
     prelude::{
         create_event_bundle, Adapter, AdapterCreation, Error, EventReader, FrameHandle, WgpuContext,
     },
@@ -33,14 +27,13 @@ pub enum PickingEvent {
 }
 
 #[derive(Debug, Clone)]
-pub struct PickingState {
+pub struct InputState {
     is_drag_left: bool,
     is_drag_right: bool,
 }
 
 pub struct InputAdapter {
-    handles: Vec<JoinHandle<()>>,
-    state: PickingState,
+    state: InputState,
 
     camera_result: Option<CameraResult>,
     event_reader: EventReader<PickingEvent>,
@@ -181,9 +174,9 @@ impl FrameHandle<'_, RootEvent, (), &CameraResult> for InputAdapter {
     }
 }
 
-impl<'a> Adapter<'a, RootEvent, PickingState, (), &CameraResult, PickingEvent> for InputAdapter {
-    fn create(_wgpu_context: &WgpuContext) -> AdapterCreation<PickingState, PickingEvent, Self> {
-        let state = PickingState {
+impl<'a> Adapter<'a, RootEvent, InputState, (), &CameraResult, PickingEvent> for InputAdapter {
+    fn create(_wgpu_context: &WgpuContext) -> AdapterCreation<InputState, PickingEvent, Self> {
+        let state = InputState {
             is_drag_left: false,
             is_drag_right: false,
         };
@@ -194,8 +187,6 @@ impl<'a> Adapter<'a, RootEvent, PickingState, (), &CameraResult, PickingEvent> f
             state.clone(),
             writer,
             InputAdapter {
-                handles: vec![],
-
                 camera_result: None,
                 state,
                 event_reader: reader,

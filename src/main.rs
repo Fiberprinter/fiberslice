@@ -62,7 +62,7 @@ pub struct GlobalState<T: 'static> {
     pub device: Arc<wgpu::Device>,
     pub queue: Arc<wgpu::Queue>,
 
-    pub picking_state: input::PickingState,
+    pub picking_state: input::InputState,
     pub picking_event_writer: EventWriter<PickingEvent>,
 
     pub ui_state: ui::UiState,
@@ -124,19 +124,7 @@ struct ApplicationState {
 
 impl ApplicationState {
     fn update(&mut self) {
-        self.global_state
-            .viewer
-            .toolpath_server
-            .write()
-            .update(self.global_state.clone())
-            .expect("Failed to update toolpath server");
-
-        self.global_state
-            .viewer
-            .model_server
-            .write()
-            .update(self.global_state.clone())
-            .expect("Failed to update model server");
+        self.global_state.viewer.update(&self.global_state);
 
         self.ui_adapter.update(self.start_time);
 
