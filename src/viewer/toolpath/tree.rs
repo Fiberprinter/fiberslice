@@ -231,19 +231,7 @@ impl HitboxNode<Self> for ToolpathTree {
 }
 
 impl InteractiveModel for ToolpathTree {
-    fn clicked(&self, _event: crate::input::interact::ClickEvent) {
-        println!("ToolpathTree: Clicked");
-    }
-
-    fn drag(&self, _event: crate::input::interact::DragEvent) {
-        println!("ToolpathTree: Dragged");
-    }
-
-    fn scroll(&self, _event: crate::input::interact::ScrollEvent) {
-        println!("ToolpathTree: Scrolled");
-    }
-
-    fn get_AABB(&self) -> (Vec3, Vec3) {
+    fn aabb(&self) -> (Vec3, Vec3) {
         match self {
             Self::Root { bounding_box, .. } => {
                 let bb = bounding_box.read();

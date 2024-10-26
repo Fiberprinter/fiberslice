@@ -16,9 +16,7 @@ mod ray;
 pub use ray::Ray;
 
 #[derive(Debug)]
-pub enum PickingEvent {
-    Pick,
-}
+pub enum InputEvent {}
 
 #[derive(Debug)]
 pub struct MouseInputEvent {
@@ -37,7 +35,7 @@ pub struct InputAdapter {
     state: InputState,
 
     camera_result: Option<CameraResult>,
-    event_reader: EventReader<PickingEvent>,
+    event_reader: EventReader<InputEvent>,
 }
 
 impl FrameHandle<'_, RootEvent, (), &CameraResult> for InputAdapter {
@@ -126,32 +124,29 @@ impl FrameHandle<'_, RootEvent, (), &CameraResult> for InputAdapter {
             .load(std::sync::atomic::Ordering::Relaxed);
 
         if !pointer_in_use {
-            match event {
-                DeviceEvent::MouseMotion { delta } => {
-                    global_state.viewer.mouse_delta((delta.0, delta.1));
+            if let DeviceEvent::MouseMotion { delta } = event {
+                global_state.viewer.mouse_delta((delta.0, delta.1));
 
-                    if self.state.is_drag_left {
-                        println!("PickingAdapter: Dragging Left Click");
-                    }
-
-                    if self.state.is_drag_right {
-                        println!("PickingAdapter: Dragging Right Click");
-                    }
+                if self.state.is_drag_left {
+                    println!("PickingAdapter: Dragging Left Click");
                 }
-                _ => (),
+
+                if self.state.is_drag_right {
+                    println!("PickingAdapter: Dragging Right Click");
+                }
             }
         }
     }
 }
 
-impl<'a> Adapter<'a, RootEvent, InputState, (), &CameraResult, PickingEvent> for InputAdapter {
-    fn create(_wgpu_context: &WgpuContext) -> AdapterCreation<InputState, PickingEvent, Self> {
+impl<'a> Adapter<'a, RootEvent, InputState, (), &CameraResult, InputEvent> for InputAdapter {
+    fn create(_wgpu_context: &WgpuContext) -> AdapterCreation<InputState, InputEvent, Self> {
         let state = InputState {
             is_drag_left: false,
             is_drag_right: false,
         };
 
-        let (reader, writer) = create_event_bundle::<PickingEvent>();
+        let (reader, writer) = create_event_bundle::<InputEvent>();
 
         (
             state.clone(),
@@ -168,7 +163,7 @@ impl<'a> Adapter<'a, RootEvent, InputState, (), &CameraResult, PickingEvent> for
         "PickingAdapter".to_string()
     }
 
-    fn get_reader(&self) -> crate::prelude::EventReader<PickingEvent> {
+    fn get_reader(&self) -> crate::prelude::EventReader<InputEvent> {
         self.event_reader.clone()
     }
 
@@ -176,10 +171,8 @@ impl<'a> Adapter<'a, RootEvent, InputState, (), &CameraResult, PickingEvent> for
         &mut self,
         _wgpu_context: &WgpuContext,
         _global_state: &GlobalState<RootEvent>,
-        event: PickingEvent,
+        event: InputEvent,
     ) {
-        match event {
-            PickingEvent::Pick => {}
-        }
+        match event {}
     }
 }

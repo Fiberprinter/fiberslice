@@ -333,10 +333,6 @@ Clustering models"
         Ok(handle)
     }
 
-    pub fn remove(&mut self, name: String) {
-        self.models.remove(&name);
-    }
-
     pub fn update(&mut self, global_state: GlobalState<RootEvent>) -> Result<(), Error> {
         if !self.queue.is_empty() {
             let mut results = Vec::new();
@@ -368,45 +364,12 @@ Clustering models"
                 global_state
                     .ui_event_writer
                     .send(crate::ui::UiEvent::ShowSuccess("Object loaded".to_string()));
-
-                /*
-                global_state.camera_event_writer.send(
-                    crate::viewer::camera::CameraEvent::UpdatePreferredDistance(BoundingBox::new(
-                        handle.get_min(),
-                        handle.get_max(),
-                    )),
-                );
-                    */
             }
         }
 
         self.models.retain(|_, model| !model.model.is_destroyed());
 
-        // self.models.values_mut().for_each(|model| model.update());
-
         Ok(())
-    }
-
-    pub fn iter_keys(&self) -> impl Iterator<Item = &String> {
-        self.models.keys()
-    }
-
-    pub fn is_empty(&self) -> bool {
-        self.models.is_empty()
-    }
-
-    pub fn len(&self) -> usize {
-        self.models.len()
-    }
-
-    pub fn kill(&mut self) {
-        for (_, handle) in self.queue.drain(..) {
-            handle.abort();
-        }
-    }
-
-    pub fn root_hitbox(&self) -> &HitboxRoot<CADModel> {
-        &self.root_hitbox
     }
 
     pub fn prepare_objects<'a>(&'a self, settings: &'a Settings) -> Vec<ObjectMesh> {
@@ -519,7 +482,7 @@ impl CADModel {
         }
     }
 
-    pub fn get_color(&self) -> [f32; 4] {
+    pub fn color(&self) -> [f32; 4] {
         match self {
             Self::Root { model, .. } => model.read().color(),
             Self::Face { .. } => panic!("Cannot get color"),
@@ -542,19 +505,7 @@ impl CADModel {
 }
 
 impl InteractiveModel for CADModel {
-    fn clicked(&self, event: input::interact::ClickEvent) {
-        println!("CADModel: Clicked");
-    }
-
-    fn drag(&self, event: input::interact::DragEvent) {
-        println!("CADModel: Dragged");
-    }
-
-    fn scroll(&self, event: input::interact::ScrollEvent) {
-        println!("CADModel: Scrolled");
-    }
-
-    fn get_AABB(&self) -> (Vec3, Vec3) {
+    fn aabb(&self) -> (Vec3, Vec3) {
         match self {
             Self::Root { bounding_box, .. } => (
                 bounding_box.read().init_min(),

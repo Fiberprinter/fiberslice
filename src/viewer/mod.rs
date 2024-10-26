@@ -64,7 +64,7 @@ pub trait RenderServer {
 #[derive(Debug)]
 pub struct Viewer {
     env_server: RwLock<server::EnvironmentServer>,
-    toolpath_server: RwLock<server::ToolpathServer>,
+    sliced_object_server: RwLock<server::SlicedObjectServer>,
     model_server: RwLock<server::CADModelServer>,
     mask_server: RwLock<server::CADModelServer>,
 
@@ -75,7 +75,7 @@ impl Viewer {
     pub fn instance(context: &WgpuContext) -> Self {
         Self {
             env_server: RwLock::new(server::EnvironmentServer::instance(context)),
-            toolpath_server: RwLock::new(server::ToolpathServer::instance(context)),
+            sliced_object_server: RwLock::new(server::SlicedObjectServer::instance(context)),
             model_server: RwLock::new(server::CADModelServer::instance(context)),
             mask_server: RwLock::new(server::CADModelServer::instance(context)),
             selector: RwLock::new(select::Selector::instance()),
@@ -84,13 +84,13 @@ impl Viewer {
 
     pub fn mode_changed(&self, mode: Mode) {
         self.env_server.write().mode_changed(mode);
-        self.toolpath_server.write().mode_changed(mode);
+        self.sliced_object_server.write().mode_changed(mode);
         self.model_server.write().mode_changed(mode);
     }
 
     pub fn update(&self, global_state: &GlobalState<RootEvent>) {
         // self.env_server.write().update(global_state);
-        self.toolpath_server
+        self.sliced_object_server
             .write()
             .update(global_state.clone())
             .expect("Failed to update toolpath server");
@@ -101,15 +101,13 @@ impl Viewer {
     }
 }
 
-// Ui
 impl Viewer {
     pub fn transform_selected(&self, r#fn: impl FnMut(&mut Mat4) -> bool) {
         self.selector.write().transform(r#fn);
     }
 
-    // Sliced
     pub fn sliced_count_map(&self) -> Option<HashMap<MovePrintType, usize>> {
-        self.toolpath_server
+        self.sliced_object_server
             .read()
             .get_toolpath()
             .map(|toolpath| toolpath.count_map.clone())
@@ -120,30 +118,32 @@ impl Viewer {
     }
 
     pub fn sliced_max_layer(&self) -> Option<u32> {
-        self.toolpath_server
+        self.sliced_object_server
             .read()
             .get_toolpath()
             .map(|toolpath| toolpath.max_layer as u32)
     }
 
     pub fn update_gpu_min_layer(&self, layer: u32) {
-        self.toolpath_server.write().update_min_layer(layer);
+        self.sliced_object_server.write().update_min_layer(layer);
     }
 
     pub fn update_gpu_max_layer(&self, layer: u32) {
-        self.toolpath_server.write().update_max_layer(layer);
+        self.sliced_object_server.write().update_max_layer(layer);
     }
 
     pub fn update_gpu_visibility(&self, visibility: u32) {
-        self.toolpath_server.write().update_visibility(visibility);
+        self.sliced_object_server
+            .write()
+            .update_visibility(visibility);
     }
 
     pub fn already_sliced(&self) -> bool {
-        self.toolpath_server.read().get_toolpath().is_some()
+        self.sliced_object_server.read().get_toolpath().is_some()
     }
 
     pub fn export_gcode(&self) {
-        self.toolpath_server.write().export();
+        self.sliced_object_server.write().export();
     }
 }
 
@@ -158,7 +158,7 @@ impl Viewer {
     }
 
     pub fn load_sliced(&self, result: SliceResult, process: Arc<Process>) {
-        self.toolpath_server
+        self.sliced_object_server
             .write()
             .load_from_slice_result(result, process);
     }
@@ -209,7 +209,7 @@ impl Viewer {
 impl Viewer {
     pub fn render(&self, mut render_descriptor: RenderDescriptor, mode: Mode) {
         let env_server_read = self.env_server.read();
-        let toolpath_server_read = self.toolpath_server.read();
+        let toolpath_server_read = self.sliced_object_server.read();
         let model_server_read = self.model_server.read();
         let mask_server_read = self.mask_server.read();
         let selector_read = self.selector.read();

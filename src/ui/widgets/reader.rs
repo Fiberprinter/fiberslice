@@ -29,6 +29,7 @@ impl Hash for EfficientReader<'_> {
     }
 }
 
+#[allow(dead_code)]
 impl<'a> EfficientReader<'a> {
     pub fn new(view: &'a mut ReadSection) -> Self {
         EfficientReader {

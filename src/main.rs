@@ -5,7 +5,7 @@
     Please refer to the terms and conditions stated therein.
 */
 
-use input::PickingEvent;
+use input::InputEvent;
 use log::{info, LevelFilter};
 use parking_lot::RwLock;
 use std::{sync::Arc, time::Instant};
@@ -63,7 +63,7 @@ pub struct GlobalState<T: 'static> {
     pub queue: Arc<wgpu::Queue>,
 
     pub picking_state: input::InputState,
-    pub picking_event_writer: EventWriter<PickingEvent>,
+    pub picking_event_writer: EventWriter<InputEvent>,
 
     pub ui_state: ui::UiState,
     pub ui_event_writer: EventWriter<UiEvent>,

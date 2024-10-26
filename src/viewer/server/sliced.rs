@@ -12,7 +12,7 @@ use wgpu::util::DeviceExt;
 use crate::input::hitbox::HitboxRoot;
 use crate::render::Renderable;
 use crate::viewer::toolpath::vertex::{ToolpathContext, ToolpathVertex};
-use crate::viewer::toolpath::Toolpath;
+use crate::viewer::toolpath::SlicedPath;
 use crate::viewer::RenderServer;
 use crate::QUEUE;
 use crate::{prelude::WgpuContext, GlobalState, RootEvent};
@@ -29,12 +29,14 @@ pub enum Error {
     NoGeometryObject,
 }
 
+pub type QueuedSlicedObject = (Receiver<(SlicedPath, Arc<Process>)>, JoinHandle<()>);
+
 #[derive(Debug)]
-pub struct ToolpathServer {
-    queue: Option<(Receiver<(Toolpath, Arc<Process>)>, JoinHandle<()>)>,
+pub struct SlicedObjectServer {
+    queued: Option<QueuedSlicedObject>,
 
     pipeline: wgpu::RenderPipeline,
-    toolpath: Option<Toolpath>,
+    toolpath: Option<SlicedPath>,
     hitbox: HitboxRoot<ToolpathTree>,
 
     toolpath_context_buffer: wgpu::Buffer,
@@ -42,7 +44,7 @@ pub struct ToolpathServer {
     toolpath_context_bind_group: wgpu::BindGroup,
 }
 
-impl RenderServer for ToolpathServer {
+impl RenderServer for SlicedObjectServer {
     fn instance(context: &WgpuContext) -> Self {
         let toolpath_context = ToolpathContext::default();
 
@@ -50,7 +52,7 @@ impl RenderServer for ToolpathServer {
             context
                 .device
                 .create_buffer_init(&wgpu::util::BufferInitDescriptor {
-                    label: Some("Toolpath Context Buffer"),
+                    label: Some("SlicedObject Context Buffer"),
                     contents: bytemuck::cast_slice(&[toolpath_context]),
                     usage: wgpu::BufferUsages::UNIFORM | wgpu::BufferUsages::COPY_DST,
                 });
@@ -88,7 +90,7 @@ impl RenderServer for ToolpathServer {
             .device
             .create_shader_module(wgpu::ShaderModuleDescriptor {
                 label: Some("Toolpath Shader"),
-                source: wgpu::ShaderSource::Wgsl(include_str!("toolpath_shader.wgsl").into()),
+                source: wgpu::ShaderSource::Wgsl(include_str!("sliced_shader.wgsl").into()),
             });
 
         let render_pipeline_layout =
@@ -163,7 +165,7 @@ impl RenderServer for ToolpathServer {
             });
 
         Self {
-            queue: None,
+            queued: None,
             toolpath: None,
             hitbox: HitboxRoot::root(),
             pipeline,
@@ -182,7 +184,7 @@ impl RenderServer for ToolpathServer {
     }
 }
 
-impl ToolpathServer {
+impl SlicedObjectServer {
     pub fn load_from_slice_result(&mut self, slice_result: SliceResult, process: Arc<Process>) {
         let (tx, rx) = tokio::sync::oneshot::channel();
 
@@ -191,13 +193,13 @@ impl ToolpathServer {
             process.set_progress(0.8);
 
             let toolpath =
-                Toolpath::from_commands(&slice_result.moves, &slice_result.settings, &process)
+                SlicedPath::from_commands(&slice_result.moves, &slice_result.settings, &process)
                     .expect("Failed to load toolpath");
 
             tx.send((toolpath, process)).unwrap();
         });
 
-        self.queue = Some((rx, handle));
+        self.queued = Some((rx, handle));
     }
 
     pub fn export(&self) {
@@ -233,7 +235,7 @@ impl ToolpathServer {
     }
 
     pub fn update(&mut self, global_state: GlobalState<RootEvent>) -> Result<(), Error> {
-        if let Some((rx, _)) = &mut self.queue {
+        if let Some((rx, _)) = &mut self.queued {
             if let Ok((toolpath, process)) = rx.try_recv() {
                 process.finish();
 
@@ -308,7 +310,7 @@ impl ToolpathServer {
         );
     }
 
-    pub fn get_toolpath(&self) -> Option<&Toolpath> {
+    pub fn get_toolpath(&self) -> Option<&SlicedPath> {
         self.toolpath.as_ref()
     }
 

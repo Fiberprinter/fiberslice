@@ -1,7 +1,7 @@
 mod env;
 pub mod model;
-mod toolpath;
+mod sliced;
 
 pub use env::EnvironmentServer;
 pub use model::CADModelServer;
-pub use toolpath::ToolpathServer;
+pub use sliced::SlicedObjectServer;

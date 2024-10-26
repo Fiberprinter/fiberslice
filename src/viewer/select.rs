@@ -93,7 +93,7 @@ impl Selector {
             self.select_box_lines
                 .transform(self.selected[0].transformation());
 
-            self.selected[0].get_AABB()
+            self.selected[0].aabb()
         } else if !self.selected.is_empty() {
             self.selected.iter().fold(
                 (
@@ -101,7 +101,7 @@ impl Selector {
                     glam::Vec3::splat(f32::NEG_INFINITY),
                 ),
                 |(min, max), model| {
-                    let (model_min, model_max) = model.get_AABB();
+                    let (model_min, model_max) = model.aabb();
 
                     (min.min(model_min), max.max(model_max))
                 },

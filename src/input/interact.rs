@@ -29,11 +29,7 @@ pub struct ScrollEvent {
 }
 
 pub trait InteractiveModel {
-    fn clicked(&self, event: ClickEvent);
-    fn drag(&self, event: DragEvent);
-    fn scroll(&self, event: ScrollEvent);
-
-    fn get_AABB(&self) -> (Vec3, Vec3);
+    fn aabb(&self) -> (Vec3, Vec3);
     fn transformation(&self) -> glam::Mat4;
 
     fn as_transformable(&self) -> Option<&dyn Transform>;
