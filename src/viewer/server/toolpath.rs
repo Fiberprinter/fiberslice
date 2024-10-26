@@ -2,7 +2,7 @@ use std::fs::File;
 use std::io::BufWriter;
 use std::sync::Arc;
 
-use nfde::{DialogResult, Nfd, SingleFileDialogBuilder};
+use native_dialog::FileDialog;
 use shared::process::Process;
 use slicer::{convert, MovePrintType, SliceResult};
 use tokio::sync::oneshot::Receiver;
@@ -202,14 +202,15 @@ impl ToolpathServer {
 
     pub fn export(&self) {
         if let Some(toolpath) = self.toolpath.as_ref() {
-            let nfd = Nfd::new().unwrap();
-            let result = nfd
-                .save_file()
-                .default_name(&"model.gcode".to_string())
-                .unwrap()
-                .show();
+            let path = FileDialog::new()
+                .set_location("~")
+                .set_filename("model.gcode")
+                .set_title("Export GCode")
+                .add_filter("GCode", &["gcode"])
+                .show_save_single_file()
+                .unwrap();
 
-            if let DialogResult::Ok(path) = result {
+            if let Some(path) = path {
                 let file = match File::create_new(path) {
                     Ok(file) => file,
                     Err(e) => {

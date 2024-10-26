@@ -192,8 +192,6 @@ impl ApplicationState {
         event: winit::event::WindowEvent,
         window_id: winit::window::WindowId,
     ) {
-        println!("{:?}", event);
-
         self.ui_adapter.handle_window_event(
             &event,
             window_id,
@@ -228,8 +226,6 @@ impl ApplicationState {
         event: winit::event::DeviceEvent,
         device_id: winit::event::DeviceId,
     ) {
-        println!("{:?}", event);
-
         self.ui_adapter.handle_device_event(
             &event,
             device_id,

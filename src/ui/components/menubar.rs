@@ -1,9 +1,6 @@
 use egui::TextWrapMode;
 use egui::Ui;
-use nfde::DialogResult;
-use nfde::FilterableDialogBuilder;
-use nfde::Nfd;
-use nfde::SingleFileDialogBuilder;
+use native_dialog::FileDialog;
 
 use crate::config;
 use crate::ui::boundary::Boundary;
@@ -122,14 +119,17 @@ fn file_button(ui: &mut Ui, (_ui_state, global_state): &(UiState, GlobalState<Ro
         ui.style_mut().wrap_mode = Some(TextWrapMode::Extend);
 
         build_sub_menu(ui, "Import Object", |_ui| {
-            let nfd = Nfd::new().unwrap();
-            let result = nfd.open_file().add_filter("STL", "stl").unwrap().show();
+            let path = FileDialog::new()
+                .set_location("~")
+                .add_filter("STL Files", &["stl"])
+                .show_open_single_file()
+                .unwrap();
 
-            match result {
-                DialogResult::Ok(path) => {
+            match path {
+                Some(path) => {
                     global_state.viewer.model_server.write().load(path);
                 }
-                _ => {
+                None => {
                     println!("No file selected")
                 }
             }

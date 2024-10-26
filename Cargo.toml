@@ -21,7 +21,6 @@ thiserror = "1.0.30"
 serde = "1.0.177"
 serde_yaml = "0.9.25"
 stl_io = "0.8.2"
-nfde = "0.0.8"
 uni-path = "1.51.1"
 phf = { version = "0.11", features = ["macros"] }
 
@@ -55,3 +54,4 @@ atomic_float = "1.1.0"
 
 slicer = { path = "slicer" }
 shared = { path = "shared" }
+native-dialog = "0.7.0"
