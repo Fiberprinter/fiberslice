@@ -24,7 +24,7 @@ impl<'a> RenderDescriptor<'a> {
                 render_pass.set_bind_group(index as u32, bind_group, &[]);
             }
 
-            Some((&self.pipelines, render_pass))
+            Some((self.pipelines, render_pass))
         } else {
             None
         }

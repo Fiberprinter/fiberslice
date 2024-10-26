@@ -20,6 +20,7 @@ pub enum PickingEvent {
     Pick,
 }
 
+#[derive(Debug)]
 pub struct MouseInputEvent {
     pub ray: Ray,
     pub button: MouseButton,

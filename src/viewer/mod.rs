@@ -211,6 +211,8 @@ impl Viewer {
         let env_server_read = self.env_server.read();
         let toolpath_server_read = self.toolpath_server.read();
         let model_server_read = self.model_server.read();
+        let mask_server_read = self.mask_server.read();
+        let selector_read = self.selector.read();
 
         if let Some((pipelines, mut render_pass)) = render_descriptor.pass() {
             match mode {
@@ -227,19 +229,24 @@ impl Viewer {
                 Mode::Prepare => {
                     render_pass.set_pipeline(&pipelines.back_cull);
                     model_server_read.render(&mut render_pass);
+                    mask_server_read.render(&mut render_pass);
 
                     render_pass.set_pipeline(&pipelines.no_cull);
                     env_server_read.render(&mut render_pass);
+                    selector_read.render(&mut render_pass);
 
                     render_pass.set_pipeline(&pipelines.line);
                     env_server_read.render_lines(&mut render_pass);
+                    selector_read.render_lines(&mut render_pass);
                 }
                 Mode::ForceAnalytics => {
                     render_pass.set_pipeline(&pipelines.no_cull);
                     env_server_read.render(&mut render_pass);
+                    selector_read.render(&mut render_pass);
 
                     render_pass.set_pipeline(&pipelines.line);
                     env_server_read.render_lines(&mut render_pass);
+                    selector_read.render_lines(&mut render_pass);
                 }
             };
         }
