@@ -1,4 +1,5 @@
 mod env;
+pub mod mask;
 pub mod model;
 mod sliced;
 

@@ -12,7 +12,7 @@ use wgpu::util::DeviceExt;
 use crate::input::hitbox::HitboxRoot;
 use crate::render::Renderable;
 use crate::viewer::toolpath::vertex::{ToolpathContext, ToolpathVertex};
-use crate::viewer::toolpath::SlicedPath;
+use crate::viewer::toolpath::SlicedObject;
 use crate::viewer::RenderServer;
 use crate::QUEUE;
 use crate::{prelude::WgpuContext, GlobalState, RootEvent};
@@ -29,14 +29,14 @@ pub enum Error {
     NoGeometryObject,
 }
 
-pub type QueuedSlicedObject = (Receiver<(SlicedPath, Arc<Process>)>, JoinHandle<()>);
+pub type QueuedSlicedObject = (Receiver<(SlicedObject, Arc<Process>)>, JoinHandle<()>);
 
 #[derive(Debug)]
 pub struct SlicedObjectServer {
     queued: Option<QueuedSlicedObject>,
 
     pipeline: wgpu::RenderPipeline,
-    toolpath: Option<SlicedPath>,
+    sliced_object: Option<SlicedObject>,
     hitbox: HitboxRoot<ToolpathTree>,
 
     toolpath_context_buffer: wgpu::Buffer,
@@ -166,7 +166,7 @@ impl RenderServer for SlicedObjectServer {
 
         Self {
             queued: None,
-            toolpath: None,
+            sliced_object: None,
             hitbox: HitboxRoot::root(),
             pipeline,
             toolpath_context,
@@ -176,7 +176,7 @@ impl RenderServer for SlicedObjectServer {
     }
 
     fn render<'a>(&'a self, render_pass: &mut wgpu::RenderPass<'a>) {
-        if let Some(toolpath) = self.toolpath.as_ref() {
+        if let Some(toolpath) = self.sliced_object.as_ref() {
             render_pass.set_pipeline(&self.pipeline);
             render_pass.set_bind_group(4, &self.toolpath_context_bind_group, &[]);
             toolpath.model.render(render_pass);
@@ -193,7 +193,7 @@ impl SlicedObjectServer {
             process.set_progress(0.8);
 
             let toolpath =
-                SlicedPath::from_commands(&slice_result.moves, &slice_result.settings, &process)
+                SlicedObject::from_commands(&slice_result.moves, &slice_result.settings, &process)
                     .expect("Failed to load toolpath");
 
             tx.send((toolpath, process)).unwrap();
@@ -203,7 +203,7 @@ impl SlicedObjectServer {
     }
 
     pub fn export(&self) {
-        if let Some(toolpath) = self.toolpath.as_ref() {
+        if let Some(toolpath) = self.sliced_object.as_ref() {
             let path = FileDialog::new()
                 .set_location("~")
                 .set_filename("model.gcode")
@@ -245,7 +245,7 @@ impl SlicedObjectServer {
 
                 self.hitbox.add_node(toolpath.model.clone());
 
-                self.toolpath = Some(toolpath);
+                self.sliced_object = Some(toolpath);
             }
         }
 
@@ -310,8 +310,8 @@ impl SlicedObjectServer {
         );
     }
 
-    pub fn get_toolpath(&self) -> Option<&SlicedPath> {
-        self.toolpath.as_ref()
+    pub fn get_sliced(&self) -> Option<&SlicedObject> {
+        self.sliced_object.as_ref()
     }
 
     pub fn check_hit(&self, ray: &crate::input::Ray, level: usize) -> Option<Arc<ToolpathTree>> {

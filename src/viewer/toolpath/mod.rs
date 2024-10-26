@@ -46,7 +46,7 @@ pub const fn bit_representation_setup() -> u32 {
 }
 
 #[derive(Debug)]
-pub struct SlicedPath {
+pub struct SlicedObject {
     pub model: Arc<ToolpathTree>,
     pub count_map: HashMap<MovePrintType, usize>,
     pub max_layer: usize,
@@ -54,10 +54,10 @@ pub struct SlicedPath {
     pub settings: slicer::Settings,
 }
 
-unsafe impl Sync for SlicedPath {}
-unsafe impl Send for SlicedPath {}
+unsafe impl Sync for SlicedObject {}
+unsafe impl Send for SlicedObject {}
 
-impl SlicedPath {
+impl SlicedObject {
     pub fn from_commands(
         commands: &[slicer::Command],
         settings: &slicer::Settings,

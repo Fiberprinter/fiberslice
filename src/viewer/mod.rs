@@ -58,7 +58,6 @@ impl GCodeSyntax for Syntax {
 pub trait RenderServer {
     fn instance(context: &WgpuContext) -> Self;
     fn render<'a>(&'a self, render_pass: &mut wgpu::RenderPass<'a>);
-    fn mode_changed(&mut self, mode: Mode) {}
 }
 
 #[derive(Debug)]
@@ -83,9 +82,20 @@ impl Viewer {
     }
 
     pub fn mode_changed(&self, mode: Mode) {
-        self.env_server.write().mode_changed(mode);
-        self.sliced_object_server.write().mode_changed(mode);
-        self.model_server.write().mode_changed(mode);
+        match mode {
+            Mode::Prepare => {
+                self.model_server.write().set_transparency(1.0);
+                self.mask_server.write().set_transparency(0.5);
+            }
+            Mode::Masks => {
+                self.model_server.write().set_transparency(0.5);
+                self.mask_server.write().set_transparency(1.0);
+            }
+            Mode::Preview => {
+                self.model_server.write().set_transparency(0.15);
+                self.mask_server.write().set_transparency(0.15);
+            }
+        }
     }
 
     pub fn update(&self, global_state: &GlobalState<RootEvent>) {
@@ -109,7 +119,7 @@ impl Viewer {
     pub fn sliced_count_map(&self) -> Option<HashMap<MovePrintType, usize>> {
         self.sliced_object_server
             .read()
-            .get_toolpath()
+            .get_sliced()
             .map(|toolpath| toolpath.count_map.clone())
     }
 
@@ -120,7 +130,7 @@ impl Viewer {
     pub fn sliced_max_layer(&self) -> Option<u32> {
         self.sliced_object_server
             .read()
-            .get_toolpath()
+            .get_sliced()
             .map(|toolpath| toolpath.max_layer as u32)
     }
 
@@ -139,7 +149,7 @@ impl Viewer {
     }
 
     pub fn already_sliced(&self) -> bool {
-        self.sliced_object_server.read().get_toolpath().is_some()
+        self.sliced_object_server.read().get_sliced().is_some()
     }
 
     pub fn export_gcode(&self) {
@@ -209,7 +219,7 @@ impl Viewer {
 impl Viewer {
     pub fn render(&self, mut render_descriptor: RenderDescriptor, mode: Mode) {
         let env_server_read = self.env_server.read();
-        let toolpath_server_read = self.sliced_object_server.read();
+        let sliced_object_server_read = self.sliced_object_server.read();
         let model_server_read = self.model_server.read();
         let mask_server_read = self.mask_server.read();
         let selector_read = self.selector.read();
@@ -218,7 +228,7 @@ impl Viewer {
             match mode {
                 Mode::Preview => {
                     render_pass.set_pipeline(&pipelines.back_cull);
-                    toolpath_server_read.render(&mut render_pass);
+                    sliced_object_server_read.render(&mut render_pass);
 
                     render_pass.set_pipeline(&pipelines.no_cull);
                     env_server_read.render(&mut render_pass);
@@ -239,7 +249,7 @@ impl Viewer {
                     env_server_read.render_lines(&mut render_pass);
                     selector_read.render_lines(&mut render_pass);
                 }
-                Mode::ForceAnalytics => {
+                Mode::Masks => {
                     render_pass.set_pipeline(&pipelines.no_cull);
                     env_server_read.render(&mut render_pass);
                     selector_read.render(&mut render_pass);
@@ -254,15 +264,20 @@ impl Viewer {
 
     pub fn render_widgets(&self, mut render_descriptor: RenderDescriptor, mode: Mode) {
         let model_server_read = self.model_server.read();
+        let mask_server_read = self.mask_server.read();
 
         if let Some((pipelines, mut render_pass)) = render_descriptor.pass() {
             match mode {
                 Mode::Preview => {
                     render_pass.set_pipeline(&pipelines.back_cull);
+                    mask_server_read.render(&mut render_pass);
                     model_server_read.render(&mut render_pass);
                 }
-                Mode::Prepare => {}
-                Mode::ForceAnalytics => {
+                Mode::Prepare => {
+                    render_pass.set_pipeline(&pipelines.back_cull);
+                    mask_server_read.render(&mut render_pass);
+                }
+                Mode::Masks => {
                     render_pass.set_pipeline(&pipelines.back_cull);
                     model_server_read.render(&mut render_pass);
                 }

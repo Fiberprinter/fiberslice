@@ -3,8 +3,6 @@ use winit::{event::MouseButton, keyboard::KeyCode};
 
 use crate::render::model::Transform;
 
-use super::hitbox::Hitbox;
-
 #[derive(Debug, Clone)]
 pub enum Action {
     Mouse(MouseButton),

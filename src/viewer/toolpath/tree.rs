@@ -186,7 +186,7 @@ impl Renderable for ToolpathTree {
     }
 }
 
-impl HitboxNode<Self> for ToolpathTree {
+impl HitboxNode for ToolpathTree {
     fn check_hit(&self, ray: &crate::input::Ray) -> Option<f32> {
         match self {
             Self::Root { bounding_box, .. } => bounding_box.read().check_hit(ray),

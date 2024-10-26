@@ -87,11 +87,7 @@ impl<'a> UiComponent for Modebar<'a> {
                                 grid.empty();
                                 grid.cell(|ui| {
                                     ui_state.mode.write_with_fn(|mode| {
-                                        ui.selectable_value(
-                                            mode,
-                                            Mode::ForceAnalytics,
-                                            "Force - Analytics",
-                                        );
+                                        ui.selectable_value(mode, Mode::Masks, "Force - Analytics");
                                     });
                                 });
                                 grid.empty();

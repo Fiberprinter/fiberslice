@@ -18,9 +18,9 @@ pub trait Hitbox: std::fmt::Debug + Send + Sync {
     fn get_max(&self) -> Vec3;
 }
 
-pub trait HitboxNode<M: HitboxNode<M>> {
+pub trait HitboxNode {
     fn check_hit(&self, ray: &Ray) -> Option<f32>;
-    fn inner_nodes(&self) -> &[Arc<M>];
+    fn inner_nodes(&self) -> &[Arc<Self>];
     fn get_min(&self) -> Vec3;
     fn get_max(&self) -> Vec3;
 }
@@ -30,12 +30,12 @@ pub trait HitboxNode<M: HitboxNode<M>> {
 
 // Definition of the HitboxNode enum with Debug trait
 #[derive(Debug, Clone)]
-pub struct HitboxRoot<M: HitboxNode<M> + Renderable> {
+pub struct HitboxRoot<M: HitboxNode + Renderable> {
     inner_hitboxes: Vec<Arc<M>>,
 }
 
 // Implementation of methods for HitboxNode
-impl<M: HitboxNode<M> + Renderable> HitboxRoot<M> {
+impl<M: HitboxNode + Renderable> HitboxRoot<M> {
     pub fn root() -> Self {
         Self {
             inner_hitboxes: Vec::new(),

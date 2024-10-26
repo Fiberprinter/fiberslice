@@ -262,7 +262,7 @@ pub enum TransformationMode {
 pub enum Mode {
     Preview,
     Prepare,
-    ForceAnalytics,
+    Masks,
 }
 
 pub use event::{create_event_bundle, EventReader, EventWriter};

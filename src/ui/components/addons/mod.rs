@@ -184,7 +184,7 @@ impl<'a> Addons<'a> {
                 );
             }
             Mode::Prepare => {}
-            Mode::ForceAnalytics => {
+            Mode::Masks => {
                 ui.allocate_ui_in_rect(
                     Rect::from_two_pos(
                         Pos2::new(ui.available_width() * 0.25, 0.0),
@@ -238,7 +238,7 @@ impl<'a> Addons<'a> {
                 );
             }
             Mode::Prepare => {}
-            Mode::ForceAnalytics => {}
+            Mode::Masks => {}
         });
     }
 
@@ -264,7 +264,7 @@ impl<'a> Addons<'a> {
                     },
                 );
             }
-            Mode::ForceAnalytics => {
+            Mode::Masks => {
                 ui.allocate_ui_in_rect(
                     Rect::from_two_pos(
                         Pos2::new(0.0, ui.available_height() * 0.25),
