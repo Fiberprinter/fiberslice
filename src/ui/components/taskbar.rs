@@ -1,7 +1,7 @@
 use egui::RichText;
 
 use crate::ui::boundary::Boundary;
-use crate::ui::{Component, ComponentState, Theme, UiState};
+use crate::ui::{Theme, UiComponent, UiComponentState, UiState};
 use crate::{config, GlobalState, RootEvent};
 
 pub struct TaskbarState {
@@ -18,7 +18,7 @@ impl TaskbarState {
     }
 }
 
-impl ComponentState for TaskbarState {
+impl UiComponentState for TaskbarState {
     fn get_boundary(&self) -> Boundary {
         self.boundary
     }
@@ -42,7 +42,7 @@ impl<'a> Taskbar<'a> {
     }
 }
 
-impl<'a> Component for Taskbar<'a> {
+impl<'a> UiComponent for Taskbar<'a> {
     fn show(
         &mut self,
         ctx: &egui::Context,

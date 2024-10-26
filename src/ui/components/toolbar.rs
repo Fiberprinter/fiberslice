@@ -4,8 +4,8 @@ use egui::{Context, SidePanel};
 use crate::config;
 use crate::ui::boundary::Boundary;
 use crate::ui::tools::ToolState;
-use crate::ui::Component;
-use crate::ui::ComponentState;
+use crate::ui::UiComponent;
+use crate::ui::UiComponentState;
 use crate::ui::UiState;
 use crate::GlobalState;
 use crate::RootEvent;
@@ -25,7 +25,7 @@ impl ToolBarState {
     }
 }
 
-impl ComponentState for ToolBarState {
+impl UiComponentState for ToolBarState {
     fn get_boundary(&self) -> Boundary {
         self.boundary
     }
@@ -58,7 +58,7 @@ impl<'a> Toolbar<'a> {
     }
 }
 
-impl<'a> Component for Toolbar<'a> {
+impl<'a> UiComponent for Toolbar<'a> {
     fn show(&mut self, ctx: &Context, _shared_state: &(UiState, GlobalState<RootEvent>)) {
         if self.state.enabled {
             self.state.boundary = SidePanel::right("toolbar")

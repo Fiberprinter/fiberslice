@@ -163,11 +163,11 @@ impl<T: std::fmt::Debug + bytemuck::Pod + bytemuck::Zeroable> Model<T> {
         }
     }
 
-    pub fn get_transform(&self) -> Mat4 {
+    pub fn transformation(&self) -> Mat4 {
         self.transform
     }
 
-    pub fn get_color(&self) -> [f32; 4] {
+    pub fn color(&self) -> [f32; 4] {
         self.color
     }
 

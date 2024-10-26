@@ -8,7 +8,7 @@ use slicer::{
 };
 use strum::IntoEnumIterator;
 
-use crate::{ui::WidgetComponent, viewer::GCodeSyntax};
+use crate::{ui::UiWidgetComponent, viewer::GCodeSyntax};
 
 pub trait UiSetting {
     fn show_general(&mut self, ui: &mut egui::Ui);
@@ -404,7 +404,7 @@ impl UiSetting for slicer::Settings {
     }
 }
 
-impl WidgetComponent for MovementParameter {
+impl UiWidgetComponent for MovementParameter {
     fn show(&mut self, ui: &mut egui::Ui) {
         show_f32(
             &mut self.interior_inner_perimeter,
@@ -453,7 +453,7 @@ impl WidgetComponent for MovementParameter {
     }
 }
 
-impl WidgetComponent for FilamentSettings {
+impl UiWidgetComponent for FilamentSettings {
     fn show(&mut self, ui: &mut egui::Ui) {
         show_f32(&mut self.diameter, "Diameter", Some("mm"), ui);
         show_f32(&mut self.density, "Density", Some("g/cm³"), ui);
@@ -469,7 +469,7 @@ impl WidgetComponent for FilamentSettings {
     }
 }
 
-impl WidgetComponent for FanSettings {
+impl UiWidgetComponent for FanSettings {
     fn show(&mut self, ui: &mut egui::Ui) {
         show_f32(&mut self.fan_speed, "Fan speed", Some("%"), ui);
         show_usize(
@@ -495,14 +495,14 @@ impl WidgetComponent for FanSettings {
     }
 }
 
-impl WidgetComponent for SkirtSettings {
+impl UiWidgetComponent for SkirtSettings {
     fn show(&mut self, ui: &mut egui::Ui) {
         show_usize(&mut self.layers, "Layers", None, ui);
         show_f32(&mut self.distance, "Distance", Some("mm"), ui);
     }
 }
 
-impl WidgetComponent for SupportSettings {
+impl UiWidgetComponent for SupportSettings {
     fn show(&mut self, ui: &mut egui::Ui) {
         show_f32(
             &mut self.max_overhang_angle,
@@ -514,7 +514,7 @@ impl WidgetComponent for SupportSettings {
     }
 }
 
-impl WidgetComponent for RetractionWipeSettings {
+impl UiWidgetComponent for RetractionWipeSettings {
     fn show(&mut self, ui: &mut egui::Ui) {
         show_f32(&mut self.speed, "Speed", Some("mm/s"), ui);
         show_f32(&mut self.acceleration, "Acceleration", Some("mm/s²"), ui);
@@ -522,7 +522,7 @@ impl WidgetComponent for RetractionWipeSettings {
     }
 }
 
-impl WidgetComponent for FiberSettings {
+impl UiWidgetComponent for FiberSettings {
     fn show(&mut self, ui: &mut egui::Ui) {
         show_f32(&mut self.diameter, "Diameter", Some("mm"), ui);
         show_f32(&mut self.cut_before, "Cut Before", Some("mm"), ui);

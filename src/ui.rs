@@ -32,7 +32,7 @@ use winit::event::WindowEvent;
 use crate::{
     prelude::{
         create_event_bundle, Adapter, AdapterCreation, Error, EventReader, FrameHandle, Mode,
-        Shared, SharedMut, Viewport, WgpuContext, WrappedSharedMut,
+        Shared, SharedMut, Viewport, WgpuContext,
     },
     GlobalState, RootEvent,
 };
@@ -329,7 +329,7 @@ pub enum Theme {
     Dark,
 }
 
-pub trait ComponentState {
+pub trait UiComponentState {
     fn get_boundary(&self) -> Boundary;
 
     fn get_enabled(&mut self) -> &mut bool;
@@ -339,15 +339,15 @@ pub trait ComponentState {
     }
 }
 
-pub trait Component {
+pub trait UiComponent {
     fn show(&mut self, ctx: &egui::Context, shared_state: &(UiState, GlobalState<RootEvent>));
 }
 
-pub trait InnerComponent {
+pub trait UiInnerComponent {
     fn show(&mut self, ui: &mut egui::Ui, shared_state: &(UiState, GlobalState<RootEvent>));
 }
 
-pub trait WidgetComponent {
+pub trait UiWidgetComponent {
     fn show(&mut self, ui: &mut egui::Ui);
 }
 

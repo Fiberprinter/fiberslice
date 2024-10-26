@@ -420,7 +420,7 @@ Clustering models"
         self.models
             .values()
             .map(|model| {
-                let transform = model.model.get_transform();
+                let transform = model.model.transformation();
 
                 let (mut scaling, rotation, mut translation) =
                     transform.to_scale_rotation_translation();
@@ -528,7 +528,7 @@ impl CADModel {
 
     pub fn get_color(&self) -> [f32; 4] {
         match self {
-            Self::Root { model, .. } => model.read().get_color(),
+            Self::Root { model, .. } => model.read().color(),
             Self::Face { .. } => panic!("Cannot get color"),
         }
     }
@@ -561,7 +561,7 @@ impl InteractiveModel for CADModel {
         println!("CADModel: Scrolled");
     }
 
-    fn get_aaabbb(&self) -> (Vec3, Vec3) {
+    fn get_AABB(&self) -> (Vec3, Vec3) {
         match self {
             Self::Root { bounding_box, .. } => (
                 bounding_box.read().init_min(),
@@ -571,9 +571,9 @@ impl InteractiveModel for CADModel {
         }
     }
 
-    fn get_transform(&self) -> glam::Mat4 {
+    fn transformation(&self) -> glam::Mat4 {
         match self {
-            Self::Root { model, .. } => model.read().get_transform(),
+            Self::Root { model, .. } => model.read().transformation(),
             Self::Face { .. } => panic!("Cannot get transform"),
         }
     }

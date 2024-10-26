@@ -3,8 +3,8 @@ use egui::TopBottomPanel;
 
 use crate::ui::boundary::Boundary;
 use crate::ui::tools::ToolState;
-use crate::ui::Component;
-use crate::ui::ComponentState;
+use crate::ui::UiComponent;
+use crate::ui::UiComponentState;
 use crate::ui::UiState;
 use crate::GlobalState;
 use crate::RootEvent;
@@ -24,7 +24,7 @@ impl TopBarState {
     }
 }
 
-impl ComponentState for TopBarState {
+impl UiComponentState for TopBarState {
     fn get_boundary(&self) -> Boundary {
         self.boundary
     }
@@ -57,7 +57,7 @@ impl<'a> Topbar<'a> {
     }
 }
 
-impl<'a> Component for Topbar<'a> {
+impl<'a> UiComponent for Topbar<'a> {
     fn show(&mut self, ctx: &Context, _shared_state: &(UiState, GlobalState<RootEvent>)) {
         if self.state.enabled {
             self.state.boundary = TopBottomPanel::top("topbar")

@@ -241,7 +241,7 @@ impl InteractiveModel for ToolpathTree {
         println!("ToolpathTree: Scrolled");
     }
 
-    fn get_aaabbb(&self) -> (Vec3, Vec3) {
+    fn get_AABB(&self) -> (Vec3, Vec3) {
         match self {
             Self::Root { bounding_box, .. } => {
                 let bb = bounding_box.read();
@@ -258,9 +258,9 @@ impl InteractiveModel for ToolpathTree {
         }
     }
 
-    fn get_transform(&self) -> glam::Mat4 {
+    fn transformation(&self) -> glam::Mat4 {
         match self {
-            Self::Root { model, .. } => model.read().get_transform(),
+            Self::Root { model, .. } => model.read().transformation(),
             _ => glam::Mat4::IDENTITY,
         }
     }

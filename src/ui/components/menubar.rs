@@ -4,8 +4,8 @@ use native_dialog::FileDialog;
 
 use crate::config;
 use crate::ui::boundary::Boundary;
-use crate::ui::Component;
-use crate::ui::ComponentState;
+use crate::ui::UiComponent;
+use crate::ui::UiComponentState;
 use crate::ui::UiState;
 use crate::GlobalState;
 use crate::RootEvent;
@@ -24,7 +24,7 @@ impl MenubarState {
     }
 }
 
-impl ComponentState for MenubarState {
+impl UiComponentState for MenubarState {
     fn get_boundary(&self) -> Boundary {
         self.boundary
     }
@@ -37,7 +37,7 @@ impl ComponentState for MenubarState {
 pub struct Menubar<'a> {
     state: &'a mut MenubarState,
 
-    component_states: &'a mut [&'a mut dyn ComponentState],
+    component_states: &'a mut [&'a mut dyn UiComponentState],
 }
 
 impl<'a> Menubar<'a> {
@@ -50,14 +50,14 @@ impl<'a> Menubar<'a> {
 
     pub fn with_component_states(
         mut self,
-        component_states: &'a mut [&'a mut dyn ComponentState],
+        component_states: &'a mut [&'a mut dyn UiComponentState],
     ) -> Self {
         self.component_states = component_states;
         self
     }
 }
 
-impl<'a> Component for Menubar<'a> {
+impl<'a> UiComponent for Menubar<'a> {
     fn show(&mut self, ctx: &egui::Context, shared_state: &(UiState, GlobalState<RootEvent>)) {
         if self.state.enabled {
             self.state.boundary = egui::TopBottomPanel::top("menubar")

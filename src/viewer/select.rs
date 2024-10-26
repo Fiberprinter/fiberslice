@@ -88,11 +88,11 @@ impl Selector {
 
     fn update(&mut self) {
         let (min, max) = if self.selected.len() == 1 {
-            self.select_box.transform(self.selected[0].get_transform());
+            self.select_box.transform(self.selected[0].transformation());
             self.select_box_lines
-                .transform(self.selected[0].get_transform());
+                .transform(self.selected[0].transformation());
 
-            self.selected[0].get_aaabbb()
+            self.selected[0].get_AABB()
         } else if !self.selected.is_empty() {
             self.selected.iter().fold(
                 (
@@ -100,7 +100,7 @@ impl Selector {
                     glam::Vec3::splat(f32::NEG_INFINITY),
                 ),
                 |(min, max), model| {
-                    let (model_min, model_max) = model.get_aaabbb();
+                    let (model_min, model_max) = model.get_AABB();
 
                     (min.min(model_min), max.max(model_max))
                 },
@@ -127,7 +127,7 @@ impl Selector {
         println!("Transform {:?}", self.selected.len());
 
         if self.selected.len() == 1 {
-            let mut transform = self.selected[0].get_transform();
+            let mut transform = self.selected[0].transformation();
 
             if let Some(transformable_model) = self.selected[0].as_transformable() {
                 let response = r#fn(&mut transform);
@@ -148,7 +148,7 @@ impl Selector {
             if response {
                 for model in &self.selected {
                     let (scale, rotate, translate) =
-                        model.get_transform().to_scale_rotation_translation();
+                        model.transformation().to_scale_rotation_translation();
 
                     if let Some(transformable_model) = model.as_transformable() {
                         let (grouped_scale, grouped_rotate, grouped_translate) = (transform

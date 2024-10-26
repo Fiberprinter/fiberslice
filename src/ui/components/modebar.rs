@@ -3,7 +3,7 @@ use egui_grid::GridBuilder;
 
 use crate::prelude::Mode;
 use crate::ui::boundary::Boundary;
-use crate::ui::{Component, ComponentState, UiState};
+use crate::ui::{UiComponent, UiComponentState, UiState};
 use crate::{config, GlobalState, RootEvent};
 
 pub struct ModebarState {
@@ -20,7 +20,7 @@ impl ModebarState {
     }
 }
 
-impl ComponentState for ModebarState {
+impl UiComponentState for ModebarState {
     fn get_boundary(&self) -> Boundary {
         self.boundary
     }
@@ -44,7 +44,7 @@ impl<'a> Modebar<'a> {
     }
 }
 
-impl<'a> Component for Modebar<'a> {
+impl<'a> UiComponent for Modebar<'a> {
     fn show(
         &mut self,
         ctx: &egui::Context,

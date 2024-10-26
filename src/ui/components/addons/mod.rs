@@ -14,7 +14,7 @@ use crate::config::gui::shaded_color;
 use crate::prelude::Mode;
 use crate::ui::boundary::Boundary;
 use crate::ui::{ui_temp_mut, AllocateInnerUiRect, UiState};
-use crate::ui::{ComponentState, InnerComponent};
+use crate::ui::{UiComponentState, UiInnerComponent};
 use crate::{GlobalState, RootEvent};
 
 pub mod gizmo;
@@ -124,7 +124,7 @@ impl AddonsState {
     }
 }
 
-impl ComponentState for AddonsState {
+impl UiComponentState for AddonsState {
     fn get_boundary(&self) -> Boundary {
         Boundary::zero()
     }
@@ -294,7 +294,7 @@ impl<'a> Addons<'a> {
     }
 }
 
-impl<'a> InnerComponent for Addons<'a> {
+impl<'a> UiInnerComponent for Addons<'a> {
     fn show(&mut self, ui: &mut Ui, shared_state: &(UiState, GlobalState<RootEvent>)) {
         self.state.gizmo_tools.show_tool_wíndow(ui, shared_state);
 

@@ -197,7 +197,7 @@ impl SettingsbarState {
     }
 }
 
-impl ComponentState for SettingsbarState {
+impl UiComponentState for SettingsbarState {
     fn get_boundary(&self) -> Boundary {
         self.boundary
     }
@@ -222,7 +222,7 @@ impl<'a> Settingsbar<'a> {
     }
 }
 
-impl<'a> Component for Settingsbar<'a> {
+impl<'a> UiComponent for Settingsbar<'a> {
     fn show(&mut self, ctx: &egui::Context, shared_state: &(UiState, GlobalState<RootEvent>)) {
         let mut tabbed_view = TabbedSettings::new();
 

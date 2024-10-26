@@ -54,4 +54,7 @@ atomic_float = "1.1.0"
 
 slicer = { path = "slicer" }
 shared = { path = "shared" }
-native-dialog = "0.7.0"
+native-dialog = { version = "0.7.0", features = [
+    "windows_dpi_awareness",
+    "windows_visual_styles",
+] }
