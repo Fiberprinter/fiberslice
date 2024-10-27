@@ -64,8 +64,8 @@ pub trait RenderServer {
 pub struct Viewer {
     env_server: RwLock<server::EnvironmentServer>,
     sliced_object_server: RwLock<server::SlicedObjectServer>,
-    model_server: RwLock<server::CADModelServer>,
-    mask_server: RwLock<server::CADModelServer>,
+    object_server: RwLock<server::ObjectServer>,
+    mask_server: RwLock<server::ObjectServer>,
 
     selector: RwLock<select::Selector>,
 }
@@ -75,8 +75,8 @@ impl Viewer {
         Self {
             env_server: RwLock::new(server::EnvironmentServer::instance(context)),
             sliced_object_server: RwLock::new(server::SlicedObjectServer::instance(context)),
-            model_server: RwLock::new(server::CADModelServer::instance(context)),
-            mask_server: RwLock::new(server::CADModelServer::instance(context)),
+            object_server: RwLock::new(server::ObjectServer::instance(context)),
+            mask_server: RwLock::new(server::ObjectServer::instance(context)),
             selector: RwLock::new(select::Selector::instance()),
         }
     }
@@ -84,15 +84,15 @@ impl Viewer {
     pub fn mode_changed(&self, mode: Mode) {
         match mode {
             Mode::Prepare => {
-                self.model_server.write().set_transparency(1.0);
+                self.object_server.write().set_transparency(1.0);
                 self.mask_server.write().set_transparency(0.5);
             }
             Mode::Masks => {
-                self.model_server.write().set_transparency(0.5);
+                self.object_server.write().set_transparency(0.5);
                 self.mask_server.write().set_transparency(1.0);
             }
             Mode::Preview => {
-                self.model_server.write().set_transparency(0.15);
+                self.object_server.write().set_transparency(0.15);
                 self.mask_server.write().set_transparency(0.15);
             }
         }
@@ -104,7 +104,7 @@ impl Viewer {
             .write()
             .update(global_state.clone())
             .expect("Failed to update toolpath server");
-        self.model_server
+        self.object_server
             .write()
             .update(global_state.clone())
             .expect("Failed to update model server");
@@ -160,7 +160,7 @@ impl Viewer {
 // Slicing
 impl Viewer {
     pub fn prepare_objects(&self, settings: &Settings) -> Vec<ObjectMesh> {
-        self.model_server.read().prepare_objects(settings)
+        self.object_server.read().prepare_objects(settings)
     }
 
     pub fn prepare_masks(&self, settings: &Settings) -> Vec<ObjectMesh> {
@@ -174,7 +174,7 @@ impl Viewer {
     }
 
     pub fn load_object_from_file<P: AsRef<Path>>(&self, path: P) {
-        self.model_server.write().load(path);
+        self.object_server.write().load(path);
     }
 
     pub fn load_mask_from_file<P: AsRef<Path>>(&self, path: P) {
@@ -189,7 +189,7 @@ impl Viewer {
     pub fn mouse_input(&self, event: MouseInputEvent) {
         if event.state.is_pressed() {
             if let MouseButton::Right = event.button {
-                if let Some(model) = self.model_server.read().check_hit(&event.ray, 0, true) {
+                if let Some(model) = self.object_server.read().check_hit(&event.ray, 0, true) {
                     let interact_model = model as Arc<dyn InteractiveModel>;
 
                     self.selector.write().select(interact_model);
@@ -220,7 +220,7 @@ impl Viewer {
     pub fn render(&self, mut render_descriptor: RenderDescriptor, mode: Mode) {
         let env_server_read = self.env_server.read();
         let sliced_object_server_read = self.sliced_object_server.read();
-        let model_server_read = self.model_server.read();
+        let model_server_read = self.object_server.read();
         let mask_server_read = self.mask_server.read();
         let selector_read = self.selector.read();
 
@@ -263,7 +263,7 @@ impl Viewer {
     }
 
     pub fn render_widgets(&self, mut render_descriptor: RenderDescriptor, mode: Mode) {
-        let model_server_read = self.model_server.read();
+        let model_server_read = self.object_server.read();
         let mask_server_read = self.mask_server.read();
 
         if let Some((pipelines, mut render_pass)) = render_descriptor.pass() {

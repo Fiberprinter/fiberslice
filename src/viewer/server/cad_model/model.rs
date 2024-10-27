@@ -49,7 +49,7 @@ pub enum Error {
 
 #[derive(Debug)]
 pub struct LoadResult {
-    model: CADModel,
+    model: CADObject,
     mesh: ObjectMesh,
 
     process: Arc<Process>,
@@ -57,29 +57,29 @@ pub struct LoadResult {
 }
 
 #[derive(Debug)]
-pub struct CADModelHandle {
-    model: Arc<CADModel>,
+pub struct CADObjectHandle {
+    model: Arc<CADObject>,
     mesh: ObjectMesh,
 }
 
-type CADModelResult = Result<LoadResult, Error>;
+type CADObjectResult = Result<LoadResult, Error>;
 
 #[derive(Debug)]
-pub struct CADModelServer {
+pub struct ObjectServer {
     queue: Vec<(
-        tokio::sync::oneshot::Receiver<CADModelResult>,
+        tokio::sync::oneshot::Receiver<CADObjectResult>,
         JoinHandle<()>,
     )>,
 
-    root_hitbox: HitboxRoot<CADModel>,
-    models: HashMap<String, CADModelHandle>,
+    root_hitbox: HitboxRoot<CADObject>,
+    models: HashMap<String, CADObjectHandle>,
 
     color: [f32; 4],
     color_buffer: wgpu::Buffer,
     color_bind_group: wgpu::BindGroup,
 }
 
-impl RenderServer for CADModelServer {
+impl RenderServer for ObjectServer {
     fn instance(context: &WgpuContext) -> Self {
         let color = [1.0, 1.0, 1.0, 1.0];
 
@@ -141,7 +141,7 @@ impl RenderServer for CADModelServer {
     }
 }
 
-impl CADModelServer {
+impl ObjectServer {
     pub fn load<P>(&mut self, path: P)
     where
         P: AsRef<Path>,
@@ -260,7 +260,7 @@ Clustering models"
             process_tracking.set_task("Creating models".to_string());
             process_tracking.set_progress(0.9);
             let mut root = polygon_faces.clone().into_iter().fold(
-                CADModel::create_root(min.xzy(), max.xzy()),
+                CADObject::create_root(min.xzy(), max.xzy()),
                 |mut root, face| {
                     root.push_face(face);
 
@@ -286,7 +286,7 @@ Clustering models"
         self.queue.push((rx, handle));
     }
     // i love you
-    pub fn insert(&mut self, model_handle: LoadResult) -> Result<Arc<CADModel>, Error> {
+    pub fn insert(&mut self, model_handle: LoadResult) -> Result<Arc<CADObject>, Error> {
         let path: PathBuf = model_handle.origin_path.into();
         let file_name = if let Some(path) = path.file_name() {
             path.to_string()
@@ -312,7 +312,7 @@ Clustering models"
 
         let handle = Arc::new(model_handle.model);
 
-        let ctx = CADModelHandle {
+        let ctx = CADObjectHandle {
             model: handle.clone(),
             mesh: model_handle.mesh,
         };
@@ -411,13 +411,13 @@ Clustering models"
         ray: &crate::input::Ray,
         level: usize,
         reverse: bool,
-    ) -> Option<Arc<CADModel>> {
+    ) -> Option<Arc<CADObject>> {
         self.root_hitbox.check_hit(ray, level, reverse)
     }
 }
 
 #[derive(Debug)]
-pub enum CADModel {
+pub enum CADObject {
     Root {
         model: LockModel<Vertex>,
         bounding_box: RwLock<BoundingBox>,
@@ -429,7 +429,7 @@ pub enum CADModel {
     },
 }
 
-impl CADModel {
+impl CADObject {
     pub fn create_root(min: Vec3, max: Vec3) -> Self {
         Self::Root {
             model: LockModel::new(Model::create()),
@@ -495,7 +495,7 @@ impl CADModel {
     }
 }
 
-impl InteractiveModel for CADModel {
+impl InteractiveModel for CADObject {
     fn aabb(&self) -> (Vec3, Vec3) {
         match self {
             Self::Root { bounding_box, .. } => (
@@ -525,7 +525,7 @@ impl InteractiveModel for CADModel {
     }
 }
 
-impl Renderable for CADModel {
+impl Renderable for CADObject {
     fn render<'a>(&'a self, render_pass: &mut wgpu::RenderPass<'a>) {
         match self {
             Self::Root { model, .. } => model.render(render_pass),
@@ -541,7 +541,7 @@ impl Renderable for CADModel {
     }
 }
 
-impl HitboxNode for CADModel {
+impl HitboxNode for CADObject {
     fn check_hit(&self, ray: &crate::input::Ray) -> Option<f32> {
         match self {
             Self::Root { bounding_box, .. } => bounding_box.read().check_hit(ray),
@@ -571,7 +571,7 @@ impl HitboxNode for CADModel {
     }
 }
 
-impl Transform for CADModel {
+impl Transform for CADObject {
     fn transform(&self, transform: glam::Mat4) {
         match self {
             Self::Root {
@@ -592,7 +592,7 @@ impl Transform for CADModel {
     }
 }
 
-impl TransformMut for CADModel {
+impl TransformMut for CADObject {
     fn transform(&mut self, transform: glam::Mat4) {
         match self {
             Self::Root {

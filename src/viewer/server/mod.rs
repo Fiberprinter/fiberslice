@@ -1,8 +1,7 @@
+mod cad_model;
 mod env;
-pub mod mask;
-pub mod model;
 mod sliced;
 
+pub use cad_model::model::ObjectServer;
 pub use env::EnvironmentServer;
-pub use model::CADModelServer;
 pub use sliced::SlicedObjectServer;
