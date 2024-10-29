@@ -65,7 +65,7 @@ pub struct Viewer {
     env_server: RwLock<server::EnvironmentServer>,
     sliced_object_server: RwLock<server::SlicedObjectServer>,
     object_server: RwLock<server::ObjectServer>,
-    mask_server: RwLock<server::ObjectServer>,
+    mask_server: RwLock<server::MaskServer>,
 
     selector: RwLock<select::Selector>,
 }
@@ -76,7 +76,7 @@ impl Viewer {
             env_server: RwLock::new(server::EnvironmentServer::instance(context)),
             sliced_object_server: RwLock::new(server::SlicedObjectServer::instance(context)),
             object_server: RwLock::new(server::ObjectServer::instance(context)),
-            mask_server: RwLock::new(server::ObjectServer::instance(context)),
+            mask_server: RwLock::new(server::MaskServer::instance(context)),
             selector: RwLock::new(select::Selector::instance()),
         }
     }
