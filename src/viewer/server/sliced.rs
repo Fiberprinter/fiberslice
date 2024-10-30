@@ -22,7 +22,7 @@ use crate::viewer::toolpath::tree::ToolpathTree;
 // const MAIN_LOADED_TOOLPATH: &str = "main"; // HACK: This is a solution to ease the dev when only one toolpath is loaded which is the only supported(for now)
 
 #[derive(thiserror::Error, Debug)]
-pub enum Error {
+pub enum SliceError {
     #[error("Load Error {0}")]
     LoadError(String),
     #[error("NoGeometryObject")]
@@ -234,7 +234,7 @@ impl SlicedObjectServer {
         }
     }
 
-    pub fn update(&mut self, global_state: GlobalState<RootEvent>) -> Result<(), Error> {
+    pub fn update(&mut self, global_state: GlobalState<RootEvent>) -> Result<(), SliceError> {
         if let Some((rx, _)) = &mut self.queued {
             if let Ok((toolpath, process)) = rx.try_recv() {
                 process.finish();
