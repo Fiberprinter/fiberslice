@@ -301,6 +301,8 @@ impl ApplicationHandler<RootEvent> for Application {
 
         *GLOBAL_STATE.write() = Some(global_state.clone());
 
+        window.set_visible(true);
+
         self.state = Some(ApplicationState {
             window,
             wgpu_context,
