@@ -530,6 +530,9 @@ impl Settings {
     }
 }
 
+#[derive(Serialize, Deserialize, Debug, Default, Clone)]
+pub struct MaskSettings {}
+
 ///Possible results of validation the settings
 #[derive(Serialize, Deserialize, Clone, Debug, PartialEq)]
 pub enum SettingsValidationResult {

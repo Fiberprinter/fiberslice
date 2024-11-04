@@ -8,7 +8,7 @@ use shared::{
     process::Process,
 };
 
-use slicer::Settings;
+use slicer::{MaskSettings, Settings};
 use tokio::{sync::oneshot::error::TryRecvError, task::JoinHandle};
 
 use uni_path::PathBuf;
@@ -35,6 +35,7 @@ use super::{
 pub struct MaskHandle {
     model: Arc<CADObject>,
     mesh: ObjectMesh,
+    settings: MaskSettings,
 }
 
 #[derive(Debug)]
@@ -288,6 +289,7 @@ Clustering models"
         let ctx = MaskHandle {
             model: handle.clone(),
             mesh: model_handle.mesh,
+            settings: MaskSettings::default(),
         };
 
         self.models.insert(name.clone(), ctx);
