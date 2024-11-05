@@ -531,7 +531,11 @@ impl Settings {
 }
 
 #[derive(Serialize, Deserialize, Debug, Default, Clone)]
-pub struct MaskSettings {}
+pub struct MaskSettings {
+    epsilon: f32,
+    wall_seperated: bool,
+    settings: PartialSettings,
+}
 
 ///Possible results of validation the settings
 #[derive(Serialize, Deserialize, Clone, Debug, PartialEq)]
@@ -770,7 +774,7 @@ pub struct RetractionWipeSettings {
 }
 
 ///A partial complete settings file
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, Clone, Default)]
 pub struct PartialSettings {
     ///The height of the layers
     pub layer_height: Option<f32>,
