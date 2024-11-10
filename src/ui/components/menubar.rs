@@ -135,7 +135,22 @@ fn file_button(ui: &mut Ui, (_ui_state, global_state): &(UiState, GlobalState<Ro
             }
         });
 
-        build_sub_menu(ui, "Import Intersection Object", |_ui| {});
+        build_sub_menu(ui, "Import Mask", |_ui| {
+            let path = FileDialog::new()
+                .set_location("~")
+                .add_filter("STL Files", &["stl"])
+                .show_open_single_file()
+                .unwrap();
+
+            match path {
+                Some(path) => {
+                    global_state.viewer.load_mask_from_file(path);
+                }
+                None => {
+                    println!("No file selected")
+                }
+            }
+        });
 
         build_sub_menu(ui, "Save As", |_ui| {});
 
