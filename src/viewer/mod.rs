@@ -254,6 +254,9 @@ impl Viewer {
                     selector_read.render_lines(&mut render_pass);
                 }
                 Mode::Masks => {
+                    render_pass.set_pipeline(&pipelines.back_cull);
+                    mask_server_read.render(&mut render_pass);
+
                     render_pass.set_pipeline(&pipelines.no_cull);
                     env_server_read.render(&mut render_pass);
                     selector_read.render(&mut render_pass);
