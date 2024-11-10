@@ -2,13 +2,9 @@ use core::f32;
 use std::{collections::HashMap, path::Path, sync::Arc};
 
 use glam::{vec3, Mat4, Quat, Vec3, Vec3Swizzles};
-use shared::{
-    loader::{LoadError, Loader},
-    object::ObjectMesh,
-    process::Process,
-};
+use shared::loader::Loader;
 
-use slicer::{MaskSettings, Settings};
+use slicer::{Mask, MaskSettings, Settings};
 use tokio::{sync::oneshot::error::TryRecvError, task::JoinHandle};
 
 use uni_path::PathBuf;
@@ -27,15 +23,12 @@ use crate::{
     GlobalState, RootEvent, GLOBAL_STATE, QUEUE,
 };
 
-use super::{
-    clusterize_faces, clusterize_models, CADObject, CADObjectResult, Error, LoadResult, PolygonFace,
-};
+use super::{clusterize_faces, CADObject, CADObjectResult, Error, LoadResult, PolygonFace};
 
 #[derive(Debug)]
 pub struct MaskHandle {
     model: Arc<CADObject>,
-    mesh: ObjectMesh,
-    settings: MaskSettings,
+    mask: Mask,
 }
 
 #[derive(Debug)]
@@ -275,8 +268,7 @@ Clustering models"
 
         let ctx = MaskHandle {
             model: handle.clone(),
-            mesh: model_handle.mesh,
-            settings: MaskSettings::default(),
+            mask: Mask::new(model_handle.mesh, MaskSettings::default()),
         };
 
         self.models.insert(name.clone(), ctx);
@@ -325,7 +317,7 @@ Clustering models"
         Ok(())
     }
 
-    pub fn prepare_objects<'a>(&'a self, settings: &'a Settings) -> Vec<ObjectMesh> {
+    pub fn prepare_objects<'a>(&'a self, settings: &'a Settings) -> Vec<Mask> {
         self.models
             .values()
             .map(|model| {
@@ -345,11 +337,11 @@ Clustering models"
                 let transform =
                     Mat4::from_scale_rotation_translation(scaling, rotation, translation);
 
-                let mut geometry = model.mesh.clone();
-                geometry.transform(transform);
-                geometry.sort_indices();
+                let mut mask = model.mask.clone();
+                mask.transform(transform);
+                mask.sort_indices();
 
-                geometry
+                mask
             })
             .collect()
     }

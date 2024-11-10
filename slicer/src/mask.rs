@@ -1,6 +1,48 @@
-use geo::Area;
+use std::ops::{Deref, DerefMut};
 
-use crate::{plotter::polygon_operations::PolygonOperations, Object};
+use geo::Area;
+use glam::Mat4;
+use shared::object::ObjectMesh;
+
+use crate::{plotter::polygon_operations::PolygonOperations, MaskSettings, Object};
+
+#[derive(Debug, Clone)]
+pub struct Mask {
+    mesh: ObjectMesh,
+    settings: MaskSettings,
+}
+
+impl Deref for Mask {
+    type Target = ObjectMesh;
+
+    fn deref(&self) -> &Self::Target {
+        &self.mesh
+    }
+}
+
+impl DerefMut for Mask {
+    fn deref_mut(&mut self) -> &mut Self::Target {
+        &mut self.mesh
+    }
+}
+
+impl Mask {
+    pub fn new(mesh: ObjectMesh, settings: MaskSettings) -> Self {
+        Self { mesh, settings }
+    }
+
+    pub fn into_mesh(self) -> ObjectMesh {
+        self.mesh
+    }
+
+    pub fn settings(&self) -> &MaskSettings {
+        &self.settings
+    }
+
+    pub fn transform(&mut self, transform: Mat4) {
+        self.mesh.transform(transform);
+    }
+}
 
 pub fn crop_masks(objects: &[Object], masks: &mut Vec<Object>, max_height: f32) {
     for mask_object in masks.iter_mut() {

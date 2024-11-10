@@ -24,6 +24,7 @@ mod utils;
 mod warning;
 
 pub use converter::convert;
+pub use mask::Mask;
 
 use error::SlicerErrors;
 use geo::{
@@ -42,7 +43,7 @@ pub struct SliceResult {
 }
 
 pub fn slice(
-    input: SliceInput,
+    input: SliceInput<Mask>,
     settings: &Settings,
     process: &Process,
 ) -> Result<SliceResult, SlicerErrors> {
@@ -55,7 +56,13 @@ pub fn slice(
     process.set_progress(0.1);
 
     let towers = create_towers(&input.objects)?;
-    let towers_masks = create_towers(&input.masks)?;
+
+    let objects = input
+        .masks
+        .into_iter()
+        .map(|mask| mask.into_mesh())
+        .collect_vec();
+    let towers_masks = create_towers(&objects)?;
 
     process.set_task("Slicing".to_string());
     process.set_progress(0.2);

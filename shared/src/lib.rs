@@ -35,7 +35,7 @@ impl std::ops::IndexMut<usize> for IndexedLine {
     }
 }
 
-pub struct SliceInput {
+pub struct SliceInput<M> {
     pub objects: Vec<object::ObjectMesh>,
-    pub masks: Vec<object::ObjectMesh>,
+    pub masks: Vec<M>,
 }

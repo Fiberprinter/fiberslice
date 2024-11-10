@@ -6,7 +6,7 @@ use glam::Mat4;
 use log::warn;
 use parking_lot::RwLock;
 use shared::{object::ObjectMesh, process::Process};
-use slicer::{MovePrintType, Settings, SliceResult};
+use slicer::{Mask, MovePrintType, Settings, SliceResult};
 use winit::{
     event::{KeyEvent, MouseButton},
     keyboard::{KeyCode, PhysicalKey},
@@ -167,7 +167,7 @@ impl Viewer {
         self.object_server.read().prepare_objects(settings)
     }
 
-    pub fn prepare_masks(&self, settings: &Settings) -> Vec<ObjectMesh> {
+    pub fn prepare_masks(&self, settings: &Settings) -> Vec<Mask> {
         self.mask_server.read().prepare_objects(settings)
     }
 

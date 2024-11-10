@@ -1,5 +1,5 @@
 use shared::{object::ObjectMesh, SliceInput};
-use slicer::Settings;
+use slicer::{Mask, MaskSettings, Settings};
 use tokio::task::JoinHandle;
 
 use crate::{
@@ -23,7 +23,7 @@ impl Slicer {
 
         let settings = self.settings.clone();
         let objects: Vec<ObjectMesh> = global_state.viewer.prepare_objects(&settings);
-        let masks: Vec<ObjectMesh> = global_state.viewer.prepare_masks(&settings);
+        let masks: Vec<Mask> = global_state.viewer.prepare_masks(&settings);
 
         let global_state = global_state.clone();
 
