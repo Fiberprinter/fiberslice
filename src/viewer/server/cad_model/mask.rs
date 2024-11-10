@@ -164,7 +164,6 @@ Clustering models"
                     .to_string(),
             );
             process_tracking.set_progress(0.0);
-            let models = clusterize_models(&triangles);
 
             process_tracking.set_task("Creating vertices".to_string());
             process_tracking.set_progress(0.2);
@@ -214,21 +213,9 @@ Clustering models"
 
             process_tracking.set_task("Coloring polygons".to_string());
             process_tracking.set_progress(0.85);
-            models.iter().for_each(|indices| {
-                let r = rand::random::<f64>();
-                let g = rand::random::<f64>();
-                let b = rand::random::<f64>();
 
-                for triangle in indices.iter() {
-                    triangle_vertices[triangles[*triangle].0[0]].color =
-                        Color { r, g, b, a: 1.0 }.to_array();
-
-                    triangle_vertices[triangles[*triangle].0[1]].color =
-                        Color { r, g, b, a: 1.0 }.to_array();
-
-                    triangle_vertices[triangles[*triangle].0[2]].color =
-                        Color { r, g, b, a: 1.0 }.to_array();
-                }
+            triangle_vertices.iter_mut().for_each(|vertex| {
+                vertex.color = Color::WHITE.to_array();
             });
 
             process_tracking.set_task("Creating models".to_string());
@@ -259,7 +246,7 @@ Clustering models"
 
         self.queue.push((rx, handle));
     }
-    // i love you
+
     pub fn insert(&mut self, model_handle: LoadResult) -> Result<Arc<CADObject>, Error> {
         let path: PathBuf = model_handle.origin_path.into();
         let file_name = if let Some(path) = path.file_name() {
