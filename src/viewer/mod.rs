@@ -108,6 +108,10 @@ impl Viewer {
             .write()
             .update(global_state.clone())
             .expect("Failed to update model server");
+        self.mask_server
+            .write()
+            .update(global_state.clone())
+            .expect("Failed to update mask server");
     }
 }
 
