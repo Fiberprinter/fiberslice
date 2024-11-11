@@ -276,6 +276,8 @@ impl<'a> Addons<'a> {
                             5.0,
                             shaded_color,
                         );
+
+                        self.state.gizmo_tools.show_icons(ui, shared_state);
                     },
                 );
             }

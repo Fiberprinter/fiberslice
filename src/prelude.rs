@@ -267,6 +267,12 @@ pub enum Mode {
     Masks,
 }
 
+impl Default for Mode {
+    fn default() -> Self {
+        Self::Prepare
+    }
+}
+
 pub use event::{create_event_bundle, EventReader, EventWriter};
 
 mod event {

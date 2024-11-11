@@ -302,6 +302,7 @@ impl ApplicationHandler<RootEvent> for Application {
         *GLOBAL_STATE.write() = Some(global_state.clone());
 
         window.set_visible(true);
+        global_state.viewer.mode_changed(prelude::Mode::default());
 
         self.state = Some(ApplicationState {
             window,

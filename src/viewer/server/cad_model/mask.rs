@@ -208,7 +208,7 @@ Clustering models"
             process_tracking.set_progress(0.85);
 
             triangle_vertices.iter_mut().for_each(|vertex| {
-                vertex.color = Color::WHITE.to_array();
+                vertex.color = [0.2, 0.2, 0.2, 1.0];
             });
 
             process_tracking.set_task("Creating models".to_string());

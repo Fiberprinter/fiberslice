@@ -82,11 +82,12 @@ pub fn slice(
             .iter_mut()
             .enumerate()
             .for_each(|(index, layer)| {
-                for mask in masks.iter() {
-                    if let Some(mask_layer) = mask.layers.get(index) {
+                for mask in masks.iter_mut() {
+                    if let Some(mask_layer) = mask.layers.get_mut(index) {
                         layer.remaining_area = layer
                             .remaining_area
                             .difference_with(&mask_layer.main_polygon);
+                        layer.chains.append(&mut mask_layer.chains);
                     }
                 }
             });
@@ -197,9 +198,6 @@ fn handle_masks(
 
             //Handle Top And Bottom Layers
             TopAndBottomLayersPass::pass(slices, settings)?;
-
-            //Handle Support
-            SupportPass::pass(slices, settings)?;
 
             //Lightning Infill
             LightningFillPass::pass(slices, settings)?;

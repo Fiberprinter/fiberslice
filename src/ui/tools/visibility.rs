@@ -170,7 +170,7 @@ impl Tool for VisibilityTool<'_> {
 
                         visibility |= if self.state.setup { 0x01 } else { 0 };
 
-                        global_state.viewer.update_gpu_max_layer(visibility);
+                        global_state.viewer.update_gpu_visibility(visibility);
                     }
 
                     ui.separator();

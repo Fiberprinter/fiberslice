@@ -63,7 +63,7 @@ impl Default for UiState {
         Self {
             pointer_in_use: Shared::new(AtomicBool::new(false)),
             theme: SharedMut::from_inner(Theme::Dark),
-            mode: SharedMut::from_inner(Mode::Prepare),
+            mode: SharedMut::from_inner(Mode::default()),
 
             layer_max: SharedMut::from_inner(u32::MAX),
             time_stamp: SharedMut::from_inner(u32::MAX),

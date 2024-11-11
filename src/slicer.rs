@@ -1,5 +1,5 @@
 use shared::{object::ObjectMesh, SliceInput};
-use slicer::{Mask, MaskSettings, Settings};
+use slicer::{Mask, Settings};
 use tokio::task::JoinHandle;
 
 use crate::{

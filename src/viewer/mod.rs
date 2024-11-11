@@ -67,7 +67,11 @@ pub struct Viewer {
     object_server: RwLock<server::ObjectServer>,
     mask_server: RwLock<server::MaskServer>,
 
-    selector: RwLock<select::Selector>,
+    object_selector: RwLock<select::Selector>,
+    mask_selector: RwLock<select::Selector>,
+    toolpath_selector: RwLock<select::Selector>,
+
+    mode: RwLock<Option<Mode>>,
 }
 
 impl Viewer {
@@ -77,11 +81,18 @@ impl Viewer {
             sliced_object_server: RwLock::new(server::SlicedObjectServer::instance(context)),
             object_server: RwLock::new(server::ObjectServer::instance(context)),
             mask_server: RwLock::new(server::MaskServer::instance(context)),
-            selector: RwLock::new(select::Selector::instance()),
+
+            object_selector: RwLock::new(select::Selector::instance()),
+            mask_selector: RwLock::new(select::Selector::instance()),
+            toolpath_selector: RwLock::new(select::Selector::instance()),
+
+            mode: RwLock::new(None),
         }
     }
 
     pub fn mode_changed(&self, mode: Mode) {
+        *self.mode.write() = Some(mode);
+
         match mode {
             Mode::Prepare => {
                 self.object_server.write().set_transparency(1.0);
@@ -117,7 +128,15 @@ impl Viewer {
 
 impl Viewer {
     pub fn transform_selected(&self, r#fn: impl FnMut(&mut Mat4) -> bool) {
-        self.selector.write().transform(r#fn);
+        match *self.mode.read() {
+            Some(Mode::Prepare) => {
+                self.object_selector.write().transform(r#fn);
+            }
+            Some(Mode::Masks) => {
+                self.mask_selector.write().transform(r#fn);
+            }
+            _ => (),
+        }
     }
 
     pub fn sliced_count_map(&self) -> Option<HashMap<MovePrintType, usize>> {
@@ -193,10 +212,25 @@ impl Viewer {
     pub fn mouse_input(&self, event: MouseInputEvent) {
         if event.state.is_pressed() {
             if let MouseButton::Right = event.button {
-                if let Some(model) = self.object_server.read().check_hit(&event.ray, 0, true) {
-                    let interact_model = model as Arc<dyn InteractiveModel>;
+                match *self.mode.read() {
+                    Some(Mode::Prepare) => {
+                        if let Some(model) =
+                            self.object_server.read().check_hit(&event.ray, 0, false)
+                        {
+                            let interact_model = model as Arc<dyn InteractiveModel>;
 
-                    self.selector.write().select(interact_model);
+                            self.object_selector.write().select(interact_model);
+                        }
+                    }
+                    Some(Mode::Masks) => {
+                        if let Some(model) = self.mask_server.read().check_hit(&event.ray, 0, false)
+                        {
+                            let interact_model = model as Arc<dyn InteractiveModel>;
+
+                            self.mask_selector.write().select(interact_model);
+                        }
+                    }
+                    _ => (),
                 }
             }
         }
@@ -207,9 +241,11 @@ impl Viewer {
             if let PhysicalKey::Code(key) = event.physical_key {
                 #[allow(clippy::single_match)]
                 match key {
-                    KeyCode::Delete => {
-                        self.selector.write().delete_selected();
-                    }
+                    KeyCode::Delete => match *self.mode.read() {
+                        Some(Mode::Prepare) => self.object_selector.write().delete_selected(),
+                        Some(Mode::Masks) => self.mask_selector.write().delete_selected(),
+                        _ => (),
+                    },
                     _ => (),
                 }
             } else {
@@ -226,7 +262,8 @@ impl Viewer {
         let sliced_object_server_read = self.sliced_object_server.read();
         let model_server_read = self.object_server.read();
         let mask_server_read = self.mask_server.read();
-        let selector_read = self.selector.read();
+        let object_selector_read = self.object_selector.read();
+        let mask_selector_read = self.mask_selector.read();
 
         if let Some((pipelines, mut render_pass)) = render_descriptor.pass() {
             match mode {
@@ -243,15 +280,14 @@ impl Viewer {
                 Mode::Prepare => {
                     render_pass.set_pipeline(&pipelines.back_cull);
                     model_server_read.render(&mut render_pass);
-                    mask_server_read.render(&mut render_pass);
 
                     render_pass.set_pipeline(&pipelines.no_cull);
                     env_server_read.render(&mut render_pass);
-                    selector_read.render(&mut render_pass);
+                    object_selector_read.render(&mut render_pass);
 
                     render_pass.set_pipeline(&pipelines.line);
                     env_server_read.render_lines(&mut render_pass);
-                    selector_read.render_lines(&mut render_pass);
+                    object_selector_read.render_lines(&mut render_pass);
                 }
                 Mode::Masks => {
                     render_pass.set_pipeline(&pipelines.back_cull);
@@ -259,11 +295,11 @@ impl Viewer {
 
                     render_pass.set_pipeline(&pipelines.no_cull);
                     env_server_read.render(&mut render_pass);
-                    selector_read.render(&mut render_pass);
+                    mask_selector_read.render(&mut render_pass);
 
                     render_pass.set_pipeline(&pipelines.line);
                     env_server_read.render_lines(&mut render_pass);
-                    selector_read.render_lines(&mut render_pass);
+                    mask_selector_read.render_lines(&mut render_pass);
                 }
             };
         }

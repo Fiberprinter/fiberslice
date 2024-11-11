@@ -71,7 +71,7 @@ pub fn crop_masks(objects: &[Object], masks: &mut Vec<Object>, max_height: f32) 
 pub fn randomize_mask_underlaps(masks: &mut Vec<Object>) {
     for mask_object in masks.iter_mut() {
         mask_object.layers.iter_mut().for_each(|layer| {
-            let inset: f32 = rand::random::<f32>() * 2.0;
+            let inset: f32 = rand::random::<f32>() * 15.0;
 
             layer.main_polygon = layer.main_polygon.offset_from(-inset);
             layer.remaining_area = layer.main_polygon.clone();
