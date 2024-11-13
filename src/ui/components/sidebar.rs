@@ -177,7 +177,7 @@ impl TabbedSettings {
 }
 
 #[derive(Debug)]
-pub struct SettingsbarState {
+pub struct SidebarState {
     enabled: bool,
     boundary: Boundary,
 
@@ -185,7 +185,7 @@ pub struct SettingsbarState {
     open_sub_tab: SettingSubTab,
 }
 
-impl SettingsbarState {
+impl SidebarState {
     pub fn new() -> Self {
         Self {
             enabled: true,
@@ -197,7 +197,7 @@ impl SettingsbarState {
     }
 }
 
-impl UiComponentState for SettingsbarState {
+impl UiComponentState for SidebarState {
     fn get_boundary(&self) -> Boundary {
         self.boundary
     }
@@ -213,11 +213,11 @@ impl UiComponentState for SettingsbarState {
 
 #[derive(Debug)]
 pub struct Settingsbar<'a> {
-    state: &'a mut SettingsbarState,
+    state: &'a mut SidebarState,
 }
 
 impl<'a> Settingsbar<'a> {
-    pub fn with_state(state: &'a mut SettingsbarState) -> Self {
+    pub fn with_state(state: &'a mut SidebarState) -> Self {
         Self { state }
     }
 }
