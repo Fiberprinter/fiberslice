@@ -1,10 +1,13 @@
 use std::ops::{Deref, DerefMut};
 
 use geo::Area;
-use glam::Mat4;
+use glam::{Mat4, Vec3};
 use shared::object::ObjectMesh;
 
-use crate::{plotter::polygon_operations::PolygonOperations, MaskSettings, Object};
+use crate::{
+    error::SlicerErrors, plotter::polygon_operations::PolygonOperations, slicing,
+    tower::TriangleTower, MaskSettings, Object,
+};
 
 #[derive(Debug, Clone)]
 pub struct Mask {
@@ -41,6 +44,39 @@ impl Mask {
 
     pub fn transform(&mut self, transform: Mat4) {
         self.mesh.transform(transform);
+    }
+
+    pub fn into_object(self, max: Vec3) -> Result<ObjectMask, SlicerErrors> {
+        let tower = TriangleTower::from_triangles_and_vertices(
+            self.mesh.triangles(),
+            self.mesh.vertices().to_vec(),
+        )?;
+
+        let obj = slicing::slice_single(&tower, max.z, self.settings)?;
+
+        Ok(ObjectMask {
+            obj,
+            settings: self.settings,
+        })
+    }
+}
+
+pub struct ObjectMask {
+    obj: Object,
+    settings: MaskSettings,
+}
+
+impl Deref for ObjectMask {
+    type Target = Object;
+
+    fn deref(&self) -> &Self::Target {
+        &self.obj
+    }
+}
+
+impl DerefMut for ObjectMask {
+    fn deref_mut(&mut self) -> &mut Self::Target {
+        &mut self.obj
     }
 }
 

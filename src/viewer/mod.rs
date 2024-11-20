@@ -127,6 +127,15 @@ impl Viewer {
 }
 
 impl Viewer {
+    pub fn gizmo_enabled(&self) -> bool {
+        match *self.mode.read() {
+            Some(Mode::Preview) => false,
+            Some(Mode::Prepare) => !self.object_selector.read().selected().is_empty(),
+            Some(Mode::Masks) => !self.mask_selector.read().selected().is_empty(),
+            _ => false,
+        }
+    }
+
     pub fn transform_selected(&self, r#fn: impl FnMut(&mut Mat4) -> bool) {
         match *self.mode.read() {
             Some(Mode::Prepare) => {

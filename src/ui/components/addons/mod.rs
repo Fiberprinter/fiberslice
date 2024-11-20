@@ -287,7 +287,9 @@ impl<'a> Addons<'a> {
 
 impl<'a> UiInnerComponent for Addons<'a> {
     fn show(&mut self, ui: &mut Ui, shared_state: &(UiState, GlobalState<RootEvent>)) {
-        self.state.gizmo_tools.show_tool_wíndow(ui, shared_state);
+        if shared_state.1.viewer.gizmo_enabled() {
+            self.state.gizmo_tools.show_tool_wíndow(ui, shared_state);
+        }
 
         if self.state.enabled {
             let available_size = ui.available_size();

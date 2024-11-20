@@ -537,6 +537,21 @@ pub struct MaskSettings {
     settings: PartialSettings,
 }
 
+impl MaskSettings {
+    pub fn combine_settings(self, mut settings: Settings) -> Settings {
+        fn set_setting<T>(value: Option<T>, value_mut: &mut T) {
+            if let Some(value) = value {
+                *value_mut = value;
+            }
+        }
+
+        set_setting(self.settings.layer_height, &mut settings.layer_height);
+        set_setting(self.settings.extrusion_width, &mut settings.extrusion_width);
+
+        settings
+    }
+}
+
 ///Possible results of validation the settings
 #[derive(Serialize, Deserialize, Clone, Debug, PartialEq)]
 pub enum SettingsValidationResult {

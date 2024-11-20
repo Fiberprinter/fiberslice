@@ -66,7 +66,7 @@ pub fn slice(
 
     process.set_task("Slicing".to_string());
     process.set_progress(0.2);
-    println!("Max: {:?}", max);
+    // println!("Max: {:?}", max);
     let mut objects = slicing::slice(&towers, max.z, settings)?;
     let mut masks = slicing::slice(&towers_masks, max.z, settings)?;
 
