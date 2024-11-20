@@ -6,7 +6,7 @@ use shared::object::ObjectMesh;
 
 use crate::{
     error::SlicerErrors, plotter::polygon_operations::PolygonOperations, slicing,
-    tower::TriangleTower, MaskSettings, Object,
+    tower::TriangleTower, MaskSettings, Object, Settings,
 };
 
 #[derive(Debug, Clone)]
@@ -46,13 +46,15 @@ impl Mask {
         self.mesh.transform(transform);
     }
 
-    pub fn into_object(self, max: Vec3) -> Result<ObjectMask, SlicerErrors> {
+    pub fn into_object(self, max: Vec3, settings: &Settings) -> Result<ObjectMask, SlicerErrors> {
         let tower = TriangleTower::from_triangles_and_vertices(
             self.mesh.triangles(),
             self.mesh.vertices().to_vec(),
         )?;
 
-        let obj = slicing::slice_single(&tower, max.z, self.settings)?;
+        let settings = self.settings.clone().combine_settings(settings.clone());
+
+        let obj = slicing::slice_single(&tower, max.z, &settings)?;
 
         Ok(ObjectMask {
             obj,
@@ -80,10 +82,13 @@ impl DerefMut for ObjectMask {
     }
 }
 
-pub fn crop_masks(objects: &[Object], masks: &mut Vec<Object>, max_height: f32) {
-    for mask_object in masks.iter_mut() {
-        mask_object
-            .layers
+impl ObjectMask {
+    pub fn mask_settings(&self) -> &MaskSettings {
+        &self.settings
+    }
+
+    pub fn crop(&mut self, objects: &[Object], max: Vec3) {
+        self.layers
             .iter_mut()
             .enumerate()
             .for_each(|(index, layer)| {
@@ -98,16 +103,14 @@ pub fn crop_masks(objects: &[Object], masks: &mut Vec<Object>, max_height: f32) 
                 layer.remaining_area = layer.main_polygon.clone();
             });
 
-        mask_object.layers.retain(|layer| {
-            layer.main_polygon.unsigned_area() > f32::EPSILON || layer.top_height <= max_height
+        self.layers.retain(|layer| {
+            layer.main_polygon.unsigned_area() > f32::EPSILON || layer.top_height <= max.z
         });
     }
-}
 
-pub fn randomize_mask_underlaps(masks: &mut Vec<Object>) {
-    for mask_object in masks.iter_mut() {
-        mask_object.layers.iter_mut().for_each(|layer| {
-            let inset: f32 = rand::random::<f32>() * 15.0;
+    pub fn randomize_mask_underlaps(&mut self, epsilon: f32) {
+        self.layers.iter_mut().for_each(|layer| {
+            let inset: f32 = rand::random::<f32>() * epsilon;
 
             layer.main_polygon = layer.main_polygon.offset_from(-inset);
             layer.remaining_area = layer.main_polygon.clone();

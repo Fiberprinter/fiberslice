@@ -545,8 +545,142 @@ impl MaskSettings {
             }
         }
 
+        fn set_optional_setting<T>(value: Option<T>, value_mut: &mut Option<T>) {
+            if let Some(value) = value {
+                *value_mut = Some(value);
+            }
+        }
+
         set_setting(self.settings.layer_height, &mut settings.layer_height);
         set_setting(self.settings.extrusion_width, &mut settings.extrusion_width);
+        set_setting(self.settings.filament, &mut settings.filament);
+        set_setting(self.settings.fiber, &mut settings.fiber);
+        set_setting(self.settings.fan, &mut settings.fan);
+        set_optional_setting(self.settings.skirt, &mut settings.skirt);
+        set_optional_setting(self.settings.support, &mut settings.support);
+        set_setting(self.settings.nozzle_diameter, &mut settings.nozzle_diameter);
+        set_setting(self.settings.retract_length, &mut settings.retract_length);
+        set_setting(self.settings.retract_lift_z, &mut settings.retract_lift_z);
+        set_setting(self.settings.retract_speed, &mut settings.retract_speed);
+        set_optional_setting(self.settings.retraction_wipe, &mut settings.retraction_wipe);
+        set_setting(self.settings.speed, &mut settings.speed);
+        set_setting(self.settings.acceleration, &mut settings.acceleration);
+        set_setting(
+            self.settings.infill_percentage,
+            &mut settings.infill_percentage,
+        );
+        set_setting(
+            self.settings.inner_perimeters_first,
+            &mut settings.inner_perimeters_first,
+        );
+        set_setting(
+            self.settings.number_of_perimeters,
+            &mut settings.number_of_perimeters,
+        );
+        set_setting(self.settings.top_layers, &mut settings.top_layers);
+        set_setting(self.settings.bottom_layers, &mut settings.bottom_layers);
+        set_setting(self.settings.print_x, &mut settings.print_x);
+        set_setting(self.settings.print_y, &mut settings.print_y);
+        set_setting(self.settings.print_z, &mut settings.print_z);
+        set_optional_setting(self.settings.brim_width, &mut settings.brim_width);
+        set_optional_setting(
+            self.settings.layer_shrink_amount,
+            &mut settings.layer_shrink_amount,
+        );
+        set_setting(
+            self.settings.minimum_retract_distance,
+            &mut settings.minimum_retract_distance,
+        );
+        set_setting(
+            self.settings.infill_perimeter_overlap_percentage,
+            &mut settings.infill_perimeter_overlap_percentage,
+        );
+        set_setting(
+            self.settings.solid_infill_type,
+            &mut settings.solid_infill_type,
+        );
+        set_setting(
+            self.settings.partial_infill_type,
+            &mut settings.partial_infill_type,
+        );
+        set_setting(
+            self.settings.starting_instructions,
+            &mut settings.starting_instructions,
+        );
+        set_setting(
+            self.settings.ending_instructions,
+            &mut settings.ending_instructions,
+        );
+        set_setting(
+            self.settings.before_layer_change_instructions,
+            &mut settings.before_layer_change_instructions,
+        );
+        set_setting(
+            self.settings.after_layer_change_instructions,
+            &mut settings.after_layer_change_instructions,
+        );
+        set_setting(
+            self.settings.object_change_instructions,
+            &mut settings.object_change_instructions,
+        );
+        set_setting(
+            self.settings.max_acceleration_x,
+            &mut settings.max_acceleration_x,
+        );
+        set_setting(
+            self.settings.max_acceleration_y,
+            &mut settings.max_acceleration_y,
+        );
+        set_setting(
+            self.settings.max_acceleration_z,
+            &mut settings.max_acceleration_z,
+        );
+        set_setting(
+            self.settings.max_acceleration_e,
+            &mut settings.max_acceleration_e,
+        );
+        set_setting(
+            self.settings.max_acceleration_extruding,
+            &mut settings.max_acceleration_extruding,
+        );
+        set_setting(
+            self.settings.max_acceleration_travel,
+            &mut settings.max_acceleration_travel,
+        );
+        set_setting(
+            self.settings.max_acceleration_retracting,
+            &mut settings.max_acceleration_retracting,
+        );
+        set_setting(self.settings.max_jerk_x, &mut settings.max_jerk_x);
+        set_setting(self.settings.max_jerk_y, &mut settings.max_jerk_y);
+        set_setting(self.settings.max_jerk_z, &mut settings.max_jerk_z);
+        set_setting(self.settings.max_jerk_e, &mut settings.max_jerk_e);
+
+        set_setting(
+            self.settings.minimum_feedrate_print,
+            &mut settings.minimum_feedrate_print,
+        );
+        set_setting(
+            self.settings.minimum_feedrate_travel,
+            &mut settings.minimum_feedrate_travel,
+        );
+        set_setting(
+            self.settings.maximum_feedrate_x,
+            &mut settings.maximum_feedrate_x,
+        );
+        set_setting(
+            self.settings.maximum_feedrate_y,
+            &mut settings.maximum_feedrate_y,
+        );
+        set_setting(
+            self.settings.maximum_feedrate_z,
+            &mut settings.maximum_feedrate_z,
+        );
+        set_setting(
+            self.settings.maximum_feedrate_e,
+            &mut settings.maximum_feedrate_e,
+        );
+        set_setting(self.settings.layer_settings, &mut settings.layer_settings);
 
         settings
     }

@@ -2,6 +2,7 @@ mod settings;
 
 use command_pass::{CommandPass, OptimizePass, SlowDownLayerPass};
 use glam::{Vec3, Vec4};
+use mask::ObjectMask;
 use plotter::{convert_objects_into_moves, polygon_operations::PolygonOperations};
 use rayon::iter::{IntoParallelRefMutIterator, ParallelIterator};
 pub use settings::*;
@@ -55,43 +56,30 @@ pub fn slice(
     process.set_task("Creating Towers".to_string());
     process.set_progress(0.1);
 
-    let towers = create_towers(&input.objects)?;
-
-    let objects = input
+    let mut masks: Vec<mask::ObjectMask> = input
         .masks
         .into_iter()
-        .map(|mask| mask.into_mesh())
-        .collect_vec();
-    let towers_masks = create_towers(&objects)?;
+        .map(|mask| mask.into_object(max, settings))
+        .try_collect()?;
+
+    let towers = create_towers(&input.objects)?;
 
     process.set_task("Slicing".to_string());
     process.set_progress(0.2);
     // println!("Max: {:?}", max);
+
     let mut objects = slicing::slice(&towers, max.z, settings)?;
-    let mut masks = slicing::slice(&towers_masks, max.z, settings)?;
 
     process.set_task("Cropping Masks".to_string());
     process.set_progress(0.5);
-    mask::crop_masks(&objects, &mut masks, max.z);
-    mask::randomize_mask_underlaps(&mut masks);
-    handle_masks(&mut masks, settings, process)?;
+    masks.iter_mut().for_each(|mask| {
+        mask.crop(&objects, max);
+        mask.randomize_mask_underlaps(15.0);
+    });
 
-    for object in objects.iter_mut() {
-        object
-            .layers
-            .iter_mut()
-            .enumerate()
-            .for_each(|(index, layer)| {
-                for mask in masks.iter_mut() {
-                    if let Some(mask_layer) = mask.layers.get_mut(index) {
-                        layer.remaining_area = layer
-                            .remaining_area
-                            .difference_with(&mask_layer.main_polygon);
-                        layer.chains.append(&mut mask_layer.chains);
-                    }
-                }
-            });
-    }
+    generate_mask_moves(&mut masks, settings, process)?;
+
+    combine_mask_moves(&mut objects, masks);
 
     let mut moves = generate_moves(objects, settings, process)?;
 
@@ -112,6 +100,25 @@ pub fn slice(
         calculated_values,
         settings: settings.clone(),
     })
+}
+
+fn combine_mask_moves(objects: &mut Vec<Object>, mut masks: Vec<ObjectMask>) {
+    for object in objects.iter_mut() {
+        object
+            .layers
+            .iter_mut()
+            .enumerate()
+            .for_each(|(index, layer)| {
+                for mask in masks.iter_mut() {
+                    if let Some(mask_layer) = mask.layers.get_mut(index) {
+                        layer.remaining_area = layer
+                            .remaining_area
+                            .difference_with(&mask_layer.main_polygon);
+                        layer.chains.append(&mut mask_layer.chains);
+                    }
+                }
+            });
+    }
 }
 
 fn generate_moves(
@@ -174,14 +181,19 @@ fn generate_moves(
     Ok(convert_objects_into_moves(objects, settings))
 }
 
-fn handle_masks(
-    masks: &mut Vec<Object>,
+fn generate_mask_moves(
+    masks: &mut Vec<ObjectMask>,
     settings: &Settings,
     process: &Process,
 ) -> Result<(), SlicerErrors> {
     let v: Result<Vec<()>, SlicerErrors> = masks
         .par_iter_mut()
         .map(|object| {
+            let settings = &object
+                .mask_settings()
+                .clone()
+                .combine_settings(settings.clone());
+
             let slices = &mut object.layers;
 
             //Shrink layer
