@@ -177,7 +177,7 @@ impl TabbedSettings {
 }
 
 #[derive(Debug)]
-pub struct SettingsbarState {
+pub struct SidebarState {
     enabled: bool,
     boundary: Boundary,
 
@@ -185,7 +185,7 @@ pub struct SettingsbarState {
     open_sub_tab: SettingSubTab,
 }
 
-impl SettingsbarState {
+impl SidebarState {
     pub fn new() -> Self {
         Self {
             enabled: true,
@@ -197,7 +197,7 @@ impl SettingsbarState {
     }
 }
 
-impl UiComponentState for SettingsbarState {
+impl UiComponentState for SidebarState {
     fn get_boundary(&self) -> Boundary {
         self.boundary
     }
@@ -213,11 +213,11 @@ impl UiComponentState for SettingsbarState {
 
 #[derive(Debug)]
 pub struct Settingsbar<'a> {
-    state: &'a mut SettingsbarState,
+    state: &'a mut SidebarState,
 }
 
 impl<'a> Settingsbar<'a> {
-    pub fn with_state(state: &'a mut SettingsbarState) -> Self {
+    pub fn with_state(state: &'a mut SidebarState) -> Self {
         Self { state }
     }
 }
@@ -269,65 +269,84 @@ impl<'a> UiComponent for Settingsbar<'a> {
 
                             ui.separator();
 
-                            ui.with_layout(Layout::top_down(egui::Align::Min), |ui| {
-                                ui.horizontal(|ui| {
-                                    let layout = egui::Layout {
-                                        main_dir: egui::Direction::TopDown,
-                                        main_wrap: false,
-                                        main_align: egui::Align::Center,
-                                        main_justify: false,
-                                        cross_align: egui::Align::Center,
-                                        cross_justify: true,
-                                    };
-
-                                    GridBuilder::new()
-                                        // Allocate a new row
-                                        .new_row_align(Size::initial(27.5), egui::Align::Center)
-                                        // Give this row a couple cells
-                                        .layout_standard(layout)
-                                        .clip(true)
-                                        .cell(Size::initial(5.0))
-                                        .cell(Size::remainder())
-                                        .cell(Size::initial(-13.0))
-                                        .cell(Size::remainder())
-                                        .cell(Size::initial(5.0))
-                                        .show(ui, |mut grid| {
-                                            grid.empty();
-                                            // Cells are represented as they were allocated
-                                            grid.cell(|ui| {
-                                                ui.selectable_value(
-                                                    &mut self.state.open_tab,
-                                                    SettingTab::Slicing,
-                                                    "Slicing",
-                                                );
-                                            });
-                                            grid.empty();
-                                            grid.cell(|ui| {
-                                                ui.selectable_value(
-                                                    &mut self.state.open_tab,
-                                                    SettingTab::GCode,
-                                                    "GCode",
-                                                );
-                                            });
-                                            grid.empty();
-                                        });
-                                });
-
+                            ui.with_layout(Layout::top_down(egui::Align::Max), |ui| {
+                                //ui.label("Models");
                                 ui.add_space(5.0);
 
-                                match self.state.open_tab {
-                                    SettingTab::Slicing => {
-                                        tabbed_view.show(ui, shared_state, self);
+                                ScrollArea::both()
+                                    .max_height(200.0)
+                                    .stick_to_right(true)
+                                    .animated(true)
+                                    .show_rows(ui, 5.0, 30, |ui, range| {
+                                        ui.with_layout(Layout::top_down(egui::Align::Min), |ui| {
+                                            for i in range {
+                                                ui.label(format!("Row {}", i));
+                                            }
+                                        });
+                                    });
+
+                                ui.add_space(10.0);
+
+                                ui.with_layout(Layout::top_down(egui::Align::Min), |ui| {
+                                    ui.horizontal(|ui| {
+                                        let layout = egui::Layout {
+                                            main_dir: egui::Direction::TopDown,
+                                            main_wrap: false,
+                                            main_align: egui::Align::Center,
+                                            main_justify: false,
+                                            cross_align: egui::Align::Center,
+                                            cross_justify: true,
+                                        };
+
+                                        GridBuilder::new()
+                                            // Allocate a new row
+                                            .new_row_align(Size::initial(27.5), egui::Align::Center)
+                                            // Give this row a couple cells
+                                            .layout_standard(layout)
+                                            .clip(true)
+                                            .cell(Size::initial(5.0))
+                                            .cell(Size::remainder())
+                                            .cell(Size::initial(-13.0))
+                                            .cell(Size::remainder())
+                                            .cell(Size::initial(5.0))
+                                            .show(ui, |mut grid| {
+                                                grid.empty();
+                                                // Cells are represented as they were allocated
+                                                grid.cell(|ui| {
+                                                    ui.selectable_value(
+                                                        &mut self.state.open_tab,
+                                                        SettingTab::Slicing,
+                                                        "Slicing",
+                                                    );
+                                                });
+                                                grid.empty();
+                                                grid.cell(|ui| {
+                                                    ui.selectable_value(
+                                                        &mut self.state.open_tab,
+                                                        SettingTab::GCode,
+                                                        "GCode",
+                                                    );
+                                                });
+                                                grid.empty();
+                                            });
+                                    });
+
+                                    ui.add_space(5.0);
+
+                                    match self.state.open_tab {
+                                        SettingTab::Slicing => {
+                                            tabbed_view.show(ui, shared_state, self);
+                                        }
+                                        SettingTab::GCode => {
+                                            shared_state
+                                                .1
+                                                .slicer
+                                                .write()
+                                                .settings
+                                                .show_instructions(ui);
+                                        }
                                     }
-                                    SettingTab::GCode => {
-                                        shared_state
-                                            .1
-                                            .slicer
-                                            .write()
-                                            .settings
-                                            .show_instructions(ui);
-                                    }
-                                }
+                                });
                             });
                         });
                     })

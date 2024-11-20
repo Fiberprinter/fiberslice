@@ -5,6 +5,7 @@ use crate::{viewer::camera_controller::CameraController, GlobalState, RootEvent}
 use super::UiState;
 
 mod debug;
+mod explorer;
 mod gcode;
 mod visibility;
 
