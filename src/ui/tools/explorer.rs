@@ -10,7 +10,7 @@ pub struct ExplorerToolState {
     anchored: bool,
 }
 
-impl_tool_state_trait!(ExplorerToolState, "Explorer", "⥈"); // ⤡ ⟳ ⥈
+impl_tool_state_trait!(ExplorerToolState, "Explorer", "⥈");
 
 create_tool!(ExplorerTool, ExplorerToolState);
 impl_with_state!(ExplorerTool, ExplorerToolState);

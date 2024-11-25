@@ -871,6 +871,8 @@ pub struct FiberSettings {
     pub diameter: f32,
     pub cut_before: f32,
     pub min_length: f32,
+    pub fill_percentage: f32,
+
     pub speed_factor: f32,
     pub acceleration_factor: f32,
     pub jerk_factor: f32,
@@ -882,6 +884,7 @@ impl Default for FiberSettings {
             diameter: 0.15,
             cut_before: 20.0,
             min_length: 25.0,
+            fill_percentage: 0.5,
             speed_factor: 1.4,
             acceleration_factor: 1.0,
             jerk_factor: 1.0,
