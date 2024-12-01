@@ -69,7 +69,7 @@ pub struct Settings {
     ///The filament Settings
     pub filament: FilamentSettings,
 
-    pub fiber: FiberSettings,
+    pub fiber: Option<FiberSettings>,
 
     ///The fan settings
     pub fan: FanSettings,
@@ -222,7 +222,7 @@ impl Default for Settings {
             },
             filament: FilamentSettings::default(),
             fan: FanSettings::default(),
-            fiber: FiberSettings::default(),
+            fiber: None,
             skirt: None,
             nozzle_diameter: 0.4,
             retract_length: 0.8,
@@ -554,7 +554,7 @@ impl MaskSettings {
         set_setting(self.settings.layer_height, &mut settings.layer_height);
         set_setting(self.settings.extrusion_width, &mut settings.extrusion_width);
         set_setting(self.settings.filament, &mut settings.filament);
-        set_setting(self.settings.fiber, &mut settings.fiber);
+        set_optional_setting(self.settings.fiber, &mut settings.fiber);
         set_setting(self.settings.fan, &mut settings.fan);
         set_optional_setting(self.settings.skirt, &mut settings.skirt);
         set_optional_setting(self.settings.support, &mut settings.support);
@@ -789,6 +789,8 @@ impl MovementParameter {
             MoveType::WithoutFiber(move_print_type) => {
                 self.get_value_for_movement_print_type(move_print_type)
             }
+            MoveType::StartFiber => todo!(),
+            MoveType::EndFiber => todo!(),
             MoveType::Travel => todo!(),
         }
     }
@@ -871,7 +873,9 @@ pub struct FiberSettings {
     pub diameter: f32,
     pub cut_before: f32,
     pub min_length: f32,
-    pub fill_percentage: f32,
+    pub max_angle: f32,
+
+    pub percentage: f32,
 
     pub speed_factor: f32,
     pub acceleration_factor: f32,
@@ -884,7 +888,8 @@ impl Default for FiberSettings {
             diameter: 0.15,
             cut_before: 20.0,
             min_length: 25.0,
-            fill_percentage: 0.5,
+            max_angle: 45.0,
+            percentage: 0.5,
             speed_factor: 1.4,
             acceleration_factor: 1.0,
             jerk_factor: 1.0,
@@ -1316,7 +1321,7 @@ fn try_convert_partial_to_settings(part: PartialSettings) -> Result<Settings, St
     Ok(Settings {
         layer_height: part.layer_height.ok_or("layer_height")?,
         extrusion_width: part.extrusion_width.ok_or("extrusion_width")?,
-        fiber: part.fiber.ok_or("fiber")?,
+        fiber: part.fiber,
         filament: part.filament.ok_or("filament")?,
         fan: part.fan.ok_or("fan")?,
         skirt: part.skirt,

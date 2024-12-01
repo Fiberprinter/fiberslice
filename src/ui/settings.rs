@@ -400,7 +400,13 @@ impl UiSetting for slicer::Settings {
     }
 
     fn show_fiber(&mut self, ui: &mut egui::Ui) {
-        self.fiber.show(ui);
+        if let Some(fiber) = &mut self.fiber {
+            egui::CollapsingHeader::new("Fiber Settings")
+                .default_open(true)
+                .show(ui, |ui| {
+                    fiber.show(ui);
+                });
+        }
     }
 }
 

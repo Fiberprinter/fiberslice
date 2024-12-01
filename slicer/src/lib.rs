@@ -15,6 +15,7 @@ mod calculation;
 mod command_pass;
 mod converter;
 mod error;
+mod fiber;
 mod mask;
 mod optimizer;
 mod plotter;
@@ -483,6 +484,8 @@ impl MovePrintType {
 pub enum MoveType {
     WithFiber(MovePrintType),
     WithoutFiber(MovePrintType),
+    StartFiber,
+    EndFiber,
     ///Standard travel moves without extrusion
     Travel,
 }
@@ -493,6 +496,14 @@ impl MoveType {
             MoveType::WithFiber(print_type)
         } else {
             MoveType::WithoutFiber(print_type)
+        }
+    }
+
+    pub fn print_type(&self) -> Option<MovePrintType> {
+        match self {
+            MoveType::WithFiber(print_type) => Some(*print_type),
+            MoveType::WithoutFiber(print_type) => Some(*print_type),
+            _ => None,
         }
     }
 }
@@ -763,6 +774,7 @@ impl MoveChain {
                             },
                         });
                     }
+                    _ => {}
                 }
 
                 current_type = Some(m.move_type);
@@ -775,7 +787,12 @@ impl MoveChain {
                         current_print_type = Some(print_type);
                     }
 
-                    cmds.push(Command::MoveTo { end: m.end });
+                    cmds.push(Command::MoveAndExtrudeFiber {
+                        start: current_loc,
+                        end: m.end,
+                        thickness,
+                        width: m.width,
+                    });
                     current_loc = m.end;
                 }
                 MoveType::WithoutFiber(print_type) => {
@@ -796,6 +813,7 @@ impl MoveChain {
                     cmds.push(Command::MoveTo { end: m.end });
                     current_loc = m.end;
                 }
+                _ => {}
             }
         }
 
