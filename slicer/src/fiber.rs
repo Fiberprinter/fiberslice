@@ -1,8 +1,8 @@
 use std::collections::HashMap;
 
-use geo::{EuclideanDistance, EuclideanLength, Line, ToDegrees, ToRadians};
+use geo::{EuclideanDistance, EuclideanLength, Line};
 
-use crate::{mask::ObjectMask, FiberSettings, MovePrintType, MoveType, Settings};
+use crate::{mask::ObjectMask, FiberSettings, MovePrintType, MoveType};
 
 pub trait ApplyFibers {
     fn apply_fibers(&mut self, settings_map: HashMap<MovePrintType, FiberSettings>);
