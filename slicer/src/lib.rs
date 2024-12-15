@@ -1,6 +1,9 @@
 mod settings;
 
+use std::collections::HashMap;
+
 use command_pass::{CommandPass, OptimizePass, SlowDownLayerPass};
+use fiber::ApplyFibers;
 use glam::{Vec3, Vec4};
 use mask::ObjectMask;
 use plotter::{convert_objects_into_moves, polygon_operations::PolygonOperations};
@@ -81,6 +84,10 @@ pub fn slice(
     generate_mask_moves(&mut masks, settings, process)?;
 
     combine_mask_moves(&mut objects, masks);
+
+    for mask in masks.iter_mut() {
+        mask.apply_fibers(HashMap::new());
+    }
 
     let mut moves = generate_moves(objects, settings, process)?;
 
