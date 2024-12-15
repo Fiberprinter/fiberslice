@@ -83,11 +83,11 @@ pub fn slice(
 
     generate_mask_moves(&mut masks, settings, process)?;
 
-    combine_mask_moves(&mut objects, masks);
-
     for mask in masks.iter_mut() {
         mask.apply_fibers(HashMap::new());
     }
+
+    combine_mask_moves(&mut objects, masks);
 
     let mut moves = generate_moves(objects, settings, process)?;
 
