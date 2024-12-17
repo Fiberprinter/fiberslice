@@ -1,6 +1,7 @@
 mod settings;
 
 use command_pass::{CommandPass, OptimizePass, SlowDownLayerPass};
+use dispatcher::dispatch_moves;
 use glam::{Vec3, Vec4};
 use mask::ObjectMask;
 use plotter::{convert_objects_into_moves, polygon_operations::PolygonOperations};
@@ -14,8 +15,8 @@ use tower::create_towers;
 mod calculation;
 mod command_pass;
 mod converter;
+mod dispatcher;
 mod error;
-mod fiber;
 mod mask;
 mod optimizer;
 mod plotter;
@@ -79,6 +80,17 @@ pub fn slice(
     });
 
     generate_mask_moves(&mut masks, settings, process)?;
+
+    masks.iter_mut().for_each(|mask| {
+        let settings = mask
+            .mask_settings()
+            .clone()
+            .combine_settings(settings.clone());
+
+        mask.layers.iter_mut().for_each(|layer| {
+            dispatch_moves(&mut layer.chains, &settings);
+        });
+    });
 
     combine_mask_moves(&mut objects, masks);
 
@@ -484,8 +496,6 @@ impl MovePrintType {
 pub enum MoveType {
     WithFiber(MovePrintType),
     WithoutFiber(MovePrintType),
-    StartFiber,
-    EndFiber,
     ///Standard travel moves without extrusion
     Travel,
 }

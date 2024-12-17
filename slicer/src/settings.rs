@@ -789,8 +789,6 @@ impl MovementParameter {
             MoveType::WithoutFiber(move_print_type) => {
                 self.get_value_for_movement_print_type(move_print_type)
             }
-            MoveType::StartFiber => todo!(),
-            MoveType::EndFiber => todo!(),
             MoveType::Travel => todo!(),
         }
     }
