@@ -4,6 +4,7 @@ use crate::{MoveChain, Settings};
 
 pub fn dispatch_moves(chains: &mut Vec<MoveChain>, settings: &Settings) {
     let mut traces = 0.0;
+    let mut fiber_traces = 0.0;
 
     for chain in chains.iter_mut() {
         let start = chain.start_point;
@@ -12,7 +13,7 @@ pub fn dispatch_moves(chains: &mut Vec<MoveChain>, settings: &Settings) {
             let distance = mov.end.euclidean_distance(&start);
 
             match mov.move_type {
-                crate::MoveType::WithFiber(move_print_type) => {}
+                crate::MoveType::WithFiber(move_print_type) => fiber_traces += distance,
                 crate::MoveType::WithoutFiber(move_print_type) => traces += distance,
                 crate::MoveType::Travel => todo!(),
             }
