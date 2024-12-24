@@ -1,7 +1,7 @@
 mod settings;
 
 use command_pass::{CommandPass, OptimizePass, SlowDownLayerPass};
-use dispatcher::dispatch_moves;
+use dispatcher::dispatch_fiber_moves;
 use glam::{Vec3, Vec4};
 use mask::ObjectMask;
 use plotter::{convert_objects_into_moves, polygon_operations::PolygonOperations};
@@ -88,7 +88,7 @@ pub fn slice(
             .combine_settings(settings.clone());
 
         mask.layers.iter_mut().for_each(|layer| {
-            dispatch_moves(&mut layer.chains, &settings);
+            dispatch_fiber_moves(&mut layer.chains, &settings);
         });
     });
 
