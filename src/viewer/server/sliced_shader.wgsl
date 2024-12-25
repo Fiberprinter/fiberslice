@@ -27,14 +27,14 @@ struct Color {
 @group(3) @binding(0)
 var<uniform> color: Color;
 
-struct ToolpathContext {
+struct GPUTraceContext {
     visibility: u32,
     min_layer: u32,
     max_layer: u32,
 };
 
 @group(4) @binding(0)
-var<uniform> context: ToolpathContext; 
+var<uniform> context: GPUTraceContext; 
 
 struct VertexInput {
     @location(0) position: vec3<f32>,
@@ -58,6 +58,7 @@ fn vs_main(
 ) -> VertexOutput {
     var out: VertexOutput;
 
+    /*
     if (in.print_type & 0x01) == 0x01 {
         if (context.visibility & 0x01) == 0 {
             return out;
@@ -69,6 +70,7 @@ fn vs_main(
             return out;
         }
     }
+    */
 
     if (in.print_type & context.visibility) > 0 && in.layer >= context.min_layer && in.layer <= context.max_layer 
     {
@@ -80,6 +82,15 @@ fn vs_main(
         out.camera_view_pos = camera.view_pos;
         out.color = in.color;
     }
+    
+
+    out.world_normal = in.normal;
+    var pos = transform.matrix * vec4<f32>(in.position, 1.0);
+
+    out.world_position = pos.xyz;
+    out.clip_position = camera.view_proj * pos;
+    out.camera_view_pos = camera.view_pos;
+    out.color = in.color;
 
     return out;
 }

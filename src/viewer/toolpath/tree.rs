@@ -11,17 +11,17 @@ use crate::{
         interact::InteractiveModel,
     },
     prelude::LockModel,
-    render::{model::Model, Renderable},
+    render::{model::Model, Renderable, Vertex},
 };
 
-use super::{mesh::TraceHitbox, vertex::ToolpathVertex};
+use super::{mesh::TraceHitbox, vertex::TraceVertex};
 
 #[derive(Debug)]
-pub enum ToolpathTree {
+pub enum TraceTree {
     Root {
-        model: LockModel<ToolpathVertex>,
-        travel_model: LockModel<ToolpathVertex>,
-        fiber_model: LockModel<ToolpathVertex>,
+        model: LockModel<TraceVertex>,
+        fiber_model: LockModel<TraceVertex>,
+        travel_model: LockModel<Vertex>,
         bounding_box: RwLock<BoundingBox>,
         children: Vec<Arc<Self>>,
         size: BufferAddress,
@@ -47,7 +47,7 @@ pub enum ToolpathTree {
     },
 }
 
-impl ToolpathTree {
+impl TraceTree {
     pub fn create_root() -> Self {
         Self::Root {
             model: LockModel::new(Model::create()),
@@ -71,10 +71,15 @@ impl ToolpathTree {
         }
     }
 
-    pub fn create_fiber(offset: BufferAddress, start: Vec3, end: Vec3) -> Self {
+    pub fn create_fiber(
+        offset: BufferAddress,
+        size: BufferAddress,
+        start: Vec3,
+        end: Vec3,
+    ) -> Self {
         Self::Fiber {
             offset,
-            size: 2,
+            size,
             start: RwLock::new(start),
             end: RwLock::new(end),
         }
@@ -147,12 +152,7 @@ impl ToolpathTree {
         }
     }
 
-    pub fn awaken(
-        &mut self,
-        data: &[ToolpathVertex],
-        travel: &[ToolpathVertex],
-        fiber: &[ToolpathVertex],
-    ) {
+    pub fn awaken(&mut self, data: &[TraceVertex], travel: &[Vertex], fiber: &[TraceVertex]) {
         match self {
             Self::Root {
                 model,
@@ -170,15 +170,20 @@ impl ToolpathTree {
         }
     }
 
-    pub fn render_lines<'a>(&'a self, render_pass: &mut wgpu::RenderPass<'a>) {
+    pub fn render_travel<'a>(&'a self, render_pass: &mut wgpu::RenderPass<'a>) {
         match self {
-            Self::Root {
-                fiber_model,
-                travel_model,
-                ..
-            } => {
+            Self::Root { travel_model, .. } => {
                 travel_model.render(render_pass);
-                println!("Rendered fiber");
+            }
+            Self::Travel { .. } => panic!("Cannot render travel"),
+            Self::Fiber { .. } => panic!("Cannot render fiber"),
+            Self::Trace { .. } => panic!("Cannot render path"),
+        }
+    }
+
+    pub fn render_fiber<'a>(&'a self, render_pass: &mut wgpu::RenderPass<'a>) {
+        match self {
+            Self::Root { fiber_model, .. } => {
                 fiber_model.render(render_pass);
             }
             Self::Travel { .. } => panic!("Cannot render travel"),
@@ -188,7 +193,7 @@ impl ToolpathTree {
     }
 }
 
-impl Renderable for ToolpathTree {
+impl Renderable for TraceTree {
     fn render<'a>(&'a self, render_pass: &mut wgpu::RenderPass<'a>) {
         match self {
             Self::Root { model, .. } => model.render(render_pass),
@@ -208,7 +213,7 @@ impl Renderable for ToolpathTree {
     }
 }
 
-impl HitboxNode for ToolpathTree {
+impl HitboxNode for TraceTree {
     fn check_hit(&self, ray: &crate::input::Ray) -> Option<f32> {
         match self {
             Self::Root { bounding_box, .. } => bounding_box.read().check_hit(ray),
@@ -252,7 +257,7 @@ impl HitboxNode for ToolpathTree {
     }
 }
 
-impl InteractiveModel for ToolpathTree {
+impl InteractiveModel for TraceTree {
     fn aabb(&self) -> (Vec3, Vec3) {
         match self {
             Self::Root { bounding_box, .. } => {

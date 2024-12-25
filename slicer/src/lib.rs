@@ -432,6 +432,7 @@ pub struct MoveChain {
 
 #[derive(Serialize, Deserialize, Clone, Copy, Debug, PartialEq, Eq, Hash, EnumCount)]
 pub enum MovePrintType {
+    Unkown,
     ///The top later of infill
     TopSolidInfill,
 
@@ -463,6 +464,7 @@ pub enum MovePrintType {
 impl std::fmt::Display for MovePrintType {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {
+            MovePrintType::Unkown => write!(f, "Unkown"),
             MovePrintType::TopSolidInfill => write!(f, "Top Solid Infill"),
             MovePrintType::SolidInfill => write!(f, "Solid Infill"),
             MovePrintType::Infill => write!(f, "Infill"),
@@ -479,6 +481,7 @@ impl std::fmt::Display for MovePrintType {
 impl MovePrintType {
     pub fn into_color_vec4(&self) -> Vec4 {
         match self {
+            MovePrintType::Unkown => Vec4::new(0.0, 0.0, 0.0, 1.0),
             MovePrintType::TopSolidInfill => Vec4::new(1.0, 0.0, 0.0, 1.0),
             MovePrintType::SolidInfill => Vec4::new(1.0, 0.0, 0.0, 1.0),
             MovePrintType::Infill => Vec4::new(0.0, 0.0, 1.0, 1.0),
@@ -852,6 +855,7 @@ impl MoveChain {
 
 fn update_state(move_type: &MovePrintType, settings: &LayerSettings, cmds: &mut Vec<Command>) {
     match move_type {
+        MovePrintType::Unkown => {}
         MovePrintType::TopSolidInfill => {
             cmds.push(Command::SetState {
                 new_state: StateChange {

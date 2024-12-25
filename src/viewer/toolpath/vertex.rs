@@ -1,10 +1,11 @@
 use bytemuck::Zeroable;
+use slicer::MovePrintType;
 
 use crate::render::Vertex;
 
 #[repr(C)]
 #[derive(Copy, Clone, Debug, bytemuck::Pod, bytemuck::Zeroable)]
-pub struct ToolpathVertex {
+pub struct TraceVertex {
     pub position: [f32; 3],
     pub normal: [f32; 3],
     pub color: [f32; 4],
@@ -12,19 +13,19 @@ pub struct ToolpathVertex {
     pub layer: u32,
 }
 
-impl Default for ToolpathVertex {
+impl Default for TraceVertex {
     fn default() -> Self {
         Self::zeroed()
     }
 }
 
-impl ToolpathVertex {
-    pub fn from_vertex(vertex: Vertex, print_type: u32, layer: u32) -> Self {
-        ToolpathVertex {
+impl TraceVertex {
+    pub fn from_vertex(vertex: Vertex, print_type: MovePrintType, layer: u32) -> Self {
+        Self {
             position: vertex.position,
             normal: vertex.normal,
             color: vertex.color,
-            print_type,
+            print_type: (1 << print_type as u32),
             layer,
         }
     }
@@ -32,7 +33,7 @@ impl ToolpathVertex {
     pub fn desc<'a>() -> wgpu::VertexBufferLayout<'a> {
         use std::mem;
         wgpu::VertexBufferLayout {
-            array_stride: mem::size_of::<ToolpathVertex>() as wgpu::BufferAddress,
+            array_stride: mem::size_of::<TraceVertex>() as wgpu::BufferAddress,
             step_mode: wgpu::VertexStepMode::Vertex,
             attributes: &[
                 wgpu::VertexAttribute {
@@ -70,16 +71,16 @@ impl ToolpathVertex {
 
 #[repr(C)]
 #[derive(Copy, Clone, Debug, bytemuck::Pod, bytemuck::Zeroable)]
-pub struct ToolpathContext {
+pub struct GPUTraceContext {
     pub visibility: u32,
     pub min_layer: u32,
     pub max_layer: u32,
 }
 
-impl Default for ToolpathContext {
+impl Default for GPUTraceContext {
     fn default() -> Self {
-        ToolpathContext {
-            visibility: u32::MAX & !0x03,
+        GPUTraceContext {
+            visibility: u32::MAX,
             min_layer: 0,
             max_layer: u32::MAX,
         }

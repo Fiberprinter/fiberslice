@@ -166,6 +166,16 @@ impl Viewer {
             .map(|toolpath| toolpath.max_layer as u32)
     }
 
+    pub fn set_gpu_travel_visible(&self, visible: bool) {
+        self.sliced_object_server
+            .write()
+            .set_travel_visible(visible);
+    }
+
+    pub fn set_gpu_fiber_visible(&self, visible: bool) {
+        self.sliced_object_server.write().set_fiber_visible(visible);
+    }
+
     pub fn update_gpu_min_layer(&self, layer: u32) {
         self.sliced_object_server.write().update_min_layer(layer);
     }
@@ -291,6 +301,7 @@ impl Viewer {
 
                     render_pass.set_pipeline(&pipelines.line);
                     env_server_read.render_lines(&mut render_pass);
+                    sliced_object_server_read.render_travel(&mut render_pass);
                 }
                 Mode::Prepare => {
                     render_pass.set_pipeline(&pipelines.back_cull);
@@ -323,6 +334,7 @@ impl Viewer {
     pub fn render_secondary(&self, mut render_descriptor: RenderDescriptor, mode: Mode) {
         let model_server_read = self.object_server.read();
         let mask_server_read = self.mask_server.read();
+        let sliced_object_server_read = self.sliced_object_server.read();
 
         if let Some((pipelines, mut render_pass)) = render_descriptor.pass() {
             match mode {
@@ -330,6 +342,8 @@ impl Viewer {
                     render_pass.set_pipeline(&pipelines.back_cull);
                     mask_server_read.render(&mut render_pass);
                     model_server_read.render(&mut render_pass);
+
+                    sliced_object_server_read.render_secondary(&mut render_pass);
                 }
                 Mode::Prepare => {
                     render_pass.set_pipeline(&pipelines.back_cull);
@@ -339,20 +353,6 @@ impl Viewer {
                     render_pass.set_pipeline(&pipelines.back_cull);
                     model_server_read.render(&mut render_pass);
                 }
-            }
-        }
-    }
-
-    pub fn render_lines(&self, mut render_descriptor: RenderDescriptor, mode: Mode) {
-        let sliced_object_server_read = self.sliced_object_server.read();
-
-        if let Some((_pipelines, mut render_pass)) = render_descriptor.pass() {
-            match mode {
-                Mode::Preview => {
-                    // sliced_object_server_read.render_lines(&mut render_pass);
-                }
-                Mode::Prepare => {}
-                Mode::Masks => {}
             }
         }
     }
