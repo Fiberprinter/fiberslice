@@ -8,17 +8,18 @@ use slicer::{convert, MovePrintType, SliceResult};
 use tokio::sync::oneshot::Receiver;
 use tokio::task::JoinHandle;
 use wgpu::util::DeviceExt;
+use wgpu::PrimitiveTopology;
 
 use crate::input::hitbox::HitboxRoot;
 use crate::render::model::ModelColorUniform;
 use crate::render::{self, PipelineBuilder, Renderable};
-use crate::viewer::toolpath::vertex::{ToolpathContext, ToolpathVertex};
+use crate::viewer::toolpath::vertex::{GPUTraceContext, TraceVertex};
 use crate::viewer::toolpath::SlicedObject;
 use crate::viewer::RenderServer;
 use crate::QUEUE;
 use crate::{prelude::WgpuContext, GlobalState, RootEvent};
 
-use crate::viewer::toolpath::tree::ToolpathTree;
+use crate::viewer::toolpath::tree::TraceTree;
 
 // const MAIN_LOADED_TOOLPATH: &str = "main"; // HACK: This is a solution to ease the dev when only one toolpath is loaded which is the only supported(for now)
 
@@ -36,13 +37,17 @@ pub type QueuedSlicedObject = (Receiver<(SlicedObject, Arc<Process>)>, JoinHandl
 pub struct SlicedObjectServer {
     queued: Option<QueuedSlicedObject>,
 
-    pipeline: wgpu::RenderPipeline,
+    trace_pipeline: wgpu::RenderPipeline,
+    travel_pipeline: wgpu::RenderPipeline,
 
     sliced_object: Option<SlicedObject>,
-    hitbox: HitboxRoot<ToolpathTree>,
+    hitbox: HitboxRoot<TraceTree>,
+
+    travel_visible: bool,
+    fiber_visible: bool,
 
     toolpath_context_buffer: wgpu::Buffer,
-    toolpath_context: ToolpathContext,
+    toolpath_context: GPUTraceContext,
     toolpath_context_bind_group: wgpu::BindGroup,
 
     color: [f32; 4],
@@ -52,7 +57,7 @@ pub struct SlicedObjectServer {
 
 impl RenderServer for SlicedObjectServer {
     fn instance(context: &WgpuContext) -> Self {
-        let toolpath_context = ToolpathContext::default();
+        let toolpath_context = GPUTraceContext::default();
 
         let toolpath_context_buffer =
             context
@@ -132,38 +137,44 @@ impl RenderServer for SlicedObjectServer {
                 label: None,
             });
 
-        let pipeline = PipelineBuilder::new(context.device.clone())
-            .with_primitive(wgpu::PrimitiveState {
-                topology: wgpu::PrimitiveTopology::TriangleList,
-                strip_index_format: None,
-                front_face: wgpu::FrontFace::Cw,
-                cull_mode: Some(wgpu::Face::Back),
-                // Requires Features::NON_FILL_POLYGON_MODE
-                polygon_mode: wgpu::PolygonMode::Fill,
-                // Requires Features::DEPTH_CLIP_CONTROL
-                unclipped_depth: false,
-                // Requires Features::CONSERVATIVE_RASTERIZATION
-                conservative: false,
-            })
-            .build(
-                "Toolpath Render Pipeline",
-                include_str!("sliced_shader.wgsl"),
-                &[
-                    &context.camera_bind_group_layout,
-                    &context.light_bind_group_layout,
-                    &context.transform_bind_group_layout,
-                    &color_bind_group_layout,
-                    &toolpath_bind_group_layout,
-                ],
-                &[ToolpathVertex::desc()],
-                context.surface_format,
-            );
+        let create_pipeline = |topology: PrimitiveTopology| {
+            PipelineBuilder::new(context.device.clone())
+                .with_primitive(wgpu::PrimitiveState {
+                    topology,
+                    strip_index_format: None,
+                    front_face: wgpu::FrontFace::Cw,
+                    cull_mode: Some(wgpu::Face::Back),
+                    // Requires Features::NON_FILL_POLYGON_MODE
+                    polygon_mode: wgpu::PolygonMode::Fill,
+                    // Requires Features::DEPTH_CLIP_CONTROL
+                    unclipped_depth: false,
+                    // Requires Features::CONSERVATIVE_RASTERIZATION
+                    conservative: false,
+                })
+                .build(
+                    "Toolpath Render Pipeline",
+                    include_str!("sliced_shader.wgsl"),
+                    &[
+                        &context.camera_bind_group_layout,
+                        &context.light_bind_group_layout,
+                        &context.transform_bind_group_layout,
+                        &color_bind_group_layout,
+                        &toolpath_bind_group_layout,
+                    ],
+                    &[TraceVertex::desc()],
+                    context.surface_format,
+                )
+        };
 
         Self {
             queued: None,
             sliced_object: None,
             hitbox: HitboxRoot::root(),
-            pipeline,
+            trace_pipeline: create_pipeline(PrimitiveTopology::TriangleList),
+            travel_pipeline: create_pipeline(PrimitiveTopology::LineList),
+
+            travel_visible: false,
+            fiber_visible: true,
 
             toolpath_context,
             toolpath_context_bind_group,
@@ -180,13 +191,26 @@ impl RenderServer for SlicedObjectServer {
             render_pass.set_bind_group(3, &self.color_bind_group, &[]);
             render_pass.set_bind_group(4, &self.toolpath_context_bind_group, &[]);
 
-            render_pass.set_pipeline(&self.pipeline);
+            render_pass.set_pipeline(&self.trace_pipeline);
             toolpath.model.render_without_color(render_pass);
+
+            render_pass.set_pipeline(&self.trace_pipeline);
+            if self.fiber_visible {
+                toolpath.model.render_fiber(render_pass);
+            }
         }
     }
 }
 
 impl SlicedObjectServer {
+    pub fn render_travel<'a>(&'a self, render_pass: &mut wgpu::RenderPass<'a>) {
+        if let Some(toolpath) = self.sliced_object.as_ref() {
+            if self.travel_visible {
+                toolpath.model.render_travel(render_pass);
+            }
+        }
+    }
+
     pub fn load_from_slice_result(&mut self, slice_result: SliceResult, process: Arc<Process>) {
         let (tx, rx) = tokio::sync::oneshot::channel();
 
@@ -313,6 +337,14 @@ impl SlicedObjectServer {
         );
     }
 
+    pub fn set_travel_visible(&mut self, visible: bool) {
+        self.travel_visible = visible;
+    }
+
+    pub fn set_fiber_visible(&mut self, visible: bool) {
+        self.fiber_visible = visible;
+    }
+
     pub fn update_max_layer(&mut self, max: u32) {
         self.toolpath_context.max_layer = max;
 
@@ -330,7 +362,7 @@ impl SlicedObjectServer {
         self.sliced_object.as_ref()
     }
 
-    pub fn check_hit(&self, ray: &crate::input::Ray, level: usize) -> Option<Arc<ToolpathTree>> {
+    pub fn check_hit(&self, ray: &crate::input::Ray, level: usize) -> Option<Arc<TraceTree>> {
         self.hitbox.check_hit(ray, level, false)
     }
 }

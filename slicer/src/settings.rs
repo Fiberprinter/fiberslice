@@ -795,6 +795,7 @@ impl MovementParameter {
 
     fn get_value_for_movement_print_type(&self, move_type: &MovePrintType) -> f32 {
         match move_type {
+            MovePrintType::Unkown => self.solid_top_infill,
             MovePrintType::TopSolidInfill => self.solid_top_infill,
             MovePrintType::SolidInfill => self.solid_infill,
             MovePrintType::Infill => self.infill,
