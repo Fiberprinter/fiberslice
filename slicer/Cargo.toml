@@ -18,6 +18,7 @@ serde = "1.0.210"
 
 strum = "0.26"
 strum_macros = "0.26"
+log = "0.4.21"
 
 
 glam = "0.29.0"

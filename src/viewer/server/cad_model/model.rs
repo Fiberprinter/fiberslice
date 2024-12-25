@@ -2,11 +2,7 @@ use core::f32;
 use std::{collections::HashMap, path::Path, sync::Arc};
 
 use glam::{vec3, Mat4, Quat, Vec3, Vec3Swizzles};
-use shared::{
-    loader::{LoadError, Loader},
-    object::ObjectMesh,
-    process::Process,
-};
+use shared::{loader::Loader, object::ObjectMesh};
 
 use slicer::Settings;
 use tokio::{sync::oneshot::error::TryRecvError, task::JoinHandle};

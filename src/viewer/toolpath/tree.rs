@@ -169,6 +169,23 @@ impl ToolpathTree {
             Self::Move { .. } => panic!("Cannot awaken path"),
         }
     }
+
+    pub fn render_lines<'a>(&'a self, render_pass: &mut wgpu::RenderPass<'a>) {
+        match self {
+            Self::Root {
+                fiber_model,
+                travel_model,
+                ..
+            } => {
+                travel_model.render(render_pass);
+                println!("Rendered fiber");
+                fiber_model.render(render_pass);
+            }
+            Self::Travel { .. } => panic!("Cannot render travel"),
+            Self::Fiber { .. } => panic!("Cannot render fiber"),
+            Self::Move { .. } => panic!("Cannot render path"),
+        }
+    }
 }
 
 impl Renderable for ToolpathTree {
@@ -181,8 +198,13 @@ impl Renderable for ToolpathTree {
         }
     }
 
-    fn render_without_color<'a>(&'a self, _render_pass: &mut wgpu::RenderPass<'a>) {
-        panic!("Cannot render without color");
+    fn render_without_color<'a>(&'a self, render_pass: &mut wgpu::RenderPass<'a>) {
+        match self {
+            Self::Root { model, .. } => model.render_without_color(render_pass),
+            Self::Travel { .. } => panic!("Cannot render travel"),
+            Self::Fiber { .. } => panic!("Cannot render fiber"),
+            Self::Move { .. } => panic!("Cannot render path"),
+        }
     }
 }
 

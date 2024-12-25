@@ -89,6 +89,7 @@ pub fn slice(
 
         mask.layers.iter_mut().for_each(|layer| {
             dispatch_fiber_moves(&mut layer.chains, &settings);
+            dispatch_fiber_moves(&mut layer.fixed_chains, &settings);
         });
     });
 

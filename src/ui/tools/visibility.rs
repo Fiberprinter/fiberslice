@@ -11,6 +11,7 @@ use super::{Tool, ToolState};
 pub struct VisibilityToolState {
     enabled: bool,
     anchored: bool,
+    transparency: f32,
     print_types: [bool; MovePrintType::COUNT],
     travel: bool,
     setup: bool,
@@ -21,6 +22,7 @@ impl Default for VisibilityToolState {
         Self {
             enabled: Default::default(),
             anchored: Default::default(),
+            transparency: 1.0,
             print_types: [true; MovePrintType::COUNT],
             travel: false,
             setup: false,
@@ -78,6 +80,7 @@ impl Tool for VisibilityTool<'_> {
                 .show(ctx, |ui| {
                     ui.separator();
 
+                    let old_transparency = self.state.transparency;
                     let old_print_types = self.state.print_types;
                     let old_travel = self.state.travel;
                     let old_setup = self.state.setup;
@@ -131,6 +134,11 @@ impl Tool for VisibilityTool<'_> {
                                 ui.separator();
                             });
 
+                        ui.add(
+                            egui::Slider::new(&mut self.state.transparency, 0.1..=1.0)
+                                .fixed_decimals(1),
+                        );
+
                         ui.horizontal(|ui| {
                             ui.checkbox(
                                 &mut self.state.travel,
@@ -171,6 +179,12 @@ impl Tool for VisibilityTool<'_> {
                         visibility |= if self.state.setup { 0x01 } else { 0 };
 
                         global_state.viewer.update_gpu_visibility(visibility);
+                    }
+
+                    if old_transparency != self.state.transparency {
+                        global_state
+                            .viewer
+                            .set_gpu_transparency(self.state.transparency);
                     }
 
                     ui.separator();

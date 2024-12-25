@@ -11,7 +11,7 @@ use tree::ToolpathTree;
 use vertex::ToolpathVertex;
 use wgpu::BufferAddress;
 
-use crate::geometry::mesh::Mesh;
+use crate::{geometry::mesh::Mesh, render::Vertex};
 
 pub mod mesh;
 pub mod tree;
@@ -77,6 +77,8 @@ impl SlicedObject {
         let mut last_extrusion_profile = None;
 
         let mut move_vertices = Vec::new();
+        let mut travel_vertices = Vec::new();
+        let mut fiber_vertices = Vec::new();
         // let mut travel_vertices = Vec::new();
         // let mut fiber_vertices = Vec::new();
 
@@ -99,8 +101,25 @@ impl SlicedObject {
                         end.y - settings.print_y / 2.0,
                     );
 
-                    // travel_vertices.push(start);
-                    // travel_vertices.push(end);
+                    travel_vertices.push(ToolpathVertex::from_vertex(
+                        Vertex {
+                            position: start.to_array(),
+                            normal: [0.0; 3],
+                            color: [0.0, 0.0, 0.0, 1.0],
+                        },
+                        print_type_bit | bit_representation_travel(),
+                        current_layer as u32,
+                    ));
+
+                    travel_vertices.push(ToolpathVertex::from_vertex(
+                        Vertex {
+                            position: end.to_array(),
+                            normal: [0.0; 3],
+                            color: [0.0, 0.0, 0.0, 1.0],
+                        },
+                        print_type_bit | bit_representation_travel(),
+                        current_layer as u32,
+                    ));
 
                     last_position = end;
                 }
@@ -181,6 +200,26 @@ impl SlicedObject {
                         end.y - settings.print_y / 2.0,
                     );
 
+                    fiber_vertices.push(ToolpathVertex::from_vertex(
+                        Vertex {
+                            position: start.to_array(),
+                            normal: [0.0; 3],
+                            color: [0.0, 0.0, 0.0, 1.0],
+                        },
+                        print_type_bit,
+                        current_layer as u32,
+                    ));
+
+                    fiber_vertices.push(ToolpathVertex::from_vertex(
+                        Vertex {
+                            position: end.to_array(),
+                            normal: [0.0; 3],
+                            color: [0.0, 0.0, 0.0, 1.0],
+                        },
+                        print_type_bit,
+                        current_layer as u32,
+                    ));
+
                     let start_profile =
                         ProfileCross::from_direction(end - start, *thickness, *width)
                             .with_offset(start);
@@ -255,7 +294,7 @@ impl SlicedObject {
             }
         }
 
-        root.awaken(&move_vertices, &[], &[]);
+        root.awaken(&move_vertices, &travel_vertices, &fiber_vertices);
 
         root.update_offset(0);
 

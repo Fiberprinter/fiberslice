@@ -1,4 +1,5 @@
 use geo::{EuclideanDistance, EuclideanLength, Line};
+use log::info;
 
 use crate::{FiberSettings, MoveChain, MoveType, Settings};
 
@@ -6,7 +7,12 @@ pub fn dispatch_fiber_moves(chains: &mut Vec<MoveChain>, settings: &Settings) {
     let mut trace_distance = 0.0;
     let mut fiber_distance = 0.0;
 
+    info!("Dispatching fiber moves");
+
     let fiber_settings = settings.fiber.clone().unwrap_or(FiberSettings::default());
+
+    info!("Fiber settings: {:?}", fiber_settings);
+    info!("Chains: {:?}", chains.len());
 
     for chain in chains.iter_mut() {
         let start = chain.start_point;
@@ -24,6 +30,8 @@ pub fn dispatch_fiber_moves(chains: &mut Vec<MoveChain>, settings: &Settings) {
                             chain.moves[index].move_type = MoveType::WithFiber(
                                 chain.moves[index].move_type.print_type().unwrap(),
                             );
+
+                            info!("Fiber move: {:?}", chain.moves[index].move_type);
 
                             fiber_distance += distance;
                         } else {

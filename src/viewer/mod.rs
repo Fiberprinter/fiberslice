@@ -180,6 +180,12 @@ impl Viewer {
             .update_visibility(visibility);
     }
 
+    pub fn set_gpu_transparency(&self, transparency: f32) {
+        self.sliced_object_server
+            .write()
+            .set_transparency(transparency);
+    }
+
     pub fn already_sliced(&self) -> bool {
         self.sliced_object_server.read().get_sliced().is_some()
     }
@@ -314,7 +320,7 @@ impl Viewer {
         }
     }
 
-    pub fn render_widgets(&self, mut render_descriptor: RenderDescriptor, mode: Mode) {
+    pub fn render_secondary(&self, mut render_descriptor: RenderDescriptor, mode: Mode) {
         let model_server_read = self.object_server.read();
         let mask_server_read = self.mask_server.read();
 
@@ -333,6 +339,20 @@ impl Viewer {
                     render_pass.set_pipeline(&pipelines.back_cull);
                     model_server_read.render(&mut render_pass);
                 }
+            }
+        }
+    }
+
+    pub fn render_lines(&self, mut render_descriptor: RenderDescriptor, mode: Mode) {
+        let sliced_object_server_read = self.sliced_object_server.read();
+
+        if let Some((_pipelines, mut render_pass)) = render_descriptor.pass() {
+            match mode {
+                Mode::Preview => {
+                    // sliced_object_server_read.render_lines(&mut render_pass);
+                }
+                Mode::Prepare => {}
+                Mode::Masks => {}
             }
         }
     }
