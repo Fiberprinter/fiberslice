@@ -1,4 +1,5 @@
 use glam::{Vec3, Vec4};
+use slicer::TraceType;
 
 use crate::{
     geometry::{
@@ -8,6 +9,121 @@ use crate::{
     input::{hitbox::Hitbox, Ray},
     render::Vertex,
 };
+
+use super::{bit_representation, bit_representation_setup, vertex::TraceVertex};
+
+pub struct TraceMesher {
+    current_layer: usize,
+    current_type: Option<TraceType>,
+    color: Vec4,
+    last_cross_section: Option<TraceCrossSection>,
+    vertices: Vec<TraceVertex>,
+}
+
+impl TraceMesher {
+    pub fn new() -> Self {
+        Self {
+            current_layer: 0,
+            current_type: None,
+            color: Vec4::new(0.0, 0.0, 0.0, 1.0),
+            last_cross_section: None,
+            vertices: Vec::new(),
+        }
+    }
+
+    pub fn set_current_layer(&mut self, layer: usize) {
+        self.current_layer = layer;
+    }
+
+    pub fn set_type(&mut self, r#type: TraceType) {
+        self.current_type = Some(r#type);
+    }
+
+    pub fn set_color(&mut self, color: Vec4) {
+        self.color = color;
+    }
+
+    pub fn next(
+        &mut self,
+        start: Vec3,
+        end: Vec3,
+        horizontal: f32,
+        vertical: f32,
+    ) -> (usize, TraceHitbox) {
+        let context_bits = match self.current_type {
+            Some(ty) => bit_representation(&ty),
+            None => bit_representation_setup(),
+        };
+
+        let start_profile =
+            TraceCrossSection::from_direction(end - start, horizontal, vertical).with_offset(start);
+
+        let end_profile =
+            TraceCrossSection::from_direction(end - start, horizontal, vertical).with_offset(end);
+
+        let mesh = TraceMesh::from_profiles(start_profile, end_profile).with_color(self.color);
+
+        if let Some(last_extrusion_profile) = self.last_cross_section {
+            let connection =
+                TraceConnectionMesh::from_profiles(last_extrusion_profile, start_profile)
+                    .with_color(self.color);
+
+            let connection_vertices = connection
+                .to_triangle_vertices()
+                .into_iter()
+                .map(|v| TraceVertex::from_vertex(v, context_bits, self.current_layer as u32));
+
+            self.vertices.extend(connection_vertices);
+        } else {
+            let mesh = TraceCrossSectionMesh::from_profile(start_profile).with_color(self.color);
+
+            let vertices = mesh
+                .to_triangle_vertices_flipped()
+                .into_iter()
+                .map(|v| TraceVertex::from_vertex(v, context_bits, self.current_layer as u32));
+
+            self.vertices.extend(vertices);
+        }
+
+        self.last_cross_section = Some(end_profile);
+
+        let toolpath_vertices = mesh
+            .to_triangle_vertices()
+            .into_iter()
+            .map(|v| TraceVertex::from_vertex(v, context_bits, self.current_layer as u32));
+
+        let offset = self.vertices.len();
+
+        self.vertices.extend(toolpath_vertices);
+
+        (offset, TraceHitbox::from(mesh))
+    }
+
+    pub fn finish_chain(&mut self) {
+        let context_bits = match self.current_type {
+            Some(ty) => bit_representation(&ty),
+            None => bit_representation_setup(),
+        };
+
+        if let Some(last_extrusion_profile) = self.last_cross_section {
+            let mesh =
+                TraceCrossSectionMesh::from_profile(last_extrusion_profile).with_color(self.color);
+
+            let vertices = mesh
+                .to_triangle_vertices()
+                .into_iter()
+                .map(|v| TraceVertex::from_vertex(v, context_bits, self.current_layer as u32));
+
+            self.vertices.extend(vertices);
+        }
+
+        self.last_cross_section = None;
+    }
+
+    pub fn finish(self) -> Vec<TraceVertex> {
+        self.vertices
+    }
+}
 
 #[derive(Debug, Clone, Copy)]
 pub struct TraceCrossSection {
@@ -154,10 +270,10 @@ impl TraceMesh {
     }
 }
 
-pub const MOVE_MESH_VERTICES: usize = 24;
+pub const TRACE_MESH_VERTICES: usize = 24;
 
-impl Mesh<MOVE_MESH_VERTICES> for TraceMesh {
-    fn to_triangle_vertices(&self) -> [Vertex; MOVE_MESH_VERTICES] {
+impl Mesh<TRACE_MESH_VERTICES> for TraceMesh {
+    fn to_triangle_vertices(&self) -> [Vertex; TRACE_MESH_VERTICES] {
         construct_triangle_vertices(
             [
                 // asdasd

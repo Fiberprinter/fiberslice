@@ -431,7 +431,7 @@ pub struct MoveChain {
 }
 
 #[derive(Serialize, Deserialize, Clone, Copy, Debug, PartialEq, Eq, Hash, EnumCount)]
-pub enum MovePrintType {
+pub enum TraceType {
     ///The top later of infill
     TopSolidInfill,
 
@@ -460,34 +460,34 @@ pub enum MovePrintType {
     Support,
 }
 
-impl std::fmt::Display for MovePrintType {
+impl std::fmt::Display for TraceType {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {
-            MovePrintType::TopSolidInfill => write!(f, "Top Solid Infill"),
-            MovePrintType::SolidInfill => write!(f, "Solid Infill"),
-            MovePrintType::Infill => write!(f, "Infill"),
-            MovePrintType::WallOuter => write!(f, "Wall Outer"),
-            MovePrintType::WallInner => write!(f, "Wall Inner"),
-            MovePrintType::InteriorWallOuter => write!(f, "Wall Inner"),
-            MovePrintType::InteriorWallInner => write!(f, "Interior Inner Perimeter"),
-            MovePrintType::Bridging => write!(f, "Bridging"),
-            MovePrintType::Support => write!(f, "Support"),
+            TraceType::TopSolidInfill => write!(f, "Top Solid Infill"),
+            TraceType::SolidInfill => write!(f, "Solid Infill"),
+            TraceType::Infill => write!(f, "Infill"),
+            TraceType::WallOuter => write!(f, "Wall Outer"),
+            TraceType::WallInner => write!(f, "Wall Inner"),
+            TraceType::InteriorWallOuter => write!(f, "Wall Inner"),
+            TraceType::InteriorWallInner => write!(f, "Interior Inner Perimeter"),
+            TraceType::Bridging => write!(f, "Bridging"),
+            TraceType::Support => write!(f, "Support"),
         }
     }
 }
 
-impl MovePrintType {
+impl TraceType {
     pub fn into_color_vec4(&self) -> Vec4 {
         match self {
-            MovePrintType::TopSolidInfill => Vec4::new(1.0, 0.0, 0.0, 1.0),
-            MovePrintType::SolidInfill => Vec4::new(1.0, 0.0, 0.0, 1.0),
-            MovePrintType::Infill => Vec4::new(0.0, 0.0, 1.0, 1.0),
-            MovePrintType::WallOuter => Vec4::new(1.0, 1.0, 0.0, 1.0),
-            MovePrintType::WallInner => Vec4::new(1.0, 1.0, 0.0, 1.0),
-            MovePrintType::InteriorWallOuter => Vec4::new(1.0, 1.0, 0.0, 1.0),
-            MovePrintType::InteriorWallInner => Vec4::new(1.0, 1.0, 0.0, 1.0),
-            MovePrintType::Bridging => Vec4::new(0.0, 1.0, 1.0, 1.0),
-            MovePrintType::Support => Vec4::new(1.0, 1.0, 0.0, 1.0),
+            TraceType::TopSolidInfill => Vec4::new(1.0, 0.0, 0.0, 1.0),
+            TraceType::SolidInfill => Vec4::new(1.0, 0.0, 0.0, 1.0),
+            TraceType::Infill => Vec4::new(0.0, 0.0, 1.0, 1.0),
+            TraceType::WallOuter => Vec4::new(1.0, 1.0, 0.0, 1.0),
+            TraceType::WallInner => Vec4::new(1.0, 1.0, 0.0, 1.0),
+            TraceType::InteriorWallOuter => Vec4::new(1.0, 1.0, 0.0, 1.0),
+            TraceType::InteriorWallInner => Vec4::new(1.0, 1.0, 0.0, 1.0),
+            TraceType::Bridging => Vec4::new(0.0, 1.0, 1.0, 1.0),
+            TraceType::Support => Vec4::new(1.0, 1.0, 0.0, 1.0),
         }
     }
 }
@@ -495,14 +495,14 @@ impl MovePrintType {
 ///Types of Moves
 #[derive(Serialize, Deserialize, Clone, Copy, Debug, PartialEq)]
 pub enum MoveType {
-    WithFiber(MovePrintType),
-    WithoutFiber(MovePrintType),
+    WithFiber(TraceType),
+    WithoutFiber(TraceType),
     ///Standard travel moves without extrusion
     Travel,
 }
 
 impl MoveType {
-    pub fn from_type(print_type: MovePrintType, fiber: bool) -> Self {
+    pub fn from_type(print_type: TraceType, fiber: bool) -> Self {
         if fiber {
             MoveType::WithFiber(print_type)
         } else {
@@ -510,7 +510,7 @@ impl MoveType {
         }
     }
 
-    pub fn print_type(&self) -> Option<MovePrintType> {
+    pub fn print_type(&self) -> Option<TraceType> {
         match self {
             MoveType::WithFiber(print_type) => Some(*print_type),
             MoveType::WithoutFiber(print_type) => Some(*print_type),
@@ -603,7 +603,7 @@ pub enum Command {
     },
     ChangeType {
         ///The new print type to change to
-        print_type: MovePrintType,
+        print_type: TraceType,
     },
     ///Used in optimization , should be optimized out
     NoAction,
@@ -850,9 +850,9 @@ impl MoveChain {
     }
 }
 
-fn update_state(move_type: &MovePrintType, settings: &LayerSettings, cmds: &mut Vec<Command>) {
+fn update_state(move_type: &TraceType, settings: &LayerSettings, cmds: &mut Vec<Command>) {
     match move_type {
-        MovePrintType::TopSolidInfill => {
+        TraceType::TopSolidInfill => {
             cmds.push(Command::SetState {
                 new_state: StateChange {
                     bed_temp: None,
@@ -864,7 +864,7 @@ fn update_state(move_type: &MovePrintType, settings: &LayerSettings, cmds: &mut 
                 },
             });
         }
-        MovePrintType::SolidInfill => {
+        TraceType::SolidInfill => {
             cmds.push(Command::SetState {
                 new_state: StateChange {
                     bed_temp: None,
@@ -876,7 +876,7 @@ fn update_state(move_type: &MovePrintType, settings: &LayerSettings, cmds: &mut 
                 },
             });
         }
-        MovePrintType::Infill => {
+        TraceType::Infill => {
             cmds.push(Command::SetState {
                 new_state: StateChange {
                     bed_temp: None,
@@ -888,7 +888,7 @@ fn update_state(move_type: &MovePrintType, settings: &LayerSettings, cmds: &mut 
                 },
             });
         }
-        MovePrintType::Bridging => {
+        TraceType::Bridging => {
             cmds.push(Command::SetState {
                 new_state: StateChange {
                     bed_temp: None,
@@ -900,7 +900,7 @@ fn update_state(move_type: &MovePrintType, settings: &LayerSettings, cmds: &mut 
                 },
             });
         }
-        MovePrintType::WallOuter => {
+        TraceType::WallOuter => {
             cmds.push(Command::SetState {
                 new_state: StateChange {
                     bed_temp: None,
@@ -912,7 +912,7 @@ fn update_state(move_type: &MovePrintType, settings: &LayerSettings, cmds: &mut 
                 },
             });
         }
-        MovePrintType::InteriorWallOuter => {
+        TraceType::InteriorWallOuter => {
             cmds.push(Command::SetState {
                 new_state: StateChange {
                     bed_temp: None,
@@ -924,7 +924,7 @@ fn update_state(move_type: &MovePrintType, settings: &LayerSettings, cmds: &mut 
                 },
             });
         }
-        MovePrintType::WallInner => {
+        TraceType::WallInner => {
             cmds.push(Command::SetState {
                 new_state: StateChange {
                     bed_temp: None,
@@ -936,7 +936,7 @@ fn update_state(move_type: &MovePrintType, settings: &LayerSettings, cmds: &mut 
                 },
             });
         }
-        MovePrintType::InteriorWallInner => {
+        TraceType::InteriorWallInner => {
             cmds.push(Command::SetState {
                 new_state: StateChange {
                     bed_temp: None,
@@ -948,7 +948,7 @@ fn update_state(move_type: &MovePrintType, settings: &LayerSettings, cmds: &mut 
                 },
             });
         }
-        MovePrintType::Support => {
+        TraceType::Support => {
             cmds.push(Command::SetState {
                 new_state: StateChange {
                     bed_temp: None,

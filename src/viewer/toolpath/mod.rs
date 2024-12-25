@@ -2,14 +2,15 @@ use std::{fmt::Debug, sync::Arc};
 
 use egui::ahash::{HashMap, HashMapExt};
 use glam::{Vec3, Vec4};
+use log::info;
 use mesh::{
     TraceConnectionMesh, TraceCrossSection, TraceCrossSectionMesh, TraceHitbox, TraceMesh,
-    MOVE_MESH_VERTICES,
+    TraceMesher, TRACE_MESH_VERTICES,
 };
 use shared::process::Process;
-use slicer::{Command, MovePrintType, StateChange};
-use tree::ToolpathTree;
-use vertex::ToolpathVertex;
+use slicer::{Command, FiberSettings, StateChange, TraceType};
+use tree::TraceTree;
+use vertex::TraceVertex;
 use wgpu::BufferAddress;
 
 use crate::{geometry::mesh::Mesh, render::Vertex};
@@ -33,7 +34,7 @@ pub mod vertex;
 ///
 /// assert_eq!(path_type.bit_representation(), 1);
 ///
-pub fn bit_representation(print_type: &MovePrintType) -> u32 {
+pub fn bit_representation(print_type: &TraceType) -> u32 {
     0x01 << ((*print_type as u32) + 0x02)
 }
 
@@ -48,8 +49,8 @@ pub const fn bit_representation_setup() -> u32 {
 
 #[derive(Debug)]
 pub struct SlicedObject {
-    pub model: Arc<ToolpathTree>,
-    pub count_map: HashMap<MovePrintType, usize>,
+    pub model: Arc<TraceTree>,
+    pub count_map: HashMap<TraceType, usize>,
     pub max_layer: usize,
     pub moves: Vec<Command>,
     pub settings: slicer::Settings,
@@ -73,25 +74,32 @@ impl SlicedObject {
 
         let mut count_map = HashMap::new();
 
-        let mut root = ToolpathTree::create_root();
+        let fiber_diameter = settings
+            .fiber
+            .as_ref()
+            .unwrap_or(&FiberSettings::default())
+            .diameter;
 
-        let mut last_extrusion_profile = None;
+        let mut root = TraceTree::create_root();
 
-        let mut move_vertices = Vec::new();
+        let mut tracer = TraceMesher::new();
+
+        let mut fiber_tracer = TraceMesher::new();
+        fiber_tracer.set_color(Vec4::new(0.0, 0.0, 0.0, 1.0));
+
         let mut travel_vertices = Vec::new();
-        let mut fiber_vertices = Vec::new();
-        // let mut travel_vertices = Vec::new();
-        // let mut fiber_vertices = Vec::new();
 
         for command in commands {
-            let print_type_bit = match current_type {
-                Some(ty) => bit_representation(&ty),
-                None => bit_representation_setup(),
-            };
+            if let Some(ty) = current_type {
+                tracer.set_type(ty);
+            }
+            tracer.set_current_layer(current_layer);
+            tracer.set_color(current_type.unwrap_or(TraceType::Infill).into_color_vec4());
 
-            let color = current_type
-                .unwrap_or(MovePrintType::Infill)
-                .into_color_vec4();
+            if let Some(ty) = current_type {
+                fiber_tracer.set_type(ty);
+            }
+            fiber_tracer.set_current_layer(current_layer);
 
             match command {
                 slicer::Command::MoveTo { end } => {
@@ -102,25 +110,17 @@ impl SlicedObject {
                         end.y - settings.print_y / 2.0,
                     );
 
-                    travel_vertices.push(ToolpathVertex::from_vertex(
-                        Vertex {
-                            position: start.to_array(),
-                            normal: [0.0; 3],
-                            color: [0.0, 0.0, 0.0, 1.0],
-                        },
-                        print_type_bit | bit_representation_travel(),
-                        current_layer as u32,
-                    ));
+                    travel_vertices.push(Vertex {
+                        position: start.to_array(),
+                        normal: [0.0; 3],
+                        color: [0.0, 0.0, 0.0, 1.0],
+                    });
 
-                    travel_vertices.push(ToolpathVertex::from_vertex(
-                        Vertex {
-                            position: end.to_array(),
-                            normal: [0.0; 3],
-                            color: [0.0, 0.0, 0.0, 1.0],
-                        },
-                        print_type_bit | bit_representation_travel(),
-                        current_layer as u32,
-                    ));
+                    travel_vertices.push(Vertex {
+                        position: end.to_array(),
+                        normal: [0.0; 3],
+                        color: [0.0, 0.0, 0.0, 1.0],
+                    });
 
                     last_position = end;
                 }
@@ -141,45 +141,22 @@ impl SlicedObject {
                         end.y - settings.print_y / 2.0,
                     );
 
-                    let start_profile =
-                        TraceCrossSection::from_direction(end - start, *thickness, *width)
-                            .with_offset(start);
+                    if let Some(ty) = current_type {
+                        count_map.entry(ty).and_modify(|e| *e += 1).or_insert(1);
+                    }
 
-                    let end_profile =
-                        TraceCrossSection::from_direction(end - start, *thickness, *width)
-                            .with_offset(end);
+                    let (offset, hitbox) = tracer.next(start, end, *thickness, *width);
 
-                    let mesh =
-                        TraceMesh::from_profiles(start_profile, end_profile).with_color(color);
-
-                    extend_connection_vertices(
-                        last_extrusion_profile,
-                        start_profile,
-                        print_type_bit,
-                        current_layer,
-                        color,
-                        &mut move_vertices,
-                    );
-
-                    last_extrusion_profile = Some(end_profile);
-
-                    let offset = move_vertices.len() as BufferAddress;
-                    let toolpath_vertices = mesh.to_triangle_vertices().into_iter().map(|v| {
-                        ToolpathVertex::from_vertex(v, print_type_bit, current_layer as u32)
-                    });
-
-                    move_vertices.extend(toolpath_vertices);
-
-                    let tree_move = ToolpathTree::create_move(
-                        TraceHitbox::from(mesh),
-                        offset,
-                        MOVE_MESH_VERTICES as BufferAddress,
+                    let tree_move = TraceTree::create_move(
+                        hitbox,
+                        offset as u64,
+                        TRACE_MESH_VERTICES as BufferAddress,
                     );
 
                     root.push(tree_move);
 
                     count_map
-                        .entry(current_type.unwrap_or(MovePrintType::Infill))
+                        .entry(current_type.unwrap_or(TraceType::Infill))
                         .and_modify(|e| *e += 1)
                         .or_insert(1);
 
@@ -202,71 +179,30 @@ impl SlicedObject {
                         end.y - settings.print_y / 2.0,
                     );
 
-                    fiber_vertices.push(ToolpathVertex::from_vertex(
-                        Vertex {
-                            position: start.to_array(),
-                            normal: [0.0; 3],
-                            color: [0.0, 0.0, 0.0, 1.0],
-                        },
-                        print_type_bit,
-                        current_layer as u32,
-                    ));
-
-                    fiber_vertices.push(ToolpathVertex::from_vertex(
-                        Vertex {
-                            position: end.to_array(),
-                            normal: [0.0; 3],
-                            color: [0.0, 0.0, 0.0, 1.0],
-                        },
-                        print_type_bit,
-                        current_layer as u32,
-                    ));
-
-                    let start_profile =
-                        TraceCrossSection::from_direction(end - start, *thickness, *width)
-                            .with_offset(start);
-
-                    let end_profile =
-                        TraceCrossSection::from_direction(end - start, *thickness, *width)
-                            .with_offset(end);
-
-                    let mesh = TraceMesh::from_profiles(
-                        TraceCrossSection::from_direction(end - start, *thickness, *width)
-                            .with_offset(start),
-                        TraceCrossSection::from_direction(end - start, *thickness, *width)
-                            .with_offset(end),
-                    )
-                    .with_color(color);
-
                     if let Some(ty) = current_type {
                         count_map.entry(ty).and_modify(|e| *e += 1).or_insert(1);
                     }
 
-                    extend_connection_vertices(
-                        last_extrusion_profile,
-                        start_profile,
-                        print_type_bit,
-                        current_layer,
-                        color,
-                        &mut move_vertices,
-                    );
+                    let (offset, hitbox) = tracer.next(start, end, *thickness, *width);
 
-                    last_extrusion_profile = Some(end_profile);
-
-                    let offset = move_vertices.len() as BufferAddress;
-                    let single_move_vertices = mesh.to_triangle_vertices().into_iter().map(|v| {
-                        ToolpathVertex::from_vertex(v, print_type_bit, current_layer as u32)
-                    });
-
-                    move_vertices.extend(single_move_vertices);
-
-                    let tree_move = ToolpathTree::create_move(
-                        TraceHitbox::from(mesh),
-                        offset,
-                        MOVE_MESH_VERTICES as BufferAddress,
+                    let tree_move = TraceTree::create_move(
+                        hitbox,
+                        offset as u64,
+                        TRACE_MESH_VERTICES as BufferAddress,
                     );
 
                     root.push(tree_move);
+
+                    let (offset, _) = fiber_tracer.next(start, end, fiber_diameter, fiber_diameter);
+
+                    let fiber = TraceTree::create_fiber(
+                        offset as u64,
+                        TRACE_MESH_VERTICES as BufferAddress,
+                        start,
+                        end,
+                    );
+
+                    root.push(fiber);
 
                     last_position = end;
                 }
@@ -282,22 +218,16 @@ impl SlicedObject {
             }
 
             if !command.needs_filament() {
-                if let Some(last_extrusion_profile) = last_extrusion_profile {
-                    let mesh = TraceCrossSectionMesh::from_profile(last_extrusion_profile)
-                        .with_color(color);
-
-                    let vertices = mesh.to_triangle_vertices().into_iter().map(|v| {
-                        ToolpathVertex::from_vertex(v, print_type_bit, current_layer as u32)
-                    });
-
-                    move_vertices.extend(vertices);
-                }
-
-                last_extrusion_profile = None;
+                tracer.finish_chain();
             }
         }
 
-        root.awaken(&move_vertices, &travel_vertices, &fiber_vertices);
+        let trace_vertices = tracer.finish();
+        let fiber_vertices = fiber_tracer.finish();
+
+        info!("Fiber vertices: {:?}", fiber_vertices);
+
+        root.awaken(&trace_vertices, &travel_vertices, &fiber_vertices);
 
         root.update_offset(0);
 
@@ -321,7 +251,7 @@ fn extend_connection_vertices(
     print_type_bit: u32,
     current_layer: usize,
     color: Vec4,
-    move_vertices: &mut Vec<ToolpathVertex>,
+    move_vertices: &mut Vec<TraceVertex>,
 ) {
     if let Some(last_extrusion_profile) = last_extrusion_profile {
         let connection = TraceConnectionMesh::from_profiles(last_extrusion_profile, start_profile)
@@ -330,7 +260,7 @@ fn extend_connection_vertices(
         let connection_vertices = connection
             .to_triangle_vertices()
             .into_iter()
-            .map(|v| ToolpathVertex::from_vertex(v, print_type_bit, current_layer as u32));
+            .map(|v| TraceVertex::from_vertex(v, print_type_bit, current_layer as u32));
 
         move_vertices.extend(connection_vertices);
     } else {
@@ -339,7 +269,7 @@ fn extend_connection_vertices(
         let vertices = mesh
             .to_triangle_vertices_flipped()
             .into_iter()
-            .map(|v| ToolpathVertex::from_vertex(v, print_type_bit, current_layer as u32));
+            .map(|v| TraceVertex::from_vertex(v, print_type_bit, current_layer as u32));
 
         move_vertices.extend(vertices);
     }

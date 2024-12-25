@@ -9,7 +9,7 @@ use rand::thread_rng;
 use rayon::iter::{IntoParallelRefMutIterator, ParallelIterator};
 
 use crate::settings::LayerSettings;
-use crate::{Move, MoveChain, MovePrintType, MoveType, Slice};
+use crate::{Move, MoveChain, TraceType, MoveType, Slice};
 
 use super::polygon_operations::PolygonOperations;
 
@@ -292,14 +292,14 @@ impl LightningNode {
                     first_chain.moves.push(Move {
                         end: self.location,
                         width,
-                        move_type: MoveType::WithoutFiber(MovePrintType::Infill),
+                        move_type: MoveType::WithoutFiber(TraceType::Infill),
                     });
                 } else {
                     chains.push(MoveChain {
                         moves: vec![Move {
                             end: self.location,
                             width,
-                            move_type: MoveType::WithoutFiber(MovePrintType::Infill),
+                            move_type: MoveType::WithoutFiber(TraceType::Infill),
                         }],
                         start_point: child.location,
                         is_loop: false,

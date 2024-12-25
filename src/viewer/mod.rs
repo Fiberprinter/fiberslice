@@ -6,7 +6,7 @@ use glam::Mat4;
 use log::warn;
 use parking_lot::RwLock;
 use shared::{object::ObjectMesh, process::Process};
-use slicer::{Mask, MovePrintType, Settings, SliceResult};
+use slicer::{Mask, Settings, SliceResult, TraceType};
 use winit::{
     event::{KeyEvent, MouseButton},
     keyboard::{KeyCode, PhysicalKey},
@@ -148,7 +148,7 @@ impl Viewer {
         }
     }
 
-    pub fn sliced_count_map(&self) -> Option<HashMap<MovePrintType, usize>> {
+    pub fn sliced_count_map(&self) -> Option<HashMap<TraceType, usize>> {
         self.sliced_object_server
             .read()
             .get_sliced()
@@ -164,6 +164,14 @@ impl Viewer {
             .read()
             .get_sliced()
             .map(|toolpath| toolpath.max_layer as u32)
+    }
+
+    pub fn enable_travel(&self, opaque: bool) {
+        self.sliced_object_server.write().enable_travel(opaque);
+    }
+
+    pub fn enable_fiber(&self, opaque: bool) {
+        self.sliced_object_server.write().enable_fiber(opaque);
     }
 
     pub fn update_gpu_min_layer(&self, layer: u32) {
@@ -291,6 +299,7 @@ impl Viewer {
 
                     render_pass.set_pipeline(&pipelines.line);
                     env_server_read.render_lines(&mut render_pass);
+                    sliced_object_server_read.render_travel(&mut render_pass);
                 }
                 Mode::Prepare => {
                     render_pass.set_pipeline(&pipelines.back_cull);
@@ -323,6 +332,7 @@ impl Viewer {
     pub fn render_secondary(&self, mut render_descriptor: RenderDescriptor, mode: Mode) {
         let model_server_read = self.object_server.read();
         let mask_server_read = self.mask_server.read();
+        let sliced_object_server_read = self.sliced_object_server.read();
 
         if let Some((pipelines, mut render_pass)) = render_descriptor.pass() {
             match mode {
@@ -330,6 +340,7 @@ impl Viewer {
                     render_pass.set_pipeline(&pipelines.back_cull);
                     mask_server_read.render(&mut render_pass);
                     model_server_read.render(&mut render_pass);
+                    sliced_object_server_read.render_fiber(&mut render_pass);
                 }
                 Mode::Prepare => {
                     render_pass.set_pipeline(&pipelines.back_cull);
@@ -339,20 +350,6 @@ impl Viewer {
                     render_pass.set_pipeline(&pipelines.back_cull);
                     model_server_read.render(&mut render_pass);
                 }
-            }
-        }
-    }
-
-    pub fn render_lines(&self, mut render_descriptor: RenderDescriptor, mode: Mode) {
-        let sliced_object_server_read = self.sliced_object_server.read();
-
-        if let Some((_pipelines, mut render_pass)) = render_descriptor.pass() {
-            match mode {
-                Mode::Preview => {
-                    // sliced_object_server_read.render_lines(&mut render_pass);
-                }
-                Mode::Prepare => {}
-                Mode::Masks => {}
             }
         }
     }

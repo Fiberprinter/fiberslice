@@ -1,7 +1,7 @@
 use serde::{Deserialize, Serialize};
 
 use crate::{
-    error::SlicerErrors, warning::SlicerWarnings, MovePrintType, MoveType, PartialInfillTypes,
+    error::SlicerErrors, warning::SlicerWarnings, TraceType, MoveType, PartialInfillTypes,
     SolidInfillTypes,
 };
 
@@ -793,17 +793,17 @@ impl MovementParameter {
         }
     }
 
-    fn get_value_for_movement_print_type(&self, move_type: &MovePrintType) -> f32 {
+    fn get_value_for_movement_print_type(&self, move_type: &TraceType) -> f32 {
         match move_type {
-            MovePrintType::TopSolidInfill => self.solid_top_infill,
-            MovePrintType::SolidInfill => self.solid_infill,
-            MovePrintType::Infill => self.infill,
-            MovePrintType::WallOuter => self.exterior_surface_perimeter,
-            MovePrintType::WallInner => self.interior_surface_perimeter,
-            MovePrintType::InteriorWallOuter => self.exterior_inner_perimeter,
-            MovePrintType::InteriorWallInner => self.interior_inner_perimeter,
-            MovePrintType::Bridging => self.bridge,
-            MovePrintType::Support => self.support,
+            TraceType::TopSolidInfill => self.solid_top_infill,
+            TraceType::SolidInfill => self.solid_infill,
+            TraceType::Infill => self.infill,
+            TraceType::WallOuter => self.exterior_surface_perimeter,
+            TraceType::WallInner => self.interior_surface_perimeter,
+            TraceType::InteriorWallOuter => self.exterior_inner_perimeter,
+            TraceType::InteriorWallInner => self.interior_inner_perimeter,
+            TraceType::Bridging => self.bridge,
+            TraceType::Support => self.support,
         }
     }
 }

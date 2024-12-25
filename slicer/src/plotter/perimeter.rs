@@ -4,7 +4,7 @@ use geo::*;
 use itertools::Itertools;
 
 use crate::settings::LayerSettings;
-use crate::{Move, MoveChain, MovePrintType, MoveType};
+use crate::{Move, MoveChain, TraceType, MoveType};
 
 use super::polygon_operations::PolygonOperations;
 
@@ -33,9 +33,9 @@ pub fn inset_polygon_recursive(
             .circular_tuple_windows::<(_, _)>()
             .map(|(&_start, &end)| {
                 let move_type = if outer_perimeter {
-                    MoveType::WithoutFiber(MovePrintType::WallOuter)
+                    MoveType::WithoutFiber(TraceType::WallOuter)
                 } else {
-                    MoveType::WithoutFiber(MovePrintType::InteriorWallOuter)
+                    MoveType::WithoutFiber(TraceType::InteriorWallOuter)
                 };
                 Move {
                     end,
@@ -56,9 +56,9 @@ pub fn inset_polygon_recursive(
         for interior in polygon.interiors() {
             let mut moves = vec![];
             let move_type = if outer_perimeter {
-                MoveType::WithoutFiber(MovePrintType::WallInner)
+                MoveType::WithoutFiber(TraceType::WallInner)
             } else {
-                MoveType::WithoutFiber(MovePrintType::InteriorWallInner)
+                MoveType::WithoutFiber(TraceType::InteriorWallInner)
             };
 
             for (&_start, &end) in interior.0.iter().circular_tuple_windows::<(_, _)>() {

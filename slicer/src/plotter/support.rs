@@ -1,6 +1,6 @@
 use geo::MultiPolygon;
 
-use crate::{settings::SupportSettings, MovePrintType, MoveType, Slice};
+use crate::{settings::SupportSettings, TraceType, MoveType, Slice};
 
 use super::{polygon_operations::PolygonOperations, support_linear_fill_polygon};
 
@@ -60,7 +60,7 @@ impl Supporter for Slice {
                     support_linear_fill_polygon(
                         poly,
                         layer_settings,
-                        MoveType::WithoutFiber(MovePrintType::Support),
+                        MoveType::WithoutFiber(TraceType::Support),
                         support_settings.support_spacing,
                         90.0,
                         0.0,

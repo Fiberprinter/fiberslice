@@ -1,6 +1,6 @@
 use crate::settings::LayerSettings;
 use crate::utils::point_y_lerp;
-use crate::{Move, MoveChain, MovePrintType, MoveType, PartialInfillTypes, SolidInfillTypes};
+use crate::{Move, MoveChain, TraceType, MoveType, PartialInfillTypes, SolidInfillTypes};
 
 use super::monotone::get_monotone_sections;
 use super::polygon_operations::PolygonOperations;
@@ -137,7 +137,7 @@ pub fn partial_infill_polygon(
         PartialInfillTypes::Linear => partial_linear_fill_polygon(
             poly,
             settings,
-            MoveType::WithoutFiber(MovePrintType::Infill),
+            MoveType::WithoutFiber(TraceType::Infill),
             settings.extrusion_width.infill / fill_ratio,
             0.0,
             0.0,
@@ -146,7 +146,7 @@ pub fn partial_infill_polygon(
             let mut fill = partial_linear_fill_polygon(
                 poly,
                 settings,
-                MoveType::WithoutFiber(MovePrintType::Infill),
+                MoveType::WithoutFiber(TraceType::Infill),
                 2.0 * settings.extrusion_width.infill / fill_ratio,
                 45.0,
                 0.0,
@@ -154,7 +154,7 @@ pub fn partial_infill_polygon(
             fill.append(&mut partial_linear_fill_polygon(
                 poly,
                 settings,
-                MoveType::WithoutFiber(MovePrintType::Infill),
+                MoveType::WithoutFiber(TraceType::Infill),
                 2.0 * settings.extrusion_width.infill / fill_ratio,
                 135.0,
                 0.0,
@@ -165,7 +165,7 @@ pub fn partial_infill_polygon(
             let mut fill = partial_linear_fill_polygon(
                 poly,
                 settings,
-                MoveType::WithoutFiber(MovePrintType::Infill),
+                MoveType::WithoutFiber(TraceType::Infill),
                 3.0 * settings.extrusion_width.infill / fill_ratio,
                 45.0,
                 0.0,
@@ -173,7 +173,7 @@ pub fn partial_infill_polygon(
             fill.append(&mut partial_linear_fill_polygon(
                 poly,
                 settings,
-                MoveType::WithoutFiber(MovePrintType::Infill),
+                MoveType::WithoutFiber(TraceType::Infill),
                 3.0 * settings.extrusion_width.infill / fill_ratio,
                 45.0 + 60.0,
                 0.0,
@@ -181,7 +181,7 @@ pub fn partial_infill_polygon(
             fill.append(&mut partial_linear_fill_polygon(
                 poly,
                 settings,
-                MoveType::WithoutFiber(MovePrintType::Infill),
+                MoveType::WithoutFiber(TraceType::Infill),
                 3.0 * settings.extrusion_width.infill / fill_ratio,
                 45.0 + 120.0,
                 0.0,
@@ -192,7 +192,7 @@ pub fn partial_infill_polygon(
             let mut fill = partial_linear_fill_polygon(
                 poly,
                 settings,
-                MoveType::WithoutFiber(MovePrintType::Infill),
+                MoveType::WithoutFiber(TraceType::Infill),
                 3.0 * settings.extrusion_width.infill / fill_ratio,
                 45.0,
                 layer_height / std::f32::consts::SQRT_2,
@@ -200,7 +200,7 @@ pub fn partial_infill_polygon(
             fill.append(&mut partial_linear_fill_polygon(
                 poly,
                 settings,
-                MoveType::WithoutFiber(MovePrintType::Infill),
+                MoveType::WithoutFiber(TraceType::Infill),
                 3.0 * settings.extrusion_width.infill / fill_ratio,
                 45.0 + 120.0,
                 layer_height / std::f32::consts::SQRT_2,
@@ -208,7 +208,7 @@ pub fn partial_infill_polygon(
             fill.append(&mut partial_linear_fill_polygon(
                 poly,
                 settings,
-                MoveType::WithoutFiber(MovePrintType::Infill),
+                MoveType::WithoutFiber(TraceType::Infill),
                 3.0 * settings.extrusion_width.infill / fill_ratio,
                 45.0 + 240.0,
                 layer_height / std::f32::consts::SQRT_2,

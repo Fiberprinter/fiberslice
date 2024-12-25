@@ -5,7 +5,7 @@ mod perimeter;
 pub mod polygon_operations;
 pub(crate) mod support;
 
-use crate::{Move, MoveChain, MovePrintType};
+use crate::{Move, MoveChain, TraceType};
 
 use crate::settings::SkirtSettings;
 use crate::utils::point_lerp;
@@ -94,7 +94,7 @@ impl Plotter for Slice {
                 let new_moves = solid_infill_polygon(
                     poly,
                     &self.layer_settings,
-                    MoveType::WithoutFiber(MovePrintType::SolidInfill),
+                    MoveType::WithoutFiber(TraceType::SolidInfill),
                     layer_count,
                     self.get_height(),
                 );
@@ -137,7 +137,7 @@ impl Plotter for Slice {
                 linear_fill_polygon(
                     poly,
                     layer_settings,
-                    MoveType::WithoutFiber(MovePrintType::SolidInfill),
+                    MoveType::WithoutFiber(TraceType::SolidInfill),
                     angle,
                 )
                 .into_iter()
@@ -168,7 +168,7 @@ impl Plotter for Slice {
                 linear_fill_polygon(
                     poly,
                     layer_settings,
-                    MoveType::WithoutFiber(MovePrintType::Bridging),
+                    MoveType::WithoutFiber(TraceType::Bridging),
                     angle,
                 )
                 .into_iter()
@@ -192,7 +192,7 @@ impl Plotter for Slice {
             let new_moves = linear_fill_polygon(
                 poly,
                 &self.layer_settings,
-                MoveType::WithoutFiber(MovePrintType::TopSolidInfill),
+                MoveType::WithoutFiber(TraceType::TopSolidInfill),
                 angle,
             );
 
@@ -227,7 +227,7 @@ impl Plotter for Slice {
 
                 Move {
                     end: bounded_endpoint,
-                    move_type: MoveType::WithoutFiber(MovePrintType::WallOuter),
+                    move_type: MoveType::WithoutFiber(TraceType::WallOuter),
                     width: self
                         .layer_settings
                         .extrusion_width
@@ -278,7 +278,7 @@ impl Plotter for Slice {
                             .circular_tuple_windows::<(_, _)>()
                             .map(|(&_start, &end)| Move {
                                 end,
-                                move_type: MoveType::WithoutFiber(MovePrintType::WallOuter),
+                                move_type: MoveType::WithoutFiber(TraceType::WallOuter),
                                 width: layer_settings.extrusion_width.exterior_surface_perimeter,
                             })
                             .collect();

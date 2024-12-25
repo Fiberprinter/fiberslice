@@ -1,5 +1,5 @@
 use egui::{Color32, FontId, RichText};
-use slicer::MovePrintType;
+use slicer::TraceType;
 use strum::EnumCount;
 use wgpu::Color;
 
@@ -12,9 +12,9 @@ pub struct VisibilityToolState {
     enabled: bool,
     anchored: bool,
     transparency: f32,
-    print_types: [bool; MovePrintType::COUNT],
+    print_types: [bool; TraceType::COUNT],
     travel: bool,
-    setup: bool,
+    fiber: bool,
 }
 
 impl Default for VisibilityToolState {
@@ -23,9 +23,9 @@ impl Default for VisibilityToolState {
             enabled: Default::default(),
             anchored: Default::default(),
             transparency: 1.0,
-            print_types: [true; MovePrintType::COUNT],
+            print_types: [true; TraceType::COUNT],
             travel: false,
-            setup: false,
+            fiber: true,
         }
     }
 }
@@ -83,7 +83,7 @@ impl Tool for VisibilityTool<'_> {
                     let old_transparency = self.state.transparency;
                     let old_print_types = self.state.print_types;
                     let old_travel = self.state.travel;
-                    let old_setup = self.state.setup;
+                    let old_fiber = self.state.fiber;
 
                     if let Some(count_map) = global_state.viewer.sliced_count_map() {
                         egui::CollapsingHeader::new("Print Types")
@@ -151,8 +151,8 @@ impl Tool for VisibilityTool<'_> {
 
                         ui.horizontal(|ui| {
                             ui.checkbox(
-                                &mut self.state.setup,
-                                RichText::new("Setup")
+                                &mut self.state.fiber,
+                                RichText::new("Fiber")
                                     .font(FontId::monospace(15.0))
                                     .strong()
                                     .color(Color32::BLACK),
@@ -160,10 +160,7 @@ impl Tool for VisibilityTool<'_> {
                         });
                     }
 
-                    if old_print_types != self.state.print_types
-                        || old_travel != self.state.travel
-                        || old_setup != self.state.setup
-                    {
+                    if old_print_types != self.state.print_types {
                         let mut visibility = 0;
 
                         for (index, visible) in self.state.print_types.iter().enumerate() {
@@ -172,13 +169,15 @@ impl Tool for VisibilityTool<'_> {
                             }
                         }
 
-                        visibility <<= 2;
-
-                        visibility |= if self.state.travel { 0x02 } else { 0 };
-
-                        visibility |= if self.state.setup { 0x01 } else { 0 };
-
                         global_state.viewer.update_gpu_visibility(visibility);
+                    }
+
+                    if old_travel != self.state.travel {
+                        global_state.viewer.enable_travel(self.state.travel);
+                    }
+
+                    if old_fiber != self.state.fiber {
+                        global_state.viewer.enable_fiber(self.state.fiber);
                     }
 
                     if old_transparency != self.state.transparency {
