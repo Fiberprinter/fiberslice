@@ -6,7 +6,7 @@ pub mod mesh;
 
 pub use r#box::BoundingBox;
 
-use crate::{input::hitbox::Hitbox, render::Vertex, viewer::toolpath::mesh::ProfileCross};
+use crate::{input::hitbox::Hitbox, render::Vertex, viewer::toolpath::mesh::TraceCrossSection};
 
 #[derive(Debug, Clone, Copy)]
 pub struct QuadFace {
@@ -72,12 +72,12 @@ impl Hitbox for QuadFace {
 
 #[derive(Debug, Clone, Copy)]
 pub struct ProfileExtrusion {
-    profile_start: ProfileCross,
-    profile_end: ProfileCross,
+    profile_start: TraceCrossSection,
+    profile_end: TraceCrossSection,
 }
 
 impl ProfileExtrusion {
-    pub fn new(profile_start: ProfileCross, profile_end: ProfileCross) -> Self {
+    pub fn new(profile_start: TraceCrossSection, profile_end: TraceCrossSection) -> Self {
         Self {
             profile_start,
             profile_end,
@@ -112,13 +112,13 @@ impl From<BoundingBox> for SelectBox {
         // box_.expand_point(box_.min + Vec3::new(-2.0, -2.0, -2.0));
 
         let box_ = ProfileExtrusion {
-            profile_start: ProfileCross {
+            profile_start: TraceCrossSection {
                 a: box_.min,
                 c: vec3(box_.max.x, box_.max.y, box_.min.z),
                 b: vec3(box_.min.x, box_.max.y, box_.min.z),
                 d: vec3(box_.max.x, box_.min.y, box_.min.z),
             },
-            profile_end: ProfileCross {
+            profile_end: TraceCrossSection {
                 a: box_.max,
                 c: vec3(box_.min.x, box_.min.y, box_.max.z),
                 b: vec3(box_.min.x, box_.max.y, box_.max.z),

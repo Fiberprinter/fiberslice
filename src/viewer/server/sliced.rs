@@ -11,7 +11,7 @@ use wgpu::util::DeviceExt;
 
 use crate::input::hitbox::HitboxRoot;
 use crate::render::model::ModelColorUniform;
-use crate::render::{self, Renderable};
+use crate::render::{self, PipelineBuilder, Renderable};
 use crate::viewer::toolpath::vertex::{ToolpathContext, ToolpathVertex};
 use crate::viewer::toolpath::SlicedObject;
 use crate::viewer::RenderServer;
@@ -37,7 +37,7 @@ pub struct SlicedObjectServer {
     queued: Option<QueuedSlicedObject>,
 
     pipeline: wgpu::RenderPipeline,
-    pipeline_line: wgpu::RenderPipeline,
+
     sliced_object: Option<SlicedObject>,
     hitbox: HitboxRoot<ToolpathTree>,
 
@@ -132,147 +132,39 @@ impl RenderServer for SlicedObjectServer {
                 label: None,
             });
 
-        let shader = context
-            .device
-            .create_shader_module(wgpu::ShaderModuleDescriptor {
-                label: Some("Toolpath Shader"),
-                source: wgpu::ShaderSource::Wgsl(include_str!("sliced_shader.wgsl").into()),
-            });
-
-        let render_pipeline_layout =
-            context
-                .device
-                .create_pipeline_layout(&wgpu::PipelineLayoutDescriptor {
-                    label: Some("Render Pipeline Layout"),
-                    bind_group_layouts: &[
-                        &context.camera_bind_group_layout,
-                        &context.light_bind_group_layout,
-                        &context.transform_bind_group_layout,
-                        &color_bind_group_layout,
-                        &toolpath_bind_group_layout,
-                    ],
-                    push_constant_ranges: &[],
-                });
-
-        let pipeline = context
-            .device
-            .create_render_pipeline(&wgpu::RenderPipelineDescriptor {
-                label: Some("Render Pipeline"),
-                layout: Some(&render_pipeline_layout),
-                vertex: wgpu::VertexState {
-                    module: &shader,
-                    entry_point: "vs_main",
-                    buffers: &[ToolpathVertex::desc()],
-                    compilation_options: wgpu::PipelineCompilationOptions::default(),
-                },
-                fragment: Some(wgpu::FragmentState {
-                    module: &shader,
-                    entry_point: "fs_main",
-                    targets: &[Some(wgpu::ColorTargetState {
-                        format: context.surface_format,
-                        blend: Some(wgpu::BlendState {
-                            color: wgpu::BlendComponent {
-                                src_factor: wgpu::BlendFactor::SrcAlpha,
-                                dst_factor: wgpu::BlendFactor::OneMinusSrcAlpha,
-                                operation: wgpu::BlendOperation::Add,
-                            },
-                            alpha: wgpu::BlendComponent::OVER,
-                        }),
-
-                        write_mask: wgpu::ColorWrites::ALL,
-                    })],
-                    compilation_options: wgpu::PipelineCompilationOptions::default(),
-                }),
-                primitive: wgpu::PrimitiveState {
-                    topology: wgpu::PrimitiveTopology::TriangleList,
-                    strip_index_format: None,
-                    front_face: wgpu::FrontFace::Cw,
-                    cull_mode: Some(wgpu::Face::Back),
-                    // Requires Features::NON_FILL_POLYGON_MODE
-                    polygon_mode: wgpu::PolygonMode::Fill,
-                    // Requires Features::DEPTH_CLIP_CONTROL
-                    unclipped_depth: false,
-                    // Requires Features::CONSERVATIVE_RASTERIZATION
-                    conservative: false,
-                },
-                depth_stencil: Some(wgpu::DepthStencilState {
-                    format: wgpu::TextureFormat::Depth32Float,
-                    depth_write_enabled: true,
-                    depth_compare: wgpu::CompareFunction::Less,
-                    stencil: wgpu::StencilState::default(),
-                    bias: wgpu::DepthBiasState::default(),
-                }),
-                multisample: wgpu::MultisampleState {
-                    count: 1,
-                    ..Default::default()
-                },
-                multiview: None,
-                cache: None,
-            });
-
-        let pipeline_line =
-            context
-                .device
-                .create_render_pipeline(&wgpu::RenderPipelineDescriptor {
-                    label: Some("Render Pipeline"),
-                    layout: Some(&render_pipeline_layout),
-                    vertex: wgpu::VertexState {
-                        module: &shader,
-                        entry_point: "vs_main",
-                        buffers: &[ToolpathVertex::desc()],
-                        compilation_options: wgpu::PipelineCompilationOptions::default(),
-                    },
-                    fragment: Some(wgpu::FragmentState {
-                        module: &shader,
-                        entry_point: "fs_main",
-                        targets: &[Some(wgpu::ColorTargetState {
-                            format: context.surface_format,
-                            blend: Some(wgpu::BlendState {
-                                color: wgpu::BlendComponent {
-                                    src_factor: wgpu::BlendFactor::SrcAlpha,
-                                    dst_factor: wgpu::BlendFactor::OneMinusSrcAlpha,
-                                    operation: wgpu::BlendOperation::Add,
-                                },
-                                alpha: wgpu::BlendComponent::OVER,
-                            }),
-
-                            write_mask: wgpu::ColorWrites::ALL,
-                        })],
-                        compilation_options: wgpu::PipelineCompilationOptions::default(),
-                    }),
-                    primitive: wgpu::PrimitiveState {
-                        topology: wgpu::PrimitiveTopology::LineList,
-                        strip_index_format: None,
-                        front_face: wgpu::FrontFace::Cw,
-                        cull_mode: Some(wgpu::Face::Back),
-                        // Requires Features::NON_FILL_POLYGON_MODE
-                        polygon_mode: wgpu::PolygonMode::Fill,
-                        // Requires Features::DEPTH_CLIP_CONTROL
-                        unclipped_depth: false,
-                        // Requires Features::CONSERVATIVE_RASTERIZATION
-                        conservative: false,
-                    },
-                    depth_stencil: Some(wgpu::DepthStencilState {
-                        format: wgpu::TextureFormat::Depth32Float,
-                        depth_write_enabled: true,
-                        depth_compare: wgpu::CompareFunction::Less,
-                        stencil: wgpu::StencilState::default(),
-                        bias: wgpu::DepthBiasState::default(),
-                    }),
-                    multisample: wgpu::MultisampleState {
-                        count: 1,
-                        ..Default::default()
-                    },
-                    multiview: None,
-                    cache: None,
-                });
+        let pipeline = PipelineBuilder::new(context.device.clone())
+            .with_primitive(wgpu::PrimitiveState {
+                topology: wgpu::PrimitiveTopology::TriangleList,
+                strip_index_format: None,
+                front_face: wgpu::FrontFace::Cw,
+                cull_mode: Some(wgpu::Face::Back),
+                // Requires Features::NON_FILL_POLYGON_MODE
+                polygon_mode: wgpu::PolygonMode::Fill,
+                // Requires Features::DEPTH_CLIP_CONTROL
+                unclipped_depth: false,
+                // Requires Features::CONSERVATIVE_RASTERIZATION
+                conservative: false,
+            })
+            .build(
+                "Toolpath Render Pipeline",
+                include_str!("sliced_shader.wgsl"),
+                &[
+                    &context.camera_bind_group_layout,
+                    &context.light_bind_group_layout,
+                    &context.transform_bind_group_layout,
+                    &color_bind_group_layout,
+                    &toolpath_bind_group_layout,
+                ],
+                &[ToolpathVertex::desc()],
+                context.surface_format,
+            );
 
         Self {
             queued: None,
             sliced_object: None,
             hitbox: HitboxRoot::root(),
             pipeline,
-            pipeline_line,
+
             toolpath_context,
             toolpath_context_bind_group,
             toolpath_context_buffer,
@@ -290,9 +182,6 @@ impl RenderServer for SlicedObjectServer {
 
             render_pass.set_pipeline(&self.pipeline);
             toolpath.model.render_without_color(render_pass);
-
-            render_pass.set_pipeline(&self.pipeline_line);
-            toolpath.model.render_lines(render_pass);
         }
     }
 }

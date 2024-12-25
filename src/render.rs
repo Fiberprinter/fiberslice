@@ -12,8 +12,12 @@ use crate::{
 
 mod descriptor;
 mod light;
+mod pipeline;
 mod texture;
 mod vertex;
+
+pub use pipeline::DefaultPipelines;
+pub use pipeline::PipelineBuilder;
 
 pub mod model;
 
@@ -70,18 +74,12 @@ impl RenderState {
     }
 }
 
-pub struct Pipelines {
-    pub back_cull: wgpu::RenderPipeline,
-    pub no_cull: wgpu::RenderPipeline,
-    pub line: wgpu::RenderPipeline,
-}
-
 pub struct RenderAdapter {
     multisampled_framebuffer: wgpu::TextureView,
 
     egui_rpass: egui_wgpu_backend::RenderPass,
 
-    pipelines: Pipelines,
+    pipelines: DefaultPipelines,
 
     render_state: RenderState,
 
@@ -188,53 +186,6 @@ impl RenderAdapter {
         global_state
             .viewer
             .render_secondary(descriptor, *global_state.ui_state.mode.read());
-    }
-
-    fn render_lines(
-        &self,
-        encoder: &mut CommandEncoder,
-        texture_view: &wgpu::TextureView,
-        viewport: &Viewport,
-        global_state: &GlobalState<RootEvent>,
-    ) {
-        let rpass_color_attachment = wgpu::RenderPassColorAttachment {
-            view: texture_view,
-            resolve_target: None,
-            ops: wgpu::Operations {
-                load: wgpu::LoadOp::Load,
-                store: wgpu::StoreOp::Store,
-            },
-        };
-
-        let pass_descriptor = wgpu::RenderPassDescriptor {
-            label: Some("Render Pass"),
-            color_attachments: &[Some(rpass_color_attachment)],
-            depth_stencil_attachment: Some(wgpu::RenderPassDepthStencilAttachment {
-                view: &self.render_state.depth_texture_view,
-                depth_ops: Some(wgpu::Operations {
-                    load: wgpu::LoadOp::Clear(1.0),
-                    store: wgpu::StoreOp::Store,
-                }),
-                stencil_ops: None,
-            }),
-            timestamp_writes: None,
-            occlusion_query_set: None,
-        };
-
-        let descriptor = RenderDescriptor {
-            pipelines: &self.pipelines,
-            bind_groups: &[
-                &self.render_state.camera_bind_group,
-                &self.render_state.light_bind_group,
-            ],
-            encoder,
-            viewport,
-            pass_descriptor,
-        };
-
-        global_state
-            .viewer
-            .render_lines(descriptor, *global_state.ui_state.mode.read());
     }
 }
 
@@ -424,26 +375,18 @@ impl<'a> Adapter<'a, RootEvent, (), (), (Option<UiUpdateOutput>, &CameraResult),
             light_bind_group,
         };
 
-        let shader = context
-            .device
-            .create_shader_module(wgpu::ShaderModuleDescriptor {
-                label: Some("Shader"),
-                source: wgpu::ShaderSource::Wgsl(include_str!("render/shader.wgsl").into()),
-            });
-
-        let render_pipeline_layout =
-            context
-                .device
-                .create_pipeline_layout(&wgpu::PipelineLayoutDescriptor {
-                    label: Some("Render Pipeline Layout"),
-                    bind_group_layouts: &[
-                        &context.camera_bind_group_layout,
-                        &context.light_bind_group_layout,
-                        &context.transform_bind_group_layout,
-                        &context.color_bind_group_layout,
-                    ],
-                    push_constant_ranges: &[],
-                });
+        let pipelines = DefaultPipelines::instance(
+            context.device.clone(),
+            include_str!("render/shader.wgsl"),
+            &[
+                &context.camera_bind_group_layout,
+                &context.light_bind_group_layout,
+                &context.transform_bind_group_layout,
+                &context.color_bind_group_layout,
+            ],
+            &[Vertex::desc()],
+            context.surface_format,
+        );
 
         let multisampled_framebuffer = Texture::create_multisampled_framebuffer(
             &context.device,
@@ -468,29 +411,7 @@ impl<'a> Adapter<'a, RootEvent, (), (), (Option<UiUpdateOutput>, &CameraResult),
 
                 egui_rpass,
 
-                pipelines: Pipelines {
-                    back_cull: create_pipline(
-                        context,
-                        &render_pipeline_layout,
-                        &shader,
-                        wgpu::PrimitiveTopology::TriangleList,
-                        Some(wgpu::Face::Back),
-                    ),
-                    no_cull: create_pipline(
-                        context,
-                        &render_pipeline_layout,
-                        &shader,
-                        wgpu::PrimitiveTopology::TriangleList,
-                        None,
-                    ),
-                    line: create_pipline(
-                        context,
-                        &render_pipeline_layout,
-                        &shader,
-                        wgpu::PrimitiveTopology::LineList,
-                        None,
-                    ),
-                },
+                pipelines,
 
                 render_state,
 
@@ -506,68 +427,4 @@ impl<'a> Adapter<'a, RootEvent, (), (), (Option<UiUpdateOutput>, &CameraResult),
     fn get_reader(&self) -> EventReader<RenderEvent> {
         self.event_reader.clone()
     }
-}
-
-pub fn create_pipline(
-    context: &WgpuContext,
-    pipeline_layout: &wgpu::PipelineLayout,
-    shader: &wgpu::ShaderModule,
-    topology: wgpu::PrimitiveTopology,
-    cull_mode: Option<wgpu::Face>,
-) -> wgpu::RenderPipeline {
-    context
-        .device
-        .create_render_pipeline(&wgpu::RenderPipelineDescriptor {
-            label: Some("Render Pipeline"),
-            layout: Some(pipeline_layout),
-            vertex: wgpu::VertexState {
-                module: shader,
-                entry_point: "vs_main",
-                buffers: &[Vertex::desc()],
-                compilation_options: wgpu::PipelineCompilationOptions::default(),
-            },
-            fragment: Some(wgpu::FragmentState {
-                module: shader,
-                entry_point: "fs_main",
-                targets: &[Some(wgpu::ColorTargetState {
-                    format: context.surface_format,
-                    blend: Some(wgpu::BlendState {
-                        color: wgpu::BlendComponent {
-                            src_factor: wgpu::BlendFactor::SrcAlpha,
-                            dst_factor: wgpu::BlendFactor::OneMinusSrcAlpha,
-                            operation: wgpu::BlendOperation::Add,
-                        },
-                        alpha: wgpu::BlendComponent::OVER,
-                    }),
-
-                    write_mask: wgpu::ColorWrites::ALL,
-                })],
-                compilation_options: wgpu::PipelineCompilationOptions::default(),
-            }),
-            primitive: wgpu::PrimitiveState {
-                topology,
-                strip_index_format: None,
-                front_face: wgpu::FrontFace::Cw,
-                cull_mode,
-                // Requires Features::NON_FILL_POLYGON_MODE
-                polygon_mode: wgpu::PolygonMode::Fill,
-                // Requires Features::DEPTH_CLIP_CONTROL
-                unclipped_depth: false,
-                // Requires Features::CONSERVATIVE_RASTERIZATION
-                conservative: false,
-            },
-            depth_stencil: Some(wgpu::DepthStencilState {
-                format: wgpu::TextureFormat::Depth32Float,
-                depth_write_enabled: true,
-                depth_compare: wgpu::CompareFunction::Less,
-                stencil: wgpu::StencilState::default(),
-                bias: wgpu::DepthBiasState::default(),
-            }),
-            multisample: wgpu::MultisampleState {
-                count: 1,
-                ..Default::default()
-            },
-            multiview: None,
-            cache: None,
-        })
 }

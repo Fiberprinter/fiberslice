@@ -14,7 +14,7 @@ use crate::{
     render::{model::Model, Renderable},
 };
 
-use super::{mesh::MoveHitbox, vertex::ToolpathVertex};
+use super::{mesh::TraceHitbox, vertex::ToolpathVertex};
 
 #[derive(Debug)]
 pub enum ToolpathTree {
@@ -40,10 +40,10 @@ pub enum ToolpathTree {
         start: RwLock<Vec3>,
         end: RwLock<Vec3>,
     },
-    Move {
+    Trace {
         offset: BufferAddress,
         size: BufferAddress,
-        r#box: RwLock<Box<MoveHitbox>>,
+        r#box: RwLock<Box<TraceHitbox>>,
     },
 }
 
@@ -80,8 +80,8 @@ impl ToolpathTree {
         }
     }
 
-    pub fn create_move(path_box: MoveHitbox, offset: BufferAddress, size: BufferAddress) -> Self {
-        Self::Move {
+    pub fn create_move(path_box: TraceHitbox, offset: BufferAddress, size: BufferAddress) -> Self {
+        Self::Trace {
             offset,
             size,
             r#box: RwLock::new(Box::new(path_box)),
@@ -105,7 +105,7 @@ impl ToolpathTree {
                     Self::Fiber { size, .. } => {
                         *fiber_size += size;
                     }
-                    Self::Move { size, .. } => {
+                    Self::Trace { size, .. } => {
                         *model_size += size;
                     }
                     Self::Root { .. } => panic!("Cannot push root to root"),
@@ -117,7 +117,7 @@ impl ToolpathTree {
             }
             Self::Travel { .. } => panic!("Cannot push node to travel"),
             Self::Fiber { .. } => panic!("Cannot push node to fiber"),
-            Self::Move { .. } => panic!("Cannot push node to move"),
+            Self::Trace { .. } => panic!("Cannot push node to move"),
         }
     }
 
@@ -132,7 +132,7 @@ impl ToolpathTree {
 
                 // TODO: Update the offset of the children
             }
-            Self::Move { offset: o, .. } => *o = offset,
+            Self::Trace { offset: o, .. } => *o = offset,
             Self::Travel { offset: o, .. } => *o = offset,
             Self::Fiber { offset: o, .. } => *o = offset,
         }
@@ -143,7 +143,7 @@ impl ToolpathTree {
             Self::Root { size, .. } => *size,
             Self::Travel { size, .. } => *size,
             Self::Fiber { size, .. } => *size,
-            Self::Move { size, .. } => *size,
+            Self::Trace { size, .. } => *size,
         }
     }
 
@@ -166,7 +166,7 @@ impl ToolpathTree {
             }
             Self::Travel { .. } => panic!("Cannot awaken travel"),
             Self::Fiber { .. } => panic!("Cannot awaken fiber"),
-            Self::Move { .. } => panic!("Cannot awaken path"),
+            Self::Trace { .. } => panic!("Cannot awaken path"),
         }
     }
 
@@ -183,7 +183,7 @@ impl ToolpathTree {
             }
             Self::Travel { .. } => panic!("Cannot render travel"),
             Self::Fiber { .. } => panic!("Cannot render fiber"),
-            Self::Move { .. } => panic!("Cannot render path"),
+            Self::Trace { .. } => panic!("Cannot render path"),
         }
     }
 }
@@ -194,7 +194,7 @@ impl Renderable for ToolpathTree {
             Self::Root { model, .. } => model.render(render_pass),
             Self::Travel { .. } => panic!("Cannot render travel"),
             Self::Fiber { .. } => panic!("Cannot render fiber"),
-            Self::Move { .. } => panic!("Cannot render path"),
+            Self::Trace { .. } => panic!("Cannot render path"),
         }
     }
 
@@ -203,7 +203,7 @@ impl Renderable for ToolpathTree {
             Self::Root { model, .. } => model.render_without_color(render_pass),
             Self::Travel { .. } => panic!("Cannot render travel"),
             Self::Fiber { .. } => panic!("Cannot render fiber"),
-            Self::Move { .. } => panic!("Cannot render path"),
+            Self::Trace { .. } => panic!("Cannot render path"),
         }
     }
 }
@@ -212,7 +212,7 @@ impl HitboxNode for ToolpathTree {
     fn check_hit(&self, ray: &crate::input::Ray) -> Option<f32> {
         match self {
             Self::Root { bounding_box, .. } => bounding_box.read().check_hit(ray),
-            Self::Move {
+            Self::Trace {
                 r#box: path_box, ..
             } => path_box.read().check_hit(ray),
             Self::Travel { .. } => None,
@@ -225,14 +225,14 @@ impl HitboxNode for ToolpathTree {
             Self::Root { children, .. } => children,
             Self::Travel { .. } => &[],
             Self::Fiber { .. } => &[],
-            Self::Move { .. } => &[],
+            Self::Trace { .. } => &[],
         }
     }
 
     fn get_min(&self) -> glam::Vec3 {
         match self {
             Self::Root { bounding_box, .. } => bounding_box.read().get_min(),
-            Self::Move {
+            Self::Trace {
                 r#box: path_box, ..
             } => path_box.read().get_min(),
             Self::Travel { start, end, .. } => start.read().min(*end.read()),
@@ -243,7 +243,7 @@ impl HitboxNode for ToolpathTree {
     fn get_max(&self) -> glam::Vec3 {
         match self {
             Self::Root { bounding_box, .. } => bounding_box.read().get_max(),
-            Self::Move {
+            Self::Trace {
                 r#box: path_box, ..
             } => path_box.read().get_max(),
             Self::Travel { start, end, .. } => start.read().max(*end.read()),
@@ -259,7 +259,7 @@ impl InteractiveModel for ToolpathTree {
                 let bb = bounding_box.read();
                 (bb.get_min(), bb.get_max())
             }
-            Self::Move {
+            Self::Trace {
                 r#box: path_box, ..
             } => {
                 let bb = path_box.read();

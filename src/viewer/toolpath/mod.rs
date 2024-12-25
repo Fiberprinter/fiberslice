@@ -3,7 +3,8 @@ use std::{fmt::Debug, sync::Arc};
 use egui::ahash::{HashMap, HashMapExt};
 use glam::{Vec3, Vec4};
 use mesh::{
-    MoveConnectionMesh, MoveHitbox, MoveMesh, ProfileCross, ProfileCrossMesh, MOVE_MESH_VERTICES,
+    TraceConnectionMesh, TraceCrossSection, TraceCrossSectionMesh, TraceHitbox, TraceMesh,
+    MOVE_MESH_VERTICES,
 };
 use shared::process::Process;
 use slicer::{Command, MovePrintType, StateChange};
@@ -141,14 +142,15 @@ impl SlicedObject {
                     );
 
                     let start_profile =
-                        ProfileCross::from_direction(end - start, *thickness, *width)
+                        TraceCrossSection::from_direction(end - start, *thickness, *width)
                             .with_offset(start);
 
-                    let end_profile = ProfileCross::from_direction(end - start, *thickness, *width)
-                        .with_offset(end);
+                    let end_profile =
+                        TraceCrossSection::from_direction(end - start, *thickness, *width)
+                            .with_offset(end);
 
                     let mesh =
-                        MoveMesh::from_profiles(start_profile, end_profile).with_color(color);
+                        TraceMesh::from_profiles(start_profile, end_profile).with_color(color);
 
                     extend_connection_vertices(
                         last_extrusion_profile,
@@ -169,7 +171,7 @@ impl SlicedObject {
                     move_vertices.extend(toolpath_vertices);
 
                     let tree_move = ToolpathTree::create_move(
-                        MoveHitbox::from(mesh),
+                        TraceHitbox::from(mesh),
                         offset,
                         MOVE_MESH_VERTICES as BufferAddress,
                     );
@@ -221,16 +223,17 @@ impl SlicedObject {
                     ));
 
                     let start_profile =
-                        ProfileCross::from_direction(end - start, *thickness, *width)
+                        TraceCrossSection::from_direction(end - start, *thickness, *width)
                             .with_offset(start);
 
-                    let end_profile = ProfileCross::from_direction(end - start, *thickness, *width)
-                        .with_offset(end);
+                    let end_profile =
+                        TraceCrossSection::from_direction(end - start, *thickness, *width)
+                            .with_offset(end);
 
-                    let mesh = MoveMesh::from_profiles(
-                        ProfileCross::from_direction(end - start, *thickness, *width)
+                    let mesh = TraceMesh::from_profiles(
+                        TraceCrossSection::from_direction(end - start, *thickness, *width)
                             .with_offset(start),
-                        ProfileCross::from_direction(end - start, *thickness, *width)
+                        TraceCrossSection::from_direction(end - start, *thickness, *width)
                             .with_offset(end),
                     )
                     .with_color(color);
@@ -258,7 +261,7 @@ impl SlicedObject {
                     move_vertices.extend(single_move_vertices);
 
                     let tree_move = ToolpathTree::create_move(
-                        MoveHitbox::from(mesh),
+                        TraceHitbox::from(mesh),
                         offset,
                         MOVE_MESH_VERTICES as BufferAddress,
                     );
@@ -280,8 +283,8 @@ impl SlicedObject {
 
             if !command.needs_filament() {
                 if let Some(last_extrusion_profile) = last_extrusion_profile {
-                    let mesh =
-                        ProfileCrossMesh::from_profile(last_extrusion_profile).with_color(color);
+                    let mesh = TraceCrossSectionMesh::from_profile(last_extrusion_profile)
+                        .with_color(color);
 
                     let vertices = mesh.to_triangle_vertices().into_iter().map(|v| {
                         ToolpathVertex::from_vertex(v, print_type_bit, current_layer as u32)
@@ -313,15 +316,15 @@ impl SlicedObject {
 }
 
 fn extend_connection_vertices(
-    last_extrusion_profile: Option<ProfileCross>,
-    start_profile: ProfileCross,
+    last_extrusion_profile: Option<TraceCrossSection>,
+    start_profile: TraceCrossSection,
     print_type_bit: u32,
     current_layer: usize,
     color: Vec4,
     move_vertices: &mut Vec<ToolpathVertex>,
 ) {
     if let Some(last_extrusion_profile) = last_extrusion_profile {
-        let connection = MoveConnectionMesh::from_profiles(last_extrusion_profile, start_profile)
+        let connection = TraceConnectionMesh::from_profiles(last_extrusion_profile, start_profile)
             .with_color(color);
 
         let connection_vertices = connection
@@ -331,7 +334,7 @@ fn extend_connection_vertices(
 
         move_vertices.extend(connection_vertices);
     } else {
-        let mesh = ProfileCrossMesh::from_profile(start_profile).with_color(color);
+        let mesh = TraceCrossSectionMesh::from_profile(start_profile).with_color(color);
 
         let vertices = mesh
             .to_triangle_vertices_flipped()

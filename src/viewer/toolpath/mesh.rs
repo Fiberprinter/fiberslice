@@ -10,14 +10,14 @@ use crate::{
 };
 
 #[derive(Debug, Clone, Copy)]
-pub struct ProfileCross {
+pub struct TraceCrossSection {
     pub a: Vec3,
     pub c: Vec3,
     pub b: Vec3,
     pub d: Vec3,
 }
 
-impl ProfileCross {
+impl TraceCrossSection {
     pub fn from_direction(direction: Vec3, horizontal: f32, vertical: f32) -> Self {
         let horizontal_radius = horizontal / 2.0;
         let vertical_radius = vertical / 2.0;
@@ -44,7 +44,7 @@ impl ProfileCross {
 
         let corner = self.a - (horizontal / 2.0);
 
-        ProfileCross {
+        TraceCrossSection {
             a: corner,
             c: corner - vertical + horizontal,
             b: corner - vertical,
@@ -84,13 +84,13 @@ impl ProfileCross {
     }
 }
 
-pub struct ProfileCrossMesh {
-    profile: ProfileCross,
+pub struct TraceCrossSectionMesh {
+    profile: TraceCrossSection,
     color: Option<Vec4>,
 }
 
-impl ProfileCrossMesh {
-    pub fn from_profile(profile: ProfileCross) -> Self {
+impl TraceCrossSectionMesh {
+    pub fn from_profile(profile: TraceCrossSection) -> Self {
         Self {
             profile,
             color: None,
@@ -103,7 +103,7 @@ impl ProfileCrossMesh {
     }
 }
 
-impl Mesh<6> for ProfileCrossMesh {
+impl Mesh<6> for TraceCrossSectionMesh {
     fn to_triangle_vertices(&self) -> [Vertex; 6] {
         construct_triangle_vertices(
             [
@@ -133,14 +133,14 @@ impl Mesh<6> for ProfileCrossMesh {
     }
 }
 
-pub struct MoveMesh {
-    profile_start: ProfileCross,
-    profile_end: ProfileCross,
+pub struct TraceMesh {
+    profile_start: TraceCrossSection,
+    profile_end: TraceCrossSection,
     color: Option<Vec4>,
 }
 
-impl MoveMesh {
-    pub fn from_profiles(profile_start: ProfileCross, profile_end: ProfileCross) -> Self {
+impl TraceMesh {
+    pub fn from_profiles(profile_start: TraceCrossSection, profile_end: TraceCrossSection) -> Self {
         Self {
             profile_start,
             profile_end,
@@ -156,7 +156,7 @@ impl MoveMesh {
 
 pub const MOVE_MESH_VERTICES: usize = 24;
 
-impl Mesh<MOVE_MESH_VERTICES> for MoveMesh {
+impl Mesh<MOVE_MESH_VERTICES> for TraceMesh {
     fn to_triangle_vertices(&self) -> [Vertex; MOVE_MESH_VERTICES] {
         construct_triangle_vertices(
             [
@@ -194,14 +194,14 @@ impl Mesh<MOVE_MESH_VERTICES> for MoveMesh {
     }
 }
 
-pub struct MoveConnectionMesh {
-    profile_start: ProfileCross,
-    profile_end: ProfileCross,
+pub struct TraceConnectionMesh {
+    profile_start: TraceCrossSection,
+    profile_end: TraceCrossSection,
     color: Option<Vec4>,
 }
 
-impl MoveConnectionMesh {
-    pub fn from_profiles(profile_start: ProfileCross, profile_end: ProfileCross) -> Self {
+impl TraceConnectionMesh {
+    pub fn from_profiles(profile_start: TraceCrossSection, profile_end: TraceCrossSection) -> Self {
         Self {
             profile_start,
             profile_end,
@@ -215,7 +215,7 @@ impl MoveConnectionMesh {
     }
 }
 
-impl Mesh<12> for MoveConnectionMesh {
+impl Mesh<12> for TraceConnectionMesh {
     fn to_triangle_vertices(&self) -> [Vertex; 12] {
         construct_triangle_vertices(
             [
@@ -240,8 +240,8 @@ impl Mesh<12> for MoveConnectionMesh {
     }
 }
 
-impl From<MoveMesh> for MoveHitbox {
-    fn from(val: MoveMesh) -> Self {
+impl From<TraceMesh> for TraceHitbox {
+    fn from(val: TraceMesh) -> Self {
         let north_west = QuadFace {
             normal: (val.profile_end.a - val.profile_start.a)
                 .cross(val.profile_start.d - val.profile_start.a),
@@ -314,7 +314,7 @@ impl From<MoveMesh> for MoveHitbox {
                 .min(val.profile_end.a),
         };
 
-        MoveHitbox {
+        TraceHitbox {
             north_west,
             north_east,
             south_west,
@@ -324,44 +324,14 @@ impl From<MoveMesh> for MoveHitbox {
 }
 
 #[derive(Debug, Clone)]
-pub struct LineHitbox {
-    start: Vec3,
-    end: Vec3,
-}
-
-impl Hitbox for LineHitbox {
-    fn check_hit(&self, _ray: &Ray) -> Option<f32> {
-        None
-    }
-
-    fn expand_hitbox(&mut self, _box: &dyn Hitbox) {
-        // Not expandable
-    }
-
-    fn set_enabled(&mut self, _enabled: bool) {}
-
-    fn enabled(&self) -> bool {
-        true
-    }
-
-    fn get_min(&self) -> Vec3 {
-        self.start.min(self.end)
-    }
-
-    fn get_max(&self) -> Vec3 {
-        self.start.max(self.end)
-    }
-}
-
-#[derive(Debug, Clone)]
-pub struct MoveHitbox {
+pub struct TraceHitbox {
     north_west: QuadFace,
     north_east: QuadFace,
     south_west: QuadFace,
     south_east: QuadFace,
 }
 
-impl Hitbox for MoveHitbox {
+impl Hitbox for TraceHitbox {
     fn check_hit(&self, ray: &Ray) -> Option<f32> {
         let faces = [
             &self.north_west,

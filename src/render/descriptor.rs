@@ -1,9 +1,9 @@
 use crate::render;
 
-use super::Pipelines;
+use super::DefaultPipelines;
 
 pub struct RenderDescriptor<'a> {
-    pub(super) pipelines: &'a render::Pipelines,
+    pub(super) pipelines: &'a render::DefaultPipelines,
     pub(super) bind_groups: &'a [&'a wgpu::BindGroup],
 
     pub(super) encoder: &'a mut wgpu::CommandEncoder,
@@ -12,7 +12,7 @@ pub struct RenderDescriptor<'a> {
 }
 
 impl<'a> RenderDescriptor<'a> {
-    pub fn pass(&mut self) -> Option<(&Pipelines, wgpu::RenderPass)> {
+    pub fn pass(&mut self) -> Option<(&DefaultPipelines, wgpu::RenderPass)> {
         let (x, y, width, height) = *self.viewport;
 
         if width > 0.0 && height > 0.0 {
