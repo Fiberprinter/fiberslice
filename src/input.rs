@@ -19,10 +19,15 @@ pub use ray::Ray;
 pub enum InputEvent {}
 
 #[derive(Debug)]
-pub struct MouseInputEvent {
+pub struct MouseClickEvent {
     pub ray: Ray,
     pub button: MouseButton,
     pub state: ElementState,
+}
+
+pub struct MouseMotionEvent {
+    pub ray: Ray,
+    pub delta: (f64, f64),
 }
 
 #[derive(Debug, Clone)]
@@ -76,7 +81,7 @@ impl FrameHandle<'_, RootEvent, (), &CameraResult> for InputAdapter {
 
                         let ray = Ray::from_view(viewport, (x, y), view, proj, eye);
 
-                        global_state.viewer.mouse_input(MouseInputEvent {
+                        global_state.viewer.mouse_input(MouseClickEvent {
                             ray,
                             button: *button,
                             state: *state,
@@ -124,15 +129,30 @@ impl FrameHandle<'_, RootEvent, (), &CameraResult> for InputAdapter {
             .load(std::sync::atomic::Ordering::Relaxed);
 
         if !pointer_in_use {
-            if let DeviceEvent::MouseMotion { delta } = event {
-                global_state.viewer.mouse_delta((delta.0, delta.1));
+            if let Some(CameraResult {
+                view,
+                proj,
+                viewport,
+                eye,
+            }) = self.camera_result.clone()
+            {
+                if let DeviceEvent::MouseMotion { delta } = event {
+                    let (x, y) = global_state.ctx.mouse_position.unwrap_or((0.0, 0.0));
 
-                if self.state.is_drag_left {
-                    println!("PickingAdapter: Dragging Left Click");
-                }
+                    let ray = Ray::from_view(viewport, (x, y), view, proj, eye);
 
-                if self.state.is_drag_right {
-                    println!("PickingAdapter: Dragging Right Click");
+                    global_state.viewer.mouse_delta(MouseMotionEvent {
+                        ray,
+                        delta: (delta.0, delta.1),
+                    });
+
+                    if self.state.is_drag_left {
+                        println!("PickingAdapter: Dragging Left Click");
+                    }
+
+                    if self.state.is_drag_right {
+                        println!("PickingAdapter: Dragging Right Click");
+                    }
                 }
             }
         }

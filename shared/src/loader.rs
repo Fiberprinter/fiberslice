@@ -1,4 +1,4 @@
-use std::io::BufReader;
+use std::{io::BufReader, path::Path};
 
 use crate::object::ObjectMesh;
 
@@ -11,13 +11,13 @@ pub enum LoadError {
 }
 
 pub trait Loader {
-    fn load(&self, path: &str) -> Result<ObjectMesh, LoadError>;
+    fn load<P: AsRef<Path>>(&self, path: P) -> Result<ObjectMesh, LoadError>;
 }
 
 pub struct STLLoader;
 
 impl Loader for STLLoader {
-    fn load(&self, path: &str) -> Result<ObjectMesh, LoadError> {
+    fn load<P: AsRef<Path>>(&self, path: P) -> Result<ObjectMesh, LoadError> {
         let file = std::fs::OpenOptions::new()
             .read(true)
             .open(path)

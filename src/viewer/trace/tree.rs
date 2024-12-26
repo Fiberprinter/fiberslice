@@ -71,15 +71,10 @@ impl TraceTree {
         }
     }
 
-    pub fn create_fiber(
-        offset: BufferAddress,
-        size: BufferAddress,
-        start: Vec3,
-        end: Vec3,
-    ) -> Self {
+    pub fn create_fiber(offset: BufferAddress, start: Vec3, end: Vec3) -> Self {
         Self::Fiber {
             offset,
-            size,
+            size: 2,
             start: RwLock::new(start),
             end: RwLock::new(end),
         }
@@ -145,6 +140,7 @@ impl TraceTree {
         }
     }
 
+    #[allow(dead_code)]
     pub fn size(&self) -> BufferAddress {
         match self {
             Self::Root { size, .. } => *size,

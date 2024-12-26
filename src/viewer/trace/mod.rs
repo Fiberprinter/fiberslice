@@ -2,17 +2,13 @@ use std::{fmt::Debug, sync::Arc};
 
 use egui::ahash::{HashMap, HashMapExt};
 use glam::{Vec3, Vec4};
-use mesh::{
-    LineMesher, TraceConnectionMesh, TraceCrossSection, TraceCrossSectionMesh, TraceMesher,
-    TRACE_MESH_VERTICES,
-};
+use mesh::{LineMesher, TraceMesher, TRACE_MESH_VERTICES};
 use shared::process::Process;
 use slicer::{Command, TraceType};
 use tree::TraceTree;
-use vertex::TraceVertex;
 use wgpu::BufferAddress;
 
-use crate::{geometry::mesh::Mesh, render::Vertex};
+use crate::render::Vertex;
 
 pub mod mesh;
 pub mod tree;
@@ -34,7 +30,7 @@ pub mod vertex;
 /// assert_eq!(path_type.bit_representation(), 1);
 ///
 pub fn bit_representation(print_type: &TraceType) -> u32 {
-    0x01 << ((*print_type as u32) + 0x02)
+    0x01 << (*print_type as u32)
 }
 
 #[allow(dead_code)]
@@ -119,6 +115,10 @@ impl SlicedObject {
                         color: TRAVEL_COLOR.to_array(),
                     });
 
+                    let travel = TraceTree::create_travel(2, start, end);
+
+                    root.push(travel);
+
                     last_position = end;
                 }
                 slicer::Command::MoveAndExtrude {
@@ -192,7 +192,7 @@ impl SlicedObject {
 
                     let offset = fiber_mesher.next(start, end);
 
-                    let fiber = TraceTree::create_fiber(offset as u64, 2, start, end);
+                    let fiber = TraceTree::create_fiber(offset as u64, start, end);
 
                     root.push(fiber);
 
@@ -231,35 +231,5 @@ impl SlicedObject {
     #[allow(unused_variables)]
     pub fn from_file(path: &str, settings: &slicer::Settings) -> Result<Self, ()> {
         todo!()
-    }
-}
-
-fn extend_connection_vertices(
-    last_extrusion_profile: Option<TraceCrossSection>,
-    start_profile: TraceCrossSection,
-    print_type_bit: u32,
-    current_layer: usize,
-    color: Vec4,
-    move_vertices: &mut Vec<TraceVertex>,
-) {
-    if let Some(last_extrusion_profile) = last_extrusion_profile {
-        let connection = TraceConnectionMesh::from_profiles(last_extrusion_profile, start_profile)
-            .with_color(color);
-
-        let connection_vertices = connection
-            .to_triangle_vertices()
-            .into_iter()
-            .map(|v| TraceVertex::from_vertex(v, print_type_bit, current_layer as u32));
-
-        move_vertices.extend(connection_vertices);
-    } else {
-        let mesh = TraceCrossSectionMesh::from_profile(start_profile).with_color(color);
-
-        let vertices = mesh
-            .to_triangle_vertices_flipped()
-            .into_iter()
-            .map(|v| TraceVertex::from_vertex(v, print_type_bit, current_layer as u32));
-
-        move_vertices.extend(vertices);
     }
 }

@@ -1,5 +1,6 @@
 use std::{
     collections::{HashMap, LinkedList, VecDeque},
+    fmt::Display,
     sync::Arc,
 };
 
@@ -46,6 +47,7 @@ type CADObjectResult = Result<LoadResult, Error>;
 #[derive(Debug)]
 pub enum CADObject {
     Root {
+        simple_name: String,
         model: LockModel<Vertex>,
         bounding_box: RwLock<BoundingBox>,
         children: Vec<Arc<Self>>,
@@ -56,9 +58,19 @@ pub enum CADObject {
     },
 }
 
+impl Display for CADObject {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::Root { simple_name, .. } => write!(f, "CADObject({})", simple_name),
+            Self::Face { .. } => write!(f, "CADObject(Face)"),
+        }
+    }
+}
+
 impl CADObject {
-    pub fn create_root(min: Vec3, max: Vec3) -> Self {
+    pub fn create_root(min: Vec3, max: Vec3, simple_name: String) -> Self {
         Self::Root {
+            simple_name,
             model: LockModel::new(Model::create()),
             bounding_box: RwLock::new(BoundingBox::new(min, max)),
             children: Vec::new(),
@@ -97,27 +109,6 @@ impl CADObject {
         match self {
             Self::Root { model, .. } => model.get_mut().awaken(data),
             Self::Face { .. } => panic!("Cannot awaken face"),
-        }
-    }
-
-    pub fn color(&self) -> [f32; 4] {
-        match self {
-            Self::Root { model, .. } => model.read().color(),
-            Self::Face { .. } => panic!("Cannot get color"),
-        }
-    }
-
-    pub fn set_transparency(&mut self, transparency: f32) {
-        match self {
-            Self::Root { model, .. } => model.write().set_transparency(transparency),
-            Self::Face { .. } => panic!("Cannot set transparency"),
-        }
-    }
-
-    pub fn set_color(&mut self, color: [f32; 4]) {
-        match self {
-            Self::Root { model, .. } => model.write().set_color(color),
-            Self::Face { .. } => panic!("Cannot set color"),
         }
     }
 }

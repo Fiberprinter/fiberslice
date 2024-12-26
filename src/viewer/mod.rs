@@ -13,9 +13,10 @@ use winit::{
 };
 
 use crate::{
-    input::{interact::InteractiveModel, MouseInputEvent},
+    input::{interact::InteractiveModel, MouseClickEvent, MouseMotionEvent},
     prelude::{Mode, WgpuContext},
     render::{RenderDescriptor, Vertex},
+    ui::screen::ViewerTooltip,
     GlobalState, RootEvent,
 };
 
@@ -69,8 +70,8 @@ pub struct Viewer {
 
     object_selector: RwLock<select::Selector>,
     mask_selector: RwLock<select::Selector>,
-    toolpath_selector: RwLock<select::Selector>,
-
+    // toolpath_selector: RwLock<select::Selector>,
+    tooltip: RwLock<Option<ViewerTooltip>>,
     mode: RwLock<Option<Mode>>,
 }
 
@@ -84,14 +85,16 @@ impl Viewer {
 
             object_selector: RwLock::new(select::Selector::instance()),
             mask_selector: RwLock::new(select::Selector::instance()),
-            toolpath_selector: RwLock::new(select::Selector::instance()),
-
+            // toolpath_selector: RwLock::new(select::Selector::instance()),
+            tooltip: RwLock::new(None),
             mode: RwLock::new(None),
         }
     }
 
     pub fn mode_changed(&self, mode: Mode) {
         *self.mode.write() = Some(mode);
+
+        self.update_tooltip(None);
 
         match mode {
             Mode::Prepare => {
@@ -133,6 +136,16 @@ impl Viewer {
             Some(Mode::Prepare) => !self.object_selector.read().selected().is_empty(),
             Some(Mode::Masks) => !self.mask_selector.read().selected().is_empty(),
             _ => false,
+        }
+    }
+
+    pub fn update_tooltip(&self, tooltip: Option<ViewerTooltip>) {
+        *self.tooltip.write() = tooltip;
+    }
+
+    pub fn read_tooltip_with_fn(&self, r#fn: impl FnOnce(&ViewerTooltip)) {
+        if let Some(tooltip) = &*self.tooltip.read() {
+            r#fn(tooltip);
         }
     }
 
@@ -235,9 +248,46 @@ impl Viewer {
 
 // input
 impl Viewer {
-    pub fn mouse_delta(&self, _delta: (f64, f64)) {}
+    pub fn mouse_delta(&self, event: MouseMotionEvent) {
+        match *self.mode.read() {
+            Some(Mode::Prepare) => {
+                if let Some(model) = self.object_server.read().check_hit(&event.ray, 0, false) {
+                    self.update_tooltip(Some(ViewerTooltip::new(
+                        "Obj".to_string(),
+                        format!("{}", model),
+                    )));
+                } else if let Some(model) = self.mask_server.read().check_hit(&event.ray, 0, false)
+                {
+                    self.update_tooltip(Some(ViewerTooltip::new(
+                        "Mask".to_string(),
+                        format!("{}", model),
+                    )));
+                } else {
+                    self.update_tooltip(None);
+                }
+            }
+            Some(Mode::Masks) => {
+                if let Some(model) = self.mask_server.read().check_hit(&event.ray, 0, false) {
+                    self.update_tooltip(Some(ViewerTooltip::new(
+                        "Mask".to_string(),
+                        format!("{}", model),
+                    )));
+                } else if let Some(model) =
+                    self.object_server.read().check_hit(&event.ray, 0, false)
+                {
+                    self.update_tooltip(Some(ViewerTooltip::new(
+                        "Obj".to_string(),
+                        format!("{}", model),
+                    )));
+                } else {
+                    self.update_tooltip(None);
+                }
+            }
+            _ => (),
+        }
+    }
 
-    pub fn mouse_input(&self, event: MouseInputEvent) {
+    pub fn mouse_input(&self, event: MouseClickEvent) {
         if event.state.is_pressed() {
             if let MouseButton::Right = event.button {
                 match *self.mode.read() {

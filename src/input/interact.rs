@@ -1,3 +1,5 @@
+use std::fmt::Debug;
+
 use glam::{Vec2, Vec3};
 use winit::{event::MouseButton, keyboard::KeyCode};
 
@@ -26,7 +28,7 @@ pub struct ScrollEvent {
     pub action: Action,
 }
 
-pub trait InteractiveModel {
+pub trait InteractiveModel: Debug {
     fn aabb(&self) -> (Vec3, Vec3);
     fn transformation(&self) -> glam::Mat4;
 

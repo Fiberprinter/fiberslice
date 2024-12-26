@@ -26,7 +26,6 @@ use screen::Screen;
 
 use egui::{FontDefinitions, InnerResponse, Pos2, Rect, Ui, Visuals};
 use visual::customize_look_and_feel;
-use widgets::reader::ReadSection;
 use winit::event::WindowEvent;
 
 use crate::{

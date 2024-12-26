@@ -221,6 +221,7 @@ impl TraceCrossSection {
         }
     }
 
+    #[allow(dead_code)]
     pub fn axis_aligned(self) -> Self {
         let horizontal = self.b - self.d;
         let vertical = self.a - self.c;
@@ -235,6 +236,7 @@ impl TraceCrossSection {
         }
     }
 
+    #[allow(dead_code)]
     pub fn scaled(self, scale: f32) -> Self {
         let diagonal_1 = (self.a - self.c) * scale;
         let diagonal_2 = (self.b - self.d) * scale;

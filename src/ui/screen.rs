@@ -7,8 +7,25 @@ use components::{
     toolbar::{self, ToolBarState},
     topbar::{self, TopBarState},
 };
-use egui::{Align2, Id, Margin};
+use egui::{Align2, Id, Margin, RichText};
 use egui_toast::Toasts;
+
+#[derive(Debug, Default)]
+pub struct ViewerTooltip {
+    server_type: String,
+    model: String,
+}
+
+impl ViewerTooltip {
+    pub fn new(server_type: String, model: String) -> Self {
+        Self { server_type, model }
+    }
+
+    pub fn show(&self, ui: &mut egui::Ui) {
+        ui.label(RichText::new(&self.server_type).strong());
+        ui.label(&self.model);
+    }
+}
 
 pub struct Screen {
     toasts: Toasts,
@@ -104,6 +121,19 @@ impl Screen {
             self.toasts.show_inside(ui);
             self.toasts_progress_bar.show_inside(ui);
 
+            shared_state.1.viewer.read_tooltip_with_fn(|tooltip| {
+                if ui.ui_contains_pointer() {
+                    egui::show_tooltip_at_pointer(
+                        ui.ctx(),
+                        ui.layer_id(),
+                        egui::Id::new("viewer_tooltip"),
+                        |ui| {
+                            tooltip.show(ui);
+                        },
+                    );
+                }
+            });
+
             addons::Addons::with_state(&mut self.addons_state).show(ui, shared_state);
             self.tools.show(ctx, shared_state);
         });
@@ -115,10 +145,6 @@ impl Screen {
 
     pub fn add_progress_bar_toast(&mut self, toast: egui_toast::Toast) {
         self.toasts_progress_bar.add(toast);
-    }
-
-    pub fn tools(&self) -> &tools::Tools {
-        &self.tools
     }
 
     pub fn tools_mut(&mut self) -> &mut tools::Tools {

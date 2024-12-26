@@ -2,16 +2,16 @@ use core::f32;
 use std::{collections::HashMap, path::Path, sync::Arc};
 
 use glam::{vec3, Mat4, Quat, Vec3, Vec3Swizzles};
-use shared::{loader::Loader, object::ObjectMesh};
+use shared::loader::Loader;
 
-use slicer::Settings;
+use slicer::{Mask, MaskSettings, Settings};
 use tokio::{sync::oneshot::error::TryRecvError, task::JoinHandle};
 
 use uni_path::PathBuf;
 use wgpu::{util::DeviceExt, Color};
 
 use crate::{
-    geometry::mesh::{vec3s_into_vertices, IntoArrayColor},
+    geometry::mesh::vec3s_into_vertices,
     input::{hitbox::HitboxRoot, interact::InteractiveModel},
     prelude::WgpuContext,
     render::{
@@ -23,32 +23,30 @@ use crate::{
     GlobalState, RootEvent, GLOBAL_STATE, QUEUE,
 };
 
-use super::{
-    clusterize_faces, clusterize_models, CADObject, CADObjectResult, Error, LoadResult, PolygonFace,
-};
+use super::{clusterize_faces, CADObject, CADObjectResult, Error, LoadResult, PolygonFace};
 
 #[derive(Debug)]
-pub struct ObjectHandle {
+pub struct MaskHandle {
     model: Arc<CADObject>,
-    mesh: ObjectMesh,
+    mask: Mask,
 }
 
 #[derive(Debug)]
-pub struct ObjectServer {
+pub struct MaskServer {
     queue: Vec<(
         tokio::sync::oneshot::Receiver<CADObjectResult>,
         JoinHandle<()>,
     )>,
 
     root_hitbox: HitboxRoot<CADObject>,
-    models: HashMap<String, ObjectHandle>,
+    models: HashMap<String, MaskHandle>,
 
     color: [f32; 4],
     color_buffer: wgpu::Buffer,
     color_bind_group: wgpu::BindGroup,
 }
 
-impl RenderServer for ObjectServer {
+impl RenderServer for MaskServer {
     fn instance(context: &WgpuContext) -> Self {
         let color = [1.0, 1.0, 1.0, 1.0];
 
@@ -110,12 +108,17 @@ impl RenderServer for ObjectServer {
     }
 }
 
-impl ObjectServer {
+impl MaskServer {
     pub fn load<P>(&mut self, path: P)
     where
         P: AsRef<Path>,
     {
+        let simple_path = match path.as_ref().file_name() {
+            Some(name) => name.to_string_lossy().to_string(),
+            None => path.as_ref().to_string_lossy().to_string(),
+        };
         let path = path.as_ref().to_str().unwrap_or("").to_string();
+
         let (tx, rx) = tokio::sync::oneshot::channel();
 
         let handle = tokio::spawn(async move {
@@ -159,7 +162,6 @@ Clustering models"
                     .to_string(),
             );
             process_tracking.set_progress(0.0);
-            let models = clusterize_models(&triangles);
 
             process_tracking.set_task("Creating vertices".to_string());
             process_tracking.set_progress(0.2);
@@ -209,27 +211,15 @@ Clustering models"
 
             process_tracking.set_task("Coloring polygons".to_string());
             process_tracking.set_progress(0.85);
-            models.iter().for_each(|indices| {
-                let r = rand::random::<f64>();
-                let g = rand::random::<f64>();
-                let b = rand::random::<f64>();
 
-                for triangle in indices.iter() {
-                    triangle_vertices[triangles[*triangle].0[0]].color =
-                        Color { r, g, b, a: 1.0 }.to_array();
-
-                    triangle_vertices[triangles[*triangle].0[1]].color =
-                        Color { r, g, b, a: 1.0 }.to_array();
-
-                    triangle_vertices[triangles[*triangle].0[2]].color =
-                        Color { r, g, b, a: 1.0 }.to_array();
-                }
+            triangle_vertices.iter_mut().for_each(|vertex| {
+                vertex.color = [0.2, 0.2, 0.2, 1.0];
             });
 
             process_tracking.set_task("Creating models".to_string());
             process_tracking.set_progress(0.9);
             let mut root = polygon_faces.clone().into_iter().fold(
-                CADObject::create_root(min.xzy(), max.xzy()),
+                CADObject::create_root(min.xzy(), max.xzy(), simple_path),
                 |mut root, face| {
                     root.push_face(face);
 
@@ -254,7 +244,7 @@ Clustering models"
 
         self.queue.push((rx, handle));
     }
-    // i love you
+
     pub fn insert(&mut self, model_handle: LoadResult) -> Result<Arc<CADObject>, Error> {
         let path: PathBuf = model_handle.origin_path.into();
         let file_name = if let Some(path) = path.file_name() {
@@ -281,9 +271,9 @@ Clustering models"
 
         let handle = Arc::new(model_handle.model);
 
-        let ctx = ObjectHandle {
+        let ctx = MaskHandle {
             model: handle.clone(),
-            mesh: model_handle.mesh,
+            mask: Mask::new(model_handle.mesh, MaskSettings::default()),
         };
 
         self.models.insert(name.clone(), ctx);
@@ -332,7 +322,7 @@ Clustering models"
         Ok(())
     }
 
-    pub fn prepare_objects<'a>(&'a self, settings: &'a Settings) -> Vec<ObjectMesh> {
+    pub fn prepare_objects<'a>(&'a self, settings: &'a Settings) -> Vec<Mask> {
         self.models
             .values()
             .map(|model| {
@@ -352,11 +342,11 @@ Clustering models"
                 let transform =
                     Mat4::from_scale_rotation_translation(scaling, rotation, translation);
 
-                let mut geometry = model.mesh.clone();
-                geometry.transform(transform);
-                geometry.sort_indices();
+                let mut mask = model.mask.clone();
+                mask.transform(transform);
+                mask.sort_indices();
 
-                geometry
+                mask
             })
             .collect()
     }

@@ -4,7 +4,7 @@ use std::sync::Arc;
 
 use native_dialog::FileDialog;
 use shared::process::Process;
-use slicer::{build_gcode, write_gcode, SliceResult, SlicedGCode, TraceType};
+use slicer::{build_gcode, write_gcode, SliceResult, SlicedGCode};
 use tokio::sync::oneshot::Receiver;
 use tokio::task::JoinHandle;
 use wgpu::util::DeviceExt;
@@ -360,25 +360,6 @@ impl SlicedObjectServer {
         );
     }
 
-    pub fn set_visibility_type(&mut self, ty: TraceType, visible: bool) {
-        let index = ty as usize;
-
-        if visible {
-            self.toolpath_context.visibility |= 1 << index;
-        } else {
-            self.toolpath_context.visibility &= !(1 << index);
-        }
-
-        let queue_read = QUEUE.read();
-        let queue = queue_read.as_ref().unwrap();
-
-        queue.write_buffer(
-            &self.toolpath_context_buffer,
-            0,
-            bytemuck::cast_slice(&[self.toolpath_context]),
-        );
-    }
-
     pub fn update_min_layer(&mut self, min: u32) {
         self.toolpath_context.min_layer = min;
 
@@ -413,6 +394,7 @@ impl SlicedObjectServer {
         self.sliced_gcode.as_ref()
     }
 
+    #[allow(dead_code)]
     pub fn check_hit(&self, ray: &crate::input::Ray, level: usize) -> Option<Arc<TraceTree>> {
         self.hitbox.check_hit(ray, level, false)
     }
