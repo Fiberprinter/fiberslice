@@ -45,7 +45,7 @@ pub enum UiEvent {
     ShowSuccess(String),
     ShowError(String),
     ShowProgressBar(u32, String),
-    FocusGCode(ReadSection),
+    GCodeReaderLookAt(usize),
 }
 
 #[derive(Debug, Clone)]
@@ -306,8 +306,8 @@ impl<'a> Adapter<'a, RootEvent, UiState, (UiUpdateOutput, (f32, f32, f32, f32)),
 
                 wgpu_context.window.request_redraw();
             }
-            UiEvent::FocusGCode(_section) => {
-                todo!()
+            UiEvent::GCodeReaderLookAt(line) => {
+                self.screen.tools_mut().gcode_tool.look_at(line);
             }
         }
     }

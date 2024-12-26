@@ -117,6 +117,14 @@ impl Screen {
         self.toasts_progress_bar.add(toast);
     }
 
+    pub fn tools(&self) -> &tools::Tools {
+        &self.tools
+    }
+
+    pub fn tools_mut(&mut self) -> &mut tools::Tools {
+        &mut self.tools
+    }
+
     pub fn construct_viewport(&self, wgpu_context: &WgpuContext) -> (f32, f32, f32, f32) {
         let height = wgpu_context.surface_config.height as f32
             - self.taskbar_state.get_boundary().get_height()

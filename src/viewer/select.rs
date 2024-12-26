@@ -113,8 +113,8 @@ impl Selector {
         };
 
         let select_box = SelectBox::from(BoundingBox::new(
-            min - glam::Vec3::splat(0.1),
-            max + glam::Vec3::splat(0.1),
+            min - glam::Vec3::splat(0.4),
+            max + glam::Vec3::splat(0.4),
         ));
 
         self.select_box.awaken(&select_box.to_triangle_vertices());

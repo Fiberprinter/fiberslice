@@ -19,6 +19,12 @@ pub struct GCodeToolState {
     view: ReadSection,
 }
 
+impl GCodeToolState {
+    pub fn look_at(&mut self, line: usize) {
+        self.view = self.view.with_offset(line);
+    }
+}
+
 impl Default for GCodeToolState {
     fn default() -> Self {
         Self {
@@ -57,9 +63,7 @@ impl Tool for GCodeTool<'_> {
                 .collapsible(false)
                 .frame(frame)
                 .show(ctx, |ui| {
-                    if let Some(gcode) = global_state.viewer.sliced_gcode() {
-                        // let line_breaks = &toolpath.line_breaks;
-
+                    global_state.viewer.sliced_gcode(|sliced_gcode| {
                         EfficientReader::new(&mut self.state.view)
                             .id_source("code editor")
                             .with_fontsize(14.0)
@@ -67,9 +71,8 @@ impl Tool for GCodeTool<'_> {
                             .with_syntax(Syntax::gcode())
                             .with_numlines(true)
                             // .with_focus(Some(ReadSection::new(0, 20)))
-                            .show(ui, gcode, &[]);
-                    }
-
+                            .show(ui, &sliced_gcode.gcode, &sliced_gcode.line_breaks);
+                    });
                     pointer_over_tool = ui.ui_contains_pointer();
                 });
         }

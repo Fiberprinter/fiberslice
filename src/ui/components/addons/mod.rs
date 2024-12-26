@@ -160,6 +160,7 @@ impl<'a> Addons<'a> {
 
         ui_state.mode.read_with_fn(|mode| match mode {
             Mode::Preview => {
+                /*
                 ui.allocate_ui_in_rect(
                     Rect::from_two_pos(
                         Pos2::new(ui.available_width() * 0.25, 0.0),
@@ -182,6 +183,7 @@ impl<'a> Addons<'a> {
                         });
                     },
                 );
+                */
             }
             Mode::Prepare => {}
             Mode::Masks => {
@@ -229,6 +231,19 @@ impl<'a> Addons<'a> {
 
                                         if response.changed() {
                                             global_state.viewer.update_gpu_max_layer(*layer_max);
+
+                                            global_state.viewer.sliced_gcode(|sliced_gcode| {
+                                                if let Some(index) = sliced_gcode
+                                                    .navigator
+                                                    .layer_change_line(*layer_max as usize)
+                                                {
+                                                    global_state.ui_event_writer.send(
+                                                        crate::ui::UiEvent::GCodeReaderLookAt(
+                                                            index,
+                                                        ),
+                                                    );
+                                                }
+                                            });
                                         }
                                     }
                                 },

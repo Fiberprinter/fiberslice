@@ -86,58 +86,18 @@ impl Tool for VisibilityTool<'_> {
                     let old_fiber = self.state.fiber;
 
                     if let Some(count_map) = global_state.viewer.sliced_count_map() {
-                        egui::CollapsingHeader::new("Print Types")
-                            .default_open(true)
-                            .show(ui, |ui| {
-                                for (print_type, count) in count_map.iter() {
-                                    let str_type: String = format!("{}", print_type);
-                                    let color_vec = print_type.into_color_vec4();
-
-                                    let color: wgpu::Color = Color {
-                                        r: color_vec.x as f64,
-                                        g: color_vec.y as f64,
-                                        b: color_vec.z as f64,
-                                        a: color_vec.w as f64,
-                                    };
-
-                                    let egui_color = Color32::from_rgba_premultiplied(
-                                        (color.r * 255.0) as u8,
-                                        (color.g * 255.0) as u8,
-                                        (color.b * 255.0) as u8,
-                                        (color.a * 255.0) as u8,
-                                    );
-
-                                    ui.horizontal(|ui| {
-                                        ui.checkbox(
-                                            &mut self.state.print_types[*print_type as usize],
-                                            RichText::new(str_type)
-                                                .font(FontId::monospace(15.0))
-                                                .strong()
-                                                .color(egui_color),
-                                        );
-
-                                        ui.add_space(25.0);
-
-                                        ui.with_layout(
-                                            egui::Layout::right_to_left(egui::Align::Center),
-                                            |ui| {
-                                                ui.label(
-                                                    RichText::new(format!("{:7}", count))
-                                                        .font(FontId::monospace(15.0))
-                                                        .strong(),
-                                                );
-                                            },
-                                        );
-                                    });
-                                }
-
-                                ui.separator();
-                            });
-
-                        ui.add(
-                            egui::Slider::new(&mut self.state.transparency, 0.1..=1.0)
-                                .fixed_decimals(1),
-                        );
+                        ui.horizontal(|ui| {
+                            ui.label(
+                                RichText::new("Transparency")
+                                    .font(FontId::monospace(15.0))
+                                    .strong()
+                                    .color(Color32::BLACK),
+                            );
+                            ui.add(
+                                egui::Slider::new(&mut self.state.transparency, 0.1..=1.0)
+                                    .fixed_decimals(1),
+                            );
+                        });
 
                         ui.horizontal(|ui| {
                             ui.checkbox(
@@ -147,6 +107,59 @@ impl Tool for VisibilityTool<'_> {
                                     .strong()
                                     .color(Color32::BLACK),
                             );
+                        });
+
+                        egui::CollapsingHeader::new(
+                            RichText::new("Trace Types")
+                                .font(FontId::monospace(15.0))
+                                .strong()
+                                .color(Color32::BLACK),
+                        )
+                        .default_open(true)
+                        .show(ui, |ui| {
+                            for (print_type, count) in count_map.iter() {
+                                let str_type: String = format!("{}", print_type);
+                                let color_vec = print_type.into_color_vec4();
+
+                                let color: wgpu::Color = Color {
+                                    r: color_vec.x as f64,
+                                    g: color_vec.y as f64,
+                                    b: color_vec.z as f64,
+                                    a: color_vec.w as f64,
+                                };
+
+                                let egui_color = Color32::from_rgba_premultiplied(
+                                    (color.r * 255.0) as u8,
+                                    (color.g * 255.0) as u8,
+                                    (color.b * 255.0) as u8,
+                                    (color.a * 255.0) as u8,
+                                );
+
+                                ui.horizontal(|ui| {
+                                    ui.checkbox(
+                                        &mut self.state.print_types[*print_type as usize],
+                                        RichText::new(str_type)
+                                            .font(FontId::monospace(15.0))
+                                            .strong()
+                                            .color(egui_color),
+                                    );
+
+                                    ui.add_space(25.0);
+
+                                    ui.with_layout(
+                                        egui::Layout::right_to_left(egui::Align::Center),
+                                        |ui| {
+                                            ui.label(
+                                                RichText::new(format!("{:7}", count))
+                                                    .font(FontId::monospace(15.0))
+                                                    .strong(),
+                                            );
+                                        },
+                                    );
+                                });
+                            }
+
+                            ui.separator();
                         });
 
                         ui.horizontal(|ui| {

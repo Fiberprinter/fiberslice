@@ -85,7 +85,7 @@ pub struct GlobalState<T: 'static> {
 async fn main() -> Result<(), EventLoopError> {
     let server_addr = format!("127.0.0.1:{}", puffin_http::DEFAULT_PORT);
     let _puffin_server = puffin_http::Server::new(&server_addr).unwrap();
-    eprintln!("Run this to view profiling data:  puffin_viewer {server_addr}");
+    info!("Run this to view profiling data:  puffin_viewer {server_addr}");
 
     #[cfg(debug_assertions)]
     puffin::set_scopes_on(true);

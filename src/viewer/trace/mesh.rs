@@ -125,6 +125,73 @@ impl TraceMesher {
     }
 }
 
+pub struct LineMesher {
+    current_layer: usize,
+    current_type: Option<TraceType>,
+    color: Vec4,
+    vertices: Vec<TraceVertex>,
+}
+
+impl LineMesher {
+    pub fn new() -> Self {
+        Self {
+            current_layer: 0,
+            current_type: None,
+            color: Vec4::new(0.0, 0.0, 0.0, 1.0),
+            vertices: Vec::new(),
+        }
+    }
+
+    pub fn set_current_layer(&mut self, layer: usize) {
+        self.current_layer = layer;
+    }
+
+    pub fn set_type(&mut self, r#type: TraceType) {
+        self.current_type = Some(r#type);
+    }
+
+    pub fn set_color(&mut self, color: Vec4) {
+        self.color = color;
+    }
+
+    pub fn next(&mut self, start: Vec3, end: Vec3) -> usize {
+        let context_bits = match self.current_type {
+            Some(ty) => bit_representation(&ty),
+            None => bit_representation_setup(),
+        };
+
+        let start = TraceVertex::from_vertex(
+            Vertex {
+                position: start.to_array(),
+                normal: Vec3::ZERO.to_array(),
+                color: self.color.to_array(),
+            },
+            context_bits,
+            self.current_layer as u32,
+        );
+
+        let end = TraceVertex::from_vertex(
+            Vertex {
+                position: end.to_array(),
+                normal: Vec3::ZERO.to_array(),
+                color: self.color.to_array(),
+            },
+            context_bits,
+            self.current_layer as u32,
+        );
+
+        let offset = self.vertices.len();
+        self.vertices.push(start);
+        self.vertices.push(end);
+
+        offset
+    }
+
+    pub fn finish(self) -> Vec<TraceVertex> {
+        self.vertices
+    }
+}
+
 #[derive(Debug, Clone, Copy)]
 pub struct TraceCrossSection {
     pub a: Vec3,

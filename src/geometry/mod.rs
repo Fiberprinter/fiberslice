@@ -6,7 +6,7 @@ pub mod mesh;
 
 pub use r#box::BoundingBox;
 
-use crate::{input::hitbox::Hitbox, render::Vertex, viewer::toolpath::mesh::TraceCrossSection};
+use crate::{input::hitbox::Hitbox, render::Vertex, viewer::trace::mesh::TraceCrossSection};
 
 #[derive(Debug, Clone, Copy)]
 pub struct QuadFace {

@@ -6,7 +6,7 @@ use glam::Mat4;
 use log::warn;
 use parking_lot::RwLock;
 use shared::{object::ObjectMesh, process::Process};
-use slicer::{Mask, Settings, SliceResult, TraceType};
+use slicer::{Mask, Settings, SliceResult, SlicedGCode, TraceType};
 use winit::{
     event::{KeyEvent, MouseButton},
     keyboard::{KeyCode, PhysicalKey},
@@ -24,7 +24,7 @@ pub use camera::*;
 
 pub mod select;
 pub mod server;
-pub mod toolpath;
+pub mod trace;
 pub mod tracker;
 pub mod volume;
 
@@ -155,8 +155,13 @@ impl Viewer {
             .map(|toolpath| toolpath.count_map.clone())
     }
 
-    pub fn sliced_gcode(&self) -> Option<&str> {
-        Some("Not implemented")
+    pub fn sliced_gcode(&self, read_fn: impl FnOnce(&SlicedGCode)) {
+        let read = self.sliced_object_server.read();
+        let gcode = read.get_gcode();
+
+        if let Some(gcode) = gcode {
+            read_fn(gcode);
+        }
     }
 
     pub fn sliced_max_layer(&self) -> Option<u32> {
@@ -337,10 +342,11 @@ impl Viewer {
         if let Some((pipelines, mut render_pass)) = render_descriptor.pass() {
             match mode {
                 Mode::Preview => {
+                    sliced_object_server_read.render_fiber(&mut render_pass);
+
                     render_pass.set_pipeline(&pipelines.back_cull);
                     mask_server_read.render(&mut render_pass);
                     model_server_read.render(&mut render_pass);
-                    sliced_object_server_read.render_fiber(&mut render_pass);
                 }
                 Mode::Prepare => {
                     render_pass.set_pipeline(&pipelines.back_cull);

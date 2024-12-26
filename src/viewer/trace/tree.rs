@@ -128,14 +128,16 @@ impl TraceTree {
 
     pub fn update_offset(&mut self, offset: BufferAddress) {
         match self {
-            Self::Root { children, .. } => {
+            Self::Root { .. } => {
+                /*
                 let mut current_offset = offset;
                 for child in children {
                     // child.update_offset(current_offset);
                     current_offset += child.size();
                 }
+                */
 
-                // TODO: Update the offset of the children
+                // TODO update the offset of the children
             }
             Self::Trace { offset: o, .. } => *o = offset,
             Self::Travel { offset: o, .. } => *o = offset,

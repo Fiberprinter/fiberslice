@@ -14,9 +14,9 @@ use tower::create_towers;
 
 mod calculation;
 mod command_pass;
-mod converter;
 mod dispatcher;
 mod error;
+mod gcode;
 mod mask;
 mod optimizer;
 mod plotter;
@@ -26,7 +26,9 @@ mod tower;
 mod utils;
 mod warning;
 
-pub use converter::convert;
+pub use gcode::build_gcode;
+pub use gcode::write_gcode;
+pub use gcode::SlicedGCode;
 pub use mask::Mask;
 
 use error::SlicerErrors;
@@ -76,7 +78,10 @@ pub fn slice(
     process.set_progress(0.5);
     masks.iter_mut().for_each(|mask| {
         mask.crop(&objects, max);
-        mask.randomize_mask_underlaps(15.0);
+
+        if mask.mask_settings().epsilon.abs() > f32::EPSILON {
+            mask.randomize_mask_underlaps(mask.mask_settings().epsilon);
+        }
     });
 
     generate_mask_moves(&mut masks, settings, process)?;

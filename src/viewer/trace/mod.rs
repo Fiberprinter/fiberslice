@@ -2,13 +2,12 @@ use std::{fmt::Debug, sync::Arc};
 
 use egui::ahash::{HashMap, HashMapExt};
 use glam::{Vec3, Vec4};
-use log::info;
 use mesh::{
-    TraceConnectionMesh, TraceCrossSection, TraceCrossSectionMesh, TraceHitbox, TraceMesh,
-    TraceMesher, TRACE_MESH_VERTICES,
+    LineMesher, TraceConnectionMesh, TraceCrossSection, TraceCrossSectionMesh, TraceMesher,
+    TRACE_MESH_VERTICES,
 };
 use shared::process::Process;
-use slicer::{Command, FiberSettings, StateChange, TraceType};
+use slicer::{Command, TraceType};
 use tree::TraceTree;
 use vertex::TraceVertex;
 use wgpu::BufferAddress;
@@ -47,6 +46,10 @@ pub const fn bit_representation_setup() -> u32 {
     0x01
 }
 
+pub const TRAVEL_COLOR: Vec4 = Vec4::new(1.0, 1.0, 1.0, 1.0);
+
+pub const FIBER_COLOR: Vec4 = Vec4::new(0.0, 0.0, 0.0, 1.0);
+
 #[derive(Debug)]
 pub struct SlicedObject {
     pub model: Arc<TraceTree>,
@@ -65,7 +68,7 @@ impl SlicedObject {
         settings: &slicer::Settings,
         _process: &Process,
     ) -> Result<Self, ()> {
-        let mut current_state = StateChange::default();
+        // let mut current_state = StateChange::default();
         let mut current_type = None;
         let mut current_layer = 0;
         let mut current_height_z = 0.0;
@@ -74,32 +77,26 @@ impl SlicedObject {
 
         let mut count_map = HashMap::new();
 
-        let fiber_diameter = settings
-            .fiber
-            .as_ref()
-            .unwrap_or(&FiberSettings::default())
-            .diameter;
-
         let mut root = TraceTree::create_root();
 
-        let mut tracer = TraceMesher::new();
+        let mut mesher = TraceMesher::new();
 
-        let mut fiber_tracer = TraceMesher::new();
-        fiber_tracer.set_color(Vec4::new(0.0, 0.0, 0.0, 1.0));
+        let mut fiber_mesher = LineMesher::new();
+        fiber_mesher.set_color(FIBER_COLOR);
 
         let mut travel_vertices = Vec::new();
 
         for command in commands {
             if let Some(ty) = current_type {
-                tracer.set_type(ty);
+                mesher.set_type(ty);
             }
-            tracer.set_current_layer(current_layer);
-            tracer.set_color(current_type.unwrap_or(TraceType::Infill).into_color_vec4());
+            mesher.set_current_layer(current_layer);
+            mesher.set_color(current_type.unwrap_or(TraceType::Infill).into_color_vec4());
 
             if let Some(ty) = current_type {
-                fiber_tracer.set_type(ty);
+                fiber_mesher.set_type(ty);
             }
-            fiber_tracer.set_current_layer(current_layer);
+            fiber_mesher.set_current_layer(current_layer);
 
             match command {
                 slicer::Command::MoveTo { end } => {
@@ -113,13 +110,13 @@ impl SlicedObject {
                     travel_vertices.push(Vertex {
                         position: start.to_array(),
                         normal: [0.0; 3],
-                        color: [0.0, 0.0, 0.0, 1.0],
+                        color: TRAVEL_COLOR.to_array(),
                     });
 
                     travel_vertices.push(Vertex {
                         position: end.to_array(),
                         normal: [0.0; 3],
-                        color: [0.0, 0.0, 0.0, 1.0],
+                        color: TRAVEL_COLOR.to_array(),
                     });
 
                     last_position = end;
@@ -145,7 +142,7 @@ impl SlicedObject {
                         count_map.entry(ty).and_modify(|e| *e += 1).or_insert(1);
                     }
 
-                    let (offset, hitbox) = tracer.next(start, end, *thickness, *width);
+                    let (offset, hitbox) = mesher.next(start, end, *thickness, *width);
 
                     let tree_move = TraceTree::create_move(
                         hitbox,
@@ -183,7 +180,7 @@ impl SlicedObject {
                         count_map.entry(ty).and_modify(|e| *e += 1).or_insert(1);
                     }
 
-                    let (offset, hitbox) = tracer.next(start, end, *thickness, *width);
+                    let (offset, hitbox) = mesher.next(start, end, *thickness, *width);
 
                     let tree_move = TraceTree::create_move(
                         hitbox,
@@ -193,14 +190,9 @@ impl SlicedObject {
 
                     root.push(tree_move);
 
-                    let (offset, _) = fiber_tracer.next(start, end, fiber_diameter, fiber_diameter);
+                    let offset = fiber_mesher.next(start, end);
 
-                    let fiber = TraceTree::create_fiber(
-                        offset as u64,
-                        TRACE_MESH_VERTICES as BufferAddress,
-                        start,
-                        end,
-                    );
+                    let fiber = TraceTree::create_fiber(offset as u64, 2, start, end);
 
                     root.push(fiber);
 
@@ -210,25 +202,20 @@ impl SlicedObject {
                     current_layer = *index;
                     current_height_z = *z;
                 }
-                slicer::Command::SetState { new_state } => {
-                    current_state = new_state.clone();
-                }
+                slicer::Command::SetState { .. } => {}
                 slicer::Command::ChangeType { print_type } => current_type = Some(*print_type),
                 _ => {}
             }
 
             if !command.needs_filament() {
-                tracer.finish_chain();
+                mesher.finish_chain();
             }
         }
 
-        let trace_vertices = tracer.finish();
-        let fiber_vertices = fiber_tracer.finish();
-
-        info!("Fiber vertices: {:?}", fiber_vertices);
+        let trace_vertices = mesher.finish();
+        let fiber_vertices = fiber_mesher.finish();
 
         root.awaken(&trace_vertices, &travel_vertices, &fiber_vertices);
-
         root.update_offset(0);
 
         Ok(Self {
@@ -240,6 +227,8 @@ impl SlicedObject {
         })
     }
 
+    #[allow(dead_code)]
+    #[allow(unused_variables)]
     pub fn from_file(path: &str, settings: &slicer::Settings) -> Result<Self, ()> {
         todo!()
     }

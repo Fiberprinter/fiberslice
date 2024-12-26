@@ -17,17 +17,17 @@ strum = "0.26"
 strum_macros = "0.26"
 image = { version = "0.25", features = ["jpeg", "png"] }
 
-thiserror = "1.0.30"
-serde = "1.0.177"
+thiserror = "2.0.9"
+serde = "1.0.216"
 serde_yaml = "0.9.25"
-stl_io = "0.8.2"
+stl_io = "0.8.3"
 uni-path = "1.51.1"
 phf = { version = "0.11", features = ["macros"] }
 
 winit = "0.30"
 
-tokio = { version = "1.34.0", features = ["macros", "full"] }
-serde_json = "1.0.64"
+tokio = { version = "1.42.0", features = ["macros", "full"] }
+serde_json = "1.0.134"
 parking_lot = "0.12.3"
 egui_xml = "0.1.3"
 puffin = "0.19.0"
@@ -35,8 +35,8 @@ puffin_http = "0.16.0"
 
 wgpu = "22.0"
 
-glam = "0.29"
-bytemuck = "1.7.0"
+glam = "0.29.2"
+bytemuck = "1.21.0"
 simple-logging = "2.0.2"
 log = "0.4.21"
 egui-toast = { git = "https://github.com/GodGotzi/egui-toast.git", branch = "named_toasts" }
@@ -44,11 +44,11 @@ puffin_egui = { git = "https://github.com/EmbarkStudios/puffin" }
 futures-channel = "0.3.31"
 
 egui_code_editor = "0.2.9"
-env_logger = "0.11.5"
-pollster = "0.3.0"
+env_logger = "0.11.6"
+pollster = "0.4.0"
 # rether = { path = "rether" }
 rayon = "1.10.0"
-ordered-float = "4.3.0"
+ordered-float = "4.6.0"
 rand = "0.8.5"
 atomic_float = "1.1.0"
 

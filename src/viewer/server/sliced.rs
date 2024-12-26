@@ -4,21 +4,21 @@ use std::sync::Arc;
 
 use native_dialog::FileDialog;
 use shared::process::Process;
-use slicer::{convert, SliceResult, TraceType};
+use slicer::{build_gcode, write_gcode, SliceResult, SlicedGCode, TraceType};
 use tokio::sync::oneshot::Receiver;
 use tokio::task::JoinHandle;
 use wgpu::util::DeviceExt;
 
 use crate::input::hitbox::HitboxRoot;
 use crate::render::model::ModelColorUniform;
-use crate::render::{self, PipelineBuilder, Renderable};
-use crate::viewer::toolpath::vertex::{TraceContext, TraceVertex};
-use crate::viewer::toolpath::SlicedObject;
+use crate::render::{PipelineBuilder, Renderable};
+use crate::viewer::trace::vertex::{TraceContext, TraceVertex};
+use crate::viewer::trace::SlicedObject;
 use crate::viewer::RenderServer;
 use crate::QUEUE;
 use crate::{prelude::WgpuContext, GlobalState, RootEvent};
 
-use crate::viewer::toolpath::tree::TraceTree;
+use crate::viewer::trace::tree::TraceTree;
 
 // const MAIN_LOADED_TOOLPATH: &str = "main"; // HACK: This is a solution to ease the dev when only one toolpath is loaded which is the only supported(for now)
 
@@ -30,15 +30,21 @@ pub enum SliceError {
     NoGeometryObject,
 }
 
-pub type QueuedSlicedObject = (Receiver<(SlicedObject, Arc<Process>)>, JoinHandle<()>);
+pub type QueuedSlicedObject = (
+    Receiver<(SlicedObject, SlicedGCode, Arc<Process>)>,
+    JoinHandle<()>,
+);
 
 #[derive(Debug)]
 pub struct SlicedObjectServer {
     queued: Option<QueuedSlicedObject>,
 
     pipeline: wgpu::RenderPipeline,
+    fiber_pipeline: wgpu::RenderPipeline,
 
     sliced_object: Option<SlicedObject>,
+    sliced_gcode: Option<SlicedGCode>,
+
     hitbox: HitboxRoot<TraceTree>,
 
     travel_visible: bool,
@@ -162,11 +168,41 @@ impl RenderServer for SlicedObjectServer {
                 context.surface_format,
             );
 
+        let fiber_pipeline = PipelineBuilder::new(context.device.clone())
+            .with_primitive(wgpu::PrimitiveState {
+                topology: wgpu::PrimitiveTopology::LineList,
+                strip_index_format: None,
+                front_face: wgpu::FrontFace::Cw,
+                cull_mode: None,
+                // Requires Features::NON_FILL_POLYGON_MODE
+                polygon_mode: wgpu::PolygonMode::Fill,
+                // Requires Features::DEPTH_CLIP_CONTROL
+                unclipped_depth: false,
+                // Requires Features::CONSERVATIVE_RASTERIZATION
+                conservative: false,
+            })
+            .build(
+                "Fiber Render Pipeline",
+                include_str!("sliced_shader.wgsl"),
+                &[
+                    &context.camera_bind_group_layout,
+                    &context.light_bind_group_layout,
+                    &context.transform_bind_group_layout,
+                    &color_bind_group_layout,
+                    &toolpath_bind_group_layout,
+                ],
+                &[TraceVertex::desc()],
+                context.surface_format,
+            );
+
         Self {
             queued: None,
             sliced_object: None,
+            sliced_gcode: None,
+
             hitbox: HitboxRoot::root(),
             pipeline,
+            fiber_pipeline,
 
             travel_visible: false,
             fiber_visible: true,
@@ -211,7 +247,7 @@ impl SlicedObjectServer {
         if let Some(toolpath) = self.sliced_object.as_ref() {
             render_pass.set_bind_group(4, &self.toolpath_context_bind_group, &[]);
 
-            render_pass.set_pipeline(&self.pipeline);
+            render_pass.set_pipeline(&self.fiber_pipeline);
             toolpath.model.render_fiber(render_pass);
         }
     }
@@ -223,11 +259,15 @@ impl SlicedObjectServer {
             process.set_task("Loading toolpath".to_string());
             process.set_progress(0.8);
 
-            let toolpath =
+            let obj =
                 SlicedObject::from_commands(&slice_result.moves, &slice_result.settings, &process)
                     .expect("Failed to load toolpath");
 
-            tx.send((toolpath, process)).unwrap();
+            let sliced_gcode = build_gcode(&slice_result.moves, &slice_result.settings).unwrap();
+
+            process.set_progress(1.0);
+
+            tx.send((obj, sliced_gcode, process)).unwrap();
         });
 
         self.queued = Some((rx, handle));
@@ -253,7 +293,8 @@ impl SlicedObjectServer {
                 };
 
                 let mut writer = BufWriter::new(file);
-                match convert(&toolpath.moves, &toolpath.settings, &mut writer) {
+
+                match write_gcode(&toolpath.moves, &toolpath.settings, &mut writer) {
                     Ok(_) => {
                         println!("Gcode saved");
                     }
@@ -267,7 +308,7 @@ impl SlicedObjectServer {
 
     pub fn update(&mut self, global_state: GlobalState<RootEvent>) -> Result<(), SliceError> {
         if let Some((rx, _)) = &mut self.queued {
-            if let Ok((toolpath, process)) = rx.try_recv() {
+            if let Ok((toolpath, gcode, process)) = rx.try_recv() {
                 process.finish();
 
                 global_state
@@ -277,6 +318,7 @@ impl SlicedObjectServer {
                 self.hitbox.add_node(toolpath.model.clone());
 
                 self.sliced_object = Some(toolpath);
+                self.sliced_gcode = Some(gcode);
             }
         }
 
@@ -365,6 +407,10 @@ impl SlicedObjectServer {
 
     pub fn get_sliced(&self) -> Option<&SlicedObject> {
         self.sliced_object.as_ref()
+    }
+
+    pub fn get_gcode(&self) -> Option<&SlicedGCode> {
+        self.sliced_gcode.as_ref()
     }
 
     pub fn check_hit(&self, ray: &crate::input::Ray, level: usize) -> Option<Arc<TraceTree>> {

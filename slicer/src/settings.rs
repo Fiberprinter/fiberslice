@@ -1,8 +1,8 @@
 use serde::{Deserialize, Serialize};
 
 use crate::{
-    error::SlicerErrors, warning::SlicerWarnings, TraceType, MoveType, PartialInfillTypes,
-    SolidInfillTypes,
+    error::SlicerErrors, warning::SlicerWarnings, MoveType, PartialInfillTypes, SolidInfillTypes,
+    TraceType,
 };
 
 macro_rules! setting_less_than_or_equal_to_zero {
@@ -203,7 +203,7 @@ pub struct Settings {
 impl Default for Settings {
     fn default() -> Self {
         Settings {
-            layer_height: 0.15,
+            layer_height: 0.6,
             number_of_perimeters: 3,
             top_layers: 3,
             bottom_layers: 3,
@@ -224,7 +224,7 @@ impl Default for Settings {
             fan: FanSettings::default(),
             fiber: None,
             skirt: None,
-            nozzle_diameter: 0.4,
+            nozzle_diameter: 0.8,
             retract_length: 0.8,
             retract_lift_z: 0.6,
             retract_speed: 35.0,
@@ -532,8 +532,8 @@ impl Settings {
 
 #[derive(Serialize, Deserialize, Debug, Default, Clone)]
 pub struct MaskSettings {
-    epsilon: f32,
-    wall_seperated: bool,
+    pub epsilon: f32,
+    pub wall_seperated: bool,
     settings: PartialSettings,
 }
 
