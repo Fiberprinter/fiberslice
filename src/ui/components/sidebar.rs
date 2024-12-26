@@ -320,12 +320,17 @@ impl<'a> UiComponent for Settingsbar<'a> {
                                         tabbed_view.show(ui, shared_state, self);
                                     }
                                     SettingTab::GCode => {
-                                        shared_state
-                                            .1
-                                            .slicer
-                                            .write()
-                                            .settings
-                                            .show_instructions(ui);
+                                        egui::ScrollArea::vertical()
+                                            .id_source("gcode_settings_scrollarea")
+                                            .max_height(ui.available_height())
+                                            .show(ui, |ui| {
+                                                shared_state
+                                                    .1
+                                                    .slicer
+                                                    .write()
+                                                    .settings
+                                                    .show_instructions(ui);
+                                            });
                                     }
                                 }
                             });

@@ -232,14 +232,19 @@ impl UiSetting for slicer::Settings {
     fn show_instructions(&mut self, ui: &mut egui::Ui) {
         ui.label("Starting instructions");
 
-        egui_code_editor::CodeEditor::default()
-            .id_source("end instruction  editor")
-            .with_fontsize(14.0)
-            .with_rows(10)
-            .with_theme(ColorTheme::GRUVBOX)
-            .with_numlines(false)
-            .with_syntax(Syntax::gcode())
-            .show(ui, &mut self.starting_instructions);
+        egui::ScrollArea::both()
+            .id_source("start instruction editor scroll area")
+            .max_height(150.0)
+            .show(ui, |ui| {
+                egui_code_editor::CodeEditor::default()
+                    .id_source("start instruction editor")
+                    .with_fontsize(14.0)
+                    .with_rows(10)
+                    .with_theme(ColorTheme::GRUVBOX)
+                    .with_numlines(false)
+                    .with_syntax(Syntax::gcode())
+                    .show(ui, &mut self.starting_instructions);
+            });
 
         ui.separator();
 
@@ -247,14 +252,19 @@ impl UiSetting for slicer::Settings {
 
         ui.label("Ending instructions");
 
-        egui_code_editor::CodeEditor::default()
-            .id_source("start instruction editor")
-            .with_fontsize(14.0)
-            .with_rows(10)
-            .with_theme(ColorTheme::GRUVBOX)
-            .with_numlines(false)
-            .with_syntax(Syntax::gcode())
-            .show(ui, &mut self.ending_instructions);
+        egui::ScrollArea::both()
+            .id_source("end instruction editor scroll area")
+            .max_height(150.0)
+            .show(ui, |ui| {
+                egui_code_editor::CodeEditor::default()
+                    .id_source("end instruction editor")
+                    .with_fontsize(14.0)
+                    .with_rows(10)
+                    .with_theme(ColorTheme::GRUVBOX)
+                    .with_numlines(false)
+                    .with_syntax(Syntax::gcode())
+                    .show(ui, &mut self.ending_instructions);
+            });
 
         ui.separator();
 
@@ -262,25 +272,35 @@ impl UiSetting for slicer::Settings {
 
         ui.label("Before layer change instructions");
 
-        egui_code_editor::CodeEditor::default()
-            .id_source("Before layer change instruction editor")
-            .with_fontsize(14.0)
-            .with_rows(5)
-            .with_theme(ColorTheme::GRUVBOX)
-            .with_numlines(false)
-            .with_syntax(Syntax::gcode())
-            .show(ui, &mut self.before_layer_change_instructions);
+        egui::ScrollArea::both()
+            .id_source("before layer change instruction editor scroll area")
+            .max_height(75.0)
+            .show(ui, |ui| {
+                egui_code_editor::CodeEditor::default()
+                    .id_source("Before layer change instruction editor")
+                    .with_fontsize(14.0)
+                    .with_rows(5)
+                    .with_theme(ColorTheme::GRUVBOX)
+                    .with_numlines(false)
+                    .with_syntax(Syntax::gcode())
+                    .show(ui, &mut self.before_layer_change_instructions);
+            });
 
         ui.label("After layer change instructions");
 
-        egui_code_editor::CodeEditor::default()
-            .id_source("After layer change instruction editor")
-            .with_fontsize(14.0)
-            .with_rows(5)
-            .with_theme(ColorTheme::GRUVBOX)
-            .with_numlines(false)
-            .with_syntax(Syntax::gcode())
-            .show(ui, &mut self.after_layer_change_instructions);
+        egui::ScrollArea::both()
+            .id_source("after layer change instruction editor scroll area")
+            .max_height(75.0)
+            .show(ui, |ui| {
+                egui_code_editor::CodeEditor::default()
+                    .id_source("After layer change instruction editor")
+                    .with_fontsize(14.0)
+                    .with_rows(5)
+                    .with_theme(ColorTheme::GRUVBOX)
+                    .with_numlines(false)
+                    .with_syntax(Syntax::gcode())
+                    .show(ui, &mut self.after_layer_change_instructions);
+            });
 
         ui.separator();
 
@@ -288,14 +308,19 @@ impl UiSetting for slicer::Settings {
 
         ui.label("Object change instructions");
 
-        egui_code_editor::CodeEditor::default()
-            .id_source("object change instruction editor")
-            .with_fontsize(14.0)
-            .with_rows(5)
-            .with_theme(ColorTheme::GRUVBOX)
-            .with_numlines(false)
-            .with_syntax(Syntax::gcode())
-            .show(ui, &mut self.object_change_instructions);
+        egui::ScrollArea::both()
+            .id_source("object change instruction editor scroll area")
+            .max_height(75.0)
+            .show(ui, |ui| {
+                egui_code_editor::CodeEditor::default()
+                    .id_source("object change instruction editor")
+                    .with_fontsize(14.0)
+                    .with_rows(5)
+                    .with_theme(ColorTheme::GRUVBOX)
+                    .with_numlines(false)
+                    .with_syntax(Syntax::gcode())
+                    .show(ui, &mut self.object_change_instructions);
+            });
     }
 
     fn show_limits(&mut self, ui: &mut egui::Ui) {
