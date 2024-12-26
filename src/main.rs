@@ -7,6 +7,7 @@
 
 use input::InputEvent;
 use log::{info, LevelFilter};
+use once_cell::sync::OnceCell;
 use parking_lot::RwLock;
 use std::{sync::Arc, time::Instant};
 use ui::UiEvent;
@@ -37,6 +38,19 @@ use winit::{
 
 pub static DEVICE: RwLock<Option<Arc<wgpu::Device>>> = RwLock::new(None);
 pub static QUEUE: RwLock<Option<Arc<wgpu::Queue>>> = RwLock::new(None);
+pub static CONFIG: OnceCell<config::Config> = OnceCell::new();
+
+fn load_config() {
+    let content = include_str!("../config.toml");
+    match toml::from_str(content) {
+        Ok(config) => {
+            CONFIG.set(config).unwrap();
+        }
+        Err(e) => {
+            panic!("Failed to load config: {}", e);
+        }
+    }
+}
 
 // HACK with this using Model is way easier than before you don't have to worry about the device and queue
 fn set_device(device: Arc<wgpu::Device>) {
@@ -83,6 +97,8 @@ pub struct GlobalState<T: 'static> {
 
 #[tokio::main]
 async fn main() -> Result<(), EventLoopError> {
+    load_config();
+
     let server_addr = format!("127.0.0.1:{}", puffin_http::DEFAULT_PORT);
     let _puffin_server = puffin_http::Server::new(&server_addr).unwrap();
     info!("Run this to view profiling data:  puffin_viewer {server_addr}");
@@ -393,6 +409,10 @@ impl ApplicationHandler<RootEvent> for Application {
     }
 
     fn exiting(&mut self, _event_loop: &winit::event_loop::ActiveEventLoop) {
+        if let Some(state) = self.state.as_mut() {
+            state.global_state.slicer.write().exit();
+        }
+
         println!("Exiting");
     }
 }

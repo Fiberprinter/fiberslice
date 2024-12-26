@@ -1,0 +1,120 @@
+layer_height = 0.6000000238418579
+nozzle_diameter = 0.800000011920929
+retract_length = 0.800000011920929
+retract_lift_z = 0.6000000238418579
+retract_speed = 35.0
+infill_percentage = 0.20000000298023224
+inner_perimeters_first = true
+number_of_perimeters = 3
+top_layers = 3
+bottom_layers = 3
+print_x = 210.0
+print_y = 210.0
+print_z = 210.0
+minimum_retract_distance = 1.0
+infill_perimeter_overlap_percentage = 0.25
+solid_infill_type = "Rectilinear"
+partial_infill_type = "Linear"
+starting_instructions = """
+G90 ; use absolute coordinates 
+M83 ; extruder relative mode
+M106 S255 ; FANNNNN
+M104 S[First Layer Extruder Temp] ; set extruder temp
+M140 S[First Layer Bed Temp] ; set bed temp
+M190 S[First Layer Bed Temp]; wait for bed temp
+M109 S[First Layer Extruder Temp] ; wait for extruder temp
+G28 W ; home all without mesh bed level
+G80 ; mesh bed leveling
+G1 Y-3.0 F1000.0 ; go outside print area
+G92 E0.0
+G1 X60.0 E9.0 F1000.0 ; intro line
+G1 X100.0 E12.5 F1000.0 ; intro line
+G92 E0.0;
+"""
+ending_instructions = """
+G4 ; wait
+M221 S100 
+M104 S0 ; turn off temperature 
+M140 S0 ; turn off heatbed 
+G1 X0 F3000 ; home X axis 
+M84 ; disable motors
+M107 ; disable fan
+"""
+before_layer_change_instructions = ""
+after_layer_change_instructions = ""
+object_change_instructions = ""
+max_acceleration_x = 1000.0
+max_acceleration_y = 1000.0
+max_acceleration_z = 1000.0
+max_acceleration_e = 5000.0
+max_acceleration_extruding = 1250.0
+max_acceleration_travel = 1250.0
+max_acceleration_retracting = 1250.0
+max_jerk_x = 8.0
+max_jerk_y = 8.0
+max_jerk_z = 0.4000000059604645
+max_jerk_e = 1.5
+minimum_feedrate_print = 0.0
+minimum_feedrate_travel = 0.0
+maximum_feedrate_x = 200.0
+maximum_feedrate_y = 200.0
+maximum_feedrate_z = 12.0
+maximum_feedrate_e = 120.0
+layer_settings = [
+    [
+        { SingleLayer = 0 },
+        { layer_height = 0.30000001192092896, speed = { interior_inner_perimeter = 20.0, interior_surface_perimeter = 20.0, exterior_inner_perimeter = 20.0, exterior_surface_perimeter = 20.0, solid_top_infill = 20.0, solid_infill = 20.0, infill = 20.0, travel = 5.0, bridge = 20.0, support = 20.0, fiber_factor = 0.5 }, bed_temp = 60.0, extruder_temp = 210.0 },
+    ],
+]
+
+[extrusion_width]
+interior_inner_perimeter = 0.4000000059604645
+interior_surface_perimeter = 0.4000000059604645
+exterior_inner_perimeter = 0.4000000059604645
+exterior_surface_perimeter = 0.4000000059604645
+solid_top_infill = 0.4000000059604645
+solid_infill = 0.4000000059604645
+infill = 0.4000000059604645
+travel = 0.4000000059604645
+bridge = 0.4000000059604645
+support = 0.4000000059604645
+fiber_factor = 0.5
+
+[filament]
+diameter = 1.75
+density = 1.2400000095367432
+cost = 24.989999771118164
+extruder_temp = 210.0
+bed_temp = 60.0
+
+[fan]
+fan_speed = 100.0
+disable_fan_for_layers = 1
+slow_down_threshold = 15.0
+min_print_speed = 15.0
+
+[speed]
+interior_inner_perimeter = 40.0
+interior_surface_perimeter = 40.0
+exterior_inner_perimeter = 40.0
+exterior_surface_perimeter = 40.0
+solid_top_infill = 200.0
+solid_infill = 200.0
+infill = 200.0
+travel = 180.0
+bridge = 30.0
+support = 50.0
+fiber_factor = 0.5
+
+[acceleration]
+interior_inner_perimeter = 900.0
+interior_surface_perimeter = 900.0
+exterior_inner_perimeter = 800.0
+exterior_surface_perimeter = 800.0
+solid_top_infill = 1000.0
+solid_infill = 1000.0
+infill = 1000.0
+travel = 1000.0
+bridge = 1000.0
+support = 1000.0
+fiber_factor = 0.5

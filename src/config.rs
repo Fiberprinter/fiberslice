@@ -2,6 +2,13 @@
 //H = height
 //W = width
 
+use serde::Deserialize;
+
+#[derive(Debug, Clone, Deserialize)]
+pub struct Config {
+    pub settings_path: String,
+}
+
 pub mod default {
 
     //pub const WINDOW_S: Vec2 = Vec2::new(0., 0.);

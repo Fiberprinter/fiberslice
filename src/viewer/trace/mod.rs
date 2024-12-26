@@ -33,11 +33,6 @@ pub fn bit_representation(print_type: &TraceType) -> u32 {
     0x01 << (*print_type as u32)
 }
 
-#[allow(dead_code)]
-pub const fn bit_representation_travel() -> u32 {
-    0x02
-}
-
 pub const fn bit_representation_setup() -> u32 {
     0x01
 }

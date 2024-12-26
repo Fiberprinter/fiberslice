@@ -154,7 +154,9 @@ fn file_button(ui: &mut Ui, (_ui_state, global_state): &(UiState, GlobalState<Ro
 
         build_sub_menu(ui, "Save As", |_ui| {});
 
-        build_sub_menu(ui, "Save", |_ui| {});
+        build_sub_menu(ui, "Save", |_ui| {
+            global_state.slicer.read().save();
+        });
 
         build_sub_menu(ui, "Exit", |_ui| {
             global_state.proxy.send_event(RootEvent::Exit).unwrap();
