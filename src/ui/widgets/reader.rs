@@ -122,7 +122,7 @@ impl<'a> EfficientReader<'a> {
                 self.numlines_show(h);
             }
             egui::ScrollArea::horizontal()
-                .id_source(format!("{}_inner_scroll", self.id))
+                .id_salt(format!("{}_inner_scroll", self.id))
                 .show(h, |ui| {
                     let mut layouter = |ui: &egui::Ui, string: &str, _wrap_width: f32| {
                         let layout_job = highlight(ui.ctx(), self, string);

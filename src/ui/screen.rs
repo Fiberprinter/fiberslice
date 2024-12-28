@@ -7,7 +7,8 @@ use components::{
     toolbar::{self, ToolBarState},
     topbar::{self, TopBarState},
 };
-use egui::{Align2, Id, Margin, RichText};
+
+use egui::{Align2, Direction, Id, Margin};
 use egui_toast::Toasts;
 
 #[derive(Debug, Default)]
@@ -22,7 +23,7 @@ impl ViewerTooltip {
     }
 
     pub fn show(&self, ui: &mut egui::Ui) {
-        ui.label(RichText::new(&self.server_type).strong());
+        ui.label(egui::RichText::new(&self.server_type).strong());
         ui.label(&self.model);
     }
 }
@@ -48,10 +49,10 @@ impl Screen {
             tools: tools::Tools::default(),
             toasts: Toasts::with_id(Id::new("__toasts"))
                 .anchor(Align2::CENTER_TOP, (0.0, 10.0))
-                .direction(egui::Direction::TopDown),
+                .direction(Direction::TopDown),
             toasts_progress_bar: Toasts::with_id(Id::new("__toasts_progress_bar"))
                 .anchor(Align2::RIGHT_BOTTOM, (-10.0, -10.0))
-                .direction(egui::Direction::TopDown)
+                .direction(Direction::TopDown)
                 .custom_contents(
                     crate::ui::custom_toasts::MODEL_LOAD_PROGRESS,
                     crate::ui::custom_toasts::model_load_progress,

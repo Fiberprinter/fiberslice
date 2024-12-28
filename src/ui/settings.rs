@@ -233,7 +233,7 @@ impl UiSetting for slicer::Settings {
         ui.label("Starting instructions");
 
         egui::ScrollArea::both()
-            .id_source("start instruction editor scroll area")
+            .id_salt("start instruction editor scroll area")
             .max_height(150.0)
             .show(ui, |ui| {
                 egui_code_editor::CodeEditor::default()
@@ -253,7 +253,7 @@ impl UiSetting for slicer::Settings {
         ui.label("Ending instructions");
 
         egui::ScrollArea::both()
-            .id_source("end instruction editor scroll area")
+            .id_salt("end instruction editor scroll area")
             .max_height(150.0)
             .show(ui, |ui| {
                 egui_code_editor::CodeEditor::default()
@@ -273,7 +273,7 @@ impl UiSetting for slicer::Settings {
         ui.label("Before layer change instructions");
 
         egui::ScrollArea::both()
-            .id_source("before layer change instruction editor scroll area")
+            .id_salt("before layer change instruction editor scroll area")
             .max_height(75.0)
             .show(ui, |ui| {
                 egui_code_editor::CodeEditor::default()
@@ -289,7 +289,7 @@ impl UiSetting for slicer::Settings {
         ui.label("After layer change instructions");
 
         egui::ScrollArea::both()
-            .id_source("after layer change instruction editor scroll area")
+            .id_salt("after layer change instruction editor scroll area")
             .max_height(75.0)
             .show(ui, |ui| {
                 egui_code_editor::CodeEditor::default()
@@ -309,7 +309,7 @@ impl UiSetting for slicer::Settings {
         ui.label("Object change instructions");
 
         egui::ScrollArea::both()
-            .id_source("object change instruction editor scroll area")
+            .id_salt("object change instruction editor scroll area")
             .max_height(75.0)
             .show(ui, |ui| {
                 egui_code_editor::CodeEditor::default()

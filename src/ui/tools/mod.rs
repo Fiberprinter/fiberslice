@@ -250,7 +250,7 @@ impl Tool for Profiler<'_> {
                 .collapsible(false)
                 .frame(frame)
                 .show(ctx, |ui| {
-                    puffin_egui::profiler_ui(ui);
+                    // puffin_egui::profiler_ui(ui);
 
                     pointer_over_tool = ui.ui_contains_pointer();
                 });

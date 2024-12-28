@@ -321,7 +321,7 @@ impl<'a> UiComponent for Settingsbar<'a> {
                                     }
                                     SettingTab::GCode => {
                                         egui::ScrollArea::vertical()
-                                            .id_source("gcode_settings_scrollarea")
+                                            .id_salt("gcode_settings_scrollarea")
                                             .max_height(ui.available_height())
                                             .show(ui, |ui| {
                                                 shared_state

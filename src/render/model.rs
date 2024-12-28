@@ -178,6 +178,10 @@ impl<T: std::fmt::Debug + bytemuck::Pod + bytemuck::Zeroable> Model<T> {
         let device_read = DEVICE.read();
         let device = device_read.as_ref().unwrap();
 
+        if data.is_empty() {
+            return;
+        }
+
         let buffer = device.create_buffer_init(&wgpu::util::BufferInitDescriptor {
             label: Some("Model Buffer"),
             contents: bytemuck::cast_slice(data),

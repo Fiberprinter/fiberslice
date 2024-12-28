@@ -210,6 +210,8 @@ impl SlicedObject {
         let trace_vertices = mesher.finish();
         let fiber_vertices = fiber_mesher.finish();
 
+        log::info!("Trace Vertices: {}", trace_vertices.len());
+
         root.awaken(&trace_vertices, &travel_vertices, &fiber_vertices);
         root.update_offset(0);
 

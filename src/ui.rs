@@ -137,7 +137,7 @@ impl<'a> FrameHandle<'a, RootEvent, (UiUpdateOutput, (f32, f32, f32, f32)), ()> 
             std::sync::atomic::Ordering::Relaxed,
         );
 
-        self.platform.begin_frame();
+        self.platform.begin_pass();
 
         self.platform.context().style_mut(|style| {
             // catppuccin_egui::set_style_theme(style, catppuccin_egui::MOCHA);
@@ -163,7 +163,7 @@ impl<'a> FrameHandle<'a, RootEvent, (UiUpdateOutput, (f32, f32, f32, f32)), ()> 
             &(self.state.clone(), global_state),
         );
 
-        let full_output = self.platform.end_frame(Some(&wgpu_context.window));
+        let full_output = self.platform.end_pass(Some(&wgpu_context.window));
 
         let viewport = self.screen.construct_viewport(wgpu_context);
 
@@ -365,15 +365,14 @@ impl AllocateInnerUiRect for egui::Ui {
     ) -> InnerResponse<R> {
         let rect = self.available_rect_before_wrap();
 
-        self.allocate_ui_at_rect(
-            Rect::from_two_pos(
-                Pos2::new(inner.left() + rect.left(), inner.top() + rect.top()),
-                Pos2::new(
-                    inner.left() + rect.left() + inner.width(),
-                    inner.top() + rect.top() + inner.height(),
-                ),
+        let ui = egui::UiBuilder::new().max_rect(Rect::from_two_pos(
+            Pos2::new(inner.left() + rect.left(), inner.top() + rect.top()),
+            Pos2::new(
+                inner.left() + rect.left() + inner.width(),
+                inner.top() + rect.top() + inner.height(),
             ),
-            add_contents,
-        )
+        ));
+
+        self.allocate_new_ui(ui, add_contents)
     }
 }

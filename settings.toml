@@ -60,12 +60,7 @@ maximum_feedrate_x = 200.0
 maximum_feedrate_y = 200.0
 maximum_feedrate_z = 12.0
 maximum_feedrate_e = 120.0
-layer_settings = [
-    [
-        { SingleLayer = 0 },
-        { layer_height = 0.30000001192092896, speed = { interior_inner_perimeter = 20.0, interior_surface_perimeter = 20.0, exterior_inner_perimeter = 20.0, exterior_surface_perimeter = 20.0, solid_top_infill = 20.0, solid_infill = 20.0, infill = 20.0, travel = 5.0, bridge = 20.0, support = 20.0, fiber_factor = 0.5 }, bed_temp = 60.0, extruder_temp = 210.0 },
-    ],
-]
+layer_settings = [[{ SingleLayer = 0 }, { layer_height = 0.30000001192092896, speed = { interior_inner_perimeter = 20.0, interior_surface_perimeter = 20.0, exterior_inner_perimeter = 20.0, exterior_surface_perimeter = 20.0, solid_top_infill = 20.0, solid_infill = 20.0, infill = 20.0, travel = 5.0, bridge = 20.0, support = 20.0, fiber_factor = 0.5 }, bed_temp = 60.0, extruder_temp = 210.0 }]]
 
 [extrusion_width]
 interior_inner_perimeter = 0.4000000059604645

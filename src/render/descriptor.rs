@@ -21,7 +21,7 @@ impl<'a> RenderDescriptor<'a> {
             render_pass.set_viewport(x, y, width, height, 0.0, 1.0);
 
             for (index, bind_group) in self.bind_groups.iter().enumerate() {
-                render_pass.set_bind_group(index as u32, bind_group, &[]);
+                render_pass.set_bind_group(index as u32, *bind_group, &[]);
             }
 
             Some((self.pipelines, render_pass))

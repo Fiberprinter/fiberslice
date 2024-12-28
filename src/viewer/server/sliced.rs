@@ -20,16 +20,6 @@ use crate::{prelude::WgpuContext, GlobalState, RootEvent};
 
 use crate::viewer::trace::tree::TraceTree;
 
-// const MAIN_LOADED_TOOLPATH: &str = "main"; // HACK: This is a solution to ease the dev when only one toolpath is loaded which is the only supported(for now)
-
-#[derive(thiserror::Error, Debug)]
-pub enum SliceError {
-    #[error("Load Error {0}")]
-    LoadError(String),
-    #[error("NoGeometryObject")]
-    NoGeometryObject,
-}
-
 pub type QueuedSlicedObject = (
     Receiver<(SlicedObject, SlicedGCode, Arc<Process>)>,
     JoinHandle<()>,
@@ -306,7 +296,7 @@ impl SlicedObjectServer {
         }
     }
 
-    pub fn update(&mut self, global_state: GlobalState<RootEvent>) -> Result<(), SliceError> {
+    pub fn update(&mut self, global_state: GlobalState<RootEvent>) -> Result<(), ()> {
         if let Some((rx, _)) = &mut self.queued {
             if let Ok((toolpath, gcode, process)) = rx.try_recv() {
                 process.finish();
