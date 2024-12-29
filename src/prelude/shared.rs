@@ -1,4 +1,4 @@
-use std::{cell::RefCell, rc::Rc, sync::Arc};
+use std::sync::Arc;
 
 use parking_lot::{RwLock, RwLockReadGuard, RwLockWriteGuard};
 
@@ -54,56 +54,6 @@ impl<T: std::fmt::Debug> SharedMut<T> {
 }
 
 pub type Shared<T> = Arc<T>;
-
-#[derive(Debug)]
-pub struct UnparallelShared<T> {
-    inner: Rc<T>,
-}
-
-impl<T> Clone for UnparallelShared<T> {
-    fn clone(&self) -> Self {
-        Self {
-            inner: self.inner.clone(),
-        }
-    }
-}
-
-impl<T> UnparallelShared<T> {
-    pub fn from_inner(inner: T) -> Self {
-        Self {
-            inner: Rc::new(inner),
-        }
-    }
-
-    pub fn inner(&self) -> &T {
-        &self.inner
-    }
-}
-
-#[derive(Debug)]
-pub struct UnparallelSharedMut<T> {
-    inner: Rc<RefCell<T>>,
-}
-
-impl<T> Clone for UnparallelSharedMut<T> {
-    fn clone(&self) -> Self {
-        Self {
-            inner: self.inner.clone(),
-        }
-    }
-}
-
-impl<T> UnparallelSharedMut<T> {
-    pub fn from_inner(inner: T) -> Self {
-        Self {
-            inner: Rc::new(RefCell::new(inner)),
-        }
-    }
-
-    pub fn inner(&self) -> &RefCell<T> {
-        &self.inner
-    }
-}
 
 #[derive(Debug)]
 pub struct LockModel<T: std::fmt::Debug + bytemuck::Pod + bytemuck::Zeroable> {
