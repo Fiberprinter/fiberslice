@@ -18,7 +18,9 @@ pub struct BrimPass {}
 
 impl ObjectPass for BrimPass {
     fn pass(objects: &mut Vec<Object>, settings: &Settings) {
-        if let Some(width) = &settings.brim_width {
+        if settings.brim_width.is_enabled() {
+            let width = *settings.brim_width;
+
             // display_state_update("Generating Moves: Brim", send_messages);
             //Add to first object
 
@@ -44,7 +46,7 @@ impl ObjectPass for BrimPass {
                 .layers
                 .get_mut(0)
                 .expect("Object needs a Slice")
-                .generate_brim(first_layer_multipolygon, *width);
+                .generate_brim(first_layer_multipolygon, width);
         }
     }
 }
@@ -53,7 +55,9 @@ pub struct SupportTowerPass {}
 
 impl ObjectPass for SupportTowerPass {
     fn pass(objects: &mut Vec<Object>, settings: &Settings) {
-        if let Some(support) = &settings.support {
+        if settings.support.is_enabled() {
+            let support = &settings.support;
+
             // display_state_update("Generating Support Towers", send_messages);
             //Add to first object
 
@@ -76,7 +80,10 @@ pub struct SkirtPass {}
 impl ObjectPass for SkirtPass {
     fn pass(objects: &mut Vec<Object>, settings: &Settings) {
         //Handle Perimeters
-        if let Some(skirt) = &settings.skirt {
+
+        if settings.skirt.is_enabled() {
+            let skirt = &settings.skirt;
+
             // display_state_update("Generating Moves: Skirt", send_messages);
             let convex_hull = objects
                 .iter()
@@ -237,7 +244,9 @@ pub struct SupportPass {}
 
 impl SlicePass for SupportPass {
     fn pass(slices: &mut Vec<Slice>, settings: &Settings) -> Result<(), SlicerErrors> {
-        if let Some(support) = &settings.support {
+        if settings.support.is_enabled() {
+            let support = &settings.support;
+
             for slice in slices.iter_mut() {
                 slice.fill_support_polygons(support);
             }

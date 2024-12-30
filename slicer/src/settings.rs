@@ -1,3 +1,5 @@
+use std::ops::{Deref, DerefMut};
+
 use serde::{Deserialize, Serialize};
 
 use crate::{
@@ -75,10 +77,10 @@ pub struct Settings {
     pub fan: FanSettings,
 
     ///The skirt settings, if None no skirt will be generated
-    pub skirt: Option<SkirtSettings>,
+    pub skirt: OptionalSetting<SkirtSettings>,
 
     ///The support settings, if None no support will be generated
-    pub support: Option<SupportSettings>,
+    pub support: OptionalSetting<SupportSettings>,
 
     ///Diameter of the nozzle in mm
     pub nozzle_diameter: f32,
@@ -93,7 +95,7 @@ pub struct Settings {
     pub retract_speed: f32,
 
     ///Retraction Wipe
-    pub retraction_wipe: Option<RetractionWipeSettings>,
+    pub retraction_wipe: OptionalSetting<RetractionWipeSettings>,
 
     ///The speeds used for movement
     pub speed: MovementParameter,
@@ -126,10 +128,10 @@ pub struct Settings {
     pub print_z: f32,
 
     ///Width of the brim, if None no brim will be generated
-    pub brim_width: Option<f32>,
+    pub brim_width: OptionalSetting<f32>,
 
     ///Inset the layer by the provided amount, if None on inset will be performed
-    pub layer_shrink_amount: Option<f32>,
+    pub layer_shrink_amount: OptionalSetting<f32>,
 
     ///The minimum travel distance required to perform a retraction
     pub minimum_retract_distance: f32,
@@ -223,13 +225,13 @@ impl Default for Settings {
             filament: FilamentSettings::default(),
             fan: FanSettings::default(),
             fiber: None,
-            skirt: None,
+            skirt: OptionalSetting::default(),
             nozzle_diameter: 0.8,
             retract_length: 0.8,
             retract_lift_z: 0.6,
             retract_speed: 35.0,
 
-            support: None,
+            support: OptionalSetting::default(),
 
             speed: MovementParameter {
                 interior_inner_perimeter: 40.0,
@@ -304,7 +306,7 @@ impl Default for Settings {
             max_jerk_x: 8.0,
             max_jerk_y: 8.0,
             max_jerk_z: 0.4,
-            brim_width: None,
+            brim_width: OptionalSetting::default(),
             layer_settings: vec![(
                 LayerRange::SingleLayer(0),
                 PartialLayerSettings {
@@ -328,7 +330,7 @@ impl Default for Settings {
                     ..Default::default()
                 },
             )],
-            layer_shrink_amount: None,
+            layer_shrink_amount: OptionalSetting::default(),
             max_jerk_e: 1.5,
             minimum_feedrate_print: 0.0,
             minimum_feedrate_travel: 0.0,
@@ -336,7 +338,7 @@ impl Default for Settings {
             maximum_feedrate_y: 200.0,
             maximum_feedrate_z: 12.0,
             maximum_feedrate_e: 120.0,
-            retraction_wipe: None,
+            retraction_wipe: OptionalSetting::default(),
         }
     }
 }
@@ -446,13 +448,13 @@ impl Settings {
             _ => return r,
         }
 
-        if let Some(skirt) = self.skirt.as_ref() {
-            if let Some(brim) = self.brim_width.as_ref() {
-                if skirt.distance <= *brim {
+        if self.skirt.enabled {
+            if self.brim_width.enabled {
+                if self.skirt.setting.distance <= self.brim_width.setting {
                     return SettingsValidationResult::Warning(
                         SlicerWarnings::SkirtAndBrimOverlap {
-                            skirt_distance: skirt.distance,
-                            brim_width: *brim,
+                            skirt_distance: self.skirt.setting.distance,
+                            brim_width: self.brim_width.setting,
                         },
                     );
                 }
@@ -530,6 +532,41 @@ impl Settings {
     }
 }
 
+#[derive(Serialize, Deserialize, Debug, Clone, Copy)]
+pub struct OptionalSetting<T> {
+    setting: T,
+    enabled: bool,
+}
+
+impl<T: Default> Default for OptionalSetting<T> {
+    fn default() -> Self {
+        OptionalSetting {
+            setting: T::default(),
+            enabled: false,
+        }
+    }
+}
+
+impl<T> Deref for OptionalSetting<T> {
+    type Target = T;
+
+    fn deref(&self) -> &Self::Target {
+        &self.setting
+    }
+}
+
+impl<T> DerefMut for OptionalSetting<T> {
+    fn deref_mut(&mut self) -> &mut Self::Target {
+        &mut self.setting
+    }
+}
+
+impl<T> OptionalSetting<T> {
+    pub fn is_enabled(&self) -> bool {
+        self.enabled
+    }
+}
+
 #[derive(Serialize, Deserialize, Debug, Default, Clone)]
 pub struct MaskSettings {
     pub epsilon: f32,
@@ -556,13 +593,13 @@ impl MaskSettings {
         set_setting(self.settings.filament, &mut settings.filament);
         set_optional_setting(self.settings.fiber, &mut settings.fiber);
         set_setting(self.settings.fan, &mut settings.fan);
-        set_optional_setting(self.settings.skirt, &mut settings.skirt);
-        set_optional_setting(self.settings.support, &mut settings.support);
+        set_setting(self.settings.skirt, &mut settings.skirt);
+        set_setting(self.settings.support, &mut settings.support);
         set_setting(self.settings.nozzle_diameter, &mut settings.nozzle_diameter);
         set_setting(self.settings.retract_length, &mut settings.retract_length);
         set_setting(self.settings.retract_lift_z, &mut settings.retract_lift_z);
         set_setting(self.settings.retract_speed, &mut settings.retract_speed);
-        set_optional_setting(self.settings.retraction_wipe, &mut settings.retraction_wipe);
+        set_setting(self.settings.retraction_wipe, &mut settings.retraction_wipe);
         set_setting(self.settings.speed, &mut settings.speed);
         set_setting(self.settings.acceleration, &mut settings.acceleration);
         set_setting(
@@ -582,8 +619,8 @@ impl MaskSettings {
         set_setting(self.settings.print_x, &mut settings.print_x);
         set_setting(self.settings.print_y, &mut settings.print_y);
         set_setting(self.settings.print_z, &mut settings.print_z);
-        set_optional_setting(self.settings.brim_width, &mut settings.brim_width);
-        set_optional_setting(
+        set_setting(self.settings.brim_width, &mut settings.brim_width);
+        set_setting(
             self.settings.layer_shrink_amount,
             &mut settings.layer_shrink_amount,
         );
@@ -704,7 +741,7 @@ pub struct LayerSettings {
     pub layer_height: f32,
 
     ///Inset the layer by the provided amount, if None on inset will be performed
-    pub layer_shrink_amount: Option<f32>,
+    pub layer_shrink_amount: OptionalSetting<f32>,
 
     ///The speeds used for movement
     pub speed: MovementParameter,
@@ -737,7 +774,7 @@ pub struct LayerSettings {
     pub extruder_temp: f32,
 
     ///Retraction Wipe
-    pub retraction_wipe: Option<RetractionWipeSettings>,
+    pub retraction_wipe: OptionalSetting<RetractionWipeSettings>,
 
     ///Retraction Distance
     pub retraction_length: f32,
@@ -905,6 +942,15 @@ pub struct SupportSettings {
     pub support_spacing: f32,
 }
 
+impl Default for SupportSettings {
+    fn default() -> Self {
+        SupportSettings {
+            max_overhang_angle: 45.0,
+            support_spacing: 2.0,
+        }
+    }
+}
+
 ///The Settings for Skirt generation
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct SkirtSettings {
@@ -913,6 +959,15 @@ pub struct SkirtSettings {
 
     ///Distance from the models to place the skirt
     pub distance: f32,
+}
+
+impl Default for SkirtSettings {
+    fn default() -> Self {
+        SkirtSettings {
+            layers: 1,
+            distance: 10.0,
+        }
+    }
 }
 
 ///The Settings for Skirt generation
@@ -928,6 +983,16 @@ pub struct RetractionWipeSettings {
     pub distance: f32,
 }
 
+impl Default for RetractionWipeSettings {
+    fn default() -> Self {
+        RetractionWipeSettings {
+            speed: 40.0,
+            acceleration: 1000.0,
+            distance: 2.0,
+        }
+    }
+}
+
 ///A partial complete settings file
 #[derive(Serialize, Deserialize, Debug, Clone, Default)]
 pub struct PartialSettings {
@@ -940,15 +1005,15 @@ pub struct PartialSettings {
     pub fiber: Option<FiberSettings>,
 
     ///Inset the layer by the provided amount, if None on inset will be performed
-    pub layer_shrink_amount: Option<f32>,
+    pub layer_shrink_amount: Option<OptionalSetting<f32>>,
     ///The filament Settings
     pub filament: Option<FilamentSettings>,
     ///The fan settings
     pub fan: Option<FanSettings>,
     ///The skirt settings, if None no skirt will be generated
-    pub skirt: Option<SkirtSettings>,
+    pub skirt: Option<OptionalSetting<SkirtSettings>>,
     ///The support settings, if None no support will be generated
-    pub support: Option<SupportSettings>,
+    pub support: Option<OptionalSetting<SupportSettings>>,
     ///Diameter of the nozzle in mm
     pub nozzle_diameter: Option<f32>,
 
@@ -956,7 +1021,7 @@ pub struct PartialSettings {
     pub retract_length: Option<f32>,
 
     ///Retraction Wipe
-    pub retraction_wipe: Option<RetractionWipeSettings>,
+    pub retraction_wipe: Option<OptionalSetting<RetractionWipeSettings>>,
 
     ///Distance to lift the z axis during a retract
     pub retract_lift_z: Option<f32>,
@@ -995,7 +1060,7 @@ pub struct PartialSettings {
     pub print_z: Option<f32>,
 
     ///Width of the brim, if None no brim will be generated
-    pub brim_width: Option<f32>,
+    pub brim_width: Option<OptionalSetting<f32>>,
 
     ///The minimum travel distance required to perform a retraction
     pub minimum_retract_distance: Option<f32>,
@@ -1242,7 +1307,7 @@ pub struct PartialLayerSettings {
     pub layer_height: Option<f32>,
 
     ///Inset the layer by the provided amount, if None on inset will be performed
-    pub layer_shrink_amount: Option<f32>,
+    pub layer_shrink_amount: Option<OptionalSetting<f32>>,
 
     ///The speeds used for movement
     pub speed: Option<MovementParameter>,
@@ -1275,7 +1340,7 @@ pub struct PartialLayerSettings {
     pub extruder_temp: Option<f32>,
 
     ///Retraction Wipe
-    pub retraction_wipe: Option<RetractionWipeSettings>,
+    pub retraction_wipe: Option<OptionalSetting<RetractionWipeSettings>>,
 
     ///Retraction Distance
     pub retraction_length: Option<f32>,
@@ -1322,13 +1387,13 @@ fn try_convert_partial_to_settings(part: PartialSettings) -> Result<Settings, St
         fiber: part.fiber,
         filament: part.filament.ok_or("filament")?,
         fan: part.fan.ok_or("fan")?,
-        skirt: part.skirt,
-        support: part.support,
+        skirt: part.skirt.ok_or("skirt")?,
+        support: part.support.ok_or("support")?,
         nozzle_diameter: part.nozzle_diameter.ok_or("nozzle_diameter")?,
         retract_length: part.retract_length.ok_or("retract_length")?,
         retract_lift_z: part.retract_lift_z.ok_or("retract_lift_z")?,
         retract_speed: part.retract_speed.ok_or("retract_speed")?,
-        retraction_wipe: part.retraction_wipe,
+        retraction_wipe: part.retraction_wipe.ok_or("retraction_wipe")?,
         speed: part.speed.ok_or("speed")?,
         acceleration: part.acceleration.ok_or("acceleration")?,
         infill_percentage: part.infill_percentage.ok_or("infill_percentage")?,
@@ -1341,8 +1406,8 @@ fn try_convert_partial_to_settings(part: PartialSettings) -> Result<Settings, St
         print_x: part.print_x.ok_or("print_x")?,
         print_y: part.print_y.ok_or("print_y")?,
         print_z: part.print_z.ok_or("print_z")?,
-        brim_width: part.brim_width,
-        layer_shrink_amount: part.layer_shrink_amount,
+        brim_width: part.brim_width.ok_or("brim_width")?,
+        layer_shrink_amount: part.layer_shrink_amount.ok_or("layer_shrink_amount")?,
         minimum_retract_distance: part
             .minimum_retract_distance
             .ok_or("minimum_retract_distance")?,
