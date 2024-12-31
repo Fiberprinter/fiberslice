@@ -1,7 +1,7 @@
 mod settings;
 
 use command_pass::{CommandPass, OptimizePass, SlowDownLayerPass};
-use dispatcher::dispatch_fiber_moves;
+use glam::vec2;
 use glam::{Vec3, Vec4};
 use mask::ObjectMask;
 use plotter::{convert_objects_into_moves, polygon_operations::PolygonOperations};
@@ -33,7 +33,7 @@ pub use mask::Mask;
 
 use error::SlicerErrors;
 use geo::{
-    Contains, Coord, LineString, MultiLineString, MultiPolygon, Polygon, SimplifyVw,
+    line_string, Contains, Coord, LineString, MultiLineString, MultiPolygon, Polygon, SimplifyVw,
     SimplifyVwPreserve,
 };
 
@@ -93,8 +93,8 @@ pub fn slice(
             .combine_settings(settings.clone());
 
         mask.layers.iter_mut().for_each(|layer| {
-            dispatch_fiber_moves(&mut layer.chains, &settings);
-            dispatch_fiber_moves(&mut layer.fixed_chains, &settings);
+            // dispatch_fiber_moves(&mut layer.chains, &settings);
+            // dispatch_fiber_moves(&mut layer.fixed_chains, &settings);
         });
     });
 
@@ -168,7 +168,7 @@ fn generate_moves(
             ShrinkPass::pass(slices, settings)?;
 
             //Handle Perimeters
-            PerimeterPass::pass(slices, settings)?;
+            WallPass::pass(slices, settings)?;
 
             //Handle Bridging
             BridgingPass::pass(slices, settings)?;
@@ -181,6 +181,8 @@ fn generate_moves(
 
             //Handle Support
             SupportPass::pass(slices, settings)?;
+
+            FiberInfillPass::pass(slices, settings)?;
 
             //Lightning Infill
             LightningFillPass::pass(slices, settings)?;
@@ -433,6 +435,42 @@ pub struct MoveChain {
 
     ///Indicates that chain is a loop where the start can be changed to any point
     pub is_loop: bool,
+}
+
+impl MoveChain {
+    pub fn trace_area(&self) -> MultiPolygon<f32> {
+        let mut polygons = vec![];
+        let mut current_loc = self.start_point;
+
+        for m in self.moves.iter() {
+            let end = m.end;
+            let end = vec2(end.x, end.y);
+
+            let start = vec2(current_loc.x, current_loc.y);
+
+            let direction = (end - start).normalize();
+
+            let p1 = start + vec2(direction.x, -direction.y) * (m.width / 2.0);
+            let p2 = start + vec2(-direction.x, direction.y) * (m.width / 2.0);
+
+            let p3 = end + vec2(-direction.x, direction.y) * (m.width / 2.0);
+            let p4 = end + vec2(direction.x, -direction.y) * (m.width / 2.0);
+
+            let line = line_string![
+                (x: p1.x, y: p1.y),
+                (x: p2.x, y: p2.y),
+                (x: p3.x, y: p3.y),
+                (x: p4.x, y: p4.y),
+                (x: p1.x, y: p1.y),
+            ];
+
+            polygons.push(Polygon::new(line, vec![]));
+
+            current_loc = m.end;
+        }
+
+        MultiPolygon(polygons)
+    }
 }
 
 #[derive(Serialize, Deserialize, Clone, Copy, Debug, PartialEq, Eq, Hash, EnumCount)]

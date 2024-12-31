@@ -82,11 +82,55 @@ cost = 24.989999771118164
 extruder_temp = 210.0
 bed_temp = 60.0
 
+[fiber]
+diameter = 0.15000000596046448
+cut_before = 20.0
+min_length = 25.0
+max_angle = 45.0
+alternating_pattern_vertical_spacing = 1
+alternating_pattern_horizontal_spacing = 1
+speed_factor = 1.399999976158142
+acceleration_factor = 1.0
+jerk_factor = 1.0
+
+[fiber.wall_pattern]
+setting = "Full"
+enabled = false
+
+[fiber.infill]
+enabled = true
+
+[fiber.infill.setting]
+infill = "Triangle"
+infill_percentage = 0.20000000298023224
+
 [fan]
 fan_speed = 100.0
 disable_fan_for_layers = 1
 slow_down_threshold = 15.0
 min_print_speed = 15.0
+
+[skirt]
+enabled = false
+
+[skirt.setting]
+layers = 1
+distance = 10.0
+
+[support]
+enabled = true
+
+[support.setting]
+max_overhang_angle = 45.0
+support_spacing = 2.0
+
+[retraction_wipe]
+enabled = false
+
+[retraction_wipe.setting]
+speed = 40.0
+acceleration = 1000.0
+distance = 2.0
 
 [speed]
 interior_inner_perimeter = 40.0
@@ -113,3 +157,11 @@ travel = 1000.0
 bridge = 1000.0
 support = 1000.0
 fiber_factor = 0.5
+
+[brim_width]
+setting = 0.0
+enabled = false
+
+[layer_shrink_amount]
+setting = 0.0
+enabled = false

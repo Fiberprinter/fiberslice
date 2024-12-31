@@ -5,7 +5,7 @@ mod perimeter;
 pub mod polygon_operations;
 pub(crate) mod support;
 
-use crate::{Move, MoveChain, TraceType};
+use crate::{Move, MoveChain, PartialInfillTypes, PassContext, TraceType};
 
 use crate::settings::SkirtSettings;
 use crate::utils::point_lerp;
@@ -21,12 +21,23 @@ use perimeter::*;
 use polygon_operations::PolygonOperations;
 
 pub trait Plotter {
-    fn slice_perimeters_into_chains(&mut self, number_of_perimeters: usize);
+    fn slice_walls_into_chains(&mut self, number_of_perimeters: usize);
     fn shrink_layer(&mut self);
-    fn fill_remaining_area(&mut self, solid: bool, layer_count: usize);
-    fn fill_solid_subtracted_area(&mut self, other: &MultiPolygon<f32>, layer_count: usize);
-    fn fill_solid_bridge_area(&mut self, layer_below: &MultiPolygon<f32>);
-    fn fill_solid_top_layer(&mut self, layer_above: &MultiPolygon<f32>, layer_count: usize);
+    fn fill_remaining_area(&mut self, solid: bool, layer_count: usize, ctx: &PassContext);
+    fn trace_remaining_area(&mut self, solid: bool, layer_count: usize, ctx: &PassContext);
+    fn fill_solid_subtracted_area(
+        &mut self,
+        other: &MultiPolygon<f32>,
+        layer_count: usize,
+        ctx: &PassContext,
+    );
+    fn fill_solid_bridge_area(&mut self, layer_below: &MultiPolygon<f32>, ctx: &PassContext);
+    fn fill_solid_top_layer(
+        &mut self,
+        layer_above: &MultiPolygon<f32>,
+        layer_count: usize,
+        ctx: &PassContext,
+    );
     fn generate_skirt(
         &mut self,
         convex_polygon: &Polygon<f32>,
@@ -39,7 +50,7 @@ pub trait Plotter {
 }
 
 impl Plotter for Slice {
-    fn slice_perimeters_into_chains(&mut self, number_of_perimeters: usize) {
+    fn slice_walls_into_chains(&mut self, number_of_perimeters: usize) {
         let mut new_chains = self
             .remaining_area
             .iter()
@@ -89,14 +100,55 @@ impl Plotter for Slice {
         }
     }
 
-    fn fill_remaining_area(&mut self, solid: bool, layer_count: usize) {
+    // Can be very slow
+    fn trace_remaining_area(&mut self, solid: bool, layer_count: usize, ctx: &PassContext) {
+        //For each region still available fill wih infill
+        for poly in self.remaining_area.clone() {
+            if solid {
+                let new_moves = solid_infill_polygon(
+                    &poly,
+                    &self.layer_settings,
+                    ctx.move_from_trace_type(TraceType::SolidInfill),
+                    layer_count,
+                    self.get_height(),
+                );
+
+                self.remaining_area = self
+                    .remaining_area
+                    .difference_with(&MultiPolygon(vec![poly]));
+
+                for chain in new_moves {
+                    self.chains.push(chain);
+                }
+            } else {
+                let new_moves = partial_infill_polygon(
+                    &poly,
+                    &self.layer_settings,
+                    self.layer_settings.infill_percentage,
+                    layer_count,
+                    self.get_height(),
+                    ctx,
+                );
+
+                for chain in new_moves {
+                    let poly = chain.trace_area();
+
+                    self.remaining_area = self.remaining_area.difference_with(&poly);
+
+                    self.chains.push(chain);
+                }
+            }
+        }
+    }
+
+    fn fill_remaining_area(&mut self, solid: bool, layer_count: usize, ctx: &PassContext) {
         //For each region still available fill wih infill
         for poly in &self.remaining_area {
             if solid {
                 let new_moves = solid_infill_polygon(
                     poly,
                     &self.layer_settings,
-                    MoveType::WithoutFiber(TraceType::SolidInfill),
+                    ctx.move_from_trace_type(TraceType::SolidInfill),
                     layer_count,
                     self.get_height(),
                 );
@@ -111,6 +163,7 @@ impl Plotter for Slice {
                     self.layer_settings.infill_percentage,
                     layer_count,
                     self.get_height(),
+                    ctx,
                 );
 
                 for chain in new_moves {
@@ -122,7 +175,12 @@ impl Plotter for Slice {
         self.remaining_area = MultiPolygon(vec![])
     }
 
-    fn fill_solid_subtracted_area(&mut self, other: &MultiPolygon<f32>, layer_count: usize) {
+    fn fill_solid_subtracted_area(
+        &mut self,
+        other: &MultiPolygon<f32>,
+        layer_count: usize,
+        ctx: &PassContext,
+    ) {
         //For each area not in this slice that is in the other polygon, fill solid
 
         let solid_area = self
@@ -148,7 +206,7 @@ impl Plotter for Slice {
         self.remaining_area = self.remaining_area.difference_with(&solid_area)
     }
 
-    fn fill_solid_bridge_area(&mut self, layer_below: &MultiPolygon<f32>) {
+    fn fill_solid_bridge_area(&mut self, layer_below: &MultiPolygon<f32>, ctx: &PassContext) {
         //For each area not in this slice that is in the other polygon, fill solid
 
         let solid_area = self
@@ -179,7 +237,12 @@ impl Plotter for Slice {
         self.remaining_area = self.remaining_area.difference_with(&solid_area)
     }
 
-    fn fill_solid_top_layer(&mut self, layer_above: &MultiPolygon<f32>, layer_count: usize) {
+    fn fill_solid_top_layer(
+        &mut self,
+        layer_above: &MultiPolygon<f32>,
+        layer_count: usize,
+        ctx: &PassContext,
+    ) {
         //For each area not in this slice that is in the other polygon, fill solid
 
         let solid_area = self

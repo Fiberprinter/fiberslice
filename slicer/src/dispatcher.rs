@@ -1,15 +1,16 @@
 use geo::{EuclideanDistance, EuclideanLength, Line};
 use log::info;
 
-use crate::{FiberSettings, MoveChain, MoveType, Settings};
+use crate::{MoveChain, MoveType, Settings};
 
+/*
 pub fn dispatch_fiber_moves(chains: &mut Vec<MoveChain>, settings: &Settings) {
     let mut trace_distance = 0.0;
     let mut fiber_distance = 0.0;
 
     info!("Dispatching fiber moves");
 
-    let fiber_settings = settings.fiber.clone().unwrap_or(FiberSettings::default());
+    let fiber_settings = settings.fiber.clone();
 
     info!("Fiber settings: {:?}", fiber_settings);
     info!("Chains: {:?}", chains.len());
@@ -104,3 +105,4 @@ fn angle_between_lines(line1: Line<f32>, line2: Line<f32>) -> f32 {
 
     cos_theta.acos().abs()
 }
+*/

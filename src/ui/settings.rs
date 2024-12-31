@@ -1,9 +1,10 @@
 use std::fmt::Debug;
 
-use egui::{DragValue, InnerResponse, Response, TextEdit, Ui};
+use egui::{DragValue, InnerResponse, Response, Ui};
 use egui_code_editor::{ColorTheme, Syntax};
 use slicer::{
-    FanSettings, FiberSettings, FilamentSettings, MovementParameter, RetractionWipeSettings,
+    fiber::{self, FiberSettings},
+    FanSettings, FilamentSettings, MovementParameter, OptionalSetting, RetractionWipeSettings,
     SkirtSettings, SupportSettings,
 };
 use strum::IntoEnumIterator;
@@ -26,7 +27,7 @@ pub trait UiSetting {
 
 impl UiSetting for slicer::Settings {
     fn show_general(&mut self, ui: &mut egui::Ui) {
-        show_f32(&mut self.layer_height, "Layer height", Some("mm"), ui);
+        show_f32(&mut self.layer_height, "Layer height", Some("mm"), 0.0, ui);
 
         egui::CollapsingHeader::new("Extrustion width")
             .default_open(true)
@@ -46,87 +47,66 @@ impl UiSetting for slicer::Settings {
                 self.fan.show(ui);
             });
 
-        let mut skirt_enabled = self.skirt.is_some();
-
-        show_bool(
-            &mut skirt_enabled,
-            "Skirt",
-            Some("Enable/Disable the skirt"),
+        show_optional_setting(
+            &mut self.skirt,
+            "Skirt Settings",
+            |settings, ui| {
+                settings.show(ui);
+            },
+            false,
             ui,
         );
 
-        if skirt_enabled {
-            if self.skirt.is_none() {
-                self.skirt = Default::default();
-            }
-
-            if let Some(skirt) = &mut self.skirt {
-                egui::CollapsingHeader::new("Skirt Settings")
-                    .default_open(true)
-                    .show(ui, |ui| {
-                        skirt.show(ui);
-                    });
-            }
-        } else {
-            self.skirt = None;
-        }
-
-        let mut support_enabled = self.support.is_some();
-
-        show_bool(
-            &mut support_enabled,
-            "Support",
-            Some("Enable/Disable the support"),
+        show_optional_setting(
+            &mut self.support,
+            "Support Settings",
+            |settings, ui| {
+                settings.show(ui);
+            },
+            true,
             ui,
         );
 
-        if support_enabled {
-            if self.support.is_none() {
-                self.support = Default::default();
-            }
-
-            if let Some(support) = &mut self.support {
-                egui::CollapsingHeader::new("Support Settings")
-                    .default_open(true)
-                    .show(ui, |ui| {
-                        support.show(ui);
-                    });
-            }
-        } else {
-            self.support = None;
-        }
-
-        show_f32(&mut self.nozzle_diameter, "Nozzle diameter", Some("mm"), ui);
-        show_f32(&mut self.retract_length, "Retract length", Some("mm"), ui);
-
-        show_f32(&mut self.retract_lift_z, "Retract lift Z", Some("mm"), ui);
-
-        show_f32(&mut self.retract_speed, "Retract speed", Some("mm/s"), ui);
-
-        let mut retraction_wipe_enabled = self.retraction_wipe.is_some();
-
-        show_bool(
-            &mut retraction_wipe_enabled,
-            "Retraction wipe",
-            Some("Enable/Disable the retraction wipe"),
+        show_f32(
+            &mut self.nozzle_diameter,
+            "Nozzle diameter",
+            Some("mm"),
+            0.0,
+            ui,
+        );
+        show_f32(
+            &mut self.retract_length,
+            "Retract length",
+            Some("mm"),
+            0.0,
             ui,
         );
 
-        if retraction_wipe_enabled {
-            if self.retraction_wipe.is_none() {
-                self.retraction_wipe = Default::default();
-            }
+        show_f32(
+            &mut self.retract_lift_z,
+            "Retract lift Z",
+            Some("mm"),
+            0.0,
+            ui,
+        );
 
-            if let Some(retraction_wipe) = &mut self.retraction_wipe {
-                egui::CollapsingHeader::new("Retraction Wipe Settings")
-                    .default_open(true)
-                    .show(ui, |ui| {
-                        retraction_wipe.show(ui);
-                    });
-            }
-        } else {
-            self.retraction_wipe = None;
-        }
+        show_f32(
+            &mut self.retract_speed,
+            "Retract speed",
+            Some("mm/s"),
+            0.0,
+            ui,
+        );
+
+        show_optional_setting(
+            &mut self.retraction_wipe,
+            "Retraction Wipe Settings",
+            |settings, ui| {
+                settings.show(ui);
+            },
+            false,
+            ui,
+        );
 
         egui::CollapsingHeader::new("Movement Speed")
             .default_open(true)
@@ -144,6 +124,7 @@ impl UiSetting for slicer::Settings {
             &mut self.infill_percentage,
             "Infill percentage",
             Some("%"),
+            0.0,
             ui,
         );
 
@@ -151,6 +132,7 @@ impl UiSetting for slicer::Settings {
             &mut self.inner_perimeters_first,
             "Inner perimeters first",
             None,
+            true,
             ui,
         );
 
@@ -158,49 +140,39 @@ impl UiSetting for slicer::Settings {
             &mut self.number_of_perimeters,
             "Number of perimeters",
             None,
+            2,
             ui,
         );
 
-        show_usize(&mut self.top_layers, "Top layers", None, ui);
+        show_usize(&mut self.top_layers, "Top layers", None, 4, ui);
 
-        show_usize(&mut self.bottom_layers, "Bottom layers", None, ui);
+        show_usize(&mut self.bottom_layers, "Bottom layers", None, 4, ui);
 
-        let mut brim_width = self.brim_width.is_some();
+        show_optional_setting(
+            &mut self.brim_width,
+            "Brim",
+            |setting, ui| {
+                show_f32(setting, "Brim width", Some("mm"), 5.0, ui);
+            },
+            false,
+            ui,
+        );
 
-        show_bool(&mut brim_width, "Brim width", None, ui);
-
-        if brim_width {
-            if self.brim_width.is_none() {
-                self.brim_width = Default::default();
-            }
-
-            if let Some(brim_width) = &mut self.brim_width {
-                show_f32(brim_width, "Brim width", Some("mm"), ui);
-            }
-        } else {
-            self.brim_width = None;
-        }
-
-        let mut layer_shrink = self.layer_shrink_amount.is_some();
-
-        show_bool(&mut layer_shrink, "Layer shrink", None, ui);
-
-        if layer_shrink {
-            if self.layer_shrink_amount.is_none() {
-                self.layer_shrink_amount = Default::default();
-            }
-
-            if let Some(layer_shrink) = &mut self.layer_shrink_amount {
-                show_f32(layer_shrink, "Layer shrink amount", Some("mm"), ui);
-            }
-        } else {
-            self.layer_shrink_amount = None;
-        }
+        show_optional_setting(
+            &mut self.layer_shrink_amount,
+            "Layer shrink amount",
+            |setting, ui| {
+                show_f32(setting, "Layer shrink amount", Some("mm"), 0.0, ui);
+            },
+            false,
+            ui,
+        );
 
         show_f32(
             &mut self.minimum_retract_distance,
             "Minimum retract distance",
             Some("mm"),
+            0.0,
             ui,
         );
 
@@ -208,6 +180,7 @@ impl UiSetting for slicer::Settings {
             &mut self.infill_perimeter_overlap_percentage,
             "Infill perimeter overlap percentage",
             Some("%"),
+            0.0,
             ui,
         );
 
@@ -219,9 +192,27 @@ impl UiSetting for slicer::Settings {
         egui::CollapsingHeader::new("Printer Dimension")
             .default_open(true)
             .show(ui, |ui| {
-                show_f32(&mut self.print_x, "Printer Dimension X", Some("mm"), ui);
-                show_f32(&mut self.print_y, "Printer Dimension Y", Some("mm"), ui);
-                show_f32(&mut self.print_z, "Printer Dimension Z", Some("mm"), ui);
+                show_f32(
+                    &mut self.print_x,
+                    "Printer Dimension X",
+                    Some("mm"),
+                    0.0,
+                    ui,
+                );
+                show_f32(
+                    &mut self.print_y,
+                    "Printer Dimension Y",
+                    Some("mm"),
+                    0.0,
+                    ui,
+                );
+                show_f32(
+                    &mut self.print_z,
+                    "Printer Dimension Z",
+                    Some("mm"),
+                    0.0,
+                    ui,
+                );
             });
     }
 
@@ -328,6 +319,7 @@ impl UiSetting for slicer::Settings {
             &mut self.max_acceleration_x,
             "Max acceleration X",
             Some("mm/s²"),
+            0.0,
             ui,
         );
 
@@ -335,6 +327,7 @@ impl UiSetting for slicer::Settings {
             &mut self.max_acceleration_y,
             "Max acceleration Y",
             Some("mm/s²"),
+            0.0,
             ui,
         );
 
@@ -342,6 +335,7 @@ impl UiSetting for slicer::Settings {
             &mut self.max_acceleration_z,
             "Max acceleration Z",
             Some("mm/s²"),
+            0.0,
             ui,
         );
 
@@ -349,6 +343,7 @@ impl UiSetting for slicer::Settings {
             &mut self.max_acceleration_e,
             "Max travel acceleration E",
             Some("mm/s²"),
+            0.0,
             ui,
         );
 
@@ -356,6 +351,7 @@ impl UiSetting for slicer::Settings {
             &mut self.max_acceleration_extruding,
             "Max acceleration extruding",
             Some("mm/s²"),
+            0.0,
             ui,
         );
 
@@ -363,6 +359,7 @@ impl UiSetting for slicer::Settings {
             &mut self.max_acceleration_travel,
             "Max acceleration travel",
             Some("mm/s²"),
+            0.0,
             ui,
         );
 
@@ -370,21 +367,23 @@ impl UiSetting for slicer::Settings {
             &mut self.max_acceleration_retracting,
             "Max acceleration retracting",
             Some("mm/s²"),
+            0.0,
             ui,
         );
 
-        show_f32(&mut self.max_jerk_x, "Max jerk X", Some("mm/s"), ui);
+        show_f32(&mut self.max_jerk_x, "Max jerk X", Some("mm/s"), 0.0, ui);
 
-        show_f32(&mut self.max_jerk_y, "Max jerk Y", Some("mm/s"), ui);
+        show_f32(&mut self.max_jerk_y, "Max jerk Y", Some("mm/s"), 0.0, ui);
 
-        show_f32(&mut self.max_jerk_z, "Max jerk Z", Some("mm/s"), ui);
+        show_f32(&mut self.max_jerk_z, "Max jerk Z", Some("mm/s"), 0.0, ui);
 
-        show_f32(&mut self.max_jerk_e, "Max jerk E", Some("mm/s"), ui);
+        show_f32(&mut self.max_jerk_e, "Max jerk E", Some("mm/s"), 0.0, ui);
 
         show_f32(
             &mut self.minimum_feedrate_print,
             "Minimum feedrate print",
             Some("mm/s"),
+            0.0,
             ui,
         );
 
@@ -392,6 +391,7 @@ impl UiSetting for slicer::Settings {
             &mut self.minimum_feedrate_travel,
             "Minimum feedrate travel",
             Some("mm/s"),
+            0.0,
             ui,
         );
 
@@ -399,6 +399,7 @@ impl UiSetting for slicer::Settings {
             &mut self.maximum_feedrate_x,
             "Maximum feedrate X",
             Some("mm/s"),
+            0.0,
             ui,
         );
 
@@ -406,6 +407,7 @@ impl UiSetting for slicer::Settings {
             &mut self.maximum_feedrate_y,
             "Maximum feedrate Y",
             Some("mm/s"),
+            0.0,
             ui,
         );
 
@@ -413,6 +415,7 @@ impl UiSetting for slicer::Settings {
             &mut self.maximum_feedrate_z,
             "Maximum feedrate Z",
             Some("mm/s"),
+            0.0,
             ui,
         );
 
@@ -420,18 +423,13 @@ impl UiSetting for slicer::Settings {
             &mut self.maximum_feedrate_e,
             "Maximum feedrate E",
             Some("mm/s"),
+            0.0,
             ui,
         );
     }
 
     fn show_fiber(&mut self, ui: &mut egui::Ui) {
-        if let Some(fiber) = &mut self.fiber {
-            egui::CollapsingHeader::new("Fiber Settings")
-                .default_open(true)
-                .show(ui, |ui| {
-                    fiber.show(ui);
-                });
-        }
+        self.fiber.show(ui);
     }
 }
 
@@ -441,6 +439,7 @@ impl UiWidgetComponent for MovementParameter {
             &mut self.interior_inner_perimeter,
             "Interior inner perimeter",
             Some("mm/s"),
+            0.0,
             ui,
         );
 
@@ -448,6 +447,7 @@ impl UiWidgetComponent for MovementParameter {
             &mut self.interior_surface_perimeter,
             "Interior surface perimeter",
             Some("mm/s"),
+            0.0,
             ui,
         );
 
@@ -455,6 +455,7 @@ impl UiWidgetComponent for MovementParameter {
             &mut self.exterior_inner_perimeter,
             "Exterior inner perimeter",
             Some("mm/s"),
+            0.0,
             ui,
         );
 
@@ -462,6 +463,7 @@ impl UiWidgetComponent for MovementParameter {
             &mut self.exterior_surface_perimeter,
             "Exterior surface perimeter",
             Some("mm/s"),
+            0.0,
             ui,
         );
 
@@ -469,44 +471,87 @@ impl UiWidgetComponent for MovementParameter {
             &mut self.solid_top_infill,
             "Solid top infill",
             Some("mm/s"),
+            0.0,
             ui,
         );
 
-        show_f32(&mut self.solid_infill, "Solid infill", Some("mm/s"), ui);
+        show_f32(
+            &mut self.solid_infill,
+            "Solid infill",
+            Some("mm/s"),
+            0.0,
+            ui,
+        );
 
-        show_f32(&mut self.infill, "Infill", Some("mm/s"), ui);
+        show_f32(&mut self.infill, "Infill", Some("mm/s"), 0.0, ui);
 
-        show_f32(&mut self.travel, "Travel", Some("mm/s"), ui);
+        show_f32(&mut self.travel, "Travel", Some("mm/s"), 0.0, ui);
 
-        show_f32(&mut self.bridge, "Bridge", Some("mm/s"), ui);
+        show_f32(&mut self.bridge, "Bridge", Some("mm/s"), 0.0, ui);
 
-        show_f32(&mut self.support, "Support", Some("mm/s"), ui);
+        show_f32(&mut self.support, "Support", Some("mm/s"), 0.0, ui);
     }
 }
 
 impl UiWidgetComponent for FilamentSettings {
     fn show(&mut self, ui: &mut egui::Ui) {
-        show_f32(&mut self.diameter, "Diameter", Some("mm"), ui);
-        show_f32(&mut self.density, "Density", Some("g/cm³"), ui);
-        show_f32(&mut self.cost, "Cost", Some("€/kg"), ui);
+        let settings_default = FilamentSettings::default();
+
+        show_f32(
+            &mut self.diameter,
+            "Diameter",
+            Some("mm"),
+            settings_default.diameter,
+            ui,
+        );
+        show_f32(
+            &mut self.density,
+            "Density",
+            Some("g/cm³"),
+            settings_default.density,
+            ui,
+        );
+        show_f32(
+            &mut self.cost,
+            "Cost",
+            Some("€/kg"),
+            settings_default.cost,
+            ui,
+        );
         show_f32(
             &mut self.extruder_temp,
             "Extruder temperature",
             Some("°C"),
+            settings_default.extruder_temp,
             ui,
         );
 
-        show_f32(&mut self.bed_temp, "Bed temperature", Some("°C"), ui);
+        show_f32(
+            &mut self.bed_temp,
+            "Bed temperature",
+            Some("°C"),
+            settings_default.bed_temp,
+            ui,
+        );
     }
 }
 
 impl UiWidgetComponent for FanSettings {
     fn show(&mut self, ui: &mut egui::Ui) {
-        show_f32(&mut self.fan_speed, "Fan speed", Some("%"), ui);
+        let settings_default = FanSettings::default();
+
+        show_f32(
+            &mut self.fan_speed,
+            "Fan speed",
+            Some("%"),
+            settings_default.fan_speed,
+            ui,
+        );
         show_usize(
             &mut self.disable_fan_for_layers,
             "Disable fan for layers",
             None,
+            settings_default.disable_fan_for_layers,
             ui,
         );
 
@@ -514,6 +559,7 @@ impl UiWidgetComponent for FanSettings {
             &mut self.slow_down_threshold,
             "Slow down threshold",
             None,
+            settings_default.slow_down_threshold,
             ui,
         );
 
@@ -521,6 +567,7 @@ impl UiWidgetComponent for FanSettings {
             &mut self.min_print_speed,
             "Min print speed",
             Some("mm/s"),
+            settings_default.min_print_speed,
             ui,
         );
     }
@@ -528,113 +575,245 @@ impl UiWidgetComponent for FanSettings {
 
 impl UiWidgetComponent for SkirtSettings {
     fn show(&mut self, ui: &mut egui::Ui) {
-        show_usize(&mut self.layers, "Layers", None, ui);
-        show_f32(&mut self.distance, "Distance", Some("mm"), ui);
+        let settings_default = SkirtSettings::default();
+
+        show_usize(
+            &mut self.layers,
+            "Layers",
+            None,
+            settings_default.layers,
+            ui,
+        );
+        show_f32(
+            &mut self.distance,
+            "Distance",
+            Some("mm"),
+            settings_default.distance,
+            ui,
+        );
     }
 }
 
 impl UiWidgetComponent for SupportSettings {
     fn show(&mut self, ui: &mut egui::Ui) {
+        let settings_default = SupportSettings::default();
+
         show_f32(
             &mut self.max_overhang_angle,
             "Max overhang angle",
             Some("°"),
+            settings_default.max_overhang_angle,
             ui,
         );
-        show_f32(&mut self.support_spacing, "Support spacing", Some("mm"), ui);
+        show_f32(
+            &mut self.support_spacing,
+            "Support spacing",
+            Some("mm"),
+            settings_default.support_spacing,
+            ui,
+        );
     }
 }
 
 impl UiWidgetComponent for RetractionWipeSettings {
     fn show(&mut self, ui: &mut egui::Ui) {
-        show_f32(&mut self.speed, "Speed", Some("mm/s"), ui);
-        show_f32(&mut self.acceleration, "Acceleration", Some("mm/s²"), ui);
-        show_f32(&mut self.distance, "Distance", Some("mm"), ui);
+        let settings_default = RetractionWipeSettings::default();
+
+        show_f32(
+            &mut self.speed,
+            "Speed",
+            Some("mm/s"),
+            settings_default.speed,
+            ui,
+        );
+        show_f32(
+            &mut self.acceleration,
+            "Acceleration",
+            Some("mm/s²"),
+            settings_default.acceleration,
+            ui,
+        );
+        show_f32(
+            &mut self.distance,
+            "Distance",
+            Some("mm"),
+            settings_default.distance,
+            ui,
+        );
     }
 }
 
 impl UiWidgetComponent for FiberSettings {
     fn show(&mut self, ui: &mut egui::Ui) {
-        show_f32(&mut self.diameter, "Diameter", Some("mm"), ui);
-        show_f32(&mut self.cut_before, "Cut Before", Some("mm"), ui);
-        show_f32(&mut self.min_length, "Min Length", Some("mm"), ui);
-        show_f32(&mut self.speed_factor, "Speed Factor", None, ui);
+        let settings_default = FiberSettings::default();
+
+        show_f32(
+            &mut self.diameter,
+            "Diameter",
+            Some("mm"),
+            settings_default.diameter,
+            ui,
+        );
+        show_f32(
+            &mut self.cut_before,
+            "Cut Before",
+            Some("mm"),
+            settings_default.cut_before,
+            ui,
+        );
+        show_f32(
+            &mut self.min_length,
+            "Min Length",
+            Some("mm"),
+            settings_default.min_length,
+            ui,
+        );
+
+        show_optional_setting(
+            &mut self.wall_pattern,
+            "Wall Fibers",
+            |setting, ui| {
+                show_combo(setting, "Pattern", ui);
+
+                match setting {
+                    fiber::WallPattern::Alternating => {
+                        show_usize(
+                            &mut self.alternating_pattern_vertical_spacing,
+                            "Pattern Thickness",
+                            None,
+                            1,
+                            ui,
+                        );
+
+                        show_usize(
+                            &mut self.alternating_pattern_horizontal_spacing,
+                            "Pattern Width",
+                            None,
+                            1,
+                            ui,
+                        );
+                    }
+                    fiber::WallPattern::Random => {}
+                    fiber::WallPattern::Full => {}
+                }
+            },
+            true,
+            ui,
+        );
+
+        show_optional_setting(
+            &mut self.infill,
+            "Infill Fibers",
+            |setting, ui| {
+                show_combo(&mut setting.infill, "Infill Type", ui);
+                show_f32(
+                    &mut setting.infill_percentage,
+                    "Infill Percentage",
+                    None,
+                    0.2,
+                    ui,
+                );
+            },
+            true,
+            ui,
+        );
+
+        show_f32(
+            &mut self.speed_factor,
+            "Speed Factor",
+            None,
+            settings_default.speed_factor,
+            ui,
+        );
         show_f32(
             &mut self.acceleration_factor,
             "Acceleration Factor",
             None,
+            settings_default.acceleration_factor,
             ui,
         );
-        show_f32(&mut self.jerk_factor, "Jerk Factor", None, ui);
+        show_f32(
+            &mut self.jerk_factor,
+            "Jerk Factor",
+            None,
+            settings_default.jerk_factor,
+            ui,
+        );
     }
 }
 
-fn show_str(text: &mut String, description: &str, unit: Option<&str>, ui: &mut Ui) -> Response {
-    ui.horizontal(|ui| {
-        crate::config::gui::settings::SETTINGS_LABEL.label(ui, description);
-        let response = ui.add(TextEdit::singleline(text));
-        if let Some(unit) = unit {
-            ui.label(unit);
-        }
-        response
-    })
-    .inner
-}
-
-fn show_f32(value: &mut f32, description: &str, unit: Option<&str>, ui: &mut Ui) -> Response {
+fn show_f32(
+    value: &mut f32,
+    description: &str,
+    unit: Option<&str>,
+    default: f32,
+    ui: &mut Ui,
+) -> Response {
     ui.horizontal(|ui| {
         crate::config::gui::settings::SETTINGS_LABEL.label(ui, description);
         let response = ui.add(DragValue::new(value).max_decimals(3));
         if let Some(unit) = unit {
             ui.label(unit);
         }
+        show_reset_button(value, default, ui);
         response
     })
     .inner
 }
 
-fn show_optional_f32(
-    value: &mut Option<f32>,
+fn show_optional_setting<T>(
+    setting: &mut OptionalSetting<T>,
     description: &str,
-    unit: Option<&str>,
+    r#fn: impl FnOnce(&mut T, &mut Ui),
+    default: bool,
     ui: &mut Ui,
-) -> Option<Response> {
-    let mut enabled = value.is_some();
+) {
+    egui::CollapsingHeader::new(description)
+        .default_open(default)
+        .show(ui, |ui| {
+            show_bool(setting.enabled_mut(), "Enabled", None, default, ui);
 
-    show_bool(&mut enabled, description, None, ui);
-
-    if enabled {
-        if value.is_none() {
-            *value = Default::default();
-        }
-
-        Some(show_f32(value.as_mut().unwrap(), description, unit, ui))
-    } else {
-        *value = None;
-
-        None
-    }
+            if setting.is_enabled() {
+                r#fn(setting, ui);
+            }
+        });
 }
 
-fn show_usize(value: &mut usize, description: &str, unit: Option<&str>, ui: &mut Ui) -> Response {
+fn show_usize(
+    value: &mut usize,
+    description: &str,
+    unit: Option<&str>,
+    default: usize,
+    ui: &mut Ui,
+) -> Response {
     ui.horizontal(|ui| {
         crate::config::gui::settings::SETTINGS_LABEL.label(ui, description);
         let response = ui.add(DragValue::new(value).max_decimals(0));
         if let Some(unit) = unit {
             ui.label(unit);
         }
+        show_reset_button(value, default, ui);
         response
     })
     .inner
 }
 
-fn show_bool(value: &mut bool, description: &str, unit: Option<&str>, ui: &mut Ui) -> Response {
+fn show_bool(
+    value: &mut bool,
+    description: &str,
+    unit: Option<&str>,
+    default: bool,
+    ui: &mut Ui,
+) -> Response {
     ui.horizontal(|ui| {
         crate::config::gui::settings::SETTINGS_LABEL.label(ui, description);
+
         let response = ui.checkbox(value, "");
         if let Some(unit) = unit {
             ui.label(unit);
         }
+
+        show_reset_button(value, default, ui);
         response
     })
     .inner
@@ -647,7 +826,7 @@ fn show_combo<T: Debug + PartialEq + IntoEnumIterator>(
 ) -> InnerResponse<Option<()>> {
     ui.horizontal(|ui| {
         crate::config::gui::settings::SETTINGS_LABEL.label(ui, description);
-        egui::ComboBox::from_label(description)
+        egui::ComboBox::from_label("")
             .selected_text(format!("{:?}", value))
             .show_ui(ui, |ui| {
                 for variant in T::iter() {
@@ -657,4 +836,12 @@ fn show_combo<T: Debug + PartialEq + IntoEnumIterator>(
             })
     })
     .inner
+}
+
+fn show_reset_button<T: PartialEq>(value: &mut T, default: T, ui: &mut Ui) {
+    let button = egui::Button::new("↺");
+
+    if value != &default && ui.add(button).on_hover_text("Reset to default").clicked() {
+        *value = default;
+    }
 }

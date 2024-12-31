@@ -5,10 +5,38 @@ use crate::plotter::lightning_infill::lightning_infill;
 use crate::plotter::polygon_operations::PolygonOperations;
 use crate::plotter::Plotter;
 use crate::settings::Settings;
-use crate::{Object, PartialInfillTypes, Slice};
+use crate::{MoveType, Object, PartialInfillTypes, Slice, TraceType};
 use geo::prelude::*;
 use geo::*;
+use log::info;
 use rayon::prelude::*;
+
+#[derive(Debug)]
+pub struct PassContext {
+    fiber: bool,
+}
+
+impl PassContext {
+    pub fn with_fiber() -> Self {
+        Self { fiber: true }
+    }
+
+    pub fn without_fiber() -> Self {
+        Self { fiber: false }
+    }
+
+    pub fn move_from_trace_type(&self, trace_type: TraceType) -> MoveType {
+        if self.fiber {
+            MoveType::WithFiber(trace_type)
+        } else {
+            MoveType::WithoutFiber(trace_type)
+        }
+    }
+
+    pub fn is_fiber_pass(&self) -> bool {
+        self.fiber
+    }
+}
 
 pub trait ObjectPass {
     fn pass(objects: &mut Vec<Object>, settings: &Settings);
@@ -79,7 +107,7 @@ pub struct SkirtPass {}
 
 impl ObjectPass for SkirtPass {
     fn pass(objects: &mut Vec<Object>, settings: &Settings) {
-        //Handle Perimeters
+        //Handle Walls
 
         if settings.skirt.is_enabled() {
             let skirt = &settings.skirt;
@@ -126,13 +154,13 @@ impl SlicePass for ShrinkPass {
     }
 }
 
-pub struct PerimeterPass {}
+pub struct WallPass {}
 
-impl SlicePass for PerimeterPass {
+impl SlicePass for WallPass {
     fn pass(slices: &mut Vec<Slice>, settings: &Settings) -> Result<(), SlicerErrors> {
-        // display_state_update("Generating Moves: Perimeters", send_messages);
+        // display_state_update("Generating Moves: Walls", send_messages);
         slices.par_iter_mut().for_each(|slice| {
-            slice.slice_perimeters_into_chains(settings.number_of_perimeters);
+            slice.slice_walls_into_chains(settings.number_of_perimeters);
         });
         Ok(())
     }
@@ -146,7 +174,7 @@ impl SlicePass for BridgingPass {
         (1..slices.len()).for_each(|q| {
             let below = slices[q - 1].main_polygon.clone();
 
-            slices[q].fill_solid_bridge_area(&below);
+            slices[q].fill_solid_bridge_area(&below, &PassContext::without_fiber());
         });
         Ok(())
     }
@@ -159,7 +187,7 @@ impl SlicePass for TopLayerPass {
         (0..slices.len() - 1).for_each(|q| {
             let above = slices[q + 1].main_polygon.clone();
 
-            slices[q].fill_solid_top_layer(&above, q);
+            slices[q].fill_solid_top_layer(&above, q, &PassContext::without_fiber());
         });
         Ok(())
     }
@@ -219,7 +247,11 @@ impl SlicePass for TopAndBottomLayersPass {
                     slices
                         .get_mut(q)
                         .expect("Bounds Checked above")
-                        .fill_solid_subtracted_area(&intersection, q);
+                        .fill_solid_subtracted_area(
+                            &intersection,
+                            q,
+                            &PassContext::without_fiber(),
+                        );
                 }
             });
         }
@@ -234,7 +266,7 @@ impl SlicePass for TopAndBottomLayersPass {
                     || settings.top_layers + *layer_num + 1 > slice_count
             })
             .for_each(|(layer_num, slice)| {
-                slice.fill_remaining_area(true, layer_num);
+                slice.fill_remaining_area(true, layer_num, &PassContext::without_fiber());
             });
         Ok(())
     }
@@ -255,6 +287,26 @@ impl SlicePass for SupportPass {
     }
 }
 
+pub struct FiberInfillPass {}
+
+impl SlicePass for FiberInfillPass {
+    fn pass(slices: &mut Vec<Slice>, settings: &Settings) -> Result<(), SlicerErrors> {
+        if settings.fiber.infill.is_enabled() {
+            //Fill all remaining areas
+            slices
+                .par_iter_mut()
+                .enumerate()
+                .for_each(|(layer_num, slice)| {
+                    slice.trace_remaining_area(false, layer_num, &PassContext::with_fiber());
+
+                    info!("Fiber Infill: {:?}", layer_num);
+                });
+        }
+
+        Ok(())
+    }
+}
+
 pub struct FillAreaPass {}
 
 impl SlicePass for FillAreaPass {
@@ -266,7 +318,7 @@ impl SlicePass for FillAreaPass {
             .par_iter_mut()
             .enumerate()
             .for_each(|(layer_num, slice)| {
-                slice.fill_remaining_area(false, layer_num);
+                slice.fill_remaining_area(false, layer_num, &PassContext::without_fiber());
             });
         Ok(())
     }

@@ -4,6 +4,8 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
+egui = "0.30.0"
+
 glam = "0.29.0"
 nom_stl = "0.2.2"
 thiserror = "1.0.64"

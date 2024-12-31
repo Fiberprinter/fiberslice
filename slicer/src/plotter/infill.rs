@@ -1,6 +1,8 @@
 use crate::settings::LayerSettings;
 use crate::utils::point_y_lerp;
-use crate::{Move, MoveChain, TraceType, MoveType, PartialInfillTypes, SolidInfillTypes};
+use crate::{
+    Move, MoveChain, MoveType, PartialInfillTypes, PassContext, SolidInfillTypes, TraceType,
+};
 
 use super::monotone::get_monotone_sections;
 use super::polygon_operations::PolygonOperations;
@@ -129,15 +131,25 @@ pub fn partial_infill_polygon(
     fill_ratio: f32,
     _layer_count: usize,
     layer_height: f32,
+    ctx: &PassContext,
 ) -> Vec<MoveChain> {
     if fill_ratio < f32::EPSILON {
         return vec![];
     }
-    match settings.partial_infill_type {
+
+    let fill_type = ctx.move_from_trace_type(TraceType::Infill);
+
+    let partial_infill_type = if ctx.is_fiber_pass() {
+        settings.fiber.infill.infill
+    } else {
+        settings.partial_infill_type
+    };
+
+    match partial_infill_type {
         PartialInfillTypes::Linear => partial_linear_fill_polygon(
             poly,
             settings,
-            MoveType::WithoutFiber(TraceType::Infill),
+            fill_type,
             settings.extrusion_width.infill / fill_ratio,
             0.0,
             0.0,
@@ -146,7 +158,7 @@ pub fn partial_infill_polygon(
             let mut fill = partial_linear_fill_polygon(
                 poly,
                 settings,
-                MoveType::WithoutFiber(TraceType::Infill),
+                fill_type,
                 2.0 * settings.extrusion_width.infill / fill_ratio,
                 45.0,
                 0.0,
@@ -154,7 +166,7 @@ pub fn partial_infill_polygon(
             fill.append(&mut partial_linear_fill_polygon(
                 poly,
                 settings,
-                MoveType::WithoutFiber(TraceType::Infill),
+                fill_type,
                 2.0 * settings.extrusion_width.infill / fill_ratio,
                 135.0,
                 0.0,
@@ -165,7 +177,7 @@ pub fn partial_infill_polygon(
             let mut fill = partial_linear_fill_polygon(
                 poly,
                 settings,
-                MoveType::WithoutFiber(TraceType::Infill),
+                fill_type,
                 3.0 * settings.extrusion_width.infill / fill_ratio,
                 45.0,
                 0.0,
@@ -173,7 +185,7 @@ pub fn partial_infill_polygon(
             fill.append(&mut partial_linear_fill_polygon(
                 poly,
                 settings,
-                MoveType::WithoutFiber(TraceType::Infill),
+                fill_type,
                 3.0 * settings.extrusion_width.infill / fill_ratio,
                 45.0 + 60.0,
                 0.0,
@@ -181,7 +193,7 @@ pub fn partial_infill_polygon(
             fill.append(&mut partial_linear_fill_polygon(
                 poly,
                 settings,
-                MoveType::WithoutFiber(TraceType::Infill),
+                fill_type,
                 3.0 * settings.extrusion_width.infill / fill_ratio,
                 45.0 + 120.0,
                 0.0,
@@ -192,7 +204,7 @@ pub fn partial_infill_polygon(
             let mut fill = partial_linear_fill_polygon(
                 poly,
                 settings,
-                MoveType::WithoutFiber(TraceType::Infill),
+                fill_type,
                 3.0 * settings.extrusion_width.infill / fill_ratio,
                 45.0,
                 layer_height / std::f32::consts::SQRT_2,
@@ -200,7 +212,7 @@ pub fn partial_infill_polygon(
             fill.append(&mut partial_linear_fill_polygon(
                 poly,
                 settings,
-                MoveType::WithoutFiber(TraceType::Infill),
+                fill_type,
                 3.0 * settings.extrusion_width.infill / fill_ratio,
                 45.0 + 120.0,
                 layer_height / std::f32::consts::SQRT_2,
@@ -208,7 +220,7 @@ pub fn partial_infill_polygon(
             fill.append(&mut partial_linear_fill_polygon(
                 poly,
                 settings,
-                MoveType::WithoutFiber(TraceType::Infill),
+                fill_type,
                 3.0 * settings.extrusion_width.infill / fill_ratio,
                 45.0 + 240.0,
                 layer_height / std::f32::consts::SQRT_2,

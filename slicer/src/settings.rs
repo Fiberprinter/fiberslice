@@ -71,7 +71,7 @@ pub struct Settings {
     ///The filament Settings
     pub filament: FilamentSettings,
 
-    pub fiber: Option<FiberSettings>,
+    pub fiber: fiber::FiberSettings,
 
     ///The fan settings
     pub fan: FanSettings,
@@ -224,7 +224,7 @@ impl Default for Settings {
             },
             filament: FilamentSettings::default(),
             fan: FanSettings::default(),
-            fiber: None,
+            fiber: fiber::FiberSettings::default(),
             skirt: OptionalSetting::default(),
             nozzle_diameter: 0.8,
             retract_length: 0.8,
@@ -359,7 +359,10 @@ impl Settings {
 
         LayerSettings {
             layer_height: changes.layer_height.unwrap_or(self.layer_height),
-            layer_shrink_amount: changes.layer_shrink_amount.or(self.layer_shrink_amount),
+            layer_shrink_amount: changes
+                .layer_shrink_amount
+                .unwrap_or(self.layer_shrink_amount),
+            fiber: changes.fiber.unwrap_or(self.fiber.clone()),
             speed: changes.speed.unwrap_or_else(|| self.speed.clone()),
             acceleration: changes
                 .acceleration
@@ -382,7 +385,7 @@ impl Settings {
             extruder_temp: changes.extruder_temp.unwrap_or(self.filament.extruder_temp),
             retraction_wipe: changes
                 .retraction_wipe
-                .or_else(|| self.retraction_wipe.clone()),
+                .unwrap_or(self.retraction_wipe.clone()),
             retraction_length: changes.retraction_length.unwrap_or(self.retract_length),
         }
     }
@@ -565,6 +568,10 @@ impl<T> OptionalSetting<T> {
     pub fn is_enabled(&self) -> bool {
         self.enabled
     }
+
+    pub fn enabled_mut(&mut self) -> &mut bool {
+        &mut self.enabled
+    }
 }
 
 #[derive(Serialize, Deserialize, Debug, Default, Clone)]
@@ -582,16 +589,10 @@ impl MaskSettings {
             }
         }
 
-        fn set_optional_setting<T>(value: Option<T>, value_mut: &mut Option<T>) {
-            if let Some(value) = value {
-                *value_mut = Some(value);
-            }
-        }
-
         set_setting(self.settings.layer_height, &mut settings.layer_height);
         set_setting(self.settings.extrusion_width, &mut settings.extrusion_width);
         set_setting(self.settings.filament, &mut settings.filament);
-        set_optional_setting(self.settings.fiber, &mut settings.fiber);
+        set_setting(self.settings.fiber, &mut settings.fiber);
         set_setting(self.settings.fan, &mut settings.fan);
         set_setting(self.settings.skirt, &mut settings.skirt);
         set_setting(self.settings.support, &mut settings.support);
@@ -734,7 +735,7 @@ pub enum SettingsValidationResult {
     Error(SlicerErrors),
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 ///Settings specific to a Layer
 pub struct LayerSettings {
     ///The height of the layers
@@ -742,6 +743,8 @@ pub struct LayerSettings {
 
     ///Inset the layer by the provided amount, if None on inset will be performed
     pub layer_shrink_amount: OptionalSetting<f32>,
+
+    pub fiber: fiber::FiberSettings,
 
     ///The speeds used for movement
     pub speed: MovementParameter,
@@ -814,6 +817,24 @@ pub struct MovementParameter {
     pub support: f32,
 
     pub fiber_factor: f32,
+}
+
+impl Default for MovementParameter {
+    fn default() -> Self {
+        MovementParameter {
+            interior_inner_perimeter: 900.0,
+            interior_surface_perimeter: 900.0,
+            exterior_inner_perimeter: 800.0,
+            solid_top_infill: 1000.0,
+            solid_infill: 1000.0,
+            infill: 1000.0,
+            travel: 1000.0,
+            bridge: 1000.0,
+            support: 1000.0,
+            exterior_surface_perimeter: 800.0,
+            fiber_factor: 0.5,
+        }
+    }
 }
 
 impl MovementParameter {
@@ -903,31 +924,73 @@ impl Default for FanSettings {
     }
 }
 
-#[derive(Serialize, Deserialize, Debug, Clone)]
-pub struct FiberSettings {
-    pub diameter: f32,
-    pub cut_before: f32,
-    pub min_length: f32,
-    pub max_angle: f32,
+pub mod fiber {
+    use serde::{Deserialize, Serialize};
+    use strum_macros::EnumIter;
 
-    pub percentage: f32,
+    use crate::PartialInfillTypes;
 
-    pub speed_factor: f32,
-    pub acceleration_factor: f32,
-    pub jerk_factor: f32,
-}
+    use super::OptionalSetting;
 
-impl Default for FiberSettings {
-    fn default() -> Self {
-        FiberSettings {
-            diameter: 0.15,
-            cut_before: 20.0,
-            min_length: 25.0,
-            max_angle: 45.0,
-            percentage: 0.5,
-            speed_factor: 1.4,
-            acceleration_factor: 1.0,
-            jerk_factor: 1.0,
+    #[derive(EnumIter, Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
+    pub enum WallPattern {
+        Alternating,
+        Random,
+        Full,
+    }
+
+    #[derive(Serialize, Deserialize, Debug, Clone)]
+    pub struct Infill {
+        pub infill: PartialInfillTypes,
+        pub infill_percentage: f32,
+    }
+
+    #[derive(Serialize, Deserialize, Debug, Clone)]
+    pub struct FiberSettings {
+        pub diameter: f32,
+        pub cut_before: f32,
+        pub min_length: f32,
+        pub max_angle: f32,
+
+        pub wall_pattern: OptionalSetting<WallPattern>,
+        // only for Alternating wall pattern
+        pub alternating_pattern_vertical_spacing: usize,
+        pub alternating_pattern_horizontal_spacing: usize,
+
+        pub infill: OptionalSetting<Infill>,
+
+        pub speed_factor: f32,
+        pub acceleration_factor: f32,
+        pub jerk_factor: f32,
+    }
+
+    impl Default for FiberSettings {
+        fn default() -> Self {
+            FiberSettings {
+                diameter: 0.15,
+                cut_before: 20.0,
+                min_length: 25.0,
+                max_angle: 45.0,
+
+                wall_pattern: OptionalSetting {
+                    setting: WallPattern::Alternating,
+                    enabled: true,
+                },
+                alternating_pattern_vertical_spacing: 1,
+                alternating_pattern_horizontal_spacing: 1,
+
+                infill: OptionalSetting {
+                    setting: Infill {
+                        infill: PartialInfillTypes::Linear,
+                        infill_percentage: 0.2,
+                    },
+                    enabled: true,
+                },
+
+                speed_factor: 1.4,
+                acceleration_factor: 1.0,
+                jerk_factor: 1.0,
+            }
         }
     }
 }
@@ -1002,7 +1065,7 @@ pub struct PartialSettings {
     ///The extrusion width of the layers
     pub extrusion_width: Option<MovementParameter>,
 
-    pub fiber: Option<FiberSettings>,
+    pub fiber: Option<fiber::FiberSettings>,
 
     ///Inset the layer by the provided amount, if None on inset will be performed
     pub layer_shrink_amount: Option<OptionalSetting<f32>>,
@@ -1309,6 +1372,8 @@ pub struct PartialLayerSettings {
     ///Inset the layer by the provided amount, if None on inset will be performed
     pub layer_shrink_amount: Option<OptionalSetting<f32>>,
 
+    pub fiber: Option<fiber::FiberSettings>,
+
     ///The speeds used for movement
     pub speed: Option<MovementParameter>,
 
@@ -1354,6 +1419,7 @@ impl PartialLayerSettings {
                 .extrusion_width
                 .clone()
                 .or_else(|| other.extrusion_width.clone()),
+            fiber: self.fiber.clone().or_else(|| other.fiber.clone()),
             speed: self.speed.clone().or_else(|| other.speed.clone()),
             acceleration: self
                 .acceleration
@@ -1384,7 +1450,7 @@ fn try_convert_partial_to_settings(part: PartialSettings) -> Result<Settings, St
     Ok(Settings {
         layer_height: part.layer_height.ok_or("layer_height")?,
         extrusion_width: part.extrusion_width.ok_or("extrusion_width")?,
-        fiber: part.fiber,
+        fiber: part.fiber.ok_or("fiber")?,
         filament: part.filament.ok_or("filament")?,
         fan: part.fan.ok_or("fan")?,
         skirt: part.skirt.ok_or("skirt")?,

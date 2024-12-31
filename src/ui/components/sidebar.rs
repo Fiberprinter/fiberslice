@@ -24,7 +24,7 @@ pub enum SettingTab {
 pub enum SettingSubTab {
     General,
     PrinterAndLimits,
-    Instructions,
+    Fiber,
 }
 
 struct TabbedSettings;
@@ -94,7 +94,7 @@ impl TabbedSettings {
                     grid.cell(|ui| {
                         ui.selectable_value(
                             &mut side_view.state.open_sub_tab,
-                            SettingSubTab::Instructions,
+                            SettingSubTab::Fiber,
                             "Fiber",
                         );
                     });
@@ -114,7 +114,7 @@ impl TabbedSettings {
                     });
                     grid.cell(|ui| {
                         ui.vertical(|ui| {
-                            if side_view.state.open_sub_tab != SettingSubTab::Instructions {
+                            if side_view.state.open_sub_tab != SettingSubTab::Fiber {
                                 ui.separator();
                             }
                         });
@@ -154,7 +154,9 @@ impl TabbedSettings {
                     });
                 });
             }
-            SettingSubTab::Instructions => {
+            SettingSubTab::Fiber => {
+                println!("Fiber");
+
                 egui::CentralPanel::default().show_inside(ui, |ui| {
                     ui.with_layout(Layout::top_down(egui::Align::Max), |ui| {
                         egui::ScrollArea::both().show(ui, |ui| {
