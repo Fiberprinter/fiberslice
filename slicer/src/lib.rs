@@ -168,6 +168,7 @@ fn generate_moves(
             ShrinkPass::pass(slices, settings)?;
 
             //Handle Perimeters
+
             WallPass::pass(slices, settings)?;
 
             //Handle Bridging
@@ -182,7 +183,7 @@ fn generate_moves(
             //Handle Support
             SupportPass::pass(slices, settings)?;
 
-            FiberInfillPass::pass(slices, settings)?;
+            FiberPass::pass(slices, settings)?;
 
             //Lightning Infill
             LightningFillPass::pass(slices, settings)?;

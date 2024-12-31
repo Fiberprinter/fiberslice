@@ -4,3 +4,4 @@
 /gcode
 /fdesc-pattern
 *.gcode
+.codegpt

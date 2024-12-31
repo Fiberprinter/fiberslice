@@ -1,11 +1,11 @@
 mod infill;
 pub(crate) mod lightning_infill;
 mod monotone;
-mod perimeter;
 pub mod polygon_operations;
 pub(crate) mod support;
+mod walls;
 
-use crate::{Move, MoveChain, PartialInfillTypes, PassContext, TraceType};
+use crate::{Move, MoveChain, PassContext, TraceType};
 
 use crate::settings::SkirtSettings;
 use crate::utils::point_lerp;
@@ -17,14 +17,13 @@ use geo::*;
 pub use infill::*;
 use itertools::Itertools;
 use ordered_float::OrderedFloat;
-use perimeter::*;
 use polygon_operations::PolygonOperations;
+use walls::*;
 
 pub trait Plotter {
-    fn slice_walls_into_chains(&mut self, number_of_perimeters: usize);
+    fn slice_walls_into_chains(&mut self, number_of_perimeters: usize, layer: usize);
     fn shrink_layer(&mut self);
     fn fill_remaining_area(&mut self, solid: bool, layer_count: usize, ctx: &PassContext);
-    fn trace_remaining_area(&mut self, solid: bool, layer_count: usize, ctx: &PassContext);
     fn fill_solid_subtracted_area(
         &mut self,
         other: &MultiPolygon<f32>,
@@ -50,7 +49,7 @@ pub trait Plotter {
 }
 
 impl Plotter for Slice {
-    fn slice_walls_into_chains(&mut self, number_of_perimeters: usize) {
+    fn slice_walls_into_chains(&mut self, number_of_perimeters: usize, layer: usize) {
         let mut new_chains = self
             .remaining_area
             .iter()
@@ -61,6 +60,7 @@ impl Plotter for Slice {
                     &self.layer_settings,
                     true,
                     number_of_perimeters - 1,
+                    layer,
                 )
             })
             .collect::<Vec<_>>();
@@ -100,13 +100,12 @@ impl Plotter for Slice {
         }
     }
 
-    // Can be very slow
-    fn trace_remaining_area(&mut self, solid: bool, layer_count: usize, ctx: &PassContext) {
+    fn fill_remaining_area(&mut self, solid: bool, layer_count: usize, ctx: &PassContext) {
         //For each region still available fill wih infill
-        for poly in self.remaining_area.clone() {
+        for poly in &self.remaining_area {
             if solid {
                 let new_moves = solid_infill_polygon(
-                    &poly,
+                    poly,
                     &self.layer_settings,
                     ctx.move_from_trace_type(TraceType::SolidInfill),
                     layer_count,
@@ -124,7 +123,7 @@ impl Plotter for Slice {
                 };
 
                 let new_moves = partial_infill_polygon(
-                    &poly,
+                    poly,
                     &self.layer_settings,
                     fill_ratio,
                     layer_count,
@@ -133,45 +132,14 @@ impl Plotter for Slice {
                 );
 
                 for chain in new_moves {
-                    // let poly = chain.trace_area();
-                    self.chains.push(chain);
-                }
-            }
-        }
-    }
-
-    fn fill_remaining_area(&mut self, solid: bool, layer_count: usize, ctx: &PassContext) {
-        //For each region still available fill wih infill
-        for poly in &self.remaining_area {
-            if solid {
-                let new_moves = solid_infill_polygon(
-                    poly,
-                    &self.layer_settings,
-                    ctx.move_from_trace_type(TraceType::SolidInfill),
-                    layer_count,
-                    self.get_height(),
-                );
-
-                for chain in new_moves {
-                    self.chains.push(chain);
-                }
-            } else {
-                let new_moves = partial_infill_polygon(
-                    poly,
-                    &self.layer_settings,
-                    self.layer_settings.infill_percentage,
-                    layer_count,
-                    self.get_height(),
-                    ctx,
-                );
-
-                for chain in new_moves {
                     self.chains.push(chain);
                 }
             }
         }
 
-        self.remaining_area = MultiPolygon(vec![])
+        if ctx.is_subtract_pass() {
+            self.remaining_area = MultiPolygon(vec![])
+        }
     }
 
     fn fill_solid_subtracted_area(

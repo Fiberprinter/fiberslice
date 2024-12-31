@@ -4,15 +4,65 @@ use geo::*;
 use itertools::Itertools;
 
 use crate::settings::LayerSettings;
-use crate::{Move, MoveChain, TraceType, MoveType};
+use crate::{Move, MoveChain, MoveType, TraceType};
 
 use super::polygon_operations::PolygonOperations;
+
+/*
+let is_wall_space = |layer_num: usize, wall_num: usize| {
+    // Calculate the layer's pattern
+    let layer_cycle_length = pattern_layer_space + pattern_layer_width;
+    let layer_position = layer_num % layer_cycle_length;
+    if layer_position < pattern_layer_space {
+        // Entire layer is space
+        true
+    } else {
+        // Calculate the wall's pattern
+        let wall_cycle_length = pattern_wall_space + pattern_wall_width;
+        let wall_position = wall_num % wall_cycle_length;
+        wall_position < pattern_wall_space
+    }
+};
+*/
+
+pub fn determine_move_type(
+    settings: &LayerSettings,
+    wall: usize,
+    layer: usize,
+    trace_type: TraceType,
+) -> MoveType {
+    if settings.fiber.wall_pattern.is_enabled() {
+        let layer_cycle_length = settings.fiber.wall_pattern.alternating_layer_spacing
+            + settings.fiber.wall_pattern.alternating_layer_width;
+        let layer_position = layer % layer_cycle_length;
+
+        if layer_position < settings.fiber.wall_pattern.alternating_layer_spacing {
+            // Entire layer is space
+            return MoveType::WithoutFiber(trace_type);
+        } else {
+            // Calculate the wall's pattern
+            let wall_cycle_length = settings.fiber.wall_pattern.alternating_wall_spacing
+                + settings.fiber.wall_pattern.alternating_wall_width;
+            let wall_position =
+                (wall + (layer * settings.fiber.wall_pattern.alternating_step)) % wall_cycle_length;
+
+            if wall_position < settings.fiber.wall_pattern.alternating_wall_spacing {
+                return MoveType::WithoutFiber(trace_type);
+            } else {
+                return MoveType::WithFiber(trace_type);
+            }
+        }
+    } else {
+        MoveType::WithoutFiber(trace_type)
+    }
+}
 
 pub fn inset_polygon_recursive(
     poly: &MultiPolygon<f32>,
     settings: &LayerSettings,
     outer_perimeter: bool,
-    layer_left: usize,
+    walls_left: usize,
+    layer: usize,
 ) -> Option<MoveChain> {
     let mut move_chains = vec![];
     let inset_poly = poly.offset_from(
@@ -33,10 +83,18 @@ pub fn inset_polygon_recursive(
             .circular_tuple_windows::<(_, _)>()
             .map(|(&_start, &end)| {
                 let move_type = if outer_perimeter {
-                    MoveType::WithoutFiber(TraceType::WallOuter)
+                    determine_move_type(settings, walls_left + 1, layer, TraceType::WallOuter)
+                    // MoveType::WithoutFiber(TraceType::WallOuter)
                 } else {
-                    MoveType::WithoutFiber(TraceType::InteriorWallOuter)
+                    determine_move_type(
+                        settings,
+                        walls_left + 1,
+                        layer,
+                        TraceType::InteriorWallOuter,
+                    )
+                    // MoveType::WithoutFiber(TraceType::InteriorWallOuter)
                 };
+
                 Move {
                     end,
                     move_type,
@@ -56,9 +114,16 @@ pub fn inset_polygon_recursive(
         for interior in polygon.interiors() {
             let mut moves = vec![];
             let move_type = if outer_perimeter {
-                MoveType::WithoutFiber(TraceType::WallInner)
+                determine_move_type(settings, walls_left + 1, layer, TraceType::WallInner)
+                // MoveType::WithoutFiber(TraceType::WallInner)
             } else {
-                MoveType::WithoutFiber(TraceType::InteriorWallInner)
+                determine_move_type(
+                    settings,
+                    walls_left + 1,
+                    layer,
+                    TraceType::InteriorWallInner,
+                )
+                // MoveType::WithoutFiber(TraceType::InteriorWallInner)
             };
 
             for (&_start, &end) in interior.0.iter().circular_tuple_windows::<(_, _)>() {
@@ -79,7 +144,7 @@ pub fn inset_polygon_recursive(
         }
 
         let mut inner_chains = vec![];
-        if layer_left != 0 {
+        if walls_left != 0 {
             let rec_inset_poly = polygon.offset_from(
                 if outer_perimeter {
                     settings.extrusion_width.interior_surface_perimeter
@@ -93,7 +158,8 @@ pub fn inset_polygon_recursive(
                     &MultiPolygon::from(polygon_rec),
                     settings,
                     false,
-                    layer_left - 1,
+                    walls_left - 1,
+                    layer,
                 ) {
                     inner_chains.push(mc);
                 }

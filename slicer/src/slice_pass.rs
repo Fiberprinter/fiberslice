@@ -14,15 +14,47 @@ use rayon::prelude::*;
 #[derive(Debug)]
 pub struct PassContext {
     fiber: bool,
+    subtract: bool,
 }
 
 impl PassContext {
-    pub fn with_fiber() -> Self {
-        Self { fiber: true }
+    pub fn new() -> Self {
+        Self {
+            fiber: false,
+            subtract: true,
+        }
     }
 
-    pub fn without_fiber() -> Self {
-        Self { fiber: false }
+    pub fn with_fiber(self) -> Self {
+        Self {
+            fiber: true,
+            ..self
+        }
+    }
+
+    pub fn without_fiber(self) -> Self {
+        Self {
+            fiber: false,
+            ..self
+        }
+    }
+
+    pub fn subtract(self) -> Self {
+        Self {
+            subtract: true,
+            ..self
+        }
+    }
+
+    pub fn no_subtract(self) -> Self {
+        Self {
+            subtract: false,
+            ..self
+        }
+    }
+
+    pub fn is_subtract_pass(&self) -> bool {
+        self.subtract
     }
 
     pub fn move_from_trace_type(&self, trace_type: TraceType) -> MoveType {
@@ -159,9 +191,12 @@ pub struct WallPass {}
 impl SlicePass for WallPass {
     fn pass(slices: &mut Vec<Slice>, settings: &Settings) -> Result<(), SlicerErrors> {
         // display_state_update("Generating Moves: Walls", send_messages);
-        slices.par_iter_mut().for_each(|slice| {
-            slice.slice_walls_into_chains(settings.number_of_perimeters);
-        });
+        slices
+            .par_iter_mut()
+            .enumerate()
+            .for_each(|(layer_num, slice)| {
+                slice.slice_walls_into_chains(settings.number_of_perimeters, layer_num);
+            });
         Ok(())
     }
 }
@@ -174,7 +209,7 @@ impl SlicePass for BridgingPass {
         (1..slices.len()).for_each(|q| {
             let below = slices[q - 1].main_polygon.clone();
 
-            slices[q].fill_solid_bridge_area(&below, &PassContext::without_fiber());
+            slices[q].fill_solid_bridge_area(&below, &PassContext::new().without_fiber());
         });
         Ok(())
     }
@@ -187,7 +222,7 @@ impl SlicePass for TopLayerPass {
         (0..slices.len() - 1).for_each(|q| {
             let above = slices[q + 1].main_polygon.clone();
 
-            slices[q].fill_solid_top_layer(&above, q, &PassContext::without_fiber());
+            slices[q].fill_solid_top_layer(&above, q, &PassContext::new().without_fiber());
         });
         Ok(())
     }
@@ -250,7 +285,7 @@ impl SlicePass for TopAndBottomLayersPass {
                         .fill_solid_subtracted_area(
                             &intersection,
                             q,
-                            &PassContext::without_fiber(),
+                            &PassContext::new().without_fiber(),
                         );
                 }
             });
@@ -266,7 +301,7 @@ impl SlicePass for TopAndBottomLayersPass {
                     || settings.top_layers + *layer_num + 1 > slice_count
             })
             .for_each(|(layer_num, slice)| {
-                slice.fill_remaining_area(true, layer_num, &PassContext::without_fiber());
+                slice.fill_remaining_area(true, layer_num, &PassContext::new().without_fiber());
             });
         Ok(())
     }
@@ -287,17 +322,35 @@ impl SlicePass for SupportPass {
     }
 }
 
-pub struct FiberInfillPass {}
+pub struct FiberPass {}
 
-impl SlicePass for FiberInfillPass {
+impl SlicePass for FiberPass {
     fn pass(slices: &mut Vec<Slice>, settings: &Settings) -> Result<(), SlicerErrors> {
         if settings.fiber.infill.is_enabled() {
             //Fill all remaining areas
+            let width = settings.fiber.infill.width;
+            let spacing = settings.fiber.infill.spacing;
+            let cycle_length = width + spacing;
+
             slices
                 .par_iter_mut()
                 .enumerate()
                 .for_each(|(layer_num, slice)| {
-                    slice.trace_remaining_area(false, layer_num, &PassContext::with_fiber());
+                    if ((layer_num + 1) % cycle_length) < spacing {
+                        if !settings.fiber.infill.air_spacing {
+                            slice.fill_remaining_area(
+                                false,
+                                layer_num,
+                                &PassContext::new().without_fiber().no_subtract(),
+                            );
+                        }
+                    } else {
+                        slice.fill_remaining_area(
+                            false,
+                            layer_num,
+                            &PassContext::new().with_fiber().no_subtract(),
+                        );
+                    }
 
                     info!("Fiber Infill: {:?}", layer_num);
                 });
@@ -318,7 +371,7 @@ impl SlicePass for FillAreaPass {
             .par_iter_mut()
             .enumerate()
             .for_each(|(layer_num, slice)| {
-                slice.fill_remaining_area(false, layer_num, &PassContext::without_fiber());
+                slice.fill_remaining_area(false, layer_num, &PassContext::new().without_fiber());
             });
         Ok(())
     }

@@ -29,10 +29,10 @@ impl UiSetting for slicer::Settings {
     fn show_general(&mut self, ui: &mut egui::Ui) {
         show_f32(&mut self.layer_height, "Layer height", Some("mm"), 0.0, ui);
 
-        egui::CollapsingHeader::new("Extrustion width")
+        egui::CollapsingHeader::new("Extrustion Width")
             .default_open(true)
             .show(ui, |ui| {
-                self.extrusion_width.show(ui);
+                ExtrusionMovementParameter(&mut self.extrusion_width).show(ui);
             });
 
         egui::CollapsingHeader::new("Filament")
@@ -433,6 +433,62 @@ impl UiSetting for slicer::Settings {
     }
 }
 
+struct ExtrusionMovementParameter<'a>(&'a mut MovementParameter);
+
+impl<'a> UiWidgetComponent for ExtrusionMovementParameter<'a> {
+    fn show(&mut self, ui: &mut egui::Ui) {
+        show_f32(
+            &mut self.0.interior_inner_perimeter,
+            "Interior inner perimeter",
+            None,
+            0.0,
+            ui,
+        );
+
+        show_f32(
+            &mut self.0.interior_surface_perimeter,
+            "Interior surface perimeter",
+            None,
+            0.0,
+            ui,
+        );
+
+        show_f32(
+            &mut self.0.exterior_inner_perimeter,
+            "Exterior inner perimeter",
+            None,
+            0.0,
+            ui,
+        );
+
+        show_f32(
+            &mut self.0.exterior_surface_perimeter,
+            "Exterior surface perimeter",
+            None,
+            0.0,
+            ui,
+        );
+
+        show_f32(
+            &mut self.0.solid_top_infill,
+            "Solid top infill",
+            None,
+            0.0,
+            ui,
+        );
+
+        show_f32(&mut self.0.solid_infill, "Solid infill", None, 0.0, ui);
+
+        show_f32(&mut self.0.infill, "Infill", None, 0.0, ui);
+
+        show_f32(&mut self.0.travel, "Travel", None, 0.0, ui);
+
+        show_f32(&mut self.0.bridge, "Bridge", None, 0.0, ui);
+
+        show_f32(&mut self.0.support, "Support", None, 0.0, ui);
+    }
+}
+
 impl UiWidgetComponent for MovementParameter {
     fn show(&mut self, ui: &mut egui::Ui) {
         show_f32(
@@ -673,28 +729,47 @@ impl UiWidgetComponent for FiberSettings {
             &mut self.wall_pattern,
             "Wall Fibers",
             |setting, ui| {
-                show_combo(setting, "Pattern", ui);
+                show_combo(&mut setting.pattern, "Pattern", ui);
 
-                match setting {
-                    fiber::WallPattern::Alternating => {
+                match setting.pattern {
+                    fiber::WallPatternType::Alternating => {
                         show_usize(
-                            &mut self.alternating_pattern_vertical_spacing,
-                            "Pattern Thickness",
+                            &mut setting.alternating_layer_spacing,
+                            "Layer Pattern
+                             Spacing",
                             None,
                             1,
                             ui,
                         );
 
                         show_usize(
-                            &mut self.alternating_pattern_horizontal_spacing,
-                            "Pattern Width",
+                            &mut setting.alternating_layer_width,
+                            "Layer Pattern Width",
                             None,
                             1,
                             ui,
                         );
+
+                        show_usize(
+                            &mut setting.alternating_wall_spacing,
+                            "Wall Pattern Spacing",
+                            None,
+                            1,
+                            ui,
+                        );
+
+                        show_usize(
+                            &mut setting.alternating_wall_width,
+                            "Wall Pattern Width",
+                            None,
+                            1,
+                            ui,
+                        );
+
+                        show_usize(&mut setting.alternating_step, "Step", None, 1, ui);
                     }
-                    fiber::WallPattern::Random => {}
-                    fiber::WallPattern::Full => {}
+                    fiber::WallPatternType::Random => {}
+                    fiber::WallPatternType::Full => {}
                 }
             },
             true,
@@ -713,6 +788,17 @@ impl UiWidgetComponent for FiberSettings {
                     0.2,
                     ui,
                 );
+
+                show_usize(&mut setting.width, "Pattern Width", Some("Layers"), 1, ui);
+                show_usize(
+                    &mut setting.spacing,
+                    "Pattern Spacing",
+                    Some("Layers"),
+                    1,
+                    ui,
+                );
+
+                show_bool(&mut setting.air_spacing, "Air Spacing", None, false, ui);
             },
             true,
             ui,

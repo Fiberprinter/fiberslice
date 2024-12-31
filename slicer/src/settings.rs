@@ -842,7 +842,7 @@ impl MovementParameter {
     pub fn get_value_for_movement_type(&self, move_type: &MoveType) -> f32 {
         match move_type {
             MoveType::WithFiber(move_print_type) => {
-                self.get_value_for_movement_print_type(move_print_type) * self.fiber_factor
+                self.get_value_for_movement_print_type(move_print_type)
             }
             MoveType::WithoutFiber(move_print_type) => {
                 self.get_value_for_movement_print_type(move_print_type)
@@ -933,16 +933,32 @@ pub mod fiber {
     use super::OptionalSetting;
 
     #[derive(EnumIter, Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
-    pub enum WallPattern {
+    pub enum WallPatternType {
         Alternating,
         Random,
         Full,
     }
 
     #[derive(Serialize, Deserialize, Debug, Clone)]
+    pub struct WallPattern {
+        pub pattern: WallPatternType,
+        // pub only_on_outer: bool,
+        pub alternating_layer_width: usize,
+        pub alternating_layer_spacing: usize,
+
+        pub alternating_wall_width: usize,
+        pub alternating_wall_spacing: usize,
+
+        pub alternating_step: usize,
+    }
+
+    #[derive(Serialize, Deserialize, Debug, Clone)]
     pub struct Infill {
         pub infill: PartialInfillTypes,
         pub infill_percentage: f32,
+        pub width: usize,
+        pub spacing: usize,
+        pub air_spacing: bool,
     }
 
     #[derive(Serialize, Deserialize, Debug, Clone)]
@@ -953,9 +969,6 @@ pub mod fiber {
         pub max_angle: f32,
 
         pub wall_pattern: OptionalSetting<WallPattern>,
-        // only for Alternating wall pattern
-        pub alternating_pattern_vertical_spacing: usize,
-        pub alternating_pattern_horizontal_spacing: usize,
 
         pub infill: OptionalSetting<Infill>,
 
@@ -973,16 +986,24 @@ pub mod fiber {
                 max_angle: 45.0,
 
                 wall_pattern: OptionalSetting {
-                    setting: WallPattern::Alternating,
+                    setting: WallPattern {
+                        pattern: WallPatternType::Alternating,
+                        alternating_layer_width: 1,
+                        alternating_layer_spacing: 0,
+                        alternating_wall_width: 1,
+                        alternating_wall_spacing: 1,
+                        alternating_step: 1,
+                    },
                     enabled: true,
                 },
-                alternating_pattern_vertical_spacing: 1,
-                alternating_pattern_horizontal_spacing: 1,
 
                 infill: OptionalSetting {
                     setting: Infill {
                         infill: PartialInfillTypes::Linear,
                         infill_percentage: 0.2,
+                        width: 1,
+                        spacing: 1,
+                        air_spacing: false,
                     },
                     enabled: true,
                 },
