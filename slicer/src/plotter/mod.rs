@@ -113,28 +113,27 @@ impl Plotter for Slice {
                     self.get_height(),
                 );
 
-                self.remaining_area = self
-                    .remaining_area
-                    .difference_with(&MultiPolygon(vec![poly]));
-
                 for chain in new_moves {
                     self.chains.push(chain);
                 }
             } else {
+                let fill_ratio = if ctx.is_fiber_pass() {
+                    self.layer_settings.fiber.infill.infill_percentage
+                } else {
+                    self.layer_settings.infill_percentage
+                };
+
                 let new_moves = partial_infill_polygon(
                     &poly,
                     &self.layer_settings,
-                    self.layer_settings.infill_percentage,
+                    fill_ratio,
                     layer_count,
                     self.get_height(),
                     ctx,
                 );
 
                 for chain in new_moves {
-                    let poly = chain.trace_area();
-
-                    self.remaining_area = self.remaining_area.difference_with(&poly);
-
+                    // let poly = chain.trace_area();
                     self.chains.push(chain);
                 }
             }
