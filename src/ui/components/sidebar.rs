@@ -155,8 +155,6 @@ impl TabbedSettings {
                 });
             }
             SettingSubTab::Fiber => {
-                println!("Fiber");
-
                 egui::CentralPanel::default().show_inside(ui, |ui| {
                     ui.with_layout(Layout::top_down(egui::Align::Max), |ui| {
                         egui::ScrollArea::both().show(ui, |ui| {
