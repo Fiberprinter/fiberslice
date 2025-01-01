@@ -1,6 +1,6 @@
 use std::ops::{Deref, DerefMut};
 
-use geo::Area;
+use geo::{simplify, Area, Simplify};
 use glam::{Mat4, Vec3};
 use shared::object::ObjectMesh;
 
@@ -92,14 +92,18 @@ impl ObjectMask {
             .iter_mut()
             .enumerate()
             .for_each(|(index, layer)| {
-                let mut remaining_polygon = layer.main_polygon.clone();
+                let mut remaining_polygon = layer.main_polygon.simplify(&0.2);
                 for object in objects.iter() {
                     if let Some(layer) = object.layers.get(index) {
-                        remaining_polygon = remaining_polygon.difference_with(&layer.main_polygon);
+                        remaining_polygon =
+                            remaining_polygon.difference_with(&layer.main_polygon.simplify(&0.2));
                     }
                 }
 
-                layer.main_polygon = layer.main_polygon.difference_with(&remaining_polygon);
+                layer.main_polygon = layer
+                    .main_polygon
+                    .simplify(&0.2)
+                    .difference_with(&remaining_polygon);
                 layer.remaining_area = layer.main_polygon.clone();
             });
 
