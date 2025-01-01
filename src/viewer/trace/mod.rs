@@ -72,8 +72,8 @@ impl SlicedObject {
 
         let mut mesher = TraceMesher::new();
 
-        let mut fiber_mesher = LineMesher::new();
-        fiber_mesher.set_color(FIBER_COLOR);
+        let mut fiber_wire_mesher = LineMesher::new();
+        fiber_wire_mesher.set_color(FIBER_COLOR);
 
         let mut travel_vertices = Vec::new();
 
@@ -85,9 +85,10 @@ impl SlicedObject {
             mesher.set_color(current_type.unwrap_or(TraceType::Infill).into_color_vec4());
 
             if let Some(ty) = current_type {
-                fiber_mesher.set_type(ty);
+                fiber_wire_mesher.set_type(ty);
             }
-            fiber_mesher.set_current_layer(current_layer);
+            // fiber_mesher.set_current_layer(current_layer);
+            fiber_wire_mesher.set_current_layer(current_layer);
 
             match command {
                 slicer::Command::MoveTo { end } => {
@@ -160,6 +161,8 @@ impl SlicedObject {
                     thickness,
                     width,
                 } => {
+                    mesher.set_color(FIBER_COLOR);
+
                     let start = Vec3::new(
                         start.x - settings.print_x / 2.0,
                         current_height_z - thickness / 2.0,
@@ -185,7 +188,7 @@ impl SlicedObject {
 
                     root.push(tree_move);
 
-                    let offset = fiber_mesher.next(start, end);
+                    let offset = fiber_wire_mesher.next(start, end);
 
                     let fiber = TraceTree::create_fiber(offset as u64, start, end);
 
@@ -208,11 +211,12 @@ impl SlicedObject {
         }
 
         let trace_vertices = mesher.finish();
-        let fiber_vertices = fiber_mesher.finish();
+        // let fiber_vertices = fiber_mesher.finish();
+        let fiber_line_vertices = fiber_wire_mesher.finish();
 
         log::info!("Trace Vertices: {}", trace_vertices.len());
 
-        root.awaken(&trace_vertices, &travel_vertices, &fiber_vertices);
+        root.awaken(&trace_vertices, &travel_vertices, &[], &fiber_line_vertices);
         root.update_offset(0);
 
         Ok(Self {

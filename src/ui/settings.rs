@@ -798,6 +798,13 @@ impl UiWidgetComponent for FiberSettings {
                     ui,
                 );
 
+                show_bool(
+                    &mut setting.solid_infill,
+                    "Fiber Solid Infill",
+                    None,
+                    false,
+                    ui,
+                );
                 show_bool(&mut setting.air_spacing, "Air Spacing", None, false, ui);
             },
             true,
@@ -912,7 +919,7 @@ fn show_combo<T: Debug + PartialEq + IntoEnumIterator>(
 ) -> InnerResponse<Option<()>> {
     ui.horizontal(|ui| {
         crate::config::gui::settings::SETTINGS_LABEL.label(ui, description);
-        egui::ComboBox::from_label("")
+        egui::ComboBox::from_label(description)
             .selected_text(format!("{:?}", value))
             .show_ui(ui, |ui| {
                 for variant in T::iter() {

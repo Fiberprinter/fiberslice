@@ -238,7 +238,7 @@ impl SlicedObjectServer {
             render_pass.set_bind_group(4, &self.toolpath_context_bind_group, &[]);
 
             render_pass.set_pipeline(&self.fiber_pipeline);
-            toolpath.model.render_fiber(render_pass);
+            toolpath.model.render_fiber_line(render_pass);
         }
     }
 

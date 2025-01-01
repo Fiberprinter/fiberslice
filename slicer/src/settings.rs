@@ -958,6 +958,7 @@ pub mod fiber {
         pub infill_percentage: f32,
         pub width: usize,
         pub spacing: usize,
+        pub solid_infill: bool,
         pub air_spacing: bool,
     }
 
@@ -1004,6 +1005,7 @@ pub mod fiber {
                         width: 1,
                         spacing: 1,
                         air_spacing: false,
+                        solid_infill: false,
                     },
                     enabled: true,
                 },

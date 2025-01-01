@@ -58,20 +58,7 @@ fn vs_main(
 ) -> VertexOutput {
     var out: VertexOutput;
 
-    if (in.print_type & 0x01) == 0x01 {
-        if (context.visibility & 0x01) == 0 {
-            return out;
-        }
-    }
-
-    if (in.print_type & 0x02) == 0x02 {
-        if (context.visibility & 0x02) == 0 {
-            return out;
-        }
-    }
-
-    if (in.print_type & context.visibility) > 0 && in.layer >= context.min_layer && in.layer <= context.max_layer 
-    {
+    if (in.print_type & context.visibility) > 0 && in.layer >= context.min_layer && in.layer <= context.max_layer {
         out.world_normal = in.normal;
         var pos = transform.matrix * vec4<f32>(in.position, 1.0);
 

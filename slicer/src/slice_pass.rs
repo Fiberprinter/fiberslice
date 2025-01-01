@@ -363,15 +363,37 @@ impl SlicePass for FiberPass {
 pub struct FillAreaPass {}
 
 impl SlicePass for FillAreaPass {
-    fn pass(slices: &mut Vec<Slice>, _settings: &Settings) -> Result<(), SlicerErrors> {
+    fn pass(slices: &mut Vec<Slice>, settings: &Settings) -> Result<(), SlicerErrors> {
         // display_state_update("Generating Moves: Fill Areas", send_messages);
+
+        let width = settings.fiber.infill.width;
+        let spacing = settings.fiber.infill.spacing;
+        let cycle_length = width + spacing;
 
         //Fill all remaining areas
         slices
             .par_iter_mut()
             .enumerate()
             .for_each(|(layer_num, slice)| {
-                slice.fill_remaining_area(false, layer_num, &PassContext::new().without_fiber());
+                if settings.fiber.infill.is_enabled() && settings.fiber.infill.solid_infill {
+                    let fiber = if ((layer_num + 1) % cycle_length) < spacing {
+                        false
+                    } else {
+                        true
+                    };
+
+                    slice.fill_remaining_area(
+                        fiber,
+                        layer_num,
+                        &PassContext::new().without_fiber(),
+                    );
+                } else {
+                    slice.fill_remaining_area(
+                        false,
+                        layer_num,
+                        &PassContext::new().without_fiber(),
+                    );
+                }
             });
         Ok(())
     }
