@@ -2,7 +2,7 @@ use std::{fmt::Debug, sync::Arc};
 
 use egui::ahash::{HashMap, HashMapExt};
 use glam::{Vec3, Vec4};
-use mesh::{LineMesher, TraceMesher, TRACE_MESH_VERTICES};
+use mesh::{TraceMesher, TRACE_MESH_VERTICES};
 use shared::process::Process;
 use slicer::{Command, TraceType};
 use tree::TraceTree;
@@ -72,8 +72,11 @@ impl SlicedObject {
 
         let mut mesher = TraceMesher::new();
 
-        let mut fiber_wire_mesher = LineMesher::new();
-        fiber_wire_mesher.set_color(FIBER_COLOR);
+        let mut fiber_mesher = TraceMesher::new();
+        fiber_mesher.set_color(FIBER_COLOR);
+
+        // let mut fiber_wire_mesher = LineMesher::new();
+        // fiber_wire_mesher.set_color(FIBER_COLOR);
 
         let mut travel_vertices = Vec::new();
 
@@ -85,10 +88,9 @@ impl SlicedObject {
             mesher.set_color(current_type.unwrap_or(TraceType::Infill).into_color_vec4());
 
             if let Some(ty) = current_type {
-                fiber_wire_mesher.set_type(ty);
+                fiber_mesher.set_type(ty);
             }
-            // fiber_mesher.set_current_layer(current_layer);
-            fiber_wire_mesher.set_current_layer(current_layer);
+            fiber_mesher.set_current_layer(current_layer);
 
             match command {
                 slicer::Command::MoveTo { end } => {
@@ -178,7 +180,7 @@ impl SlicedObject {
                         count_map.entry(ty).and_modify(|e| *e += 1).or_insert(1);
                     }
 
-                    let (offset, hitbox) = mesher.next(start, end, *thickness, *width);
+                    let (offset, hitbox) = fiber_mesher.next(start, end, *thickness, *width);
 
                     let tree_move = TraceTree::create_move(
                         hitbox,
@@ -188,11 +190,13 @@ impl SlicedObject {
 
                     root.push(tree_move);
 
+                    /*
                     let offset = fiber_wire_mesher.next(start, end);
 
                     let fiber = TraceTree::create_fiber(offset as u64, start, end);
 
                     root.push(fiber);
+                    */
 
                     last_position = end;
                 }
@@ -211,12 +215,11 @@ impl SlicedObject {
         }
 
         let trace_vertices = mesher.finish();
-        // let fiber_vertices = fiber_mesher.finish();
-        let fiber_line_vertices = fiber_wire_mesher.finish();
+        let fiber_vertices = fiber_mesher.finish();
 
         log::info!("Trace Vertices: {}", trace_vertices.len());
 
-        root.awaken(&trace_vertices, &travel_vertices, &[], &fiber_line_vertices);
+        root.awaken(&trace_vertices, &travel_vertices, &fiber_vertices);
         root.update_offset(0);
 
         Ok(Self {

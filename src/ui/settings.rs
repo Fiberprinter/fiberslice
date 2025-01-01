@@ -16,6 +16,7 @@ pub trait UiSetting {
 
     fn show_printer(&mut self, ui: &mut egui::Ui);
 
+    #[allow(dead_code)]
     fn show_layer_specific(&mut self, ui: &mut egui::Ui);
 
     fn show_instructions(&mut self, ui: &mut egui::Ui);
@@ -768,7 +769,6 @@ impl UiWidgetComponent for FiberSettings {
 
                         show_usize(&mut setting.alternating_step, "Step", None, 1, ui);
                     }
-                    fiber::WallPatternType::Random => {}
                     fiber::WallPatternType::Full => {}
                 }
             },

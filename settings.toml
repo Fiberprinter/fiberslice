@@ -92,7 +92,7 @@ acceleration_factor = 1.0
 jerk_factor = 1.0
 
 [fiber.wall_pattern]
-enabled = false
+enabled = true
 
 [fiber.wall_pattern.setting]
 pattern = "Alternating"
@@ -106,11 +106,11 @@ alternating_step = 1
 enabled = true
 
 [fiber.infill.setting]
-infill = "Linear"
-infill_percentage = 0.20000000298023224
+infill = "Triangle"
+infill_percentage = 0.03999999910593033
 width = 1
-spacing = 14
-solid_infill = true
+spacing = 12
+solid_infill = false
 air_spacing = false
 
 [fan]

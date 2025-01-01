@@ -32,25 +32,31 @@ pub fn determine_move_type(
     trace_type: TraceType,
 ) -> MoveType {
     if settings.fiber.wall_pattern.is_enabled() {
-        let layer_cycle_length = settings.fiber.wall_pattern.alternating_layer_spacing
-            + settings.fiber.wall_pattern.alternating_layer_width;
-        let layer_position = layer % layer_cycle_length;
+        match settings.fiber.wall_pattern.pattern {
+            crate::fiber::WallPatternType::Alternating => {
+                let layer_cycle_length = settings.fiber.wall_pattern.alternating_layer_spacing
+                    + settings.fiber.wall_pattern.alternating_layer_width;
+                let layer_position = layer % layer_cycle_length;
 
-        if layer_position < settings.fiber.wall_pattern.alternating_layer_spacing {
-            // Entire layer is space
-            return MoveType::WithoutFiber(trace_type);
-        } else {
-            // Calculate the wall's pattern
-            let wall_cycle_length = settings.fiber.wall_pattern.alternating_wall_spacing
-                + settings.fiber.wall_pattern.alternating_wall_width;
-            let wall_position =
-                (wall + (layer * settings.fiber.wall_pattern.alternating_step)) % wall_cycle_length;
+                if layer_position < settings.fiber.wall_pattern.alternating_layer_spacing {
+                    // Entire layer is space
+                    return MoveType::WithoutFiber(trace_type);
+                } else {
+                    // Calculate the wall's pattern
+                    let wall_cycle_length = settings.fiber.wall_pattern.alternating_wall_spacing
+                        + settings.fiber.wall_pattern.alternating_wall_width;
+                    let wall_position = (wall
+                        + (layer * settings.fiber.wall_pattern.alternating_step))
+                        % wall_cycle_length;
 
-            if wall_position < settings.fiber.wall_pattern.alternating_wall_spacing {
-                return MoveType::WithoutFiber(trace_type);
-            } else {
-                return MoveType::WithFiber(trace_type);
+                    if wall_position < settings.fiber.wall_pattern.alternating_wall_spacing {
+                        return MoveType::WithoutFiber(trace_type);
+                    } else {
+                        return MoveType::WithFiber(trace_type);
+                    }
+                }
             }
+            crate::fiber::WallPatternType::Full => MoveType::WithFiber(trace_type),
         }
     } else {
         MoveType::WithoutFiber(trace_type)

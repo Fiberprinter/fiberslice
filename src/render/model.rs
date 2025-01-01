@@ -2,6 +2,8 @@ use glam::{Mat4, Vec3};
 use wgpu::util::DeviceExt;
 
 use crate::{render::Renderable, DEVICE, QUEUE};
+
+use super::ColorBinding;
 pub trait TransformMut {
     fn transform(&mut self, transform: glam::Mat4);
 }
@@ -9,8 +11,6 @@ pub trait TransformMut {
 pub trait Transform {
     fn transform(&self, transform: glam::Mat4);
 }
-
-pub const TRANSFORM_INDEX: u32 = 2;
 
 #[repr(C)]
 #[derive(Debug, Copy, Clone, bytemuck::Pod, bytemuck::Zeroable)]
@@ -38,9 +38,7 @@ pub struct Model<T> {
     transform_buffer: wgpu::Buffer,
     transform_bind_group: wgpu::BindGroup,
 
-    color: [f32; 4],
-    color_buffer: wgpu::Buffer,
-    color_bind_group: wgpu::BindGroup,
+    color_group: ColorBinding,
 
     enabled: bool,
     destroyed: bool,
@@ -88,39 +86,7 @@ impl<T: std::fmt::Debug + bytemuck::Pod + bytemuck::Zeroable> Model<T> {
             label: None,
         });
 
-        let color = [1.0, 1.0, 1.0, 1.0];
-
-        let color_uniform = ModelColorUniform { color };
-
-        let color_buffer = device.create_buffer_init(&wgpu::util::BufferInitDescriptor {
-            label: Some("Color Buffer"),
-            contents: bytemuck::cast_slice(&[color_uniform]),
-            usage: wgpu::BufferUsages::UNIFORM | wgpu::BufferUsages::COPY_DST,
-        });
-
-        let color_bind_group_layout =
-            device.create_bind_group_layout(&wgpu::BindGroupLayoutDescriptor {
-                entries: &[wgpu::BindGroupLayoutEntry {
-                    binding: 0,
-                    visibility: wgpu::ShaderStages::FRAGMENT,
-                    ty: wgpu::BindingType::Buffer {
-                        ty: wgpu::BufferBindingType::Uniform,
-                        has_dynamic_offset: false,
-                        min_binding_size: None,
-                    },
-                    count: None,
-                }],
-                label: None,
-            });
-
-        let color_bind_group = device.create_bind_group(&wgpu::BindGroupDescriptor {
-            layout: &color_bind_group_layout,
-            entries: &[wgpu::BindGroupEntry {
-                binding: 0,
-                resource: color_buffer.as_entire_binding(),
-            }],
-            label: None,
-        });
+        let color_group = ColorBinding::new_with_default([1.0, 1.0, 1.0, 1.0]);
 
         Self {
             state: ModelState::Dormant,
@@ -128,9 +94,7 @@ impl<T: std::fmt::Debug + bytemuck::Pod + bytemuck::Zeroable> Model<T> {
             transform_buffer,
             transform_bind_group,
 
-            color,
-            color_buffer,
-            color_bind_group,
+            color_group,
 
             enabled: true,
             destroyed: false,
@@ -143,35 +107,15 @@ impl<T: std::fmt::Debug + bytemuck::Pod + bytemuck::Zeroable> Model<T> {
     }
 
     pub fn color(&self) -> [f32; 4] {
-        self.color
+        self.color_group.color()
     }
 
     pub fn set_transparency(&mut self, transparency: f32) {
-        let queue_read = QUEUE.read();
-        let queue = queue_read.as_ref().unwrap();
-
-        self.color[3] = transparency;
-        let color_uniform = ModelColorUniform { color: self.color };
-
-        queue.write_buffer(
-            &self.color_buffer,
-            0,
-            bytemuck::cast_slice(&[color_uniform]),
-        );
+        self.color_group.set_transparency(transparency);
     }
 
     pub fn set_color(&mut self, color: [f32; 4]) {
-        let queue_read = QUEUE.read();
-        let queue = queue_read.as_ref().unwrap();
-
-        self.color = color;
-        let color_uniform = ModelColorUniform { color: self.color };
-
-        queue.write_buffer(
-            &self.color_buffer,
-            0,
-            bytemuck::cast_slice(&[color_uniform]),
-        );
+        self.color_group.set_color(color);
     }
 
     pub fn awaken(&mut self, data: &[T]) {
@@ -227,7 +171,7 @@ impl<T> Renderable for Model<T> {
         };
 
         render_pass.set_bind_group(2, &self.transform_bind_group, &[]);
-        render_pass.set_bind_group(3, &self.color_bind_group, &[]);
+        render_pass.set_bind_group(3, self.color_group.binding(), &[]);
 
         render_pass.set_vertex_buffer(0, buffer.slice(..));
         render_pass.draw(0..*size, 0..1);

@@ -10,8 +10,7 @@ use tokio::task::JoinHandle;
 use wgpu::util::DeviceExt;
 
 use crate::input::hitbox::HitboxRoot;
-use crate::render::model::ModelColorUniform;
-use crate::render::{PipelineBuilder, Renderable};
+use crate::render::{ColorBinding, PipelineBuilder, Renderable};
 use crate::viewer::trace::vertex::{TraceContext, TraceVertex};
 use crate::viewer::trace::SlicedObject;
 use crate::viewer::RenderServer;
@@ -30,7 +29,6 @@ pub struct SlicedObjectServer {
     queued: Option<QueuedSlicedObject>,
 
     pipeline: wgpu::RenderPipeline,
-    fiber_pipeline: wgpu::RenderPipeline,
 
     sliced_object: Option<SlicedObject>,
     sliced_gcode: Option<SlicedGCode>,
@@ -44,9 +42,7 @@ pub struct SlicedObjectServer {
     toolpath_context: TraceContext,
     toolpath_context_bind_group: wgpu::BindGroup,
 
-    color: [f32; 4],
-    color_buffer: wgpu::Buffer,
-    color_bind_group: wgpu::BindGroup,
+    trace_color_group: ColorBinding,
 }
 
 impl RenderServer for SlicedObjectServer {
@@ -91,45 +87,7 @@ impl RenderServer for SlicedObjectServer {
                     label: None,
                 });
 
-        let color = [1.0, 1.0, 1.0, 1.0];
-
-        let color_uniform = ModelColorUniform { color };
-
-        let color_buffer = context
-            .device
-            .create_buffer_init(&wgpu::util::BufferInitDescriptor {
-                label: Some("Color Buffer"),
-                contents: bytemuck::cast_slice(&[color_uniform]),
-                usage: wgpu::BufferUsages::UNIFORM | wgpu::BufferUsages::COPY_DST,
-            });
-
-        let color_bind_group_layout =
-            context
-                .device
-                .create_bind_group_layout(&wgpu::BindGroupLayoutDescriptor {
-                    entries: &[wgpu::BindGroupLayoutEntry {
-                        binding: 0,
-                        visibility: wgpu::ShaderStages::FRAGMENT,
-                        ty: wgpu::BindingType::Buffer {
-                            ty: wgpu::BufferBindingType::Uniform,
-                            has_dynamic_offset: false,
-                            min_binding_size: None,
-                        },
-                        count: None,
-                    }],
-                    label: None,
-                });
-
-        let color_bind_group = context
-            .device
-            .create_bind_group(&wgpu::BindGroupDescriptor {
-                layout: &color_bind_group_layout,
-                entries: &[wgpu::BindGroupEntry {
-                    binding: 0,
-                    resource: color_buffer.as_entire_binding(),
-                }],
-                label: None,
-            });
+        let trace_color_group = ColorBinding::new_with_default([1.0, 1.0, 1.0, 1.0]);
 
         let pipeline = PipelineBuilder::new(context.device.clone())
             .with_primitive(wgpu::PrimitiveState {
@@ -151,34 +109,7 @@ impl RenderServer for SlicedObjectServer {
                     &context.camera_bind_group_layout,
                     &context.light_bind_group_layout,
                     &context.transform_bind_group_layout,
-                    &color_bind_group_layout,
-                    &toolpath_bind_group_layout,
-                ],
-                &[TraceVertex::desc()],
-                context.surface_format,
-            );
-
-        let fiber_pipeline = PipelineBuilder::new(context.device.clone())
-            .with_primitive(wgpu::PrimitiveState {
-                topology: wgpu::PrimitiveTopology::LineList,
-                strip_index_format: None,
-                front_face: wgpu::FrontFace::Cw,
-                cull_mode: None,
-                // Requires Features::NON_FILL_POLYGON_MODE
-                polygon_mode: wgpu::PolygonMode::Fill,
-                // Requires Features::DEPTH_CLIP_CONTROL
-                unclipped_depth: false,
-                // Requires Features::CONSERVATIVE_RASTERIZATION
-                conservative: false,
-            })
-            .build(
-                "Fiber Render Pipeline",
-                include_str!("sliced_shader.wgsl"),
-                &[
-                    &context.camera_bind_group_layout,
-                    &context.light_bind_group_layout,
-                    &context.transform_bind_group_layout,
-                    &color_bind_group_layout,
+                    trace_color_group.layout(),
                     &toolpath_bind_group_layout,
                 ],
                 &[TraceVertex::desc()],
@@ -192,7 +123,6 @@ impl RenderServer for SlicedObjectServer {
 
             hitbox: HitboxRoot::root(),
             pipeline,
-            fiber_pipeline,
 
             travel_visible: false,
             fiber_visible: true,
@@ -201,19 +131,24 @@ impl RenderServer for SlicedObjectServer {
             toolpath_context_bind_group,
             toolpath_context_buffer,
 
-            color,
-            color_buffer,
-            color_bind_group,
+            trace_color_group,
         }
     }
 
     fn render<'a>(&'a self, render_pass: &mut wgpu::RenderPass<'a>) {
         if let Some(toolpath) = self.sliced_object.as_ref() {
-            render_pass.set_bind_group(3, &self.color_bind_group, &[]);
             render_pass.set_bind_group(4, &self.toolpath_context_bind_group, &[]);
 
             render_pass.set_pipeline(&self.pipeline);
+
+            if self.fiber_visible {
+                toolpath.model.render_fiber(render_pass);
+            }
+
+            render_pass.set_bind_group(3, self.trace_color_group.binding(), &[]);
             toolpath.model.render_without_color(render_pass);
+
+            // render_pass.set_bind_group(3, self.fiber_trace_color_group.binding(), &[]);
         }
     }
 }
@@ -226,19 +161,6 @@ impl SlicedObjectServer {
 
         if let Some(toolpath) = self.sliced_object.as_ref() {
             toolpath.model.render_travel(render_pass);
-        }
-    }
-
-    pub fn render_fiber<'a>(&'a self, render_pass: &mut wgpu::RenderPass<'a>) {
-        if !self.fiber_visible {
-            return;
-        }
-
-        if let Some(toolpath) = self.sliced_object.as_ref() {
-            render_pass.set_bind_group(4, &self.toolpath_context_bind_group, &[]);
-
-            render_pass.set_pipeline(&self.fiber_pipeline);
-            toolpath.model.render_fiber_line(render_pass);
         }
     }
 
@@ -316,17 +238,7 @@ impl SlicedObjectServer {
     }
 
     pub fn set_transparency(&mut self, transparency: f32) {
-        let queue_read = QUEUE.read();
-        let queue = queue_read.as_ref().unwrap();
-
-        self.color[3] = transparency;
-        let color_uniform = ModelColorUniform { color: self.color };
-
-        queue.write_buffer(
-            &self.color_buffer,
-            0,
-            bytemuck::cast_slice(&[color_uniform]),
-        );
+        self.trace_color_group.set_transparency(transparency);
     }
 
     pub fn enable_travel(&mut self, visible: bool) {

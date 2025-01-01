@@ -87,12 +87,12 @@ pub fn slice(
     generate_mask_moves(&mut masks, settings, process)?;
 
     masks.iter_mut().for_each(|mask| {
-        let settings = mask
-            .mask_settings()
-            .clone()
-            .combine_settings(settings.clone());
+        // let settings = mask
+        //     .mask_settings()
+        //     .clone()
+        //     .combine_settings(settings.clone());
 
-        mask.layers.iter_mut().for_each(|layer| {
+        mask.layers.iter_mut().for_each(|_layer| {
             // dispatch_fiber_moves(&mut layer.chains, &settings);
             // dispatch_fiber_moves(&mut layer.fixed_chains, &settings);
         });
@@ -829,7 +829,6 @@ impl MoveChain {
                             },
                         });
                     }
-                    _ => {}
                 }
 
                 current_type = Some(m.move_type);
@@ -868,7 +867,6 @@ impl MoveChain {
                     cmds.push(Command::MoveTo { end: m.end });
                     current_loc = m.end;
                 }
-                _ => {}
             }
         }
 

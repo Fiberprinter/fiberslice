@@ -11,10 +11,13 @@ use crate::{
 };
 
 mod descriptor;
+mod group;
 mod light;
 mod pipeline;
 mod texture;
 mod vertex;
+
+pub use group::ColorBinding;
 
 pub use pipeline::DefaultPipelines;
 pub use pipeline::PipelineBuilder;

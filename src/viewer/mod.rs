@@ -85,7 +85,7 @@ impl Viewer {
 
             object_selector: RwLock::new(select::Selector::instance()),
             mask_selector: RwLock::new(select::Selector::instance()),
-            // toolpath_selector: RwLock::new(select::Selector::instance()),
+
             tooltip: RwLock::new(None),
             mode: RwLock::new(None),
         }
@@ -387,12 +387,11 @@ impl Viewer {
     pub fn render_secondary(&self, mut render_descriptor: RenderDescriptor, mode: Mode) {
         let model_server_read = self.object_server.read();
         let mask_server_read = self.mask_server.read();
-        let sliced_object_server_read = self.sliced_object_server.read();
 
         if let Some((pipelines, mut render_pass)) = render_descriptor.pass() {
             match mode {
                 Mode::Preview => {
-                    sliced_object_server_read.render_fiber(&mut render_pass);
+                    // sliced_object_server_read.render_fiber(&mut render_pass);
 
                     render_pass.set_pipeline(&pipelines.back_cull);
                     mask_server_read.render(&mut render_pass);

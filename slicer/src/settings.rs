@@ -935,7 +935,6 @@ pub mod fiber {
     #[derive(EnumIter, Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
     pub enum WallPatternType {
         Alternating,
-        Random,
         Full,
     }
 

@@ -8,7 +8,6 @@ use crate::settings::Settings;
 use crate::{MoveType, Object, PartialInfillTypes, Slice, TraceType};
 use geo::prelude::*;
 use geo::*;
-use log::info;
 use rayon::prelude::*;
 
 #[derive(Debug)]
@@ -351,8 +350,6 @@ impl SlicePass for FiberPass {
                             &PassContext::new().with_fiber().no_subtract(),
                         );
                     }
-
-                    info!("Fiber Infill: {:?}", layer_num);
                 });
         }
 

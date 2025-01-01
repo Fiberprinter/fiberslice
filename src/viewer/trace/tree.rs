@@ -21,21 +21,13 @@ pub enum TraceTree {
     Root {
         model: LockModel<TraceVertex>,
         fiber_model: LockModel<TraceVertex>,
-        fiber_line_model: LockModel<TraceVertex>,
         travel_model: LockModel<Vertex>,
         bounding_box: RwLock<BoundingBox>,
         children: Vec<Arc<Self>>,
         size: BufferAddress,
         travel_size: BufferAddress,
-        fiber_line_size: BufferAddress,
     },
     Travel {
-        offset: BufferAddress,
-        size: BufferAddress,
-        start: RwLock<Vec3>,
-        end: RwLock<Vec3>,
-    },
-    Fiber {
         offset: BufferAddress,
         size: BufferAddress,
         start: RwLock<Vec3>,
@@ -54,27 +46,16 @@ impl TraceTree {
             model: LockModel::new(Model::create()),
             fiber_model: LockModel::new(Model::create()),
             travel_model: LockModel::new(Model::create()),
-            fiber_line_model: LockModel::new(Model::create()),
 
             children: Vec::new(),
             bounding_box: RwLock::new(BoundingBox::default()),
             size: 0,
             travel_size: 0,
-            fiber_line_size: 0,
         }
     }
 
     pub fn create_travel(offset: BufferAddress, start: Vec3, end: Vec3) -> Self {
         Self::Travel {
-            offset,
-            size: 2,
-            start: RwLock::new(start),
-            end: RwLock::new(end),
-        }
-    }
-
-    pub fn create_fiber(offset: BufferAddress, start: Vec3, end: Vec3) -> Self {
-        Self::Fiber {
             offset,
             size: 2,
             start: RwLock::new(start),
@@ -97,15 +78,11 @@ impl TraceTree {
                 bounding_box,
                 size: model_size,
                 travel_size,
-                fiber_line_size: fiber_size,
                 ..
             } => {
                 match &node {
                     Self::Travel { size, .. } => {
                         *travel_size += size;
-                    }
-                    Self::Fiber { size, .. } => {
-                        *fiber_size += size;
                     }
                     Self::Trace { size, .. } => {
                         *model_size += size;
@@ -118,7 +95,6 @@ impl TraceTree {
                 children.push(Arc::new(node));
             }
             Self::Travel { .. } => panic!("Cannot push node to travel"),
-            Self::Fiber { .. } => panic!("Cannot push node to fiber"),
             Self::Trace { .. } => panic!("Cannot push node to move"),
         }
     }
@@ -138,7 +114,6 @@ impl TraceTree {
             }
             Self::Trace { offset: o, .. } => *o = offset,
             Self::Travel { offset: o, .. } => *o = offset,
-            Self::Fiber { offset: o, .. } => *o = offset,
         }
     }
 
@@ -147,33 +122,23 @@ impl TraceTree {
         match self {
             Self::Root { size, .. } => *size,
             Self::Travel { size, .. } => *size,
-            Self::Fiber { size, .. } => *size,
             Self::Trace { size, .. } => *size,
         }
     }
 
-    pub fn awaken(
-        &mut self,
-        data: &[TraceVertex],
-        travel: &[Vertex],
-        fiber: &[TraceVertex],
-        fiber_line: &[TraceVertex],
-    ) {
+    pub fn awaken(&mut self, data: &[TraceVertex], travel: &[Vertex], fiber: &[TraceVertex]) {
         match self {
             Self::Root {
                 model,
                 travel_model,
-                fiber_line_model,
                 fiber_model,
                 ..
             } => {
                 model.write().awaken(data);
                 travel_model.write().awaken(travel);
                 fiber_model.write().awaken(fiber);
-                fiber_line_model.write().awaken(fiber_line);
             }
             Self::Travel { .. } => panic!("Cannot awaken travel"),
-            Self::Fiber { .. } => panic!("Cannot awaken fiber"),
             Self::Trace { .. } => panic!("Cannot awaken path"),
         }
     }
@@ -184,7 +149,6 @@ impl TraceTree {
                 travel_model.render(render_pass);
             }
             Self::Travel { .. } => panic!("Cannot render travel"),
-            Self::Fiber { .. } => panic!("Cannot render fiber"),
             Self::Trace { .. } => panic!("Cannot render path"),
         }
     }
@@ -195,20 +159,6 @@ impl TraceTree {
                 fiber_model.render(render_pass);
             }
             Self::Travel { .. } => panic!("Cannot render travel"),
-            Self::Fiber { .. } => panic!("Cannot render fiber"),
-            Self::Trace { .. } => panic!("Cannot render path"),
-        }
-    }
-
-    pub fn render_fiber_line<'a>(&'a self, render_pass: &mut wgpu::RenderPass<'a>) {
-        match self {
-            Self::Root {
-                fiber_line_model, ..
-            } => {
-                fiber_line_model.render(render_pass);
-            }
-            Self::Travel { .. } => panic!("Cannot render travel"),
-            Self::Fiber { .. } => panic!("Cannot render fiber"),
             Self::Trace { .. } => panic!("Cannot render path"),
         }
     }
@@ -219,7 +169,6 @@ impl Renderable for TraceTree {
         match self {
             Self::Root { model, .. } => model.render(render_pass),
             Self::Travel { .. } => panic!("Cannot render travel"),
-            Self::Fiber { .. } => panic!("Cannot render fiber"),
             Self::Trace { .. } => panic!("Cannot render path"),
         }
     }
@@ -228,7 +177,6 @@ impl Renderable for TraceTree {
         match self {
             Self::Root { model, .. } => model.render_without_color(render_pass),
             Self::Travel { .. } => panic!("Cannot render travel"),
-            Self::Fiber { .. } => panic!("Cannot render fiber"),
             Self::Trace { .. } => panic!("Cannot render path"),
         }
     }
@@ -242,7 +190,6 @@ impl HitboxNode for TraceTree {
                 r#box: path_box, ..
             } => path_box.read().check_hit(ray),
             Self::Travel { .. } => None,
-            Self::Fiber { .. } => None,
         }
     }
 
@@ -250,7 +197,6 @@ impl HitboxNode for TraceTree {
         match self {
             Self::Root { children, .. } => children,
             Self::Travel { .. } => &[],
-            Self::Fiber { .. } => &[],
             Self::Trace { .. } => &[],
         }
     }
@@ -262,7 +208,6 @@ impl HitboxNode for TraceTree {
                 r#box: path_box, ..
             } => path_box.read().get_min(),
             Self::Travel { start, end, .. } => start.read().min(*end.read()),
-            Self::Fiber { start, end, .. } => start.read().min(*end.read()),
         }
     }
 
@@ -273,7 +218,6 @@ impl HitboxNode for TraceTree {
                 r#box: path_box, ..
             } => path_box.read().get_max(),
             Self::Travel { start, end, .. } => start.read().max(*end.read()),
-            Self::Fiber { start, end, .. } => start.read().max(*end.read()),
         }
     }
 }
@@ -292,7 +236,6 @@ impl InteractiveModel for TraceTree {
                 (bb.get_min(), bb.get_max())
             }
             Self::Travel { start, end, .. } => (*start.read(), *end.read()),
-            Self::Fiber { start, end, .. } => (*start.read(), *end.read()),
         }
     }
 
