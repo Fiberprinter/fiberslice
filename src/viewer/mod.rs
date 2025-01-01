@@ -112,6 +112,10 @@ impl Viewer {
         }
     }
 
+    pub fn update_printer_dimension(&self, x: f32, y: f32, z: f32) {
+        self.env_server.write().update_printer_dimension(x, y, z);
+    }
+
     pub fn update(&self, global_state: &GlobalState<RootEvent>) {
         // self.env_server.write().update(global_state);
         self.sliced_object_server
@@ -206,10 +210,12 @@ impl Viewer {
             .update_visibility(visibility);
     }
 
-    pub fn set_gpu_transparency(&self, transparency: f32) {
-        self.sliced_object_server
-            .write()
-            .set_transparency(transparency);
+    pub fn set_gpu_trace_transparent_mode(&self, mode: bool) {
+        if mode {
+            self.sliced_object_server.write().set_transparency(0.1);
+        } else {
+            self.sliced_object_server.write().set_transparency(1.0);
+        }
     }
 
     pub fn already_sliced(&self) -> bool {
@@ -353,7 +359,7 @@ impl Viewer {
                     env_server_read.render(&mut render_pass);
 
                     render_pass.set_pipeline(&pipelines.line);
-                    env_server_read.render_lines(&mut render_pass);
+                    env_server_read.render_wire(&mut render_pass);
                     sliced_object_server_read.render_travel(&mut render_pass);
                 }
                 Mode::Prepare => {
@@ -365,7 +371,7 @@ impl Viewer {
                     object_selector_read.render(&mut render_pass);
 
                     render_pass.set_pipeline(&pipelines.line);
-                    env_server_read.render_lines(&mut render_pass);
+                    env_server_read.render_wire(&mut render_pass);
                     object_selector_read.render_lines(&mut render_pass);
                 }
                 Mode::Masks => {
@@ -377,7 +383,7 @@ impl Viewer {
                     mask_selector_read.render(&mut render_pass);
 
                     render_pass.set_pipeline(&pipelines.line);
-                    env_server_read.render_lines(&mut render_pass);
+                    env_server_read.render_wire(&mut render_pass);
                     mask_selector_read.render_lines(&mut render_pass);
                 }
             };

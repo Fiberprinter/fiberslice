@@ -22,6 +22,7 @@ impl PipelineBuilder {
         self
     }
 
+    #[allow(dead_code)]
     pub fn with_depth_stencil(mut self, depth_stencil: wgpu::DepthStencilState) -> Self {
         self.depth_stencil = Some(depth_stencil);
         self

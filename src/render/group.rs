@@ -67,6 +67,7 @@ impl ColorBinding {
         queue.write_buffer(&self.buffer, 0, bytemuck::cast_slice(&[color_uniform]));
     }
 
+    #[allow(dead_code)]
     pub fn set_color(&mut self, color: [f32; 4]) {
         let queue_read = QUEUE.read();
         let queue = queue_read.as_ref().unwrap();
@@ -77,6 +78,7 @@ impl ColorBinding {
         queue.write_buffer(&self.buffer, 0, bytemuck::cast_slice(&[color_uniform]));
     }
 
+    #[allow(dead_code)]
     pub fn color(&self) -> [f32; 4] {
         self.color
     }

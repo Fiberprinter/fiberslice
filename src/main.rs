@@ -318,7 +318,18 @@ impl ApplicationHandler<RootEvent> for Application {
         *GLOBAL_STATE.write() = Some(global_state.clone());
 
         window.set_visible(true);
-        global_state.viewer.mode_changed(prelude::Mode::default());
+
+        {
+            global_state.viewer.mode_changed(prelude::Mode::default());
+            let slicer_read = global_state.slicer.read();
+            let settings = &slicer_read.settings;
+
+            global_state.viewer.update_printer_dimension(
+                settings.print_x,
+                settings.print_y,
+                settings.print_z,
+            );
+        }
 
         self.state = Some(ApplicationState {
             window,

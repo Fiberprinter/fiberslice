@@ -23,7 +23,11 @@ impl RenderServer for EnvironmentServer {
 }
 
 impl EnvironmentServer {
-    pub fn render_lines<'a>(&'a self, render_pass: &mut wgpu::RenderPass<'a>) {
+    pub fn update_printer_dimension(&mut self, x: f32, y: f32, z: f32) {
+        self.volume.awaken(x, y, z);
+    }
+
+    pub fn render_wire<'a>(&'a self, render_pass: &mut wgpu::RenderPass<'a>) {
         self.volume.render_lines(render_pass);
     }
 }

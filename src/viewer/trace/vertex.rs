@@ -79,7 +79,7 @@ pub struct TraceContext {
 impl Default for TraceContext {
     fn default() -> Self {
         TraceContext {
-            visibility: u32::MAX & !0x03,
+            visibility: u32::MAX,
             min_layer: 0,
             max_layer: u32::MAX,
         }

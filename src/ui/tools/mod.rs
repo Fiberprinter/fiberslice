@@ -129,6 +129,7 @@ macro_rules! create_tool {
 macro_rules! impl_with_state {
     ($name:ident, $state:ident) => {
         impl<'a> $name<'a> {
+            #[allow(dead_code)]
             pub fn with_state(state: &'a mut $state) -> Self {
                 Self { state }
             }

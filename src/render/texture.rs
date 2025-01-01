@@ -1,9 +1,5 @@
 /// A texture typically contains one or more images that share the same format.
-pub struct Texture {
-    pub texture: wgpu::Texture,
-    pub view: wgpu::TextureView,
-    pub sampler: wgpu::Sampler,
-}
+pub struct Texture;
 
 impl Texture {
     /// Creates a new depth texture.

@@ -106,14 +106,17 @@ impl<T: std::fmt::Debug + bytemuck::Pod + bytemuck::Zeroable> Model<T> {
         self.transform
     }
 
+    #[allow(dead_code)]
     pub fn color(&self) -> [f32; 4] {
         self.color_group.color()
     }
 
+    #[allow(dead_code)]
     pub fn set_transparency(&mut self, transparency: f32) {
         self.color_group.set_transparency(transparency);
     }
 
+    #[allow(dead_code)]
     pub fn set_color(&mut self, color: [f32; 4]) {
         self.color_group.set_color(color);
     }
@@ -139,6 +142,7 @@ impl<T: std::fmt::Debug + bytemuck::Pod + bytemuck::Zeroable> Model<T> {
         self.enabled = enabled;
     }
 
+    #[allow(dead_code)]
     pub fn is_enabled(&self) -> bool {
         self.enabled
     }

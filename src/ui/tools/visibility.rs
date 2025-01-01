@@ -11,7 +11,7 @@ use super::{Tool, ToolState};
 pub struct VisibilityToolState {
     enabled: bool,
     anchored: bool,
-    transparency: f32,
+    trace_transparent_mode: bool,
     print_types: [bool; TraceType::COUNT],
     travel: bool,
     fiber: bool,
@@ -22,7 +22,7 @@ impl Default for VisibilityToolState {
         Self {
             enabled: Default::default(),
             anchored: Default::default(),
-            transparency: 1.0,
+            trace_transparent_mode: false,
             print_types: [true; TraceType::COUNT],
             travel: false,
             fiber: true,
@@ -80,29 +80,16 @@ impl Tool for VisibilityTool<'_> {
                 .show(ctx, |ui| {
                     ui.separator();
 
-                    let old_transparency = self.state.transparency;
+                    let old_transparency = self.state.trace_transparent_mode;
                     let old_print_types = self.state.print_types;
                     let old_travel = self.state.travel;
                     let old_fiber = self.state.fiber;
 
                     if let Some(count_map) = global_state.viewer.sliced_count_map() {
                         ui.horizontal(|ui| {
-                            ui.label(
-                                RichText::new("Transparency")
-                                    .font(FontId::monospace(15.0))
-                                    .strong()
-                                    .color(Color32::BLACK),
-                            );
-                            ui.add(
-                                egui::Slider::new(&mut self.state.transparency, 0.1..=1.0)
-                                    .fixed_decimals(1),
-                            );
-                        });
-
-                        ui.horizontal(|ui| {
                             ui.checkbox(
-                                &mut self.state.travel,
-                                RichText::new("Travel")
+                                &mut self.state.trace_transparent_mode,
+                                RichText::new("Trace Transparent Mode")
                                     .font(FontId::monospace(15.0))
                                     .strong()
                                     .color(Color32::BLACK),
@@ -164,6 +151,16 @@ impl Tool for VisibilityTool<'_> {
 
                         ui.horizontal(|ui| {
                             ui.checkbox(
+                                &mut self.state.travel,
+                                RichText::new("Travel")
+                                    .font(FontId::monospace(15.0))
+                                    .strong()
+                                    .color(Color32::BLACK),
+                            );
+                        });
+
+                        ui.horizontal(|ui| {
+                            ui.checkbox(
                                 &mut self.state.fiber,
                                 RichText::new("Fiber")
                                     .font(FontId::monospace(15.0))
@@ -193,10 +190,10 @@ impl Tool for VisibilityTool<'_> {
                         global_state.viewer.enable_fiber(self.state.fiber);
                     }
 
-                    if old_transparency != self.state.transparency {
+                    if old_transparency != self.state.trace_transparent_mode {
                         global_state
                             .viewer
-                            .set_gpu_transparency(self.state.transparency);
+                            .set_gpu_trace_transparent_mode(self.state.trace_transparent_mode);
                     }
 
                     ui.separator();

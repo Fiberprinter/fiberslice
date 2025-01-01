@@ -1,4 +1,4 @@
-use std::fmt::Debug;
+use std::{fmt::Debug, ops::RangeInclusive};
 
 use egui::{DragValue, InnerResponse, Response, Ui};
 use egui_code_editor::{ColorTheme, Syntax};
@@ -9,7 +9,7 @@ use slicer::{
 };
 use strum::IntoEnumIterator;
 
-use crate::{ui::UiWidgetComponent, viewer::GCodeSyntax};
+use crate::{ui::UiWidgetComponent, viewer::GCodeSyntax, GLOBAL_STATE};
 
 pub trait UiSetting {
     fn show_general(&mut self, ui: &mut egui::Ui);
@@ -190,31 +190,52 @@ impl UiSetting for slicer::Settings {
     }
 
     fn show_printer(&mut self, ui: &mut egui::Ui) {
-        egui::CollapsingHeader::new("Printer Dimension")
+        let response = egui::CollapsingHeader::new("Printer Dimension")
             .default_open(true)
             .show(ui, |ui| {
-                show_f32(
+                let mut change = false;
+
+                change |= show_f32_with_range(
                     &mut self.print_x,
+                    10.0..=1000.0,
                     "Printer Dimension X",
                     Some("mm"),
                     0.0,
                     ui,
-                );
-                show_f32(
+                )
+                .changed();
+
+                change |= show_f32_with_range(
                     &mut self.print_y,
+                    10.0..=1000.0,
                     "Printer Dimension Y",
                     Some("mm"),
                     0.0,
                     ui,
-                );
-                show_f32(
+                )
+                .changed();
+
+                change |= show_f32_with_range(
                     &mut self.print_z,
+                    10.0..=1000.0,
                     "Printer Dimension Z",
                     Some("mm"),
                     0.0,
                     ui,
-                );
+                )
+                .changed();
+
+                change
             });
+
+        if response.body_returned.unwrap_or(false) {
+            GLOBAL_STATE
+                .read()
+                .as_ref()
+                .unwrap()
+                .viewer
+                .update_printer_dimension(self.print_x, self.print_y, self.print_z);
+        }
     }
 
     fn show_layer_specific(&mut self, _ui: &mut egui::Ui) {
@@ -845,6 +866,29 @@ fn show_f32(
     ui.horizontal(|ui| {
         crate::config::gui::settings::SETTINGS_LABEL.label(ui, description);
         let response = ui.add(DragValue::new(value).max_decimals(3));
+        if let Some(unit) = unit {
+            ui.label(unit);
+        }
+        show_reset_button(value, default, ui);
+        response
+    })
+    .inner
+}
+
+fn show_f32_with_range<Num>(
+    value: &mut f32,
+    range: RangeInclusive<Num>,
+    description: &str,
+    unit: Option<&str>,
+    default: f32,
+    ui: &mut Ui,
+) -> Response
+where
+    Num: egui::emath::Numeric,
+{
+    ui.horizontal(|ui| {
+        crate::config::gui::settings::SETTINGS_LABEL.label(ui, description);
+        let response = ui.add(DragValue::new(value).range(range).max_decimals(3));
         if let Some(unit) = unit {
             ui.label(unit);
         }

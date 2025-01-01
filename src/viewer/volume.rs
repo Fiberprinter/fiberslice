@@ -15,7 +15,18 @@ pub struct Volume {
 
 impl Volume {
     pub fn instance() -> Self {
-        let bounding_box = BoundingBox::new(vec3(-110.0, 0.0, -110.0), vec3(110.0, 250.0, 110.0));
+        Self {
+            bed: Model::create(),
+            r#box: Model::create(),
+            grid_model: Model::create(),
+        }
+    }
+
+    pub fn awaken(&mut self, x: f32, y: f32, z: f32) {
+        let bounding_box = BoundingBox::new(
+            vec3(-(x / 2.0).abs(), 0.0, -(y / 2.0).abs()),
+            vec3((x / 2.0).abs(), z.abs(), (y / 2.0).abs()),
+        );
 
         let visual = bounding_box.to_select_visual(0.005);
 
@@ -33,20 +44,9 @@ impl Volume {
 
         let grid = Grid::from(bounding_box);
 
-        let mut bed = Model::create();
-        bed.awaken(&vertices);
-
-        let mut r#box = Model::create();
-        r#box.awaken(&visual.wires);
-
-        let mut grid_model = Model::create();
-        grid_model.awaken(&grid.to_visual(10.0));
-
-        Self {
-            bed,
-            r#box,
-            grid_model,
-        }
+        self.bed.awaken(&vertices);
+        self.r#box.awaken(&visual.wires);
+        self.grid_model.awaken(&grid.to_visual(10.0));
     }
 
     pub fn render<'a>(&'a self, render_pass: &mut wgpu::RenderPass<'a>) {
