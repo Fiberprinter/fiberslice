@@ -78,7 +78,7 @@ impl From<BoundingBox> for Grid {
 
 impl Grid {
     pub fn to_visual(&self, step: f32) -> Vec<Vertex> {
-        let color = vec4(0.0, 1.0, 1.0, 1.0).to_array();
+        let color = vec4(0.0, 0.0, 0.0, 1.0).to_array();
 
         let mut vertices = Vec::new();
 

@@ -49,6 +49,7 @@ impl TraceMesher {
         end: Vec3,
         horizontal: f32,
         vertical: f32,
+        connection: bool,
     ) -> (usize, TraceHitbox) {
         let context_bits = match self.current_type {
             Some(ty) => bit_representation(&ty),
@@ -64,16 +65,18 @@ impl TraceMesher {
         let mesh = TraceMesh::from_profiles(start_profile, end_profile).with_color(self.color);
 
         if let Some(last_extrusion_profile) = self.last_cross_section {
-            let connection =
-                TraceConnectionMesh::from_profiles(last_extrusion_profile, start_profile)
-                    .with_color(self.color);
+            if connection {
+                let connection =
+                    TraceConnectionMesh::from_profiles(last_extrusion_profile, start_profile)
+                        .with_color(self.color);
 
-            let connection_vertices = connection
-                .to_triangle_vertices()
-                .into_iter()
-                .map(|v| TraceVertex::from_vertex(v, context_bits, self.current_layer as u32));
+                let connection_vertices = connection
+                    .to_triangle_vertices()
+                    .into_iter()
+                    .map(|v| TraceVertex::from_vertex(v, context_bits, self.current_layer as u32));
 
-            self.vertices.extend(connection_vertices);
+                self.vertices.extend(connection_vertices);
+            }
         } else {
             let mesh = TraceCrossSectionMesh::from_profile(start_profile).with_color(self.color);
 

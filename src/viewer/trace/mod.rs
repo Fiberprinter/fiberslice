@@ -141,7 +141,7 @@ impl SlicedObject {
                         count_map.entry(ty).and_modify(|e| *e += 1).or_insert(1);
                     }
 
-                    let (offset, hitbox) = mesher.next(start, end, *thickness, *width);
+                    let (offset, hitbox) = mesher.next(start, end, *thickness, *width, true);
 
                     let tree_move = TraceTree::create_move(
                         hitbox,
@@ -183,7 +183,7 @@ impl SlicedObject {
                         count_map.entry(ty).and_modify(|e| *e += 1).or_insert(1);
                     }
 
-                    let (offset, hitbox) = fiber_mesher.next(start, end, *thickness, *width);
+                    let (offset, hitbox) = fiber_mesher.next(start, end, *thickness, *width, false);
 
                     let tree_move = TraceTree::create_fiber(
                         hitbox,

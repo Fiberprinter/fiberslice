@@ -389,8 +389,10 @@ impl Viewer {
         if let Some((pipelines, mut render_pass)) = render_descriptor.pass() {
             match mode {
                 Mode::Preview => {
-                    render_pass.set_pipeline(&pipelines.back_cull);
+                    // custom pipeline by server
                     sliced_object_server_read.render(&mut render_pass);
+
+                    // render_pass.set_pipeline(&pipelines.back_cull);
 
                     render_pass.set_pipeline(&pipelines.no_cull);
                     env_server_read.render(&mut render_pass);
@@ -433,17 +435,15 @@ impl Viewer {
         if let Some((pipelines, mut render_pass)) = render_descriptor.pass() {
             match mode {
                 Mode::Preview => {
-                    // sliced_object_server_read.render_fiber(&mut render_pass);
+                    render_pass.set_pipeline(&pipelines.back_cull);
+                    mask_server_read.render(&mut render_pass);
+                    model_server_read.render(&mut render_pass);
 
                     render_pass.set_pipeline(&pipelines.line);
                     trace_selector_read.render_wire(&mut render_pass);
 
                     render_pass.set_pipeline(&pipelines.no_cull);
                     trace_selector_read.render(&mut render_pass);
-
-                    render_pass.set_pipeline(&pipelines.back_cull);
-                    mask_server_read.render(&mut render_pass);
-                    model_server_read.render(&mut render_pass);
                 }
                 Mode::Prepare => {
                     render_pass.set_pipeline(&pipelines.line);
