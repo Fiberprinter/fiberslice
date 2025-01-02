@@ -288,6 +288,14 @@ impl SlicedObjectServer {
         );
     }
 
+    pub fn max_layer(&self) -> &u32 {
+        &self.toolpath_context.max_layer
+    }
+
+    pub fn min_layer(&self) -> &u32 {
+        &self.toolpath_context.min_layer
+    }
+
     pub fn get_sliced(&self) -> Option<&SlicedObject> {
         self.sliced_object.as_ref()
     }
@@ -296,7 +304,6 @@ impl SlicedObjectServer {
         self.sliced_gcode.as_ref()
     }
 
-    #[allow(dead_code)]
     pub fn check_hit(&self, ray: &crate::input::Ray, level: usize) -> Option<Arc<TraceTree>> {
         self.hitbox.check_hit(ray, level, false)
     }

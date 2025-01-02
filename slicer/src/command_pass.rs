@@ -70,6 +70,7 @@ impl CommandPass for SlowDownLayerPass {
                                     end,
                                     width: _width,
                                     thickness: _thickness,
+                                    ..
                                 }
                                 | Command::MoveAndExtrudeFiber {
                                     start,

@@ -235,7 +235,7 @@ impl<'a> Addons<'a> {
                                             global_state.viewer.sliced_gcode(|sliced_gcode| {
                                                 if let Some(index) = sliced_gcode
                                                     .navigator
-                                                    .layer_change_line(*layer_max as usize)
+                                                    .get_layer_change_index(*layer_max as usize)
                                                 {
                                                     global_state.ui_event_writer.send(
                                                         crate::ui::UiEvent::GCodeReaderLookAt(

@@ -2,6 +2,7 @@ use std::sync::Arc;
 
 use glam::Vec3;
 use parking_lot::RwLock;
+use slicer::MoveId;
 use wgpu::BufferAddress;
 
 use crate::{
@@ -12,6 +13,7 @@ use crate::{
     },
     prelude::LockModel,
     render::{model::Model, Renderable, Vertex},
+    GLOBAL_STATE,
 };
 
 use super::{mesh::TraceHitbox, vertex::TraceVertex};
@@ -34,6 +36,7 @@ pub enum TraceTree {
         end: RwLock<Vec3>,
     },
     Trace {
+        id: MoveId,
         offset: BufferAddress,
         size: BufferAddress,
         r#box: RwLock<Box<TraceHitbox>>,
@@ -63,9 +66,15 @@ impl TraceTree {
         }
     }
 
-    pub fn create_move(path_box: TraceHitbox, offset: BufferAddress, size: BufferAddress) -> Self {
+    pub fn create_move(
+        path_box: TraceHitbox,
+        id: MoveId,
+        offset: BufferAddress,
+        size: BufferAddress,
+    ) -> Self {
         Self::Trace {
             offset,
+            id,
             size,
             r#box: RwLock::new(Box::new(path_box)),
         }
@@ -187,8 +196,26 @@ impl HitboxNode for TraceTree {
         match self {
             Self::Root { bounding_box, .. } => bounding_box.read().check_hit(ray),
             Self::Trace {
-                r#box: path_box, ..
-            } => path_box.read().check_hit(ray),
+                id,
+                r#box: path_box,
+                ..
+            } => {
+                let global_state_read = GLOBAL_STATE.read();
+                let global_state = global_state_read.as_ref().unwrap();
+
+                if let Some(Some(layer)) = global_state
+                    .viewer
+                    .sliced_gcode(|sliced_gcode| sliced_gcode.navigator.get_trace_layer(id))
+                {
+                    if global_state.viewer.is_layer_active(layer) {
+                        path_box.read().check_hit(ray)
+                    } else {
+                        None
+                    }
+                } else {
+                    path_box.read().check_hit(ray)
+                }
+            }
             Self::Travel { .. } => None,
         }
     }
@@ -248,5 +275,27 @@ impl InteractiveModel for TraceTree {
 
     fn as_transformable(&self) -> Option<&dyn crate::render::model::Transform> {
         None
+    }
+
+    fn mouse_right_click(&self) {
+        if let TraceTree::Trace { id, .. } = *self {
+            let global_state_read = GLOBAL_STATE.read();
+            let global_state = global_state_read.as_ref().unwrap();
+
+            global_state.viewer.sliced_gcode(|sliced_gcode| {
+                if let Some(index) = sliced_gcode.navigator.get_trace_index(&id) {
+                    global_state
+                        .ui_event_writer
+                        .send(crate::ui::UiEvent::GCodeReaderLookAt(index));
+
+                    global_state
+                        .ui_event_writer
+                        .send(crate::ui::UiEvent::ShowInfo(format!(
+                            "Jumped to Line: {}",
+                            index + 1
+                        )));
+                }
+            });
+        }
     }
 }

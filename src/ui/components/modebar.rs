@@ -81,19 +81,19 @@ impl<'a> UiComponent for Modebar<'a> {
                                 // Cells are represented as they were allocated
                                 grid.cell(|ui| {
                                     ui_state.mode.write_with_fn(|mode| {
-                                        ui.selectable_value(mode, Mode::Prepare, "Prepare");
+                                        ui.selectable_value(mode, Mode::Prepare, "Prepare Objects");
                                     });
                                 });
                                 grid.empty();
                                 grid.cell(|ui| {
                                     ui_state.mode.write_with_fn(|mode| {
-                                        ui.selectable_value(mode, Mode::Masks, "Force - Analytics");
+                                        ui.selectable_value(mode, Mode::Masks, "Masks Selection");
                                     });
                                 });
                                 grid.empty();
                                 grid.cell(|ui| {
                                     ui_state.mode.write_with_fn(|mode| {
-                                        ui.selectable_value(mode, Mode::Preview, "Preview");
+                                        ui.selectable_value(mode, Mode::Preview, "Preview Sliced");
                                     });
                                 });
                             });

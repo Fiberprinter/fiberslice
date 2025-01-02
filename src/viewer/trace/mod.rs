@@ -120,6 +120,7 @@ impl SlicedObject {
                     last_position = end;
                 }
                 slicer::Command::MoveAndExtrude {
+                    id,
                     start,
                     end,
                     thickness,
@@ -144,6 +145,7 @@ impl SlicedObject {
 
                     let tree_move = TraceTree::create_move(
                         hitbox,
+                        id.expect("Id's not evaluted yet!"),
                         offset as u64,
                         TRACE_MESH_VERTICES as BufferAddress,
                     );
@@ -158,6 +160,7 @@ impl SlicedObject {
                     last_position = end;
                 }
                 slicer::Command::MoveAndExtrudeFiber {
+                    id,
                     start,
                     end,
                     thickness,
@@ -184,6 +187,7 @@ impl SlicedObject {
 
                     let tree_move = TraceTree::create_move(
                         hitbox,
+                        id.expect("Id's not evaluated yet!"),
                         offset as u64,
                         TRACE_MESH_VERTICES as BufferAddress,
                     );

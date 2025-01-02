@@ -11,4 +11,8 @@ pub trait InteractiveModel: Debug {
     fn as_transformable(&self) -> Option<&dyn Transform>;
 
     fn destroy(&self) {}
+
+    fn mouse_left_click(&self) {}
+
+    fn mouse_right_click(&self) {}
 }

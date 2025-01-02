@@ -1,16 +1,20 @@
 use std::io::{BufWriter, Write};
 
+use navigator::Navigator;
+
 use super::{settings::Settings, Command, RetractionType};
+
+pub mod navigator;
 
 #[derive(Debug)]
 pub struct SlicedGCode {
     pub gcode: String,
     pub line_breaks: Vec<usize>,
-    pub navigator: SlicedGCodeNavigator,
+    pub navigator: Navigator,
 }
 
 impl SlicedGCode {
-    pub fn new(gcode: String, navigator: SlicedGCodeNavigator) -> Self {
+    pub fn new(gcode: String, navigator: Navigator) -> Self {
         let line_breaks = gcode
             .char_indices()
             .filter_map(|(i, c)| if c == '\n' { Some(i) } else { None })
@@ -21,17 +25,6 @@ impl SlicedGCode {
             line_breaks,
             navigator,
         }
-    }
-}
-
-#[derive(Debug)]
-pub struct SlicedGCodeNavigator {
-    line_indices_layer: Vec<usize>,
-}
-
-impl SlicedGCodeNavigator {
-    pub fn layer_change_line(&self, layer: usize) -> Option<usize> {
-        self.line_indices_layer.get(layer).copied()
     }
 }
 
@@ -46,7 +39,7 @@ impl LineWriter {
         }
     }
 
-    pub fn finish(self, navigator: SlicedGCodeNavigator) -> SlicedGCode {
+    pub fn finish(self, navigator: Navigator) -> SlicedGCode {
         SlicedGCode::new(self.buffer, navigator)
     }
 
@@ -129,6 +122,7 @@ pub fn write_gcode(
                 end,
                 width,
                 thickness,
+                ..
             }
             | Command::MoveAndExtrudeFiber {
                 start,
@@ -370,9 +364,7 @@ pub fn build_gcode(
     let mut layer_count = 0;
     let mut current_object = None;
 
-    let mut navigator = SlicedGCodeNavigator {
-        line_indices_layer: Vec::new(),
-    };
+    let mut navigator = Navigator::new();
 
     let start = convert_instructions(
         settings.starting_instructions.clone(),
@@ -419,18 +411,22 @@ pub fn build_gcode(
         match cmd {
             Command::MoveTo { end, .. } => writeln!(writer, "G1 X{:.5} Y{:.5}", end.x, end.y)?,
             Command::MoveAndExtrude {
+                id,
                 start,
                 end,
                 width,
                 thickness,
             }
             | Command::MoveAndExtrudeFiber {
+                id,
                 start,
                 end,
                 thickness,
                 width,
                 ..
             } => {
+                navigator.record_trace(id.expect("Id's not eval yet!"), writer.line_count());
+
                 let x_diff = end.x - start.x;
                 let y_diff = end.y - start.y;
                 let length = ((x_diff * x_diff) + (y_diff * y_diff)).sqrt();
@@ -540,7 +536,8 @@ pub fn build_gcode(
                 }
             }
             Command::LayerChange { z, index } => {
-                navigator.line_indices_layer.push(writer.line_count());
+                navigator.record_layer_change(writer.line_count());
+
                 writeln!(writer, ";LAYER:{}", *index)?;
 
                 writeln!(

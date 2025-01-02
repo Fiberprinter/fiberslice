@@ -1,6 +1,6 @@
 use std::ops::{Deref, DerefMut};
 
-use geo::{simplify, Area, Simplify};
+use geo::{Area, Simplify};
 use glam::{Mat4, Vec3};
 use shared::object::ObjectMesh;
 

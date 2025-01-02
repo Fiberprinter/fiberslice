@@ -161,12 +161,6 @@ impl Hitbox for BoundingBox {
         self.max = self.max.max(box_.get_max());
     }
 
-    fn set_enabled(&mut self, _enabled: bool) {}
-
-    fn enabled(&self) -> bool {
-        true
-    }
-
     fn get_min(&self) -> Vec3 {
         self.min
     }

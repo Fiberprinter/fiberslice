@@ -478,14 +478,6 @@ impl Hitbox for PolygonFace {
         panic!("Not implemented")
     }
 
-    fn set_enabled(&mut self, _enabled: bool) {
-        panic!("Not implemented")
-    }
-
-    fn enabled(&self) -> bool {
-        panic!("Not implemented")
-    }
-
     fn get_min(&self) -> Vec3 {
         self.min
     }

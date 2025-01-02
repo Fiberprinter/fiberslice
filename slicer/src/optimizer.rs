@@ -43,12 +43,14 @@ pub fn binary_optimizer(cmds: &mut Vec<Command>, settings: &Settings) {
                         end: f_end,
                         thickness: f_thick,
                         width: f_width,
+                        ..
                     },
                     Command::MoveAndExtrude {
                         start: s_start,
                         end: s_end,
                         thickness: s_thick,
                         width: s_width,
+                        ..
                     },
                 ) => {
                     current_pos = s_end;
@@ -66,6 +68,7 @@ pub fn binary_optimizer(cmds: &mut Vec<Command>, settings: &Settings) {
                                 end: s_end,
                                 thickness: f_thick,
                                 width: s_width,
+                                id: None,
                             });
                         }
                     }
@@ -441,6 +444,7 @@ mod tests {
                 end,
                 thickness: 0.3,
                 width: 0.4,
+                id: None,
             })
             .collect::<Vec<Command>>();
 
@@ -483,6 +487,7 @@ mod tests {
                     end,
                     thickness: 0.3,
                     width: 0.4,
+                    id: None,
                 }),
         );
 

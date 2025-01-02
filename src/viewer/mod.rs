@@ -3,7 +3,7 @@ use std::{collections::BTreeSet, path::Path, sync::Arc};
 use egui::ahash::HashMap;
 use egui_code_editor::Syntax;
 use glam::Mat4;
-use log::warn;
+use log::{info, warn};
 use parking_lot::RwLock;
 use shared::{object::ObjectMesh, process::Process};
 use slicer::{Mask, Settings, SliceResult, SlicedGCode, TraceType};
@@ -70,7 +70,8 @@ pub struct Viewer {
 
     object_selector: RwLock<select::Selector>,
     mask_selector: RwLock<select::Selector>,
-    // toolpath_selector: RwLock<select::Selector>,
+    trace_selector: RwLock<select::Selector>,
+
     tooltip: RwLock<Option<ViewerTooltip>>,
     mode: RwLock<Option<Mode>>,
 }
@@ -85,6 +86,7 @@ impl Viewer {
 
             object_selector: RwLock::new(select::Selector::instance()),
             mask_selector: RwLock::new(select::Selector::instance()),
+            trace_selector: RwLock::new(select::Selector::instance()),
 
             tooltip: RwLock::new(None),
             mode: RwLock::new(None),
@@ -172,13 +174,11 @@ impl Viewer {
             .map(|toolpath| toolpath.count_map.clone())
     }
 
-    pub fn sliced_gcode(&self, read_fn: impl FnOnce(&SlicedGCode)) {
+    pub fn sliced_gcode<R>(&self, read_fn: impl FnOnce(&SlicedGCode) -> R) -> Option<R> {
         let read = self.sliced_object_server.read();
         let gcode = read.get_gcode();
 
-        if let Some(gcode) = gcode {
-            read_fn(gcode);
-        }
+        gcode.map(read_fn)
     }
 
     pub fn sliced_max_layer(&self) -> Option<u32> {
@@ -202,6 +202,16 @@ impl Viewer {
 
     pub fn update_gpu_max_layer(&self, layer: u32) {
         self.sliced_object_server.write().update_max_layer(layer);
+    }
+
+    pub fn is_layer_active(&self, layer: u32) -> bool {
+        let (min, max) = {
+            let server_read = self.sliced_object_server.read();
+
+            (*server_read.min_layer(), *server_read.max_layer())
+        };
+
+        layer >= min && layer <= max
     }
 
     pub fn update_gpu_visibility(&self, visibility: u32) {
@@ -314,6 +324,20 @@ impl Viewer {
                             self.mask_selector.write().select(interact_model);
                         }
                     }
+                    Some(Mode::Preview) => {
+                        if let Some(model) =
+                            self.sliced_object_server.read().check_hit(&event.ray, 2)
+                        {
+                            info!("Selected: {:?}", model);
+
+                            let interact_model = model as Arc<dyn InteractiveModel>;
+                            interact_model.mouse_right_click();
+
+                            self.trace_selector.write().select(interact_model);
+                        } else {
+                            info!("Nothing selected");
+                        }
+                    }
                     _ => (),
                 }
             }
@@ -348,6 +372,7 @@ impl Viewer {
         let mask_server_read = self.mask_server.read();
         let object_selector_read = self.object_selector.read();
         let mask_selector_read = self.mask_selector.read();
+        let trace_selector_read = self.trace_selector.read();
 
         if let Some((pipelines, mut render_pass)) = render_descriptor.pass() {
             match mode {
@@ -357,10 +382,12 @@ impl Viewer {
 
                     render_pass.set_pipeline(&pipelines.no_cull);
                     env_server_read.render(&mut render_pass);
+                    trace_selector_read.render(&mut render_pass);
 
                     render_pass.set_pipeline(&pipelines.line);
                     env_server_read.render_wire(&mut render_pass);
                     sliced_object_server_read.render_travel(&mut render_pass);
+                    trace_selector_read.render_lines(&mut render_pass);
                 }
                 Mode::Prepare => {
                     render_pass.set_pipeline(&pipelines.back_cull);

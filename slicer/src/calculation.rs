@@ -28,6 +28,7 @@ pub fn calculate_values(moves: &[Command], settings: &Settings) -> CalculatedVal
                 end,
                 width,
                 thickness,
+                ..
             } => {
                 let x_diff = end.x - start.x;
                 let y_diff = end.y - start.y;
@@ -42,6 +43,7 @@ pub fn calculate_values(moves: &[Command], settings: &Settings) -> CalculatedVal
                 end,
                 thickness,
                 width,
+                ..
             } => {
                 let x_diff = end.x - start.x;
                 let y_diff = end.y - start.y;

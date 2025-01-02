@@ -478,12 +478,6 @@ impl Hitbox for TraceHitbox {
         // TODO either figure out how to expand this or remove this method for this type or make it clear that this is not expandable
     }
 
-    fn set_enabled(&mut self, _enabled: bool) {}
-
-    fn enabled(&self) -> bool {
-        true
-    }
-
     fn get_min(&self) -> Vec3 {
         self.north_west
             .min

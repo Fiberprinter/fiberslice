@@ -53,14 +53,6 @@ impl Hitbox for QuadFace {
         panic!("QuadFace does not have an expand method");
     }
 
-    fn set_enabled(&mut self, _enabled: bool) {
-        panic!("QuadFace does not have an enabled method");
-    }
-
-    fn enabled(&self) -> bool {
-        panic!("QuadFace does not have an enabled method");
-    }
-
     fn get_min(&self) -> Vec3 {
         self.min
     }
