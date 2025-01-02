@@ -185,7 +185,7 @@ impl SlicedObject {
 
                     let (offset, hitbox) = fiber_mesher.next(start, end, *thickness, *width);
 
-                    let tree_move = TraceTree::create_move(
+                    let tree_move = TraceTree::create_fiber(
                         hitbox,
                         id.expect("Id's not evaluated yet!"),
                         offset as u64,

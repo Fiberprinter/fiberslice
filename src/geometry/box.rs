@@ -156,11 +156,6 @@ impl Hitbox for BoundingBox {
         min
     }
 
-    fn expand_hitbox(&mut self, box_: &dyn Hitbox) {
-        self.min = self.min.min(box_.get_min());
-        self.max = self.max.max(box_.get_max());
-    }
-
     fn get_min(&self) -> Vec3 {
         self.min
     }

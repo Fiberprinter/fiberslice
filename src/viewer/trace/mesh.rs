@@ -473,11 +473,6 @@ impl Hitbox for TraceHitbox {
         min
     }
 
-    fn expand_hitbox(&mut self, _box: &dyn Hitbox) {
-        // Not expandable
-        // TODO either figure out how to expand this or remove this method for this type or make it clear that this is not expandable
-    }
-
     fn get_min(&self) -> Vec3 {
         self.north_west
             .min

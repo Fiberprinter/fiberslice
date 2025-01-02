@@ -1,4 +1,8 @@
-use std::{collections::BTreeSet, path::Path, sync::Arc};
+use std::{
+    collections::BTreeSet,
+    path::Path,
+    sync::{atomic::AtomicBool, Arc},
+};
 
 use egui::ahash::HashMap;
 use egui_code_editor::Syntax;
@@ -74,6 +78,8 @@ pub struct Viewer {
 
     tooltip: RwLock<Option<ViewerTooltip>>,
     mode: RwLock<Option<Mode>>,
+
+    transparent_vision: AtomicBool,
 }
 
 impl Viewer {
@@ -90,6 +96,7 @@ impl Viewer {
 
             tooltip: RwLock::new(None),
             mode: RwLock::new(None),
+            transparent_vision: AtomicBool::new(false),
         }
     }
 
@@ -214,18 +221,26 @@ impl Viewer {
         layer >= min && layer <= max
     }
 
-    pub fn update_gpu_visibility(&self, visibility: u32) {
-        self.sliced_object_server
-            .write()
-            .update_visibility(visibility);
-    }
+    pub fn set_transparent_vision(&self, b: bool) {
+        self.transparent_vision
+            .store(b, std::sync::atomic::Ordering::Relaxed);
 
-    pub fn set_gpu_trace_transparent_mode(&self, mode: bool) {
-        if mode {
+        if b {
             self.sliced_object_server.write().set_transparency(0.1);
         } else {
             self.sliced_object_server.write().set_transparency(1.0);
         }
+    }
+
+    pub fn is_transparent_vision(&self) -> bool {
+        self.transparent_vision
+            .load(std::sync::atomic::Ordering::Relaxed)
+    }
+
+    pub fn update_gpu_visibility(&self, visibility: u32) {
+        self.sliced_object_server
+            .write()
+            .update_visibility(visibility);
     }
 
     pub fn already_sliced(&self) -> bool {
@@ -370,9 +385,6 @@ impl Viewer {
         let sliced_object_server_read = self.sliced_object_server.read();
         let model_server_read = self.object_server.read();
         let mask_server_read = self.mask_server.read();
-        let object_selector_read = self.object_selector.read();
-        let mask_selector_read = self.mask_selector.read();
-        let trace_selector_read = self.trace_selector.read();
 
         if let Some((pipelines, mut render_pass)) = render_descriptor.pass() {
             match mode {
@@ -382,12 +394,10 @@ impl Viewer {
 
                     render_pass.set_pipeline(&pipelines.no_cull);
                     env_server_read.render(&mut render_pass);
-                    trace_selector_read.render(&mut render_pass);
 
                     render_pass.set_pipeline(&pipelines.line);
                     env_server_read.render_wire(&mut render_pass);
                     sliced_object_server_read.render_travel(&mut render_pass);
-                    trace_selector_read.render_lines(&mut render_pass);
                 }
                 Mode::Prepare => {
                     render_pass.set_pipeline(&pipelines.back_cull);
@@ -395,11 +405,9 @@ impl Viewer {
 
                     render_pass.set_pipeline(&pipelines.no_cull);
                     env_server_read.render(&mut render_pass);
-                    object_selector_read.render(&mut render_pass);
 
                     render_pass.set_pipeline(&pipelines.line);
                     env_server_read.render_wire(&mut render_pass);
-                    object_selector_read.render_lines(&mut render_pass);
                 }
                 Mode::Masks => {
                     render_pass.set_pipeline(&pipelines.back_cull);
@@ -407,11 +415,9 @@ impl Viewer {
 
                     render_pass.set_pipeline(&pipelines.no_cull);
                     env_server_read.render(&mut render_pass);
-                    mask_selector_read.render(&mut render_pass);
 
                     render_pass.set_pipeline(&pipelines.line);
                     env_server_read.render_wire(&mut render_pass);
-                    mask_selector_read.render_lines(&mut render_pass);
                 }
             };
         }
@@ -420,21 +426,42 @@ impl Viewer {
     pub fn render_secondary(&self, mut render_descriptor: RenderDescriptor, mode: Mode) {
         let model_server_read = self.object_server.read();
         let mask_server_read = self.mask_server.read();
+        let trace_selector_read = self.trace_selector.read();
+        let object_selector_read = self.object_selector.read();
+        let mask_selector_read = self.mask_selector.read();
 
         if let Some((pipelines, mut render_pass)) = render_descriptor.pass() {
             match mode {
                 Mode::Preview => {
                     // sliced_object_server_read.render_fiber(&mut render_pass);
 
+                    render_pass.set_pipeline(&pipelines.line);
+                    trace_selector_read.render_wire(&mut render_pass);
+
+                    render_pass.set_pipeline(&pipelines.no_cull);
+                    trace_selector_read.render(&mut render_pass);
+
                     render_pass.set_pipeline(&pipelines.back_cull);
                     mask_server_read.render(&mut render_pass);
                     model_server_read.render(&mut render_pass);
                 }
                 Mode::Prepare => {
+                    render_pass.set_pipeline(&pipelines.line);
+                    object_selector_read.render_wire(&mut render_pass);
+
+                    render_pass.set_pipeline(&pipelines.no_cull);
+                    object_selector_read.render(&mut render_pass);
+
                     render_pass.set_pipeline(&pipelines.back_cull);
                     mask_server_read.render(&mut render_pass);
                 }
                 Mode::Masks => {
+                    render_pass.set_pipeline(&pipelines.line);
+                    mask_selector_read.render_wire(&mut render_pass);
+
+                    render_pass.set_pipeline(&pipelines.no_cull);
+                    mask_selector_read.render(&mut render_pass);
+
                     render_pass.set_pipeline(&pipelines.back_cull);
                     model_server_read.render(&mut render_pass);
                 }

@@ -11,7 +11,6 @@ use super::{
 
 pub trait Hitbox: std::fmt::Debug + Send + Sync {
     fn check_hit(&self, ray: &Ray) -> Option<f32>;
-    fn expand_hitbox(&mut self, _box: &dyn Hitbox);
     fn get_min(&self) -> Vec3;
     fn get_max(&self) -> Vec3;
 }
@@ -19,9 +18,6 @@ pub trait Hitbox: std::fmt::Debug + Send + Sync {
 pub trait HitboxNode {
     fn check_hit(&self, ray: &Ray) -> Option<f32>;
     fn inner_nodes(&self) -> &[Arc<Self>];
-    fn is_active(&self) -> bool {
-        true
-    }
     fn get_min(&self) -> Vec3;
     fn get_max(&self) -> Vec3;
 }

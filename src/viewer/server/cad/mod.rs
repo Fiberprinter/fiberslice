@@ -474,10 +474,6 @@ impl Hitbox for PolygonFace {
         }
     }
 
-    fn expand_hitbox(&mut self, _box: &dyn Hitbox) {
-        panic!("Not implemented")
-    }
-
     fn get_min(&self) -> Vec3 {
         self.min
     }

@@ -71,6 +71,7 @@ impl<T: std::fmt::Debug + bytemuck::Pod + bytemuck::Zeroable> LockModel<T> {
         self.inner.read()
     }
 
+    #[allow(dead_code)]
     pub fn read_with_fn<F, R>(&self, f: F) -> R
     where
         F: FnOnce(&Model<T>) -> R,
@@ -83,6 +84,7 @@ impl<T: std::fmt::Debug + bytemuck::Pod + bytemuck::Zeroable> LockModel<T> {
         self.inner.write()
     }
 
+    #[allow(dead_code)]
     pub fn write_with_fn<F, R>(&self, f: F) -> R
     where
         F: FnOnce(&mut Model<T>) -> R,

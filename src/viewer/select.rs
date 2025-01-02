@@ -197,7 +197,7 @@ impl Selector {
         self.select_box.render(render_pass);
     }
 
-    pub fn render_lines<'a>(&'a self, render_pass: &mut wgpu::RenderPass<'a>) {
+    pub fn render_wire<'a>(&'a self, render_pass: &mut wgpu::RenderPass<'a>) {
         // self.volume.render_lines(render_pass);
         self.select_box_lines.render(render_pass);
     }

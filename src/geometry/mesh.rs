@@ -102,6 +102,7 @@ pub fn vec3s_into_vertices<C: IntoArrayColor>(v: Vec<Vec3>, color: C) -> Vec<Ver
     vertices
 }
 
+#[allow(dead_code)]
 pub trait IndexedMesh<const V: usize, const I: usize>: Mesh<V> {
     fn to_triangle_indices(&self) -> [u32; I];
     fn to_triangle_indices_flipped(&self) -> [u32; I] {
@@ -129,6 +130,7 @@ pub fn construct_wire_vertices<const T: usize>(raw: [Vec3; T], color: Vec4) -> [
     vertices
 }
 
+#[allow(dead_code)]
 pub trait IndexedWireMesh<const V: usize, const I: usize>: WireMesh<V> {
     fn to_wire_indices(&self) -> [u32; I];
 }

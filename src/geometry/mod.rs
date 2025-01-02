@@ -49,10 +49,6 @@ impl Hitbox for QuadFace {
         }
     }
 
-    fn expand_hitbox(&mut self, _box: &dyn Hitbox) {
-        panic!("QuadFace does not have an expand method");
-    }
-
     fn get_min(&self) -> Vec3 {
         self.min
     }

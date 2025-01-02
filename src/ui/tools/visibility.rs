@@ -11,7 +11,7 @@ use super::{Tool, ToolState};
 pub struct VisibilityToolState {
     enabled: bool,
     anchored: bool,
-    trace_transparent_mode: bool,
+    transparent_vision: bool,
     print_types: [bool; TraceType::COUNT],
     travel: bool,
     fiber: bool,
@@ -22,7 +22,7 @@ impl Default for VisibilityToolState {
         Self {
             enabled: Default::default(),
             anchored: Default::default(),
-            trace_transparent_mode: false,
+            transparent_vision: false,
             print_types: [true; TraceType::COUNT],
             travel: false,
             fiber: true,
@@ -80,7 +80,7 @@ impl Tool for VisibilityTool<'_> {
                 .show(ctx, |ui| {
                     ui.separator();
 
-                    let old_transparency = self.state.trace_transparent_mode;
+                    let old_transparent_vision = self.state.transparent_vision;
                     let old_print_types = self.state.print_types;
                     let old_travel = self.state.travel;
                     let old_fiber = self.state.fiber;
@@ -88,7 +88,7 @@ impl Tool for VisibilityTool<'_> {
                     if let Some(count_map) = global_state.viewer.sliced_count_map() {
                         ui.horizontal(|ui| {
                             ui.checkbox(
-                                &mut self.state.trace_transparent_mode,
+                                &mut self.state.transparent_vision,
                                 RichText::new("Trace Transparent Mode")
                                     .font(FontId::monospace(15.0))
                                     .strong()
@@ -190,10 +190,10 @@ impl Tool for VisibilityTool<'_> {
                         global_state.viewer.enable_fiber(self.state.fiber);
                     }
 
-                    if old_transparency != self.state.trace_transparent_mode {
+                    if old_transparent_vision != self.state.transparent_vision {
                         global_state
                             .viewer
-                            .set_gpu_trace_transparent_mode(self.state.trace_transparent_mode);
+                            .set_transparent_vision(self.state.transparent_vision);
                     }
 
                     ui.separator();

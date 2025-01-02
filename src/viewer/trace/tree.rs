@@ -37,6 +37,7 @@ pub enum TraceTree {
     },
     Trace {
         id: MoveId,
+        fiber: bool,
         offset: BufferAddress,
         size: BufferAddress,
         r#box: RwLock<Box<TraceHitbox>>,
@@ -75,6 +76,22 @@ impl TraceTree {
         Self::Trace {
             offset,
             id,
+            fiber: false,
+            size,
+            r#box: RwLock::new(Box::new(path_box)),
+        }
+    }
+
+    pub fn create_fiber(
+        path_box: TraceHitbox,
+        id: MoveId,
+        offset: BufferAddress,
+        size: BufferAddress,
+    ) -> Self {
+        Self::Trace {
+            offset,
+            id,
+            fiber: true,
             size,
             r#box: RwLock::new(Box::new(path_box)),
         }
@@ -197,17 +214,22 @@ impl HitboxNode for TraceTree {
             Self::Root { bounding_box, .. } => bounding_box.read().check_hit(ray),
             Self::Trace {
                 id,
+                fiber,
                 r#box: path_box,
                 ..
             } => {
                 let global_state_read = GLOBAL_STATE.read();
                 let global_state = global_state_read.as_ref().unwrap();
 
+                let trace_transparent_mode = global_state.viewer.is_transparent_vision();
+
                 if let Some(Some(layer)) = global_state
                     .viewer
                     .sliced_gcode(|sliced_gcode| sliced_gcode.navigator.get_trace_layer(id))
                 {
-                    if global_state.viewer.is_layer_active(layer) {
+                    if global_state.viewer.is_layer_active(layer)
+                        && (!trace_transparent_mode || *fiber)
+                    {
                         path_box.read().check_hit(ray)
                     } else {
                         None

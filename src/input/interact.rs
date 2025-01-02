@@ -12,6 +12,7 @@ pub trait InteractiveModel: Debug {
 
     fn destroy(&self) {}
 
+    #[allow(dead_code)]
     fn mouse_left_click(&self) {}
 
     fn mouse_right_click(&self) {}
