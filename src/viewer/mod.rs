@@ -435,15 +435,18 @@ impl Viewer {
         if let Some((pipelines, mut render_pass)) = render_descriptor.pass() {
             match mode {
                 Mode::Preview => {
+                    // Needs to be rendered first
+                    {
+                        render_pass.set_pipeline(&pipelines.line);
+                        trace_selector_read.render_wire(&mut render_pass);
+
+                        render_pass.set_pipeline(&pipelines.no_cull);
+                        trace_selector_read.render(&mut render_pass);
+                    }
+
                     render_pass.set_pipeline(&pipelines.back_cull);
                     mask_server_read.render(&mut render_pass);
                     model_server_read.render(&mut render_pass);
-
-                    render_pass.set_pipeline(&pipelines.line);
-                    trace_selector_read.render_wire(&mut render_pass);
-
-                    render_pass.set_pipeline(&pipelines.no_cull);
-                    trace_selector_read.render(&mut render_pass);
                 }
                 Mode::Prepare => {
                     render_pass.set_pipeline(&pipelines.line);

@@ -92,7 +92,7 @@ acceleration_factor = 1.0
 jerk_factor = 1.0
 
 [fiber.wall_pattern]
-enabled = true
+enabled = false
 
 [fiber.wall_pattern.setting]
 pattern = "Alternating"
