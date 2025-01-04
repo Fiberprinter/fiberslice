@@ -14,15 +14,11 @@ use geo::coordinate_position::CoordPos;
 use geo::coordinate_position::CoordinatePosition;
 use geo::prelude::*;
 use geo::*;
-use geo_clipper::Clipper;
-use glam::vec2;
 pub use infill::*;
 use itertools::Itertools;
-use log::info;
 use ordered_float::OrderedFloat;
 use polygon_operations::PolygonOperations;
 use rayon::iter::{IntoParallelRefIterator, ParallelIterator};
-use rayon::slice::ParallelSlice;
 use walls::*;
 
 pub trait Plotter {
@@ -189,7 +185,7 @@ impl Plotter for Slice {
         &mut self,
         other: &MultiPolygon<f32>,
         layer_count: usize,
-        ctx: &PassContext,
+        _ctx: &PassContext,
     ) {
         //For each area not in this slice that is in the other polygon, fill solid
 
@@ -216,7 +212,7 @@ impl Plotter for Slice {
         self.remaining_area = self.remaining_area.difference_with(&solid_area)
     }
 
-    fn fill_solid_bridge_area(&mut self, layer_below: &MultiPolygon<f32>, ctx: &PassContext) {
+    fn fill_solid_bridge_area(&mut self, layer_below: &MultiPolygon<f32>, _ctx: &PassContext) {
         //For each area not in this slice that is in the other polygon, fill solid
 
         let solid_area = self
@@ -251,7 +247,7 @@ impl Plotter for Slice {
         &mut self,
         layer_above: &MultiPolygon<f32>,
         layer_count: usize,
-        ctx: &PassContext,
+        _ctx: &PassContext,
     ) {
         //For each area not in this slice that is in the other polygon, fill solid
 
