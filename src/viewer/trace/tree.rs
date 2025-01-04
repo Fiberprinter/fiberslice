@@ -2,7 +2,7 @@ use std::sync::Arc;
 
 use glam::Vec3;
 use parking_lot::RwLock;
-use slicer::MoveId;
+use slicer::{MoveId, MoveType, TraceType};
 use wgpu::BufferAddress;
 
 use crate::{
@@ -11,7 +11,7 @@ use crate::{
         hitbox::{Hitbox, HitboxNode},
         interact::InteractiveModel,
     },
-    prelude::LockModel,
+    prelude::{Destroyable, LockModel},
     render::{model::Model, Renderable, Vertex},
     GLOBAL_STATE,
 };
@@ -37,7 +37,7 @@ pub enum TraceTree {
     },
     Trace {
         id: MoveId,
-        fiber: bool,
+        move_type: MoveType,
         offset: BufferAddress,
         size: BufferAddress,
         r#box: RwLock<Box<TraceHitbox>>,
@@ -70,13 +70,14 @@ impl TraceTree {
     pub fn create_move(
         path_box: TraceHitbox,
         id: MoveId,
+        trace_type: TraceType,
         offset: BufferAddress,
         size: BufferAddress,
     ) -> Self {
         Self::Trace {
             offset,
             id,
-            fiber: false,
+            move_type: MoveType::WithoutFiber(trace_type),
             size,
             r#box: RwLock::new(Box::new(path_box)),
         }
@@ -85,13 +86,14 @@ impl TraceTree {
     pub fn create_fiber(
         path_box: TraceHitbox,
         id: MoveId,
+        trace_type: TraceType,
         offset: BufferAddress,
         size: BufferAddress,
     ) -> Self {
         Self::Trace {
             offset,
             id,
-            fiber: true,
+            move_type: MoveType::WithFiber(trace_type),
             size,
             r#box: RwLock::new(Box::new(path_box)),
         }
@@ -208,28 +210,60 @@ impl Renderable for TraceTree {
     }
 }
 
+impl Destroyable for TraceTree {
+    fn is_destroyed(&self) -> bool {
+        match self {
+            Self::Root {
+                model,
+                fiber_model,
+                travel_model,
+                ..
+            } => {
+                model.read().is_destroyed()
+                    || fiber_model.read().is_destroyed()
+                    || travel_model.read().is_destroyed()
+            }
+            Self::Travel { .. } => false,
+            Self::Trace { .. } => false,
+        }
+    }
+
+    fn destroy(&self) {
+        match self {
+            Self::Root {
+                model,
+                fiber_model,
+                travel_model,
+                ..
+            } => {
+                model.write().destroy();
+                fiber_model.write().destroy();
+                travel_model.write().destroy();
+            }
+            Self::Travel { .. } => {}
+            Self::Trace { .. } => {}
+        }
+    }
+}
+
 impl HitboxNode for TraceTree {
     fn check_hit(&self, ray: &crate::input::Ray) -> Option<f32> {
         match self {
             Self::Root { bounding_box, .. } => bounding_box.read().check_hit(ray),
             Self::Trace {
                 id,
-                fiber,
+                move_type,
                 r#box: path_box,
                 ..
             } => {
                 let global_state_read = GLOBAL_STATE.read();
                 let global_state = global_state_read.as_ref().unwrap();
 
-                let trace_transparent_mode = global_state.viewer.is_transparent_vision();
-
                 if let Some(Some(layer)) = global_state
                     .viewer
                     .sliced_gcode(|sliced_gcode| sliced_gcode.navigator.get_trace_layer(id))
                 {
-                    if global_state.viewer.is_layer_active(layer)
-                        && (!trace_transparent_mode || *fiber)
-                    {
+                    if global_state.viewer.is_move_active(move_type, layer) {
                         path_box.read().check_hit(ray)
                     } else {
                         None

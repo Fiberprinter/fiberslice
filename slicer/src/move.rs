@@ -7,7 +7,7 @@ use strum_macros::EnumCount;
 use crate::{command_pass::CommandPass, LayerSettings};
 
 #[derive(Debug, Clone, Copy, PartialEq, Serialize, Deserialize, Eq, Hash)]
-pub struct MoveId(usize);
+pub struct MoveId(pub(crate) usize);
 
 struct MoveIdGenerator {
     current: usize,

@@ -28,14 +28,19 @@ pub mod gui {
     pub const MENUBAR_H: f32 = 17.0;
     pub const MODEBAR_H: f32 = 17.0;
     pub const TASKBAR_H: f32 = 20.0;
-    pub const TOOLBAR_W: f32 = 50.0;
+    pub const TOOLBAR_W: f32 = 40.0;
 
     pub const TOOL_TOGGLE_BUTTON: DecoradedButton = DecoradedButton {
+        border: 15.,
+        size: (35., 35.),
+    };
+
+    pub const GIZMO_TOGGLE_BUTTON: DecoradedButton = DecoradedButton {
         border: 15.,
         size: (45., 45.),
     };
 
-    pub const GIZMO_TOGGLE_BUTTON: DecoradedButton = DecoradedButton {
+    pub const CAD_TOOL_BUTTON: DecoradedButton = DecoradedButton {
         border: 15.,
         size: (45., 45.),
     };

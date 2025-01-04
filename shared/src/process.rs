@@ -9,6 +9,7 @@ pub struct Process {
     progress: AtomicF32,
     finished: AtomicBool,
     closed: AtomicBool,
+    closed_safely: AtomicBool,
 }
 
 impl Process {
@@ -18,6 +19,7 @@ impl Process {
             progress: AtomicF32::new(0.0),
             finished: AtomicBool::new(false),
             closed: AtomicBool::new(false),
+            closed_safely: AtomicBool::new(false),
         }
     }
 
@@ -44,6 +46,11 @@ impl Process {
             .store(true, std::sync::atomic::Ordering::Relaxed);
     }
 
+    pub fn close_safely(&self) {
+        self.closed_safely
+            .store(true, std::sync::atomic::Ordering::Relaxed);
+    }
+
     pub fn task(&self) -> String {
         self.task.read().clone()
     }
@@ -54,5 +61,10 @@ impl Process {
 
     pub fn is_closed(&self) -> bool {
         self.closed.load(std::sync::atomic::Ordering::Relaxed)
+    }
+
+    pub fn is_closed_safely(&self) -> bool {
+        self.closed_safely
+            .load(std::sync::atomic::Ordering::Relaxed)
     }
 }

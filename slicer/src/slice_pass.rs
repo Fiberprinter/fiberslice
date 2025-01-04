@@ -321,9 +321,9 @@ impl SlicePass for SupportPass {
     }
 }
 
-pub struct FiberPass {}
+pub struct FiberInfillPass {}
 
-impl SlicePass for FiberPass {
+impl SlicePass for FiberInfillPass {
     fn pass(slices: &mut Vec<Slice>, settings: &Settings) -> Result<(), SlicerErrors> {
         if settings.fiber.infill.is_enabled() {
             //Fill all remaining areas
@@ -337,17 +337,15 @@ impl SlicePass for FiberPass {
                 .for_each(|(layer_num, slice)| {
                     if ((layer_num + 1) % cycle_length) < spacing {
                         if !settings.fiber.infill.air_spacing {
-                            slice.fill_remaining_area(
-                                false,
+                            slice.fill_remaining_area_partially(
                                 layer_num,
-                                &PassContext::new().without_fiber().no_subtract(),
+                                &&PassContext::new().without_fiber().subtract(),
                             );
                         }
                     } else {
-                        slice.fill_remaining_area(
-                            false,
+                        slice.fill_remaining_area_partially(
                             layer_num,
-                            &PassContext::new().with_fiber().no_subtract(),
+                            &PassContext::new().with_fiber().subtract(),
                         );
                     }
                 });

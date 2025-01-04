@@ -2,7 +2,6 @@ use egui::Context;
 use egui::TopBottomPanel;
 
 use crate::ui::boundary::Boundary;
-use crate::ui::tools::ToolState;
 use crate::ui::UiComponent;
 use crate::ui::UiComponentState;
 use crate::ui::UiState;
@@ -40,20 +39,11 @@ impl UiComponentState for TopBarState {
 
 pub struct Topbar<'a> {
     state: &'a mut TopBarState,
-    tools: &'a mut [&'a mut dyn ToolState],
 }
 
 impl<'a> Topbar<'a> {
     pub fn with_state(state: &'a mut TopBarState) -> Self {
-        Self {
-            state,
-            tools: &mut [],
-        }
-    }
-
-    pub fn with_tools(mut self, tools: &'a mut [&'a mut dyn ToolState]) -> Self {
-        self.tools = tools;
-        self
+        Self { state }
     }
 }
 

@@ -17,7 +17,7 @@ use crate::{
         hitbox::{Hitbox, HitboxNode},
         interact::InteractiveModel,
     },
-    prelude::LockModel,
+    prelude::{Destroyable, LockModel},
     render::{
         model::{Model, Transform, TransformMut},
         Renderable, Vertex,
@@ -25,7 +25,7 @@ use crate::{
 };
 
 pub mod mask;
-pub mod model;
+pub mod object;
 
 #[derive(thiserror::Error, Debug)]
 pub enum Error {
@@ -39,7 +39,7 @@ pub struct LoadResult {
     mesh: ObjectMesh,
 
     process: Arc<Process>,
-    origin_path: String,
+    name: String,
 }
 
 type CADObjectResult = Result<LoadResult, Error>;
@@ -98,13 +98,6 @@ impl CADObject {
         }
     }
 
-    fn is_destroyed(&self) -> bool {
-        match self {
-            Self::Root { model, .. } => model.read().is_destroyed(),
-            Self::Face { .. } => false,
-        }
-    }
-
     fn awaken(&mut self, data: &[Vertex]) {
         match self {
             Self::Root { model, .. } => model.get_mut().awaken(data),
@@ -131,13 +124,6 @@ impl InteractiveModel for CADObject {
         }
     }
 
-    fn destroy(&self) {
-        match self {
-            Self::Root { model, .. } => model.write().destroy(),
-            Self::Face { .. } => panic!("Cannot destroy face"),
-        }
-    }
-
     fn as_transformable(&self) -> Option<&dyn Transform> {
         Some(self)
     }
@@ -155,6 +141,22 @@ impl Renderable for CADObject {
         match self {
             Self::Root { model, .. } => model.render_without_color(render_pass),
             Self::Face { .. } => panic!("Cannot render face"),
+        }
+    }
+}
+
+impl Destroyable for CADObject {
+    fn destroy(&self) {
+        match self {
+            Self::Root { model, .. } => model.write().destroy(),
+            Self::Face { .. } => panic!("Cannot destroy face"),
+        }
+    }
+
+    fn is_destroyed(&self) -> bool {
+        match self {
+            Self::Root { model, .. } => model.read().is_destroyed(),
+            Self::Face { .. } => false,
         }
     }
 }

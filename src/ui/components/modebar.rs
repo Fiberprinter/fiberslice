@@ -75,31 +75,32 @@ impl<'a> UiComponent for Modebar<'a> {
                             .cell(Size::remainder())
                             .cell(Size::initial(-13.0))
                             .cell(Size::remainder())
-                            .cell(Size::initial(-13.0))
-                            .cell(Size::remainder())
                             .show(ui, |mut grid| {
                                 // Cells are represented as they were allocated
                                 grid.cell(|ui| {
                                     ui_state.mode.write_with_fn(|mode| {
-                                        ui.selectable_value(mode, Mode::Prepare, "Prepare Objects");
+                                        ui.selectable_value(
+                                            mode,
+                                            Mode::Prepare(crate::prelude::PrepareMode::Objects),
+                                            "Prepare",
+                                        );
                                     });
                                 });
                                 grid.empty();
                                 grid.cell(|ui| {
                                     ui_state.mode.write_with_fn(|mode| {
-                                        ui.selectable_value(mode, Mode::Masks, "Masks Selection");
-                                    });
-                                });
-                                grid.empty();
-                                grid.cell(|ui| {
-                                    ui_state.mode.write_with_fn(|mode| {
-                                        ui.selectable_value(mode, Mode::Preview, "Preview Sliced");
+                                        ui.selectable_value(mode, Mode::Preview, "Preview");
                                     });
                                 });
                             });
 
-                        if last_mode != *ui_state.mode.read() {
-                            global_state.viewer.mode_changed(*ui_state.mode.read());
+                        let mode = *ui_state.mode.read();
+
+                        if !last_mode.eq_prepare(&mode) {
+                            global_state
+                                .proxy
+                                .send_event(RootEvent::SetMode(mode))
+                                .expect("Failed to send event");
                         }
                     });
                 })

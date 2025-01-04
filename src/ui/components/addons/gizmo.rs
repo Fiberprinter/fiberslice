@@ -5,7 +5,10 @@ use glam::{Mat4, Quat};
 use strum::{EnumCount, IntoEnumIterator};
 use strum_macros::{EnumCount, EnumIter};
 
-use crate::{config, ui::icon::get_gizmo_tool_icon};
+use crate::{
+    config,
+    ui::{icon::get_gizmo_tool_icon, visual::customize_look_and_feel},
+};
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, EnumIter, EnumCount)]
 pub enum GizmoTool {
@@ -47,6 +50,7 @@ impl GizmoTools {
             builder = builder.new_row(Size::remainder());
 
             *ui.visuals_mut() = Visuals::light();
+            customize_look_and_feel(ui.visuals_mut());
             ui.visuals_mut().widgets.inactive.weak_bg_fill = Color32::TRANSPARENT;
 
             builder.show(ui, |mut grid| {
@@ -54,7 +58,10 @@ impl GizmoTools {
                     grid.cell(|ui| {
                         // let is_selected = self.selected == Some(tool);
 
-                        let image_button = ImageButton::new(get_gizmo_tool_icon(tool)).frame(true);
+                        let image_button = ImageButton::new(get_gizmo_tool_icon(tool))
+                            .rounding(5.0)
+                            .selected(self.selected == Some(tool))
+                            .frame(true);
 
                         let response = ui.add(image_button);
 

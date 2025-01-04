@@ -29,8 +29,8 @@ pub mod vertex;
 ///
 /// assert_eq!(path_type.bit_representation(), 1);
 ///
-pub fn bit_representation(print_type: &TraceType) -> u32 {
-    0x01 << (*print_type as u32)
+pub fn bit_representation(trace_type: &TraceType) -> u32 {
+    0x01 << (*trace_type as u32)
 }
 
 pub const fn bit_representation_setup() -> u32 {
@@ -146,6 +146,7 @@ impl SlicedObject {
                     let tree_move = TraceTree::create_move(
                         hitbox,
                         id.expect("Id's not evaluted yet!"),
+                        current_type.unwrap_or(TraceType::Infill),
                         offset as u64,
                         TRACE_MESH_VERTICES as BufferAddress,
                     );
@@ -188,6 +189,7 @@ impl SlicedObject {
                     let tree_move = TraceTree::create_fiber(
                         hitbox,
                         id.expect("Id's not evaluated yet!"),
+                        current_type.unwrap_or(TraceType::Infill),
                         offset as u64,
                         TRACE_MESH_VERTICES as BufferAddress,
                     );

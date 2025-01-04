@@ -9,8 +9,10 @@ use egui_code_editor::Syntax;
 use glam::Mat4;
 use log::{info, warn};
 use parking_lot::RwLock;
+use server::CADObject;
 use shared::{object::ObjectMesh, process::Process};
-use slicer::{Mask, Settings, SliceResult, SlicedGCode, TraceType};
+use slicer::{Mask, MoveType, Settings, SliceResult, SlicedGCode, TraceType};
+use trace::bit_representation;
 use winit::{
     event::{KeyEvent, MouseButton},
     keyboard::{KeyCode, PhysicalKey},
@@ -18,7 +20,7 @@ use winit::{
 
 use crate::{
     input::{interact::InteractiveModel, MouseClickEvent, MouseMotionEvent},
-    prelude::{Mode, WgpuContext},
+    prelude::{Mode, PrepareMode, WgpuContext},
     render::{RenderDescriptor, Vertex},
     ui::screen::ViewerTooltip,
     GlobalState, RootEvent,
@@ -100,17 +102,17 @@ impl Viewer {
         }
     }
 
-    pub fn mode_changed(&self, mode: Mode) {
+    pub fn set_mode(&self, mode: Mode) {
         *self.mode.write() = Some(mode);
 
         self.update_tooltip(None);
 
         match mode {
-            Mode::Prepare => {
+            Mode::Prepare(PrepareMode::Objects) => {
                 self.object_server.write().set_transparency(1.0);
                 self.mask_server.write().set_transparency(0.5);
             }
-            Mode::Masks => {
+            Mode::Prepare(PrepareMode::Masks) => {
                 self.object_server.write().set_transparency(0.5);
                 self.mask_server.write().set_transparency(1.0);
             }
@@ -146,8 +148,12 @@ impl Viewer {
     pub fn gizmo_enabled(&self) -> bool {
         match *self.mode.read() {
             Some(Mode::Preview) => false,
-            Some(Mode::Prepare) => !self.object_selector.read().selected().is_empty(),
-            Some(Mode::Masks) => !self.mask_selector.read().selected().is_empty(),
+            Some(Mode::Prepare(PrepareMode::Objects)) => {
+                !self.object_selector.read().selected().is_empty()
+            }
+            Some(Mode::Prepare(PrepareMode::Masks)) => {
+                !self.mask_selector.read().selected().is_empty()
+            }
             _ => false,
         }
     }
@@ -164,14 +170,22 @@ impl Viewer {
 
     pub fn transform_selected(&self, r#fn: impl FnMut(&mut Mat4) -> bool) {
         match *self.mode.read() {
-            Some(Mode::Prepare) => {
+            Some(Mode::Prepare(PrepareMode::Objects)) => {
                 self.object_selector.write().transform(r#fn);
             }
-            Some(Mode::Masks) => {
+            Some(Mode::Prepare(PrepareMode::Masks)) => {
                 self.mask_selector.write().transform(r#fn);
             }
             _ => (),
         }
+    }
+
+    pub fn objects(&self) -> Vec<(String, Arc<CADObject>)> {
+        self.object_server.read().models()
+    }
+
+    pub fn masks(&self) -> Vec<(String, Arc<CADObject>)> {
+        self.mask_server.read().models()
     }
 
     pub fn sliced_count_map(&self) -> Option<HashMap<TraceType, usize>> {
@@ -211,14 +225,34 @@ impl Viewer {
         self.sliced_object_server.write().update_max_layer(layer);
     }
 
-    pub fn is_layer_active(&self, layer: u32) -> bool {
-        let (min, max) = {
-            let server_read = self.sliced_object_server.read();
+    pub fn is_move_active(&self, move_type: &MoveType, layer: u32) -> bool {
+        let server_read = self.sliced_object_server.read();
 
-            (*server_read.min_layer(), *server_read.max_layer())
-        };
+        let (min, max) = (*server_read.min_layer(), *server_read.max_layer());
 
-        layer >= min && layer <= max
+        let visibility = *server_read.visibility();
+
+        match move_type {
+            MoveType::Travel => server_read.is_travel_visible(),
+            MoveType::WithoutFiber(trace_type) => {
+                if (bit_representation(trace_type) & visibility) > 0
+                    && !self.is_transparent_vision()
+                {
+                    layer >= min && layer <= max
+                } else {
+                    false
+                }
+            }
+            MoveType::WithFiber(trace_type) => {
+                if (bit_representation(trace_type) & visibility) > 0
+                    && server_read.is_fiber_visible()
+                {
+                    layer >= min && layer <= max
+                } else {
+                    false
+                }
+            }
+        }
     }
 
     pub fn set_transparent_vision(&self, b: bool) {
@@ -269,11 +303,23 @@ impl Viewer {
     }
 
     pub fn load_object_from_file<P: AsRef<Path>>(&self, path: P) {
-        self.object_server.write().load(path);
+        self.object_server.write().load_from_file(path);
     }
 
     pub fn load_mask_from_file<P: AsRef<Path>>(&self, path: P) {
-        self.mask_server.write().load(path);
+        self.mask_server.write().load_from_file(path);
+    }
+
+    pub fn load_object_from_bytes(&self, name: &str, bytes: &[u8]) {
+        self.object_server
+            .write()
+            .load_from_bytes(name.to_string(), bytes);
+    }
+
+    pub fn load_mask_from_bytes(&self, name: &str, bytes: &[u8]) {
+        self.mask_server
+            .write()
+            .load_from_bytes(name.to_string(), bytes);
     }
 }
 
@@ -281,7 +327,7 @@ impl Viewer {
 impl Viewer {
     pub fn mouse_delta(&self, event: MouseMotionEvent) {
         match *self.mode.read() {
-            Some(Mode::Prepare) => {
+            Some(Mode::Prepare(PrepareMode::Objects)) => {
                 if let Some(model) = self.object_server.read().check_hit(&event.ray, 0, false) {
                     self.update_tooltip(Some(ViewerTooltip::new(
                         "Obj".to_string(),
@@ -297,7 +343,7 @@ impl Viewer {
                     self.update_tooltip(None);
                 }
             }
-            Some(Mode::Masks) => {
+            Some(Mode::Prepare(PrepareMode::Masks)) => {
                 if let Some(model) = self.mask_server.read().check_hit(&event.ray, 0, false) {
                     self.update_tooltip(Some(ViewerTooltip::new(
                         "Mask".to_string(),
@@ -322,7 +368,7 @@ impl Viewer {
         if event.state.is_pressed() {
             if let MouseButton::Right = event.button {
                 match *self.mode.read() {
-                    Some(Mode::Prepare) => {
+                    Some(Mode::Prepare(PrepareMode::Objects)) => {
                         if let Some(model) =
                             self.object_server.read().check_hit(&event.ray, 0, false)
                         {
@@ -331,7 +377,7 @@ impl Viewer {
                             self.object_selector.write().select(interact_model);
                         }
                     }
-                    Some(Mode::Masks) => {
+                    Some(Mode::Prepare(PrepareMode::Masks)) => {
                         if let Some(model) = self.mask_server.read().check_hit(&event.ray, 0, false)
                         {
                             let interact_model = model as Arc<dyn InteractiveModel>;
@@ -365,8 +411,12 @@ impl Viewer {
                 #[allow(clippy::single_match)]
                 match key {
                     KeyCode::Delete => match *self.mode.read() {
-                        Some(Mode::Prepare) => self.object_selector.write().delete_selected(),
-                        Some(Mode::Masks) => self.mask_selector.write().delete_selected(),
+                        Some(Mode::Prepare(PrepareMode::Objects)) => {
+                            self.object_selector.write().delete_selected()
+                        }
+                        Some(Mode::Prepare(PrepareMode::Masks)) => {
+                            self.mask_selector.write().delete_selected()
+                        }
                         _ => (),
                     },
                     _ => (),
@@ -401,7 +451,7 @@ impl Viewer {
                     env_server_read.render_wire(&mut render_pass);
                     sliced_object_server_read.render_travel(&mut render_pass);
                 }
-                Mode::Prepare => {
+                Mode::Prepare(PrepareMode::Objects) => {
                     render_pass.set_pipeline(&pipelines.back_cull);
                     model_server_read.render(&mut render_pass);
 
@@ -411,7 +461,7 @@ impl Viewer {
                     render_pass.set_pipeline(&pipelines.line);
                     env_server_read.render_wire(&mut render_pass);
                 }
-                Mode::Masks => {
+                Mode::Prepare(PrepareMode::Masks) => {
                     render_pass.set_pipeline(&pipelines.back_cull);
                     mask_server_read.render(&mut render_pass);
 
@@ -448,7 +498,7 @@ impl Viewer {
                     mask_server_read.render(&mut render_pass);
                     model_server_read.render(&mut render_pass);
                 }
-                Mode::Prepare => {
+                Mode::Prepare(PrepareMode::Objects) => {
                     render_pass.set_pipeline(&pipelines.line);
                     object_selector_read.render_wire(&mut render_pass);
 
@@ -458,7 +508,7 @@ impl Viewer {
                     render_pass.set_pipeline(&pipelines.back_cull);
                     mask_server_read.render(&mut render_pass);
                 }
-                Mode::Masks => {
+                Mode::Prepare(PrepareMode::Masks) => {
                     render_pass.set_pipeline(&pipelines.line);
                     mask_selector_read.render_wire(&mut render_pass);
 

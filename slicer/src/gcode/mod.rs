@@ -30,12 +30,14 @@ impl SlicedGCode {
 
 struct LineWriter {
     buffer: String,
+    line_count: usize,
 }
 
 impl LineWriter {
     pub fn new() -> Self {
         Self {
             buffer: String::new(),
+            line_count: 0,
         }
     }
 
@@ -44,13 +46,16 @@ impl LineWriter {
     }
 
     pub fn line_count(&self) -> usize {
-        self.buffer.lines().count()
+        self.line_count
     }
 }
 
 impl Write for LineWriter {
     fn write(&mut self, buf: &[u8]) -> std::io::Result<usize> {
         let s = std::str::from_utf8(buf).unwrap();
+
+        self.line_count += s.chars().filter(|c| *c == '\n').count();
+
         self.buffer.push_str(s);
 
         Ok(buf.len())
@@ -364,7 +369,7 @@ pub fn build_gcode(
     let mut layer_count = 0;
     let mut current_object = None;
 
-    let mut navigator = Navigator::new();
+    let mut navigator = Navigator::new(cmds.len());
 
     let start = convert_instructions(
         settings.starting_instructions.clone(),

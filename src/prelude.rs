@@ -261,16 +261,47 @@ pub enum TransformationMode {
 }
 
 #[derive(PartialEq, Eq, Clone, Copy, Debug)]
+pub enum PrepareMode {
+    Objects,
+    Masks,
+}
+
+#[derive(Clone, Copy, Debug)]
 pub enum Mode {
     Preview,
-    Prepare,
-    Masks,
+    Prepare(PrepareMode),
+}
+
+impl PartialEq for Mode {
+    fn eq(&self, other: &Self) -> bool {
+        matches!(
+            (self, other),
+            (Self::Preview, Self::Preview) | (Self::Prepare(_), Self::Prepare(_))
+        )
+    }
+}
+
+impl Eq for Mode {}
+
+impl Mode {
+    pub fn eq_prepare(&self, other: &Self) -> bool {
+        match (self, other) {
+            (Self::Preview, Self::Preview) => true,
+            (Self::Prepare(a), Self::Prepare(b)) => a == b,
+            _ => false,
+        }
+    }
 }
 
 impl Default for Mode {
     fn default() -> Self {
-        Self::Prepare
+        Self::Prepare(PrepareMode::Objects)
     }
+}
+
+pub trait Destroyable {
+    fn destroy(&self);
+    fn is_destroyed(&self) -> bool;
 }
 
 pub use event::{create_event_bundle, EventReader, EventWriter};

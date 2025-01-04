@@ -39,7 +39,7 @@ glam = "0.29.2"
 bytemuck = "1.21.0"
 simple-logging = "2.0.2"
 log = "0.4.21"
-egui-toast = { git = "https://github.com/GodGotzi/egui-toast.git", branch = "named_toasts" }
+egui-toast = { git = "https://github.com/GodGotzi/egui-toast.git" }
 # puffin_egui = { git = "https://github.com/EmbarkStudios/puffin" }
 futures-channel = "0.3.31"
 

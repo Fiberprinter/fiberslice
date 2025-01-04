@@ -14,15 +14,21 @@ use geo::coordinate_position::CoordPos;
 use geo::coordinate_position::CoordinatePosition;
 use geo::prelude::*;
 use geo::*;
+use geo_clipper::Clipper;
+use glam::vec2;
 pub use infill::*;
 use itertools::Itertools;
+use log::info;
 use ordered_float::OrderedFloat;
 use polygon_operations::PolygonOperations;
+use rayon::iter::{IntoParallelRefIterator, ParallelIterator};
+use rayon::slice::ParallelSlice;
 use walls::*;
 
 pub trait Plotter {
     fn slice_walls_into_chains(&mut self, number_of_perimeters: usize, layer: usize);
     fn shrink_layer(&mut self);
+    fn fill_remaining_area_partially(&mut self, layer_count: usize, ctx: &PassContext);
     fn fill_remaining_area(&mut self, solid: bool, layer_count: usize, ctx: &PassContext);
     fn fill_solid_subtracted_area(
         &mut self,
@@ -97,6 +103,43 @@ impl Plotter for Slice {
                 .as_ref()
                 .map(|interface| interface.offset_from(-shrink_amount));
             self.remaining_area = self.remaining_area.offset_from(-shrink_amount);
+        }
+    }
+
+    fn fill_remaining_area_partially(&mut self, layer_count: usize, ctx: &PassContext) {
+        let mut remaining_polygons = vec![];
+
+        //For each region still available fill wih infill
+        for poly in self.remaining_area.iter() {
+            let fill_ratio = if ctx.is_fiber_pass() {
+                self.layer_settings.fiber.infill.infill_percentage
+            } else {
+                self.layer_settings.infill_percentage
+            };
+
+            let new_moves = partial_infill_polygon(
+                poly,
+                &self.layer_settings,
+                fill_ratio,
+                layer_count,
+                self.get_height(),
+                ctx,
+            );
+
+            let trace_polygons: Vec<Polygon<f32>> =
+                new_moves.par_iter().map(|chain| chain.into()).collect();
+
+            for chain in new_moves {
+                self.chains.push(chain);
+            }
+
+            poly.difference_with(&MultiPolygon(trace_polygons))
+                .into_iter()
+                .for_each(|poly| remaining_polygons.push(poly));
+        }
+
+        if ctx.is_subtract_pass() {
+            self.remaining_area = MultiPolygon(remaining_polygons)
         }
     }
 
@@ -485,6 +528,73 @@ impl Plotter for Slice {
             }
         }
     }
+}
+
+fn perpendicular_vector(dx: f32, dy: f32, length: f32) -> (f32, f32) {
+    let magnitude = (dx.powi(2) + dy.powi(2)).sqrt();
+    let unit_dx = dx / magnitude;
+    let unit_dy = dy / magnitude;
+    (-unit_dy * length, unit_dx * length)
+}
+
+impl From<&MoveChain> for Polygon<f32> {
+    fn from(chain: &MoveChain) -> Self {
+        let points = chain
+            .moves
+            .iter()
+            .filter_map(|m| match m.move_type {
+                MoveType::WithFiber(_) | MoveType::WithoutFiber(_) => Some((m.end, m.width / 2.0)),
+                _ => None,
+            })
+            .collect_vec();
+
+        let mut outer_ring = Vec::with_capacity(points.len());
+        let mut inner_ring = Vec::with_capacity(points.len());
+
+        // Iterate through each segment
+        for window in points.windows(2) {
+            push_trace_segment(&mut outer_ring, &mut inner_ring, window[0], window[1]);
+        }
+
+        // Close the polygon
+        inner_ring.reverse();
+        outer_ring.extend(inner_ring);
+        outer_ring.push(outer_ring[0]); // Close the ring
+
+        Polygon::new(outer_ring.into(), vec![])
+    }
+}
+
+fn push_trace_segment(
+    outer_ring: &mut Vec<Coord<f32>>,
+    inner_ring: &mut Vec<Coord<f32>>,
+    (start, _): (Coord<f32>, f32),
+    (end, end_width): (Coord<f32>, f32),
+) {
+    let dx = end.x - start.x;
+    let dy = end.y - start.y;
+
+    // Calculate perpendicular vectors for the buffer
+    let (px, py) = perpendicular_vector(dx, dy, end_width);
+
+    // Add points to the outer and inner rings
+    outer_ring.push(Coord {
+        x: start.x + px,
+        y: start.y + py,
+    });
+    outer_ring.push(Coord {
+        x: end.x + px,
+        y: end.y + py,
+    });
+
+    inner_ring.push(Coord {
+        x: start.x - px,
+        y: start.y - py,
+    });
+    inner_ring.push(Coord {
+        x: end.x - px,
+        y: end.y - py,
+    });
 }
 
 fn get_optimal_bridge_angle(fill_area: &Polygon<f32>, unsupported_area: &MultiPolygon<f32>) -> f32 {

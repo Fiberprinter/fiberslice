@@ -13,7 +13,6 @@ use tower::create_towers;
 
 mod calculation;
 mod command_pass;
-mod dispatcher;
 mod error;
 mod gcode;
 mod mask;
@@ -188,7 +187,7 @@ fn generate_moves(
             //Handle Support
             SupportPass::pass(slices, settings)?;
 
-            FiberPass::pass(slices, settings)?;
+            FiberInfillPass::pass(slices, settings)?;
 
             //Lightning Infill
             LightningFillPass::pass(slices, settings)?;

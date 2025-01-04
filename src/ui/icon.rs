@@ -2,7 +2,7 @@ use egui::ImageSource;
 
 use crate::viewer::Orientation;
 
-use super::components::addons::gizmo::GizmoTool;
+use super::components::addons::{cad_tools::CADTool, gizmo::GizmoTool};
 
 pub fn get_orientation_asset(orientation: Orientation) -> ImageSource<'static> {
     match orientation {
@@ -21,5 +21,28 @@ pub fn get_gizmo_tool_icon(tool: GizmoTool) -> ImageSource<'static> {
         GizmoTool::Rotate => egui::include_image!("assets/gizmo_rotate.svg"),
         GizmoTool::Scale => egui::include_image!("assets/gizmo_scale.svg"),
         GizmoTool::Flatten => egui::include_image!("assets/gizmo_flatten.svg"),
+    }
+}
+
+pub fn get_cad_tool_icon(tool: CADTool) -> ImageSource<'static> {
+    match tool {
+        CADTool::Import => {
+            egui::include_image!("assets/cad_import.svg")
+        }
+        CADTool::ObjectMode => {
+            egui::include_image!("assets/cad_object_mode.png")
+        }
+        CADTool::MaskMode => {
+            egui::include_image!("assets/cad_mask_mode.svg")
+        }
+        CADTool::AddCone => {
+            egui::include_image!("assets/cad_obj_cone.svg")
+        }
+        CADTool::AddCube => {
+            egui::include_image!("assets/cad_obj_cube.svg")
+        }
+        CADTool::AddCylinder => {
+            egui::include_image!("assets/cad_obj_cylinder.svg")
+        }
     }
 }

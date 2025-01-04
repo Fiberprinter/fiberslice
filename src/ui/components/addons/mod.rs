@@ -11,12 +11,13 @@ use gizmo::GizmoTools;
 use orientation::OrientationAddon;
 
 use crate::config::gui::shaded_color;
-use crate::prelude::Mode;
+use crate::prelude::{Mode, PrepareMode};
 use crate::ui::boundary::Boundary;
 use crate::ui::{ui_temp_mut, AllocateInnerUiRect, UiState};
 use crate::ui::{UiComponentState, UiInnerComponent};
 use crate::{GlobalState, RootEvent};
 
+pub mod cad_tools;
 pub mod gizmo;
 
 pub mod orientation {
@@ -27,7 +28,7 @@ pub mod orientation {
 
     use crate::{
         config::{self, gui::shaded_color},
-        ui::{icon::get_orientation_asset, UiState},
+        ui::{icon::get_orientation_asset, visual::customize_look_and_feel, UiState},
         viewer::CameraEvent,
         GlobalState, RootEvent,
     };
@@ -67,6 +68,7 @@ pub mod orientation {
             );
 
             *ui.visuals_mut() = Visuals::light();
+            customize_look_and_feel(ui.visuals_mut());
             ui.visuals_mut().widgets.inactive.weak_bg_fill = Color32::TRANSPARENT;
 
             let response = builder.cell(Size::remainder()).show(ui, |mut grid| {
@@ -79,7 +81,7 @@ pub mod orientation {
 
                         let icon = get_orientation_asset(orientation);
 
-                        let image_button = ImageButton::new(icon).frame(true);
+                        let image_button = ImageButton::new(icon).rounding(5.0).frame(true);
 
                         ui.allocate_ui(
                             [button.size.0 + button.border, button.size.1 + button.border].into(),
@@ -112,6 +114,7 @@ pub mod orientation {
 
 pub struct AddonsState {
     gizmo_tools: gizmo::GizmoTools,
+    cad_tools: cad_tools::CADTools,
     enabled: bool,
 }
 
@@ -119,6 +122,7 @@ impl AddonsState {
     pub fn new() -> Self {
         Self {
             gizmo_tools: GizmoTools::default(),
+            cad_tools: cad_tools::CADTools::default(),
             enabled: true,
         }
     }
@@ -151,57 +155,42 @@ impl<'a> Addons<'a> {
         ui.add(OrientationAddon::new(shared_state));
     }
 
-    fn show_bottom_addon(
-        &mut self,
-        ui: &mut Ui,
-        (ui_state, _global_state): &(UiState, GlobalState<RootEvent>),
-    ) {
+    fn show_bottom_addon(&mut self, ui: &mut Ui, shared_state: &(UiState, GlobalState<RootEvent>)) {
         let shaded_color = shaded_color(ui.visuals().dark_mode);
 
-        ui_state.mode.read_with_fn(|mode| match mode {
-            Mode::Preview => {
-                /*
-                ui.allocate_ui_in_rect(
-                    Rect::from_two_pos(
-                        Pos2::new(ui.available_width() * 0.25, 0.0),
-                        Pos2::new(ui.available_width() * 0.75, ui.available_height()),
-                    ),
-                    |ui| {
-                        ui_state.time_stamp.write_with_fn(|time_stamp| {
-                            ui.spacing_mut().slider_width = ui.available_width();
+        let mode = *shared_state.0.mode.read();
 
-                            ui_temp_mut(
-                                ui,
-                                ui.available_width(),
-                                |ui| &mut ui.spacing_mut().slider_width,
-                                |ui| {
-                                    let slider = egui::Slider::new(time_stamp, 0..=120)
-                                        .orientation(egui::SliderOrientation::Horizontal);
-                                    ui.add_sized(ui.available_size(), slider);
-                                },
-                            );
-                        });
-                    },
+        match mode {
+            Mode::Preview => {}
+            Mode::Prepare(_) => {
+                load_layout!(
+                    <Strip direction="west">
+                        <Panel size="remainder"></Panel>
+                        <Panel size="exact" value="70">
+                            ui.painter()
+                                .rect_filled(ui.available_rect_before_wrap(), 5.0, shaded_color);
+
+                            self.state.cad_tools.show_left(ui, shared_state);
+                        </Panel>
+                        <Panel size="exact" value="20"></Panel>
+                        <Panel size="exact" value="210">
+                            ui.painter()
+                                .rect_filled(ui.available_rect_before_wrap(), 5.0, shaded_color);
+
+                            self.state.cad_tools.show_objects(ui, shared_state);
+                        </Panel>
+                        <Panel size="exact" value="20"></Panel>
+                        <Panel size="exact" value="140">
+                            ui.painter()
+                                .rect_filled(ui.available_rect_before_wrap(), 5.0, shaded_color);
+
+                            self.state.cad_tools.show_right(ui, shared_state);
+                        </Panel>
+                        <Panel size="remainder"></Panel>
+                    </Strip>
                 );
-                */
             }
-            Mode::Prepare => {}
-            Mode::Masks => {
-                ui.allocate_ui_in_rect(
-                    Rect::from_two_pos(
-                        Pos2::new(ui.available_width() * 0.25, 0.0),
-                        Pos2::new(ui.available_width() * 0.75, ui.available_height()),
-                    ),
-                    |ui| {
-                        ui.painter().rect_filled(
-                            ui.available_rect_before_wrap(),
-                            5.0,
-                            shaded_color,
-                        );
-                    },
-                );
-            }
-        });
+        }
     }
 
     fn show_right_addon(
@@ -252,8 +241,7 @@ impl<'a> Addons<'a> {
                     },
                 );
             }
-            Mode::Prepare => {}
-            Mode::Masks => {}
+            Mode::Prepare(_) => {}
         });
     }
 
@@ -262,7 +250,7 @@ impl<'a> Addons<'a> {
 
         shared_state.0.mode.read_with_fn(|mode| match mode {
             Mode::Preview => {}
-            Mode::Prepare => {
+            Mode::Prepare(PrepareMode::Objects) => {
                 ui.allocate_ui_in_rect(
                     Rect::from_two_pos(
                         Pos2::new(0.0, ui.available_height() * 0.25),
@@ -279,7 +267,7 @@ impl<'a> Addons<'a> {
                     },
                 );
             }
-            Mode::Masks => {
+            Mode::Prepare(PrepareMode::Masks) => {
                 ui.allocate_ui_in_rect(
                     Rect::from_two_pos(
                         Pos2::new(0.0, ui.available_height() * 0.25),
@@ -342,8 +330,8 @@ impl<'a> UiInnerComponent for Addons<'a> {
                             </Panel>
                         </Strip>
                     </Panel>
-                    <Panel size="exact" value="80">
-                        if available_size.y >= 80.0 {
+                    <Panel size="exact" value="60">
+                        if available_size.y >= 60.0 {
                             self.show_bottom_addon(ui, shared_state);
                         }
                     </Panel>

@@ -35,7 +35,7 @@ impl Default for GCodeToolState {
     }
 }
 
-impl_tool_state_trait!(GCodeToolState, "GCode", "📄");
+impl_tool_state_trait!(GCodeToolState, "GCode", "gcode_tool.svg");
 
 create_tool!(GCodeTool, GCodeToolState);
 impl_with_state!(GCodeTool, GCodeToolState);

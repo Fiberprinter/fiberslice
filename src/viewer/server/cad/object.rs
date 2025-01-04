@@ -2,7 +2,10 @@ use core::f32;
 use std::{collections::HashMap, path::Path, sync::Arc};
 
 use glam::{vec3, Mat4, Quat, Vec3, Vec3Swizzles};
-use shared::{loader::Loader, object::ObjectMesh};
+use shared::{
+    loader::{BytesLoader, FileLoader},
+    object::ObjectMesh,
+};
 
 use slicer::Settings;
 use tokio::{sync::oneshot::error::TryRecvError, task::JoinHandle};
@@ -13,12 +16,12 @@ use wgpu::{util::DeviceExt, Color};
 use crate::{
     geometry::mesh::{vec3s_into_vertices, IntoArrayColor},
     input::{hitbox::HitboxRoot, interact::InteractiveModel},
-    prelude::WgpuContext,
+    prelude::{Destroyable, WgpuContext},
     render::{
         model::{ModelColorUniform, Transform},
         Renderable,
     },
-    ui::{api::trim_text, custom_toasts::MODEL_LOAD_PROGRESS},
+    ui::{api::trim_text, custom_toasts::OBJECT_LOAD_PROGRESS},
     viewer::RenderServer,
     GlobalState, RootEvent, GLOBAL_STATE, QUEUE,
 };
@@ -111,7 +114,7 @@ impl RenderServer for ObjectServer {
 }
 
 impl ObjectServer {
-    pub fn load<P>(&mut self, path: P)
+    pub fn load_from_file<P>(&mut self, path: P)
     where
         P: AsRef<Path>,
     {
@@ -134,135 +137,164 @@ impl ObjectServer {
                 }
             };
 
-            let (min, max) = mesh.min_max();
+            let result = Self::load(file_name, mesh);
 
-            let global_state = GLOBAL_STATE.read();
-            let global_state = global_state.as_ref().unwrap();
-
-            let process_tracking = global_state
-                .progress_tracker
-                .write()
-                .add(MODEL_LOAD_PROGRESS, trim_text::<20, 4>(&path));
-
-            let vertices: Vec<Vec3> = mesh.vertices().iter().map(|v| v.xzy()).collect();
-
-            let mut triangles: Vec<(shared::IndexedTriangle, Vec3)> = mesh
-                .triangles()
-                .iter()
-                .map(|triangle| {
-                    // calculate the normal of the triangle
-                    let normal = (vertices[triangle[1]] - vertices[triangle[0]])
-                        .cross(vertices[triangle[2]] - vertices[triangle[0]])
-                        .normalize();
-
-                    (*triangle, normal)
-                })
-                .collect();
-
-            process_tracking.set_task(
-                "
-Clustering models"
-                    .to_string(),
-            );
-            process_tracking.set_progress(0.0);
-            let models = clusterize_models(&triangles);
-
-            process_tracking.set_task("Creating vertices".to_string());
-            process_tracking.set_progress(0.2);
-            let vertices = triangles
-                .iter_mut()
-                .fold(Vec::new(), |mut vec, (triangle, _)| {
-                    vec.push(vertices[triangle[0]]);
-                    triangle[0] = vec.len() - 1;
-                    vec.push(vertices[triangle[1]]);
-                    triangle[1] = vec.len() - 1;
-                    vec.push(vertices[triangle[2]]);
-                    triangle[2] = vec.len() - 1;
-                    vec
-                });
-
-            process_tracking.set_task("Clustering faces".to_string());
-            process_tracking.set_progress(0.4);
-            let plane_entries = clusterize_faces(&triangles, &vertices);
-
-            process_tracking.set_task("Creating polygons".to_string());
-            process_tracking.set_progress(0.6);
-            let polygons: Vec<PolygonFace> = plane_entries
-                .iter()
-                .map(|entry| PolygonFace::from_entry(entry.clone(), &triangles, &vertices))
-                .collect();
-
-            let mut triangle_vertices = vec3s_into_vertices(vertices.clone(), Color::BLACK);
-
-            process_tracking.set_task("Filtering polygons".to_string());
-            process_tracking.set_progress(0.8);
-            let polygon_faces: Vec<PolygonFace> = polygons
-                .into_iter()
-                .filter(|face| {
-                    let x = face.max.x - face.min.x;
-                    let y = face.max.y - face.min.y;
-                    let z = face.max.z - face.min.z;
-
-                    if x < y && x < z {
-                        z > 2.0 && y > 2.0
-                    } else if y < x && y < z {
-                        x > 2.0 && z > 2.0
-                    } else {
-                        x > 2.0 && y > 2.0
-                    }
-                })
-                .collect();
-
-            process_tracking.set_task("Coloring polygons".to_string());
-            process_tracking.set_progress(0.85);
-            models.iter().for_each(|indices| {
-                let r = rand::random::<f64>();
-                let g = rand::random::<f64>();
-                let b = rand::random::<f64>();
-
-                for triangle in indices.iter() {
-                    triangle_vertices[triangles[*triangle].0[0]].color =
-                        Color { r, g, b, a: 1.0 }.to_array();
-
-                    triangle_vertices[triangles[*triangle].0[1]].color =
-                        Color { r, g, b, a: 1.0 }.to_array();
-
-                    triangle_vertices[triangles[*triangle].0[2]].color =
-                        Color { r, g, b, a: 1.0 }.to_array();
-                }
-            });
-
-            process_tracking.set_task("Creating models".to_string());
-            process_tracking.set_progress(0.9);
-            let mut root = polygon_faces.clone().into_iter().fold(
-                CADObject::create_root(min.xzy(), max.xzy(), file_name),
-                |mut root, face| {
-                    root.push_face(face);
-
-                    root
-                },
-            );
-
-            root.awaken(&triangle_vertices);
-
-            root.transform(Mat4::from_translation(vec3(0.0, -min.xzy().y, 0.0)));
-
-            process_tracking.set_progress(0.95);
-
-            tx.send(Ok(LoadResult {
-                process: process_tracking,
-                model: root,
-                mesh,
-                origin_path: path,
-            }))
-            .unwrap();
+            tx.send(result).unwrap()
         });
 
         self.queue.push((rx, handle));
     }
+
+    pub fn load_from_bytes(&mut self, name: String, bytes: &[u8]) {
+        let (tx, rx) = tokio::sync::oneshot::channel();
+
+        let bytes = bytes.to_vec();
+
+        let handle = tokio::spawn(async move {
+            let mesh = match (shared::loader::STLLoader {}).load_from_bytes(&bytes) {
+                Ok(model) => model,
+                Err(e) => {
+                    tx.send(Err(Error::LoadError(e))).unwrap();
+
+                    return;
+                }
+            };
+
+            let result = Self::load(name, mesh);
+
+            tx.send(result).unwrap()
+        });
+
+        self.queue.push((rx, handle));
+    }
+
+    fn load(name: String, mesh: ObjectMesh) -> CADObjectResult {
+        let (min, max) = mesh.min_max();
+
+        let global_state = GLOBAL_STATE.read();
+        let global_state = global_state.as_ref().unwrap();
+
+        let process_tracking = global_state
+            .progress_tracker
+            .write()
+            .add(OBJECT_LOAD_PROGRESS, trim_text::<20, 4>(&name));
+
+        let vertices: Vec<Vec3> = mesh.vertices().iter().map(|v| v.xzy()).collect();
+
+        let mut triangles: Vec<(shared::IndexedTriangle, Vec3)> = mesh
+            .triangles()
+            .iter()
+            .map(|triangle| {
+                // calculate the normal of the triangle
+                let normal = (vertices[triangle[1]] - vertices[triangle[0]])
+                    .cross(vertices[triangle[2]] - vertices[triangle[0]])
+                    .normalize();
+
+                (*triangle, normal)
+            })
+            .collect();
+
+        process_tracking.set_task(
+            "
+Clustering models"
+                .to_string(),
+        );
+        process_tracking.set_progress(0.0);
+        let models = clusterize_models(&triangles);
+
+        process_tracking.set_task("Creating vertices".to_string());
+        process_tracking.set_progress(0.2);
+        let vertices = triangles
+            .iter_mut()
+            .fold(Vec::new(), |mut vec, (triangle, _)| {
+                vec.push(vertices[triangle[0]]);
+                triangle[0] = vec.len() - 1;
+                vec.push(vertices[triangle[1]]);
+                triangle[1] = vec.len() - 1;
+                vec.push(vertices[triangle[2]]);
+                triangle[2] = vec.len() - 1;
+                vec
+            });
+
+        process_tracking.set_task("Clustering faces".to_string());
+        process_tracking.set_progress(0.4);
+        let plane_entries = clusterize_faces(&triangles, &vertices);
+
+        process_tracking.set_task("Creating polygons".to_string());
+        process_tracking.set_progress(0.6);
+        let polygons: Vec<PolygonFace> = plane_entries
+            .iter()
+            .map(|entry| PolygonFace::from_entry(entry.clone(), &triangles, &vertices))
+            .collect();
+
+        let mut triangle_vertices = vec3s_into_vertices(vertices.clone(), Color::BLACK);
+
+        process_tracking.set_task("Filtering polygons".to_string());
+        process_tracking.set_progress(0.8);
+        let polygon_faces: Vec<PolygonFace> = polygons
+            .into_iter()
+            .filter(|face| {
+                let x = face.max.x - face.min.x;
+                let y = face.max.y - face.min.y;
+                let z = face.max.z - face.min.z;
+
+                if x < y && x < z {
+                    z > 2.0 && y > 2.0
+                } else if y < x && y < z {
+                    x > 2.0 && z > 2.0
+                } else {
+                    x > 2.0 && y > 2.0
+                }
+            })
+            .collect();
+
+        process_tracking.set_task("Coloring polygons".to_string());
+        process_tracking.set_progress(0.85);
+        models.iter().for_each(|indices| {
+            let r = rand::random::<f64>();
+            let g = rand::random::<f64>();
+            let b = rand::random::<f64>();
+
+            for triangle in indices.iter() {
+                triangle_vertices[triangles[*triangle].0[0]].color =
+                    Color { r, g, b, a: 1.0 }.to_array();
+
+                triangle_vertices[triangles[*triangle].0[1]].color =
+                    Color { r, g, b, a: 1.0 }.to_array();
+
+                triangle_vertices[triangles[*triangle].0[2]].color =
+                    Color { r, g, b, a: 1.0 }.to_array();
+            }
+        });
+
+        process_tracking.set_task("Creating models".to_string());
+        process_tracking.set_progress(0.9);
+        let mut root = polygon_faces.clone().into_iter().fold(
+            CADObject::create_root(min.xzy(), max.xzy(), name.to_string()),
+            |mut root, face| {
+                root.push_face(face);
+
+                root
+            },
+        );
+
+        root.awaken(&triangle_vertices);
+
+        root.transform(Mat4::from_translation(vec3(0.0, -min.xzy().y, 0.0)));
+
+        process_tracking.set_progress(0.95);
+
+        Ok(LoadResult {
+            process: process_tracking,
+            model: root,
+            mesh,
+            name: name.to_string(),
+        })
+    }
+
     // i love you
     pub fn insert(&mut self, model_handle: LoadResult) -> Result<Arc<CADObject>, Error> {
-        let path: PathBuf = model_handle.origin_path.into();
+        let path: PathBuf = model_handle.name.into();
         let file_name = if let Some(path) = path.file_name() {
             path.to_string()
         } else {
@@ -325,6 +357,8 @@ Clustering models"
                     }
                 };
 
+                model.process.finish();
+
                 self.insert(model)?;
 
                 global_state
@@ -334,6 +368,7 @@ Clustering models"
         }
 
         self.models.retain(|_, model| !model.model.is_destroyed());
+        self.root_hitbox.update();
 
         Ok(())
     }
@@ -379,6 +414,13 @@ Clustering models"
             0,
             bytemuck::cast_slice(&[color_uniform]),
         );
+    }
+
+    pub fn models(&self) -> Vec<(String, Arc<CADObject>)> {
+        self.models
+            .iter()
+            .map(|(name, model)| (name.to_string(), model.model.clone()))
+            .collect()
     }
 
     pub fn check_hit(

@@ -10,7 +10,7 @@ pub struct DebugToolState {
     anchored: bool,
 }
 
-impl_tool_state_trait!(DebugToolState, "Debug", "🐞");
+impl_tool_state_trait!(DebugToolState, "Debug", "debug_tool.svg");
 
 create_tool!(DebugTool, DebugToolState);
 impl_with_state!(DebugTool, DebugToolState);

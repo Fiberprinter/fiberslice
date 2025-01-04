@@ -15,10 +15,10 @@ pub struct Navigator {
 }
 
 impl Navigator {
-    pub fn new() -> Self {
+    pub fn new(move_capacity: usize) -> Self {
         Self {
             layer_indices: Vec::new(),
-            move_mapping: HashMap::new(),
+            move_mapping: HashMap::with_capacity(move_capacity),
         }
     }
 

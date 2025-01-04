@@ -152,8 +152,8 @@ impl<'a> FrameHandle<'a, RootEvent, (UiUpdateOutput, (f32, f32, f32, f32)), ()> 
                 }
             }
 
-            style.visuals.popup_shadow = egui::epaint::Shadow::NONE;
-            style.visuals.window_shadow = egui::epaint::Shadow::NONE;
+            // style.visuals.popup_shadow = egui::epaint::Shadow::NONE;
+            // style.visuals.window_shadow = egui::epaint::Shadow::NONE;
 
             customize_look_and_feel(&mut style.visuals);
         });
@@ -296,7 +296,7 @@ impl<'a> Adapter<'a, RootEvent, UiState, (UiUpdateOutput, (f32, f32, f32, f32)),
                 wgpu_context.window.request_redraw();
             }
             UiEvent::ShowProgressBar(id, name) => {
-                self.screen.add_progress_bar_toast(
+                self.screen.add_process_as_toast(
                     egui_toast::Toast::with_name(name.clone())
                         .kind(egui_toast::ToastKind::Custom(id))
                         .text(name)

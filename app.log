@@ -1,506 +1,1108 @@
-[00:00:00.000] (74cbe1cbe9c0) INFO   Starting up version 0.1.0
-[00:00:00.114] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.000] (735941a849c0) INFO   Starting up version 0.1.0
+[00:00:00.183] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
 	Searching for implicit layer manifest files
-[00:00:00.115] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.115] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.183] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.183] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
 	   In following locations:
-[00:00:00.115] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.115] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.183] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.183] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
 	      /home/gotzi/.config/vulkan/implicit_layer.d
-[00:00:00.115] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.115] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.184] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.184] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
 	      /etc/xdg/vulkan/implicit_layer.d
-[00:00:00.115] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.115] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.184] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.184] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
 	      /etc/vulkan/implicit_layer.d
-[00:00:00.115] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.115] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
-	      /home/gotzi/.local/share/vulkan/implicit_layer.d
-[00:00:00.115] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.115] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
-	      /home/gotzi/.local/share/flatpak/exports/share/vulkan/implicit_layer.d
-[00:00:00.115] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.115] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
-	      /var/lib/flatpak/exports/share/vulkan/implicit_layer.d
-[00:00:00.115] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.115] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.184] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.184] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
+	      /home/gotzi/snap/code/179/.local/share/vulkan/implicit_layer.d
+[00:00:00.184] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.184] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
+	      /home/gotzi/snap/code/179/vulkan/implicit_layer.d
+[00:00:00.184] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.184] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
+	      /snap/code/179/usr/share/vulkan/implicit_layer.d
+[00:00:00.184] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.185] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
 	      /usr/local/share/vulkan/implicit_layer.d
-[00:00:00.115] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.115] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.185] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.185] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
 	      /usr/share/vulkan/implicit_layer.d
-[00:00:00.115] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.115] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.185] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.185] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
 	      /var/lib/snapd/desktop/vulkan/implicit_layer.d
-[00:00:00.115] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.115] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.185] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.185] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
 	   Found the following files:
-[00:00:00.115] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.115] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
-	      /usr/share/vulkan/implicit_layer.d/VkLayer_MESA_device_select.json
-[00:00:00.115] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.115] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.185] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.185] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
 	      /usr/share/vulkan/implicit_layer.d/nvidia_layers.json
-[00:00:00.115] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.115] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
-	Found manifest file /usr/share/vulkan/implicit_layer.d/VkLayer_MESA_device_select.json (file version 1.0.0)
-[00:00:00.115] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.115] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.185] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.185] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
+	      /usr/share/vulkan/implicit_layer.d/VkLayer_MESA_device_select.json
+[00:00:00.186] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.186] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
 	Found manifest file /usr/share/vulkan/implicit_layer.d/nvidia_layers.json (file version 1.0.0)
-[00:00:00.115] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.115] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.186] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.186] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
+	Found manifest file /usr/share/vulkan/implicit_layer.d/VkLayer_MESA_device_select.json (file version 1.0.0)
+[00:00:00.186] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.186] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
 	Searching for explicit layer manifest files
-[00:00:00.115] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.115] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.186] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.186] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
 	   In following locations:
-[00:00:00.115] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.116] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.186] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.186] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
 	      /home/gotzi/.config/vulkan/explicit_layer.d
-[00:00:00.116] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.116] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.187] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.187] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
 	      /etc/xdg/vulkan/explicit_layer.d
-[00:00:00.116] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.116] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.187] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.187] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
 	      /etc/vulkan/explicit_layer.d
-[00:00:00.116] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.116] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
-	      /home/gotzi/.local/share/vulkan/explicit_layer.d
-[00:00:00.116] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.116] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
-	      /home/gotzi/.local/share/flatpak/exports/share/vulkan/explicit_layer.d
-[00:00:00.116] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.116] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
-	      /var/lib/flatpak/exports/share/vulkan/explicit_layer.d
-[00:00:00.116] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.116] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.187] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.187] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
+	      /home/gotzi/snap/code/179/.local/share/vulkan/explicit_layer.d
+[00:00:00.187] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.187] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
+	      /home/gotzi/snap/code/179/vulkan/explicit_layer.d
+[00:00:00.187] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.187] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
+	      /snap/code/179/usr/share/vulkan/explicit_layer.d
+[00:00:00.187] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.187] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
 	      /usr/local/share/vulkan/explicit_layer.d
-[00:00:00.116] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.116] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.187] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.187] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
 	      /usr/share/vulkan/explicit_layer.d
-[00:00:00.116] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.116] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.187] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.187] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
 	      /var/lib/snapd/desktop/vulkan/explicit_layer.d
-[00:00:00.116] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.116] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.188] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.188] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
 	   Found the following files:
-[00:00:00.116] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.116] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.188] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.188] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
 	      /usr/share/vulkan/explicit_layer.d/VkLayer_INTEL_nullhw.json
-[00:00:00.116] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.116] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.188] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.188] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
 	      /usr/share/vulkan/explicit_layer.d/VkLayer_MESA_overlay.json
-[00:00:00.116] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.116] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.188] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.188] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
 	      /usr/share/vulkan/explicit_layer.d/VkLayer_khronos_validation.json
-[00:00:00.116] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.116] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.188] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.188] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
 	Found manifest file /usr/share/vulkan/explicit_layer.d/VkLayer_INTEL_nullhw.json (file version 1.0.0)
-[00:00:00.116] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.116] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.188] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.188] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
 	Found manifest file /usr/share/vulkan/explicit_layer.d/VkLayer_MESA_overlay.json (file version 1.0.0)
-[00:00:00.116] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.116] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.188] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.189] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
 	Found manifest file /usr/share/vulkan/explicit_layer.d/VkLayer_khronos_validation.json (file version 1.2.0)
-[00:00:00.116] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.116] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.189] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.189] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
 	Searching for driver manifest files
-[00:00:00.116] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.116] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.189] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.189] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
 	   In following locations:
-[00:00:00.116] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.116] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.189] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.189] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
 	      /home/gotzi/.config/vulkan/icd.d
-[00:00:00.116] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.116] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.189] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.189] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
 	      /etc/xdg/vulkan/icd.d
-[00:00:00.116] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.116] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.189] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.189] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
 	      /etc/vulkan/icd.d
-[00:00:00.116] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.116] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
-	      /home/gotzi/.local/share/vulkan/icd.d
-[00:00:00.116] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.116] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
-	      /home/gotzi/.local/share/flatpak/exports/share/vulkan/icd.d
-[00:00:00.117] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.117] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
-	      /var/lib/flatpak/exports/share/vulkan/icd.d
-[00:00:00.117] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.117] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.189] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.189] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
+	      /home/gotzi/snap/code/179/.local/share/vulkan/icd.d
+[00:00:00.189] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.189] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
+	      /home/gotzi/snap/code/179/vulkan/icd.d
+[00:00:00.189] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.190] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
+	      /snap/code/179/usr/share/vulkan/icd.d
+[00:00:00.190] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.190] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
 	      /usr/local/share/vulkan/icd.d
-[00:00:00.117] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.117] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.190] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.190] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
 	      /usr/share/vulkan/icd.d
-[00:00:00.117] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.117] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.190] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.190] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
 	      /var/lib/snapd/desktop/vulkan/icd.d
-[00:00:00.117] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.117] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.190] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.190] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
 	   Found the following files:
-[00:00:00.117] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.117] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
-	      /usr/share/vulkan/icd.d/virtio_icd.x86_64.json
-[00:00:00.117] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.117] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
-	      /usr/share/vulkan/icd.d/nvidia_icd.json
-[00:00:00.117] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.117] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
-	      /usr/share/vulkan/icd.d/lvp_icd.x86_64.json
-[00:00:00.117] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.117] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
-	      /usr/share/vulkan/icd.d/intel_icd.x86_64.json
-[00:00:00.117] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.117] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
-	      /usr/share/vulkan/icd.d/intel_hasvk_icd.x86_64.json
-[00:00:00.117] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.117] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.190] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.190] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
 	      /usr/share/vulkan/icd.d/radeon_icd.x86_64.json
-[00:00:00.117] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.117] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
-	Found ICD manifest file /usr/share/vulkan/icd.d/virtio_icd.x86_64.json, version 1.0.0
-[00:00:00.117] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.117] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
-	Found ICD manifest file /usr/share/vulkan/icd.d/nvidia_icd.json, version 1.0.0
-[00:00:00.117] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.117] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
-	Found ICD manifest file /usr/share/vulkan/icd.d/lvp_icd.x86_64.json, version 1.0.0
-[00:00:00.117] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.117] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
-	Found ICD manifest file /usr/share/vulkan/icd.d/intel_icd.x86_64.json, version 1.0.0
-[00:00:00.117] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.117] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
-	Found ICD manifest file /usr/share/vulkan/icd.d/intel_hasvk_icd.x86_64.json, version 1.0.0
-[00:00:00.117] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.117] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.190] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.190] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
+	      /usr/share/vulkan/icd.d/virtio_icd.x86_64.json
+[00:00:00.190] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.191] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
+	      /usr/share/vulkan/icd.d/intel_icd.x86_64.json
+[00:00:00.191] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.191] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
+	      /usr/share/vulkan/icd.d/nvidia_icd.json
+[00:00:00.191] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.191] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
+	      /usr/share/vulkan/icd.d/intel_hasvk_icd.x86_64.json
+[00:00:00.191] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.191] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
+	      /usr/share/vulkan/icd.d/lvp_icd.x86_64.json
+[00:00:00.191] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.191] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
 	Found ICD manifest file /usr/share/vulkan/icd.d/radeon_icd.x86_64.json, version 1.0.0
-[00:00:00.117] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.145] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.191] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.191] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
+	Found ICD manifest file /usr/share/vulkan/icd.d/virtio_icd.x86_64.json, version 1.0.0
+[00:00:00.191] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.191] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
+	Found ICD manifest file /usr/share/vulkan/icd.d/intel_icd.x86_64.json, version 1.0.0
+[00:00:00.191] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.191] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
+	Found ICD manifest file /usr/share/vulkan/icd.d/nvidia_icd.json, version 1.0.0
+[00:00:00.191] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.192] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
+	Found ICD manifest file /usr/share/vulkan/icd.d/intel_hasvk_icd.x86_64.json, version 1.0.0
+[00:00:00.192] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.192] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
+	Found ICD manifest file /usr/share/vulkan/icd.d/lvp_icd.x86_64.json, version 1.0.0
+[00:00:00.192] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.240] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
 	Insert instance layer "VK_LAYER_KHRONOS_validation" (libVkLayer_khronos_validation.so)
-[00:00:00.145] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.145] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.241] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.241] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
 	Insert instance layer "VK_LAYER_MESA_device_select" (libVkLayer_MESA_device_select.so)
-[00:00:00.145] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.145] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.241] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.241] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
 	vkCreateInstance layer callstack setup to:
-[00:00:00.145] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.145] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.241] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.241] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
 	   <Application>
-[00:00:00.145] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.145] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.241] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.241] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
 	     ||
-[00:00:00.145] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.145] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.241] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.241] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
 	   <Loader>
-[00:00:00.145] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.145] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.241] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.241] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
 	     ||
-[00:00:00.145] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.145] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.241] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.241] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
 	   VK_LAYER_MESA_device_select
-[00:00:00.145] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.145] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.242] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.242] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
 	           Type: Implicit
-[00:00:00.145] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.145] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.242] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.242] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
 	               Disable Env Var:  NODEVICE_SELECT
-[00:00:00.145] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.145] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.242] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.242] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
 	           Manifest: /usr/share/vulkan/implicit_layer.d/VkLayer_MESA_device_select.json
-[00:00:00.145] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.145] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.242] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.242] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
 	           Library:  libVkLayer_MESA_device_select.so
-[00:00:00.145] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.146] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.242] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.242] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
 	     ||
-[00:00:00.146] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.146] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.242] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.242] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
 	   VK_LAYER_KHRONOS_validation
-[00:00:00.146] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.146] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.242] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.242] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
 	           Type: Explicit
-[00:00:00.146] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.146] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.242] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.242] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
 	           Manifest: /usr/share/vulkan/explicit_layer.d/VkLayer_khronos_validation.json
-[00:00:00.146] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.146] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.242] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.243] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
 	           Library:  libVkLayer_khronos_validation.so
-[00:00:00.146] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.146] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.243] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.243] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
 	     ||
-[00:00:00.146] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.146] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.243] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.243] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
 	   <Drivers>
-[00:00:00.146] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.147] (74cbe1cbe9c0) WARN   GENERAL [Loader Message (0x0)]
+[00:00:00.243] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.246] (735941a849c0) WARN   GENERAL [Loader Message (0x0)]
 	terminator_CreateInstance: Received return code -3 from call to vkCreateInstance in ICD /usr/lib/x86_64-linux-gnu/libvulkan_virtio.so. Skipping this driver.
-[00:00:00.147] (74cbe1cbe9c0) WARN   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.156] (74cbe1cbe9c0) INFO   VALIDATION [WARNING-CreateInstance-status-message (0x23dfd876)]
-	Validation Information: [ WARNING-CreateInstance-status-message ] Object 0: handle = 0x639e05f31e90, type = VK_OBJECT_TYPE_INSTANCE; | MessageID = 0x23dfd876 | vkCreateInstance():  Khronos Validation Layer Active:
+[00:00:00.246] (735941a849c0) WARN   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.260] (735941a849c0) INFO   VALIDATION [WARNING-CreateInstance-status-message (0x23dfd876)]
+	Validation Information: [ WARNING-CreateInstance-status-message ] Object 0: handle = 0x636d4bcf7eb0, type = VK_OBJECT_TYPE_INSTANCE; | MessageID = 0x23dfd876 | vkCreateInstance():  Khronos Validation Layer Active:
     Settings File: None. Default location is /home/gotzi/Projects/fiberslice-5d\vk_layer_settings.txt.
     Current Enables: VK_VALIDATION_FEATURE_ENABLE_SYNCHRONIZATION_VALIDATION.
     Current Disables: None.
 
-[00:00:00.156] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.157] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.260] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.265] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
 	linux_read_sorted_physical_devices:
-[00:00:00.157] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.157] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.265] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.265] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
 	     Original order:
-[00:00:00.157] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.157] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
-	           [0] Intel(R) Xe Graphics (TGL GT2)
-[00:00:00.157] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.157] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
-	           [1] llvmpipe (LLVM 17.0.6, 256 bits)
-[00:00:00.157] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.157] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
-	           [2] NVIDIA GeForce RTX 3060 Laptop GPU
-[00:00:00.157] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.157] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.265] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.265] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
+	           [0] llvmpipe (LLVM 17.0.6, 256 bits)
+[00:00:00.265] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.265] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
+	           [1] NVIDIA GeForce GTX 1660 Ti
+[00:00:00.265] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.265] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
 	     Sorted order:
-[00:00:00.157] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.157] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
-	           [0] NVIDIA GeForce RTX 3060 Laptop GPU  
-[00:00:00.157] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.157] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
-	           [1] Intel(R) Xe Graphics (TGL GT2)  
-[00:00:00.158] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.158] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
-	           [2] llvmpipe (LLVM 17.0.6, 256 bits)  
-[00:00:00.158] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.158] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.266] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.266] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
+	           [0] NVIDIA GeForce GTX 1660 Ti  
+[00:00:00.266] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.266] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
+	           [1] llvmpipe (LLVM 17.0.6, 256 bits)  
+[00:00:00.266] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.266] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
 	linux_read_sorted_physical_devices:
-[00:00:00.158] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.158] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.266] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.266] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
 	     Original order:
-[00:00:00.158] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.158] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
-	           [0] Intel(R) Xe Graphics (TGL GT2)
-[00:00:00.158] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.158] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
-	           [1] llvmpipe (LLVM 17.0.6, 256 bits)
-[00:00:00.158] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.158] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
-	           [2] NVIDIA GeForce RTX 3060 Laptop GPU
-[00:00:00.158] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.158] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.266] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.266] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
+	           [0] llvmpipe (LLVM 17.0.6, 256 bits)
+[00:00:00.266] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.266] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
+	           [1] NVIDIA GeForce GTX 1660 Ti
+[00:00:00.266] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.266] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
 	     Sorted order:
-[00:00:00.158] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.158] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
-	           [0] NVIDIA GeForce RTX 3060 Laptop GPU  
-[00:00:00.158] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.158] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
-	           [1] Intel(R) Xe Graphics (TGL GT2)  
-[00:00:00.158] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.158] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
-	           [2] llvmpipe (LLVM 17.0.6, 256 bits)  
-[00:00:00.158] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.158] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.266] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.266] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
+	           [0] NVIDIA GeForce GTX 1660 Ti  
+[00:00:00.266] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.266] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
+	           [1] llvmpipe (LLVM 17.0.6, 256 bits)  
+[00:00:00.267] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.267] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
 	linux_read_sorted_physical_devices:
-[00:00:00.158] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.158] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.267] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.267] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
 	     Original order:
-[00:00:00.158] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.158] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
-	           [0] Intel(R) Xe Graphics (TGL GT2)
-[00:00:00.158] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.158] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
-	           [1] llvmpipe (LLVM 17.0.6, 256 bits)
-[00:00:00.158] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.158] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
-	           [2] NVIDIA GeForce RTX 3060 Laptop GPU
-[00:00:00.158] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.158] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.267] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.267] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
+	           [0] llvmpipe (LLVM 17.0.6, 256 bits)
+[00:00:00.267] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.267] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
+	           [1] NVIDIA GeForce GTX 1660 Ti
+[00:00:00.267] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.267] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
 	     Sorted order:
-[00:00:00.158] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.158] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
-	           [0] NVIDIA GeForce RTX 3060 Laptop GPU  
-[00:00:00.158] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.158] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
-	           [1] Intel(R) Xe Graphics (TGL GT2)  
-[00:00:00.158] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.158] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
-	           [2] llvmpipe (LLVM 17.0.6, 256 bits)  
-[00:00:00.158] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.158] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.267] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.267] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
+	           [0] NVIDIA GeForce GTX 1660 Ti  
+[00:00:00.267] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.267] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
+	           [1] llvmpipe (LLVM 17.0.6, 256 bits)  
+[00:00:00.267] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.267] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
 	linux_read_sorted_physical_devices:
-[00:00:00.158] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.158] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.267] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.267] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
 	     Original order:
-[00:00:00.158] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.158] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
-	           [0] Intel(R) Xe Graphics (TGL GT2)
-[00:00:00.158] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.158] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
-	           [1] llvmpipe (LLVM 17.0.6, 256 bits)
-[00:00:00.158] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.158] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
-	           [2] NVIDIA GeForce RTX 3060 Laptop GPU
-[00:00:00.158] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.158] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.268] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.268] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
+	           [0] llvmpipe (LLVM 17.0.6, 256 bits)
+[00:00:00.268] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.268] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
+	           [1] NVIDIA GeForce GTX 1660 Ti
+[00:00:00.268] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.268] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
 	     Sorted order:
-[00:00:00.158] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.158] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
-	           [0] NVIDIA GeForce RTX 3060 Laptop GPU  
-[00:00:00.158] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.158] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
-	           [1] Intel(R) Xe Graphics (TGL GT2)  
-[00:00:00.158] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.158] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
-	           [2] llvmpipe (LLVM 17.0.6, 256 bits)  
-[00:00:00.158] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.159] (74cbe1cbe9c0) INFO   Enabling debug utils
-[00:00:00.159] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.268] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.268] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
+	           [0] NVIDIA GeForce GTX 1660 Ti  
+[00:00:00.268] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.268] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
+	           [1] llvmpipe (LLVM 17.0.6, 256 bits)  
+[00:00:00.268] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.268] (735941a849c0) INFO   Enabling debug utils
+[00:00:00.269] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
 	linux_read_sorted_physical_devices:
-[00:00:00.159] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.159] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.269] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.269] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
 	     Original order:
-[00:00:00.159] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.159] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
-	           [0] Intel(R) Xe Graphics (TGL GT2)
-[00:00:00.159] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.159] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
-	           [1] llvmpipe (LLVM 17.0.6, 256 bits)
-[00:00:00.159] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.159] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
-	           [2] NVIDIA GeForce RTX 3060 Laptop GPU
-[00:00:00.159] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.159] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.269] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.269] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
+	           [0] llvmpipe (LLVM 17.0.6, 256 bits)
+[00:00:00.269] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.269] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
+	           [1] NVIDIA GeForce GTX 1660 Ti
+[00:00:00.269] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.269] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
 	     Sorted order:
-[00:00:00.159] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.159] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
-	           [0] NVIDIA GeForce RTX 3060 Laptop GPU  
-[00:00:00.159] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.159] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
-	           [1] Intel(R) Xe Graphics (TGL GT2)  
-[00:00:00.159] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.159] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
-	           [2] llvmpipe (LLVM 17.0.6, 256 bits)  
-[00:00:00.159] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.159] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.269] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.269] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
+	           [0] NVIDIA GeForce GTX 1660 Ti  
+[00:00:00.269] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.269] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
+	           [1] llvmpipe (LLVM 17.0.6, 256 bits)  
+[00:00:00.269] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.270] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
 	linux_read_sorted_physical_devices:
-[00:00:00.159] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.159] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.270] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.270] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
 	     Original order:
-[00:00:00.159] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.159] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
-	           [0] Intel(R) Xe Graphics (TGL GT2)
-[00:00:00.159] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.159] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
-	           [1] llvmpipe (LLVM 17.0.6, 256 bits)
-[00:00:00.159] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.159] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
-	           [2] NVIDIA GeForce RTX 3060 Laptop GPU
-[00:00:00.159] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.159] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.270] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.270] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
+	           [0] llvmpipe (LLVM 17.0.6, 256 bits)
+[00:00:00.270] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.270] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
+	           [1] NVIDIA GeForce GTX 1660 Ti
+[00:00:00.270] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.270] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
 	     Sorted order:
-[00:00:00.159] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.159] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
-	           [0] NVIDIA GeForce RTX 3060 Laptop GPU  
-[00:00:00.159] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.159] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
-	           [1] Intel(R) Xe Graphics (TGL GT2)  
-[00:00:00.159] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.159] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
-	           [2] llvmpipe (LLVM 17.0.6, 256 bits)  
-[00:00:00.159] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.161] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.270] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.270] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
+	           [0] NVIDIA GeForce GTX 1660 Ti  
+[00:00:00.270] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.270] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
+	           [1] llvmpipe (LLVM 17.0.6, 256 bits)  
+[00:00:00.270] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.271] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
 	linux_read_sorted_physical_devices:
-[00:00:00.161] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.161] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.271] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.271] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
 	     Original order:
-[00:00:00.161] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.162] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
-	           [0] Intel(R) Xe Graphics (TGL GT2)
-[00:00:00.162] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.162] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
-	           [1] llvmpipe (LLVM 17.0.6, 256 bits)
-[00:00:00.162] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.162] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
-	           [2] NVIDIA GeForce RTX 3060 Laptop GPU
-[00:00:00.162] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.162] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.271] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.271] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
+	           [0] llvmpipe (LLVM 17.0.6, 256 bits)
+[00:00:00.271] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.271] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
+	           [1] NVIDIA GeForce GTX 1660 Ti
+[00:00:00.271] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.272] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
 	     Sorted order:
-[00:00:00.162] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.162] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
-	           [0] NVIDIA GeForce RTX 3060 Laptop GPU  
-[00:00:00.162] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.162] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
-	           [1] Intel(R) Xe Graphics (TGL GT2)  
-[00:00:00.162] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.162] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
-	           [2] llvmpipe (LLVM 17.0.6, 256 bits)  
-[00:00:00.162] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.162] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.272] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.272] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
+	           [0] NVIDIA GeForce GTX 1660 Ti  
+[00:00:00.272] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.272] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
+	           [1] llvmpipe (LLVM 17.0.6, 256 bits)  
+[00:00:00.272] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.272] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
 	linux_read_sorted_physical_devices:
-[00:00:00.162] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.162] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.272] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.272] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
 	     Original order:
-[00:00:00.162] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.162] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
-	           [0] Intel(R) Xe Graphics (TGL GT2)
-[00:00:00.162] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.162] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
-	           [1] llvmpipe (LLVM 17.0.6, 256 bits)
-[00:00:00.162] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.162] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
-	           [2] NVIDIA GeForce RTX 3060 Laptop GPU
-[00:00:00.162] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.162] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.272] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.272] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
+	           [0] llvmpipe (LLVM 17.0.6, 256 bits)
+[00:00:00.272] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.272] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
+	           [1] NVIDIA GeForce GTX 1660 Ti
+[00:00:00.272] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.272] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
 	     Sorted order:
-[00:00:00.162] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.162] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
-	           [0] NVIDIA GeForce RTX 3060 Laptop GPU  
-[00:00:00.162] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.162] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
-	           [1] Intel(R) Xe Graphics (TGL GT2)  
-[00:00:00.162] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.162] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
-	           [2] llvmpipe (LLVM 17.0.6, 256 bits)  
-[00:00:00.162] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.164] (74cbe1cbe9c0) INFO   Adapter AdapterInfo { name: "NVIDIA GeForce RTX 3060 Laptop GPU", vendor: 4318, device: 9504, device_type: DiscreteGpu, driver: "NVIDIA", driver_info: "550.120", backend: Vulkan }
-[00:00:00.164] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.272] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.272] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
+	           [0] NVIDIA GeForce GTX 1660 Ti  
+[00:00:00.272] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.273] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
+	           [1] llvmpipe (LLVM 17.0.6, 256 bits)  
+[00:00:00.273] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.275] (735941a849c0) INFO   Adapter AdapterInfo { name: "NVIDIA GeForce GTX 1660 Ti", vendor: 4318, device: 8578, device_type: DiscreteGpu, driver: "NVIDIA", driver_info: "550.120", backend: Vulkan }
+[00:00:00.275] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
 	Inserted device layer "VK_LAYER_KHRONOS_validation" (libVkLayer_khronos_validation.so)
-[00:00:00.164] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.164] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.275] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.275] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
 	Failed to find vkGetDeviceProcAddr in layer "libVkLayer_MESA_device_select.so"
-[00:00:00.164] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.164] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.276] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.276] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
 	vkCreateDevice layer callstack setup to:
-[00:00:00.164] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.164] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.276] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.276] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
 	   <Application>
-[00:00:00.164] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.164] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.276] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.276] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
 	     ||
-[00:00:00.164] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.164] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.276] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.276] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
 	   <Loader>
-[00:00:00.164] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.164] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.276] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.276] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
 	     ||
-[00:00:00.164] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.164] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.276] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.276] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
 	   VK_LAYER_KHRONOS_validation
-[00:00:00.164] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.164] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.276] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.276] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
 	           Type: Explicit
-[00:00:00.164] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.164] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.276] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.276] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
 	           Manifest: /usr/share/vulkan/explicit_layer.d/VkLayer_khronos_validation.json
-[00:00:00.164] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.164] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.276] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.276] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
 	           Library:  libVkLayer_khronos_validation.so
-[00:00:00.164] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.164] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.277] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.277] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
 	     ||
-[00:00:00.164] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.164] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.277] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.277] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
 	   <Device>
-[00:00:00.164] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.165] (74cbe1cbe9c0) INFO   GENERAL [Loader Message (0x0)]
-	       Using "NVIDIA GeForce RTX 3060 Laptop GPU" with driver: "libGLX_nvidia.so.0"
-[00:00:00.165] (74cbe1cbe9c0) INFO   	objects: (type: INSTANCE, hndl: 0x639e05f31e90, name: ?)
-[00:00:00.190] (74cbe1cbe9c0) INFO   VALIDATION [WARNING-cache-file-error (0xb8515d13)]
+[00:00:00.277] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.277] (735941a849c0) INFO   GENERAL [Loader Message (0x0)]
+	       Using "NVIDIA GeForce GTX 1660 Ti" with driver: "libGLX_nvidia.so.0"
+[00:00:00.277] (735941a849c0) INFO   	objects: (type: INSTANCE, hndl: 0x636d4bcf7eb0, name: ?)
+[00:00:00.324] (735941a849c0) INFO   VALIDATION [WARNING-cache-file-error (0xb8515d13)]
 	Validation Information: [ WARNING-cache-file-error ] | MessageID = 0xb8515d13 | vkCreateDevice():  Cannot open shader validation cache at /home/gotzi/.cache/shader_validation_cache-1000.bin for reading (it may not exist yet)
-[00:00:00.312] (74cbe1cbe9c0) INFO   Handling event: CameraOrientationChanged(Default)
-[00:00:00.312] (74cbe1cbe9c0) INFO   Adapter: "CameraAdapter"
+[00:00:00.496] (735941a849c0) INFO   Handling event: CameraOrientationChanged(Default)
+[00:00:00.496] (735941a849c0) INFO   Adapter: "CameraAdapter"
+[00:00:08.498] (735941a849c0) INFO   Handling event: ShowProgressBar(0, "cubeLarge.ascii.stl ")
+[00:00:08.498] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:00:08.498] (735941a849c0) INFO   Handling event: ShowSuccess("Object loaded")
+[00:00:08.498] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:00:08.508] (735941a849c0) INFO   Closing toast: cubeLarge.ascii.stl 
+[00:00:13.122] (735941a849c0) INFO   Handling event: ShowProgressBar(1, "Slicing model       ")
+[00:00:13.122] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:00:15.596] (73593aa006c0) INFO   command len 271198
+[00:00:15.599] (73593aa006c0) INFO   Gen last id 240462
+[00:00:15.622] (735941a849c0) INFO   Handling event: ShowSuccess("Slicing finished")
+[00:00:15.622] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:00:17.597] (73593aa006c0) INFO   Trace Vertices: 8578872
+[00:00:19.104] (735941a849c0) INFO   Handling event: ShowSuccess("Gcode loaded")
+[00:00:19.104] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:00:19.110] (735941a849c0) INFO   Closing toast: Slicing model       
+[00:00:22.984] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(299799)
+[00:00:22.984] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:00:23.008] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(298624)
+[00:00:23.008] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:00:23.031] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(288582)
+[00:00:23.031] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:00:23.056] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(287552)
+[00:00:23.056] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:00:23.080] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(279674)
+[00:00:23.080] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:00:23.103] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(269861)
+[00:00:23.103] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:00:23.128] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(269076)
+[00:00:23.128] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:00:23.152] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(268441)
+[00:00:23.152] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:00:23.179] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(258809)
+[00:00:23.179] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:00:23.205] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(258166)
+[00:00:23.205] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:00:23.228] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(250817)
+[00:00:23.228] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:00:23.253] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(250152)
+[00:00:23.253] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:00:23.276] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(240340)
+[00:00:23.276] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:00:23.300] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(239953)
+[00:00:23.300] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:00:23.414] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(239695)
+[00:00:23.414] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:00:23.438] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(239437)
+[00:00:23.438] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:00:23.462] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(239050)
+[00:00:23.462] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:00:23.485] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(229653)
+[00:00:23.485] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:00:23.507] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(229399)
+[00:00:23.507] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:00:23.530] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(229272)
+[00:00:23.530] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:00:23.579] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(229653)
+[00:00:23.579] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:00:23.602] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(238921)
+[00:00:23.602] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:00:23.626] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(239050)
+[00:00:23.626] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:01:25.578] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(229272)
+[00:01:25.578] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:01:25.622] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(229018)
+[00:01:25.622] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:01:25.644] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(228104)
+[00:01:25.644] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:01:25.667] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(220335)
+[00:01:25.667] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:01:25.689] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(210178)
+[00:01:25.689] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:01:25.711] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(199382)
+[00:01:25.711] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:01:25.733] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(190846)
+[00:01:25.733] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:01:25.754] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(179779)
+[00:01:25.754] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:01:25.776] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(161447)
+[00:01:25.776] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:01:25.797] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(149975)
+[00:01:25.797] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:01:25.819] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(139655)
+[00:01:25.819] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:01:25.840] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(102132)
+[00:01:25.840] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:01:25.862] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(90750)
+[00:01:25.862] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:01:25.884] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(72990)
+[00:01:25.884] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:01:25.904] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(71540)
+[00:01:25.904] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:01:27.590] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(72072)
+[00:01:27.590] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:01:27.612] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(72736)
+[00:01:27.612] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:01:27.635] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(80464)
+[00:01:27.635] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:01:27.657] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(91670)
+[00:01:27.657] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:01:27.679] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(120133)
+[00:01:27.679] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:01:27.701] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(131908)
+[00:01:27.701] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:01:27.724] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(150109)
+[00:01:27.724] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:01:27.745] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(161193)
+[00:01:27.745] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:01:27.767] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(169720)
+[00:01:27.767] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:01:27.789] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(180414)
+[00:01:27.789] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:01:27.811] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(181055)
+[00:01:27.811] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:01:27.877] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(179779)
+[00:01:27.877] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:01:27.899] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(168794)
+[00:01:27.899] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:01:27.921] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(150109)
+[00:01:27.921] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:01:27.944] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(131779)
+[00:01:27.944] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:01:27.966] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(120809)
+[00:01:27.966] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:01:27.988] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(110497)
+[00:01:27.988] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:01:28.009] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(109862)
+[00:01:28.009] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:01:28.030] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(109481)
+[00:01:28.030] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:01:28.072] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(109862)
+[00:01:28.072] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:01:28.094] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(110878)
+[00:01:28.094] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:01:28.116] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(131013)
+[00:01:28.116] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:01:28.138] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(139784)
+[00:01:28.138] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:01:28.160] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(150769)
+[00:01:28.160] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:01:28.181] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(151414)
+[00:01:28.181] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:01:28.223] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(151285)
+[00:01:28.223] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:01:28.245] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(149975)
+[00:01:28.245] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:01:28.267] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(131650)
+[00:01:28.267] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:01:28.290] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(110751)
+[00:01:28.290] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:01:28.313] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(101865)
+[00:01:28.313] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:01:28.334] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(91670)
+[00:01:28.334] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:01:28.357] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(91008)
+[00:01:28.357] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:01:28.400] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(91670)
+[00:01:28.400] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:01:28.422] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(101607)
+[00:01:28.422] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:01:28.443] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(110497)
+[00:01:28.444] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:01:28.465] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(131140)
+[00:01:28.465] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:01:28.488] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(140318)
+[00:01:28.488] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:01:28.509] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(150109)
+[00:01:28.509] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:01:28.552] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(140716)
+[00:01:28.552] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:01:28.574] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(139397)
+[00:01:28.574] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:01:28.597] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(121213)
+[00:01:28.597] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:01:28.620] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(109989)
+[00:01:28.620] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:01:28.641] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(101865)
+[00:01:28.641] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:01:28.706] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(109989)
+[00:01:28.706] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:01:28.728] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(131013)
+[00:01:28.728] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:01:28.750] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(140318)
+[00:01:28.750] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:01:28.772] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(150640)
+[00:01:28.772] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:01:28.816] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(140318)
+[00:01:28.816] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:01:28.838] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(121609)
+[00:01:28.838] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:01:28.860] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(102648)
+[00:01:28.860] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:01:28.882] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(101215)
+[00:01:28.882] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:01:28.904] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(91934)
+[00:01:28.905] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:01:28.925] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(101215)
+[00:01:28.925] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:01:28.947] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(102132)
+[00:01:28.947] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:01:28.968] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(109862)
+[00:01:28.969] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:01:28.990] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(110116)
+[00:01:28.990] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:01:29.113] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(109989)
+[00:01:29.113] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:01:29.155] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(109862)
+[00:01:29.156] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:01:59.471] (735941a849c0) INFO   Handling event: ShowProgressBar(1, "Slicing model       ")
+[00:01:59.471] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:02:03.264] (73593aa006c0) INFO   command len 519482
+[00:02:03.270] (73593aa006c0) INFO   Gen last id 371178
+[00:02:03.296] (735941a849c0) INFO   Handling event: ShowSuccess("Slicing finished")
+[00:02:03.296] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:02:06.467] (73593aa006c0) INFO   Trace Vertices: 13155552
+[00:02:09.407] (735941a849c0) INFO   Handling event: ShowSuccess("Gcode loaded")
+[00:02:09.407] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:02:09.410] (735941a849c0) INFO   Closing toast: Slicing model       
+[00:02:24.199] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(219353)
+[00:02:24.199] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:02:24.257] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(219224)
+[00:02:24.257] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:02:24.279] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(218966)
+[00:02:24.279] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:02:24.298] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(218708)
+[00:02:24.298] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:02:24.317] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(218570)
+[00:02:24.317] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:02:24.375] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(218312)
+[00:02:24.375] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:02:24.395] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(218054)
+[00:02:24.395] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:02:24.417] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(217920)
+[00:02:24.417] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:02:24.437] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(197617)
+[00:02:24.437] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:02:24.456] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(197483)
+[00:02:24.457] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:02:24.624] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(197219)
+[00:02:24.624] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:02:24.825] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(197349)
+[00:02:24.825] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:02:24.845] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(197483)
+[00:02:24.845] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:02:24.866] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(197617)
+[00:02:24.866] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:02:24.886] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(217920)
+[00:02:24.886] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:02:25.177] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(197617)
+[00:02:25.177] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:02:25.424] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(197483)
+[00:02:25.424] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:02:25.485] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(197349)
+[00:02:25.486] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:02:25.835] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(197483)
+[00:02:25.835] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:02:26.111] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(197617)
+[00:02:26.111] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:02:38.508] (735941a849c0) INFO   Selected: Trace { id: MoveId(110503), move_type: WithoutFiber(Infill), offset: 3916230, size: 24, box: RwLock { data: TraceHitbox { north_west: QuadFace { normal: Vec3(12.201002, 20.210312, -3.2692492), point: Vec3(24.8328, 31.925, 1.2477477), min: Vec3(24.8328, 31.8, 1.1959839), max: Vec3(51.179977, 31.925, 98.85577) }, north_east: QuadFace { normal: Vec3(-12.201002, 20.210312, 3.269249), point: Vec3(25.025986, 31.8, 1.1959839), min: Vec3(25.025986, 31.8, 1.1442201), max: Vec3(51.37316, 31.925, 98.804) }, south_west: QuadFace { normal: Vec3(-12.201002, -20.210312, 3.2692487), point: Vec3(25.219172, 31.925, 1.1442201), min: Vec3(25.025986, 31.925, 1.1442201), max: Vec3(51.37316, 32.05, 98.804) }, south_east: QuadFace { normal: Vec3(12.201002, -20.210312, -3.269249), point: Vec3(25.025986, 32.05, 1.1959839), min: Vec3(24.8328, 31.925, 1.1959839), max: Vec3(51.179977, 32.05, 98.85577) } } } }
+[00:02:38.531] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(197566)
+[00:02:38.531] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:02:38.531] (735941a849c0) INFO   Handling event: ShowInfo("Jumped to Line: 197567")
+[00:02:38.531] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:02:39.886] (735941a849c0) INFO   Selected: Trace { id: MoveId(110503), move_type: WithoutFiber(Infill), offset: 3916230, size: 24, box: RwLock { data: TraceHitbox { north_west: QuadFace { normal: Vec3(12.201002, 20.210312, -3.2692492), point: Vec3(24.8328, 31.925, 1.2477477), min: Vec3(24.8328, 31.8, 1.1959839), max: Vec3(51.179977, 31.925, 98.85577) }, north_east: QuadFace { normal: Vec3(-12.201002, 20.210312, 3.269249), point: Vec3(25.025986, 31.8, 1.1959839), min: Vec3(25.025986, 31.8, 1.1442201), max: Vec3(51.37316, 31.925, 98.804) }, south_west: QuadFace { normal: Vec3(-12.201002, -20.210312, 3.2692487), point: Vec3(25.219172, 31.925, 1.1442201), min: Vec3(25.025986, 31.925, 1.1442201), max: Vec3(51.37316, 32.05, 98.804) }, south_east: QuadFace { normal: Vec3(12.201002, -20.210312, -3.269249), point: Vec3(25.025986, 32.05, 1.1959839), min: Vec3(24.8328, 31.925, 1.1959839), max: Vec3(51.179977, 32.05, 98.85577) } } } }
+[00:02:39.905] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(197566)
+[00:02:39.905] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:02:39.906] (735941a849c0) INFO   Handling event: ShowInfo("Jumped to Line: 197567")
+[00:02:39.906] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:07:49.655] (735941a849c0) INFO   Handling event: ShowProgressBar(1, "Slicing model       ")
+[00:07:49.655] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:07:58.476] (73593aa006c0) INFO   command len 2113182
+[00:07:58.497] (73593aa006c0) INFO   Gen last id 1506658
+[00:07:58.542] (735941a849c0) INFO   Handling event: ShowSuccess("Slicing finished")
+[00:07:58.542] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:08:11.053] (73593aa006c0) INFO   Trace Vertices: 53336268
+[00:08:22.585] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(197483)
+[00:08:22.585] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:08:22.690] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(197219)
+[00:08:22.690] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:08:22.714] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(196959)
+[00:08:22.714] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:08:22.735] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(196691)
+[00:08:22.735] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:08:22.753] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(196557)
+[00:08:22.754] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:08:22.773] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(196299)
+[00:08:22.773] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:08:23.001] (735941a849c0) INFO   Handling event: ShowSuccess("Gcode loaded")
+[00:08:23.001] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:08:23.004] (735941a849c0) INFO   Closing toast: Slicing model       
+[00:08:23.067] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(787685)
+[00:08:23.068] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:08:23.103] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(768766)
+[00:08:23.103] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:08:23.173] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(768508)
+[00:08:23.173] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:08:23.239] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(748253)
+[00:08:23.239] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:08:23.329] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(748124)
+[00:08:23.329] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:08:23.449] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(724426)
+[00:08:23.449] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:08:23.480] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(724297)
+[00:08:23.480] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:08:23.541] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(704108)
+[00:08:23.541] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:08:23.600] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(703981)
+[00:08:23.600] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:08:23.721] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(683972)
+[00:08:23.721] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:08:23.751] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(683845)
+[00:08:23.751] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:08:23.783] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(683718)
+[00:08:23.783] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:08:23.846] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(664052)
+[00:08:23.846] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:08:23.907] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(663784)
+[00:08:23.908] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:08:23.939] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(643563)
+[00:08:23.939] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:08:23.968] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(643431)
+[00:08:23.969] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:08:24.000] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(643299)
+[00:08:24.001] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:08:24.033] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(625169)
+[00:08:24.033] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:08:24.063] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(625037)
+[00:08:24.063] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:08:24.096] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(603033)
+[00:08:24.096] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:08:24.129] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(583918)
+[00:08:24.129] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:08:24.161] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(565850)
+[00:08:24.161] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:08:24.220] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(544370)
+[00:08:24.220] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:08:24.250] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(544243)
+[00:08:24.250] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:08:24.313] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(544116)
+[00:08:24.313] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:08:24.492] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(544243)
+[00:08:24.493] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:08:24.522] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(565850)
+[00:08:24.522] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:08:24.552] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(583918)
+[00:08:24.552] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:08:24.582] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(603033)
+[00:08:24.582] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:08:24.642] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(625169)
+[00:08:24.642] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:08:24.671] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(643299)
+[00:08:24.671] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:08:24.731] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(643431)
+[00:08:24.731] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:08:24.761] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(664052)
+[00:08:24.761] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:08:24.792] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(683718)
+[00:08:24.792] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:08:24.823] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(683845)
+[00:08:24.823] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:08:24.854] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(703981)
+[00:08:24.854] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:08:24.973] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(704108)
+[00:08:24.973] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:08:25.060] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(724426)
+[00:08:25.061] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:08:25.119] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(748124)
+[00:08:25.119] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:08:25.149] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(748253)
+[00:08:25.149] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:08:25.178] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(748382)
+[00:08:25.178] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:08:25.236] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(768508)
+[00:08:25.236] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:08:25.266] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(768766)
+[00:08:25.266] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:08:25.324] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(787685)
+[00:08:25.325] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:08:25.354] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(787943)
+[00:08:25.354] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:08:25.385] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(809043)
+[00:08:25.385] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:08:25.415] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(809177)
+[00:08:25.415] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:08:25.445] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(828350)
+[00:08:25.445] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:08:25.473] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(828484)
+[00:08:25.473] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:08:25.502] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(850092)
+[00:08:25.502] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:08:25.532] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(850222)
+[00:08:25.532] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:08:25.562] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(850356)
+[00:08:25.562] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:08:25.591] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(871869)
+[00:08:25.591] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:08:25.619] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(889878)
+[00:08:25.619] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:08:25.649] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(890007)
+[00:08:25.649] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:08:25.677] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(909041)
+[00:08:25.678] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:08:25.766] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(930403)
+[00:08:25.766] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:08:25.796] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(930532)
+[00:08:25.796] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:08:25.971] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(890007)
+[00:08:25.971] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:08:26.000] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(850356)
+[00:08:26.001] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:08:26.030] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(809177)
+[00:08:26.030] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:08:26.059] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(787943)
+[00:08:26.059] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:08:26.088] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(787685)
+[00:08:26.088] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:08:26.117] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(748382)
+[00:08:26.117] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:08:26.146] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(724426)
+[00:08:26.146] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:08:26.174] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(703981)
+[00:08:26.174] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:08:26.202] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(683845)
+[00:08:26.202] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:08:26.231] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(663784)
+[00:08:26.231] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:08:26.259] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(625037)
+[00:08:26.259] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:08:26.287] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(583791)
+[00:08:26.288] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:08:26.316] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(544116)
+[00:08:26.316] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:08:26.345] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(503054)
+[00:08:26.345] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:08:26.374] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(441281)
+[00:08:26.374] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:08:26.402] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(396348)
+[00:08:26.403] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:08:26.432] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(355966)
+[00:08:26.432] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:08:26.461] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(315941)
+[00:08:26.461] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:08:26.488] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(271714)
+[00:08:26.488] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:08:26.517] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(253649)
+[00:08:26.517] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:08:26.603] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(294022)
+[00:08:26.603] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:08:26.632] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(461409)
+[00:08:26.632] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:08:26.662] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(703981)
+[00:08:26.662] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:08:26.691] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(954261)
+[00:08:26.692] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:08:26.721] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(1226842)
+[00:08:26.721] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:08:26.750] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(1436679)
+[00:08:26.750] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:08:26.780] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(1520387)
+[00:08:26.780] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:08:26.838] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(1458175)
+[00:08:26.838] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:08:26.868] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(1333123)
+[00:08:26.868] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:08:26.899] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(1015380)
+[00:08:26.899] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:08:26.930] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(748253)
+[00:08:26.930] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:08:26.960] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(683972)
+[00:08:26.960] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:08:26.989] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(748253)
+[00:08:26.990] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:08:27.020] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(1059681)
+[00:08:27.020] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:08:27.050] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(1520514)
+[00:08:27.050] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:08:27.080] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(1892006)
+[00:08:27.080] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:08:27.110] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(1933452)
+[00:08:27.110] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:08:27.141] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(1806636)
+[00:08:27.141] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:08:27.175] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(1584044)
+[00:08:27.175] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:08:27.204] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(1418520)
+[00:08:27.204] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:08:27.233] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(1436806)
+[00:08:27.234] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:08:27.263] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(1806636)
+[00:08:27.263] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:08:27.292] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(2247580)
+[00:08:27.293] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:08:27.322] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(2307448)
+[00:08:27.322] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:08:27.352] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(1953735)
+[00:08:27.352] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:08:27.382] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(1418391)
+[00:08:27.382] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:08:27.412] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(1081078)
+[00:08:27.412] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:08:27.441] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(1186285)
+[00:08:27.441] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:08:27.470] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(1644462)
+[00:08:27.470] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:08:27.500] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(1953862)
+[00:08:27.500] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:08:27.530] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(1953735)
+[00:08:27.530] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:08:27.559] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(1624548)
+[00:08:27.559] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:08:27.589] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(1272003)
+[00:08:27.589] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:08:27.619] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(1121774)
+[00:08:27.619] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:08:27.648] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(1292767)
+[00:08:27.648] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:08:27.678] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(1560118)
+[00:08:27.678] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:08:27.707] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(1584044)
+[00:08:27.707] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:08:27.735] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(1520387)
+[00:08:27.736] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:08:27.763] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(1458048)
+[00:08:27.763] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:08:27.823] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(1499137)
+[00:08:27.823] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:08:33.386] (735941a849c0) INFO   Selected: Trace { id: MoveId(813344), move_type: WithoutFiber(SolidInfill), offset: 28793022, size: 24, box: RwLock { data: TraceHitbox { north_west: QuadFace { normal: Vec3(0.055768967, 0.09237814, -0.014944077), point: Vec3(97.97256, 53.675, 11.958062), min: Vec3(97.97256, 53.55, 11.906296), max: Vec3(98.28529, 53.675, 12.404214) }, north_east: QuadFace { normal: Vec3(-0.055768967, 0.09237814, 0.014944077), point: Vec3(98.16574, 53.55, 11.906296), min: Vec3(98.16574, 53.55, 11.854529), max: Vec3(98.47848, 53.675, 12.3524475) }, south_west: QuadFace { normal: Vec3(-0.055768967, -0.09237814, 0.014944077), point: Vec3(98.358925, 53.675, 11.854529), min: Vec3(98.16574, 53.675, 11.854529), max: Vec3(98.47848, 53.8, 12.3524475) }, south_east: QuadFace { normal: Vec3(0.055768967, -0.09237814, -0.014944077), point: Vec3(98.16574, 53.8, 11.906296), min: Vec3(97.97256, 53.675, 11.906296), max: Vec3(98.28529, 53.8, 12.404214) } } } }
+[00:08:33.419] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(1472593)
+[00:08:33.419] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:08:33.419] (735941a849c0) INFO   Handling event: ShowInfo("Jumped to Line: 1472594")
+[00:08:33.419] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:08:34.737] (735941a849c0) INFO   Selected: Trace { id: MoveId(784923), move_type: WithoutFiber(WallOuter), offset: 27788298, size: 24, box: RwLock { data: TraceHitbox { north_west: QuadFace { normal: Vec3(12.450001, 19.919697, -0.0), point: Vec3(99.600006, 51.925, 0.19999695), min: Vec3(99.600006, 51.8, 0.19999695), max: Vec3(99.8, 51.925, 99.8) }, north_east: QuadFace { normal: Vec3(-12.450001, 19.919697, 0.0), point: Vec3(99.8, 51.8, 0.19999695), min: Vec3(99.8, 51.8, 0.19999695), max: Vec3(100.0, 51.925, 99.8) }, south_west: QuadFace { normal: Vec3(-12.450001, -19.919697, 0.0), point: Vec3(100.0, 51.925, 0.19999695), min: Vec3(99.8, 51.925, 0.19999695), max: Vec3(100.0, 52.05, 99.8) }, south_east: QuadFace { normal: Vec3(12.450001, -19.919697, 0.0), point: Vec3(99.8, 52.05, 0.19999695), min: Vec3(99.600006, 51.925, 0.19999695), max: Vec3(99.8, 52.05, 99.8) } } } }
+[00:08:34.787] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(1418552)
+[00:08:34.788] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:08:34.788] (735941a849c0) INFO   Handling event: ShowInfo("Jumped to Line: 1418553")
+[00:08:34.788] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:08:37.780] (735941a849c0) INFO   Selected: Trace { id: MoveId(761672), move_type: WithoutFiber(WallOuter), offset: 26965158, size: 24, box: RwLock { data: TraceHitbox { north_west: QuadFace { normal: Vec3(0.0, -19.920002, 12.450001), point: Vec3(0.19999695, 50.675, -3.054738e-6), min: Vec3(0.19999695, 50.675, -3.054738e-6), max: Vec3(99.8, 50.8, 0.19999695) }, north_east: QuadFace { normal: Vec3(0.0, -19.92, -12.450001), point: Vec3(0.19999695, 50.8, 0.19999695), min: Vec3(0.19999695, 50.675, 0.19999695), max: Vec3(99.8, 50.8, 0.39999694) }, south_west: QuadFace { normal: Vec3(0.0, 19.92, -12.450001), point: Vec3(0.19999695, 50.675, 0.39999694), min: Vec3(0.19999695, 50.55, 0.19999695), max: Vec3(99.8, 50.675, 0.39999694) }, south_east: QuadFace { normal: Vec3(-0.0, 19.920002, 12.450001), point: Vec3(0.19999695, 50.55, 0.19999695), min: Vec3(0.19999695, 50.55, -3.054738e-6), max: Vec3(99.8, 50.675, 0.19999695) } } } }
+[00:08:37.816] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(1377978)
+[00:08:37.816] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:08:37.816] (735941a849c0) INFO   Handling event: ShowInfo("Jumped to Line: 1377979")
+[00:08:37.816] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:09:16.801] (735941a849c0) INFO   Selected: Trace { id: MoveId(656348), move_type: WithFiber(Infill), offset: 262734, size: 24, box: RwLock { data: TraceHitbox { north_west: QuadFace { normal: Vec3(11.351006, -25.684128, 11.351006), point: Vec3(7.854535, 43.925, 98.66258), min: Vec3(7.854535, 43.925, 7.854535), max: Vec3(98.804, 44.05, 98.804) }, north_east: QuadFace { normal: Vec3(-11.351006, -25.684128, -11.351006), point: Vec3(7.9959564, 44.05, 98.804), min: Vec3(7.9959564, 43.925, 7.9959564), max: Vec3(98.94542, 44.05, 98.94542) }, south_west: QuadFace { normal: Vec3(-11.351006, 25.684128, -11.351006), point: Vec3(8.137378, 43.925, 98.94542), min: Vec3(7.9959564, 43.8, 7.9959564), max: Vec3(98.94542, 43.925, 98.94542) }, south_east: QuadFace { normal: Vec3(11.351006, 25.684128, 11.351006), point: Vec3(7.9959564, 43.8, 98.804), min: Vec3(7.854535, 43.8, 7.854535), max: Vec3(98.804, 43.925, 98.804) } } } }
+[00:09:16.833] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(1186615)
+[00:09:16.833] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:09:16.833] (735941a849c0) INFO   Handling event: ShowInfo("Jumped to Line: 1186616")
+[00:09:16.833] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:09:19.747] (735941a849c0) INFO   Selected: Trace { id: MoveId(816204), move_type: WithFiber(Infill), offset: 324966, size: 24, box: RwLock { data: TraceHitbox { north_west: QuadFace { normal: Vec3(0.9913311, 6.128339, -3.6996937), point: Vec3(69.1547, 53.675, 1.3891842), min: Vec3(69.1547, 53.55, 1.1959991), max: Vec3(98.804016, 53.675, 9.319833) }, north_east: QuadFace { normal: Vec3(-0.9913311, 6.128339, 3.6996937), point: Vec3(69.20647, 53.55, 1.1959991), min: Vec3(69.20647, 53.55, 1.002814), max: Vec3(98.85578, 53.675, 9.126648) }, south_west: QuadFace { normal: Vec3(-0.9913311, -6.128339, 3.6996937), point: Vec3(69.25823, 53.675, 1.002814), min: Vec3(69.20647, 53.675, 1.002814), max: Vec3(98.85578, 53.8, 9.126648) }, south_east: QuadFace { normal: Vec3(0.9913311, -6.128339, -3.6996937), point: Vec3(69.20647, 53.8, 1.1959991), min: Vec3(69.1547, 53.675, 1.1959991), max: Vec3(98.804016, 53.8, 9.319833) } } } }
+[00:09:19.782] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(1479696)
+[00:09:19.782] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:09:19.782] (735941a849c0) INFO   Handling event: ShowInfo("Jumped to Line: 1479697")
+[00:09:19.782] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:09:26.559] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(1479776)
+[00:09:26.559] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:09:26.592] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(1418391)
+[00:09:26.592] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:09:26.622] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(1333123)
+[00:09:26.622] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:09:26.654] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(1272132)
+[00:09:26.654] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:09:26.684] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(1207808)
+[00:09:26.684] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:09:26.716] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(1143118)
+[00:09:26.716] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:09:26.746] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(1081350)
+[00:09:26.746] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:09:26.777] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(1015380)
+[00:09:26.777] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:09:26.808] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(954261)
+[00:09:26.808] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:09:26.838] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(889749)
+[00:09:26.838] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:09:26.868] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(809177)
+[00:09:26.868] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:09:26.899] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(768508)
+[00:09:26.899] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:09:26.930] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(683718)
+[00:09:26.930] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:09:26.961] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(603033)
+[00:09:26.961] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:09:26.991] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(544116)
+[00:09:26.991] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:09:27.019] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(503054)
+[00:09:27.019] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:09:27.049] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(481819)
+[00:09:27.049] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:09:27.139] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(503181)
+[00:09:27.139] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:09:27.170] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(565850)
+[00:09:27.171] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:09:27.202] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(683718)
+[00:09:27.202] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:09:27.235] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(809043)
+[00:09:27.235] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:09:27.266] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(954261)
+[00:09:27.266] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:09:27.296] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(1059681)
+[00:09:27.296] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:09:27.326] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(1186285)
+[00:09:27.327] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:09:27.358] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(1292491)
+[00:09:27.359] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:09:27.393] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(1418520)
+[00:09:27.393] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:09:27.424] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(1539851)
+[00:09:27.424] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:09:27.454] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(1682956)
+[00:09:27.454] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:09:27.485] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(1827686)
+[00:09:27.485] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:09:27.517] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(2037687)
+[00:09:27.517] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:09:27.551] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(2206744)
+[00:09:27.551] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:09:27.585] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(2307448)
+[00:09:27.585] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:09:27.613] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(2389866)
+[00:09:27.613] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:09:27.642] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(2430510)
+[00:09:27.642] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:09:27.670] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(2474643)
+[00:09:27.670] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:09:27.699] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(2495036)
+[00:09:27.699] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:09:27.787] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(2474643)
+[00:09:27.787] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:09:27.817] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(2389993)
+[00:09:27.817] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:09:27.848] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(2247316)
+[00:09:27.848] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:09:27.878] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(2055680)
+[00:09:27.878] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:09:27.909] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(1847943)
+[00:09:27.909] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:09:27.938] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(1624548)
+[00:09:27.938] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:09:27.968] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(1458175)
+[00:09:27.968] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:09:27.999] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(1333123)
+[00:09:27.999] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:09:28.029] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(1226842)
+[00:09:28.029] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:09:28.057] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(1164783)
+[00:09:28.057] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:09:28.087] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(1100246)
+[00:09:28.087] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:09:28.116] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(1035828)
+[00:09:28.116] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:09:28.146] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(995045)
+[00:09:28.146] (735941a849c0) INFO   Adapter: "UiAdapter"
+[00:09:28.174] (735941a849c0) INFO   Handling event: GCodeReaderLookAt(954390)
+[00:09:28.174] (735941a849c0) INFO   Adapter: "UiAdapter"

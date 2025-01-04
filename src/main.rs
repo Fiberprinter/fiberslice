@@ -63,6 +63,7 @@ fn set_queue(queue: Arc<wgpu::Queue>) {
 
 #[derive(Debug, Clone)]
 pub enum RootEvent {
+    SetMode(prelude::Mode),
     Exit,
 }
 
@@ -141,6 +142,7 @@ struct ApplicationState {
 impl ApplicationState {
     fn update(&mut self) {
         self.global_state.viewer.update(&self.global_state);
+        self.global_state.progress_tracker.write().update();
 
         self.ui_adapter.update(self.start_time);
 
@@ -320,7 +322,7 @@ impl ApplicationHandler<RootEvent> for Application {
         window.set_visible(true);
 
         {
-            global_state.viewer.mode_changed(prelude::Mode::default());
+            global_state.viewer.set_mode(prelude::Mode::default());
             let slicer_read = global_state.slicer.read();
             let settings = &slicer_read.settings;
 
@@ -403,6 +405,11 @@ impl ApplicationHandler<RootEvent> for Application {
 
     fn user_event(&mut self, event_loop: &winit::event_loop::ActiveEventLoop, event: RootEvent) {
         match event {
+            RootEvent::SetMode(mode) => {
+                if let Some(state) = self.state.as_mut() {
+                    state.global_state.viewer.set_mode(mode);
+                }
+            }
             RootEvent::Exit => {
                 event_loop.exit();
             }

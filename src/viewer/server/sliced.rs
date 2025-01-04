@@ -175,6 +175,9 @@ impl SlicedObjectServer {
                 SlicedObject::from_commands(&slice_result.moves, &slice_result.settings, &process)
                     .expect("Failed to load toolpath");
 
+            process.set_task("Build GCode".to_string());
+            process.set_progress(0.9);
+
             let sliced_gcode = build_gcode(&slice_result.moves, &slice_result.settings).unwrap();
 
             process.set_progress(1.0);
@@ -227,6 +230,7 @@ impl SlicedObjectServer {
                     .ui_event_writer
                     .send(crate::ui::UiEvent::ShowSuccess("Gcode loaded".to_string()));
 
+                self.hitbox.clear();
                 self.hitbox.add_node(toolpath.model.clone());
 
                 self.sliced_object = Some(toolpath);
@@ -294,6 +298,18 @@ impl SlicedObjectServer {
 
     pub fn min_layer(&self) -> &u32 {
         &self.toolpath_context.min_layer
+    }
+
+    pub fn visibility(&self) -> &u32 {
+        &self.toolpath_context.visibility
+    }
+
+    pub fn is_fiber_visible(&self) -> bool {
+        self.fiber_visible
+    }
+
+    pub fn is_travel_visible(&self) -> bool {
+        self.travel_visible
     }
 
     pub fn get_sliced(&self) -> Option<&SlicedObject> {

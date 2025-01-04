@@ -54,8 +54,8 @@ impl Screen {
                 .anchor(Align2::RIGHT_BOTTOM, (-10.0, -10.0))
                 .direction(Direction::TopDown)
                 .custom_contents(
-                    crate::ui::custom_toasts::MODEL_LOAD_PROGRESS,
-                    crate::ui::custom_toasts::model_load_progress,
+                    crate::ui::custom_toasts::OBJECT_LOAD_PROGRESS,
+                    crate::ui::custom_toasts::object_load_progress,
                 )
                 .custom_contents(
                     crate::ui::custom_toasts::SLICING_PROGRESS,
@@ -89,16 +89,7 @@ impl Screen {
             ])
             .show(ctx, shared_state);
 
-        topbar::Topbar::with_state(&mut self.topbar_state)
-            .with_tools(&mut [
-                &mut self.tools.gcode_tool,
-                &mut self.tools.camera_tool,
-                #[cfg(debug_assertions)]
-                &mut self.tools.profile_tool,
-                #[cfg(debug_assertions)]
-                &mut self.tools.debug_tool,
-            ])
-            .show(ctx, shared_state);
+        topbar::Topbar::with_state(&mut self.topbar_state).show(ctx, shared_state);
 
         taskbar::Taskbar::with_state(&mut self.taskbar_state).show(ctx, shared_state);
 
@@ -106,17 +97,13 @@ impl Screen {
 
         modebar::Modebar::with_state(&mut self.modebar_state).show(ctx, shared_state);
 
-        toolbar::Toolbar::with_state(&mut self.toolbar_state)
-            .with_tools(&mut [
-                &mut self.tools.gcode_tool,
-                &mut self.tools.visibility_tool,
-                &mut self.tools.camera_tool,
-                #[cfg(debug_assertions)]
-                &mut self.tools.profile_tool,
-                #[cfg(debug_assertions)]
-                &mut self.tools.debug_tool,
-            ])
-            .show(ctx, shared_state);
+        self.tools
+            .states(shared_state, |top_states, bottom_states| {
+                toolbar::Toolbar::with_state(&mut self.toolbar_state)
+                    .with_top_tools(top_states)
+                    .with_bottom_tools(bottom_states)
+                    .show(ctx, shared_state);
+            });
 
         egui::CentralPanel::default().frame(frame).show(ctx, |ui| {
             self.toasts.show_inside(ui);
@@ -144,7 +131,7 @@ impl Screen {
         self.toasts.add(toast);
     }
 
-    pub fn add_progress_bar_toast(&mut self, toast: egui_toast::Toast) {
+    pub fn add_process_as_toast(&mut self, toast: egui_toast::Toast) {
         self.toasts_progress_bar.add(toast);
     }
 

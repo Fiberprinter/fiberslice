@@ -2,7 +2,7 @@ use std::sync::Arc;
 
 use glam::Vec3;
 
-use crate::render::Renderable;
+use crate::{prelude::Destroyable, render::Renderable};
 
 use super::{
     queue::{HitBoxQueueEntry, HitboxQueue},
@@ -15,7 +15,7 @@ pub trait Hitbox: std::fmt::Debug + Send + Sync {
     fn get_max(&self) -> Vec3;
 }
 
-pub trait HitboxNode {
+pub trait HitboxNode: Destroyable {
     fn check_hit(&self, ray: &Ray) -> Option<f32>;
     fn inner_nodes(&self) -> &[Arc<Self>];
     fn get_min(&self) -> Vec3;
@@ -80,6 +80,14 @@ impl<M: HitboxNode + Renderable> HitboxRoot<M> {
 
     pub fn add_node(&mut self, node: Arc<M>) {
         self.inner_hitboxes.push(node);
+    }
+
+    pub fn clear(&mut self) {
+        self.inner_hitboxes.clear();
+    }
+
+    pub fn update(&mut self) {
+        self.inner_hitboxes.retain(|node| !node.is_destroyed());
     }
 }
 

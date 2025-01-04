@@ -5,7 +5,7 @@ use wgpu::Color;
 
 use crate::{ui::UiState, GlobalState, RootEvent};
 
-use super::{Tool, ToolState};
+use super::{create_tool, impl_tool_state_trait, impl_with_state, Tool};
 
 #[derive(Debug)]
 pub struct VisibilityToolState {
@@ -30,29 +30,10 @@ impl Default for VisibilityToolState {
     }
 }
 
-impl ToolState for VisibilityToolState {
-    fn get_enabled(&mut self) -> &mut bool {
-        &mut self.enabled
-    }
+impl_tool_state_trait!(VisibilityToolState, "Visibility", "visibility_tool.svg");
 
-    fn get_popup_string(&self) -> &str {
-        "Visibility"
-    }
-
-    fn get_icon(&self) -> &str {
-        "👓"
-    }
-}
-
-pub struct VisibilityTool<'a> {
-    state: &'a mut VisibilityToolState,
-}
-
-impl<'a> VisibilityTool<'a> {
-    pub fn with_state(state: &'a mut VisibilityToolState) -> Self {
-        Self { state }
-    }
-}
+create_tool!(VisibilityTool, VisibilityToolState);
+impl_with_state!(VisibilityTool, VisibilityToolState);
 
 impl Tool for VisibilityTool<'_> {
     fn show(

@@ -1,6 +1,8 @@
-use egui::Color32;
+use egui::{Color32, ImageSource};
 
-use crate::{viewer::camera_controller::CameraController, GlobalState, RootEvent};
+use crate::{
+    prelude::PrepareMode, viewer::camera_controller::CameraController, GlobalState, RootEvent,
+};
 
 use super::UiState;
 
@@ -22,12 +24,13 @@ pub struct Tools {
     pub camera_tool: CameraToolState,
     pub gcode_tool: gcode::GCodeToolState,
     pub visibility_tool: visibility::VisibilityToolState,
+    pub explorer_tool: explorer::ExplorerToolState,
 
     #[cfg(debug_assertions)]
-    pub profile_tool: ProfilerState,
+    profile_tool: ProfilerState,
 
     #[cfg(debug_assertions)]
-    pub debug_tool: debug::DebugToolState,
+    debug_tool: debug::DebugToolState,
 }
 
 impl Tools {
@@ -35,10 +38,24 @@ impl Tools {
         let mut pointer_over_tool = false;
 
         pointer_over_tool |= CameraTool::with_state(&mut self.camera_tool).show(ctx, shared_state);
-        pointer_over_tool |=
-            gcode::GCodeTool::with_state(&mut self.gcode_tool).show(ctx, shared_state);
-        pointer_over_tool |= visibility::VisibilityTool::with_state(&mut self.visibility_tool)
-            .show(ctx, shared_state);
+
+        shared_state.0.mode.read_with_fn(|mode| match mode {
+            crate::prelude::Mode::Preview => {
+                pointer_over_tool |=
+                    gcode::GCodeTool::with_state(&mut self.gcode_tool).show(ctx, shared_state);
+                pointer_over_tool |=
+                    visibility::VisibilityTool::with_state(&mut self.visibility_tool)
+                        .show(ctx, shared_state);
+            }
+            crate::prelude::Mode::Prepare(PrepareMode::Objects) => {
+                pointer_over_tool |= explorer::ExplorerTool::with_state(&mut self.explorer_tool)
+                    .show(ctx, shared_state);
+            }
+            crate::prelude::Mode::Prepare(PrepareMode::Masks) => {
+                pointer_over_tool |= explorer::ExplorerTool::with_state(&mut self.explorer_tool)
+                    .show(ctx, shared_state);
+            }
+        });
 
         #[cfg(debug_assertions)]
         {
@@ -56,6 +73,47 @@ impl Tools {
                 .store(true, std::sync::atomic::Ordering::Relaxed);
         }
     }
+
+    pub fn states<'a>(
+        &'a mut self,
+        shared_state: &(UiState, GlobalState<RootEvent>),
+        r#fn: impl FnOnce(&mut [&'a mut dyn ToolState], &mut [&'a mut dyn ToolState]),
+    ) {
+        let mode = shared_state.0.mode.read();
+
+        match &*mode {
+            crate::prelude::Mode::Preview => r#fn(
+                &mut [&mut self.gcode_tool, &mut self.visibility_tool],
+                &mut [
+                    &mut self.camera_tool,
+                    #[cfg(debug_assertions)]
+                    &mut self.profile_tool,
+                    #[cfg(debug_assertions)]
+                    &mut self.debug_tool,
+                ],
+            ),
+            crate::prelude::Mode::Prepare(PrepareMode::Objects) => r#fn(
+                &mut [&mut self.explorer_tool],
+                &mut [
+                    &mut self.camera_tool,
+                    #[cfg(debug_assertions)]
+                    &mut self.profile_tool,
+                    #[cfg(debug_assertions)]
+                    &mut self.debug_tool,
+                ],
+            ),
+            crate::prelude::Mode::Prepare(PrepareMode::Masks) => r#fn(
+                &mut [&mut self.explorer_tool],
+                &mut [
+                    &mut self.camera_tool,
+                    #[cfg(debug_assertions)]
+                    &mut self.profile_tool,
+                    #[cfg(debug_assertions)]
+                    &mut self.debug_tool,
+                ],
+            ),
+        }
+    }
 }
 
 pub trait ToolState {
@@ -65,7 +123,7 @@ pub trait ToolState {
         ""
     }
 
-    fn get_icon(&self) -> &str;
+    fn get_icon(&self) -> ImageSource<'static>;
 }
 
 macro_rules! impl_tool_state_trait {
@@ -79,8 +137,8 @@ macro_rules! impl_tool_state_trait {
                 stringify!($name)
             }
 
-            fn get_icon(&self) -> &str {
-                "🔧"
+            fn get_icon(&self) -> ImageSource<'static> {
+                egui::include_image!("assets/gcode_tool.svg")
             }
         }
     }; {
@@ -95,8 +153,8 @@ macro_rules! impl_tool_state_trait {
                 stringify!($name)
             }
 
-            fn get_icon(&self) -> &str {
-                $icon
+            fn get_icon(&self) -> egui::ImageSource<'static> {
+                egui::include_image!(concat!("assets/", $icon))
             }
         }
     }; {
@@ -111,8 +169,8 @@ macro_rules! impl_tool_state_trait {
                 $popup
             }
 
-            fn get_icon(&self) -> &str {
-                $icon
+            fn get_icon(&self) -> egui::ImageSource<'static> {
+                egui::include_image!(concat!("../assets/", $icon))
             }
         }
     };
@@ -147,7 +205,7 @@ pub struct CameraToolState {
     anchored: bool,
 }
 
-impl_tool_state_trait!(CameraToolState, "Camera Settings", "📷");
+impl_tool_state_trait!(CameraToolState, "Camera Settings", "camera_tool.svg");
 create_tool!(CameraTool, CameraToolState);
 impl_with_state!(CameraTool, CameraToolState);
 
@@ -165,7 +223,7 @@ impl Tool for CameraTool<'_> {
                 frame.fill.r(),
                 frame.fill.g(),
                 frame.fill.b(),
-                220,
+                230,
             );
 
             egui::Window::new("Camera Controls")
@@ -224,7 +282,7 @@ pub struct ProfilerState {
     anchored: bool,
 }
 
-impl_tool_state_trait!(ProfilerState, "Profile", "📊");
+impl_tool_state_trait!(ProfilerState, "Profile", "profiler_tool.svg");
 create_tool!(Profiler, ProfilerState);
 impl_with_state!(Profiler, ProfilerState);
 

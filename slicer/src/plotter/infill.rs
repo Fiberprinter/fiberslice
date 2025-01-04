@@ -9,14 +9,6 @@ use super::polygon_operations::PolygonOperations;
 use geo::prelude::*;
 use geo::*;
 
-pub trait SolidInfillFill {
-    fn fill(&self, filepath: &str) -> Vec<MoveChain>;
-}
-
-pub trait PartialInfillFill {
-    fn fill(&self, filepath: &str) -> Vec<MoveChain>;
-}
-
 pub fn linear_fill_polygon(
     poly: &Polygon<f32>,
     settings: &LayerSettings,
