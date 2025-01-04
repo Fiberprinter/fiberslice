@@ -548,12 +548,37 @@ impl From<&MoveChain> for Polygon<f32> {
             })
             .collect_vec();
 
-        let mut outer_ring = Vec::with_capacity(points.len());
-        let mut inner_ring = Vec::with_capacity(points.len());
+        let mut outer_ring = Vec::with_capacity(points.len() * 2 + 1);
+        let mut inner_ring = Vec::with_capacity(points.len() * 2 + 1);
 
         // Iterate through each segment
         for window in points.windows(2) {
-            push_trace_segment(&mut outer_ring, &mut inner_ring, window[0], window[1]);
+            let (start, end) = (window[0].0, window[1].0);
+
+            let dx = end.x - start.x;
+            let dy = end.y - start.y;
+
+            // Calculate perpendicular vectors for the buffer
+            let (px, py) = perpendicular_vector(dx, dy, window[1].1);
+
+            // Add points to the outer and inner rings
+            outer_ring.push(Coord {
+                x: start.x + px,
+                y: start.y + py,
+            });
+            outer_ring.push(Coord {
+                x: end.x + px,
+                y: end.y + py,
+            });
+
+            inner_ring.push(Coord {
+                x: start.x - px,
+                y: start.y - py,
+            });
+            inner_ring.push(Coord {
+                x: end.x - px,
+                y: end.y - py,
+            });
         }
 
         // Close the polygon
@@ -563,38 +588,6 @@ impl From<&MoveChain> for Polygon<f32> {
 
         Polygon::new(outer_ring.into(), vec![])
     }
-}
-
-fn push_trace_segment(
-    outer_ring: &mut Vec<Coord<f32>>,
-    inner_ring: &mut Vec<Coord<f32>>,
-    (start, _): (Coord<f32>, f32),
-    (end, end_width): (Coord<f32>, f32),
-) {
-    let dx = end.x - start.x;
-    let dy = end.y - start.y;
-
-    // Calculate perpendicular vectors for the buffer
-    let (px, py) = perpendicular_vector(dx, dy, end_width);
-
-    // Add points to the outer and inner rings
-    outer_ring.push(Coord {
-        x: start.x + px,
-        y: start.y + py,
-    });
-    outer_ring.push(Coord {
-        x: end.x + px,
-        y: end.y + py,
-    });
-
-    inner_ring.push(Coord {
-        x: start.x - px,
-        y: start.y - py,
-    });
-    inner_ring.push(Coord {
-        x: end.x - px,
-        y: end.y - py,
-    });
 }
 
 fn get_optimal_bridge_angle(fill_area: &Polygon<f32>, unsupported_area: &MultiPolygon<f32>) -> f32 {

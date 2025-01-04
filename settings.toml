@@ -109,7 +109,7 @@ enabled = true
 infill = "Cubic"
 infill_percentage = 0.30000001192092896
 width = 1
-spacing = 2
+spacing = 12
 solid_infill = true
 air_spacing = false
 
