@@ -38,7 +38,14 @@ pub fn calculate_values(moves: &[Command], settings: &Settings) -> CalculatedVal
 
                 values.plastic_volume += width * thickness * d;
             }
-            Command::MoveAndExtrudeFiber {
+            Command::MoveAndExtrudeFiberAndCut {
+                start,
+                end,
+                thickness,
+                width,
+                ..
+            }
+            | Command::MoveAndExtrudeFiber {
                 start,
                 end,
                 thickness,
@@ -95,6 +102,7 @@ pub fn calculate_values(moves: &[Command], settings: &Settings) -> CalculatedVal
                 values.plastic_volume += width * thickness * extrusion_length;
             }
             Command::NoAction
+            | Command::CutFiber
             | Command::LayerChange { .. }
             | Command::ChangeObject { .. }
             | Command::ChangeType { .. } => {}

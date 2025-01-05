@@ -135,6 +135,13 @@ pub fn write_gcode(
                 thickness,
                 width,
                 ..
+            }
+            | Command::MoveAndExtrudeFiberAndCut {
+                start,
+                end,
+                thickness,
+                width,
+                ..
             } => {
                 let x_diff = end.x - start.x;
                 let y_diff = end.y - start.y;
@@ -243,6 +250,9 @@ pub fn write_gcode(
                         (2.550 * fan_speed).round() as usize
                     )?;
                 }
+            }
+            Command::CutFiber => {
+                todo!()
             }
             Command::LayerChange { z, index } => {
                 writeln!(writer, ";LAYER:{}", *index)?;
@@ -429,6 +439,14 @@ pub fn build_gcode(
                 thickness,
                 width,
                 ..
+            }
+            | Command::MoveAndExtrudeFiberAndCut {
+                id,
+                start,
+                end,
+                thickness,
+                width,
+                ..
             } => {
                 navigator.record_trace(id.expect("Id's not eval yet!"), writer.line_count());
 
@@ -539,6 +557,9 @@ pub fn build_gcode(
                         (2.550 * fan_speed).round() as usize
                     )?;
                 }
+            }
+            Command::CutFiber => {
+                todo!()
             }
             Command::LayerChange { z, index } => {
                 navigator.record_layer_change(writer.line_count());

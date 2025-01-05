@@ -160,12 +160,21 @@ impl SlicedObject {
 
                     last_position = end;
                 }
-                slicer::Command::MoveAndExtrudeFiber {
+                slicer::Command::MoveAndExtrudeFiberAndCut {
                     id,
                     start,
                     end,
                     thickness,
                     width,
+                    ..
+                }
+                | slicer::Command::MoveAndExtrudeFiber {
+                    id,
+                    start,
+                    end,
+                    thickness,
+                    width,
+                    ..
                 } => {
                     mesher.set_color(FIBER_COLOR);
 

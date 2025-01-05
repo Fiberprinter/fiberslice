@@ -114,6 +114,8 @@ pub fn slice(
     process.set_task("Calculating Values".to_string());
     process.set_progress(0.75);
 
+    MergeFiberPass::pass(&mut moves, settings);
+
     EvalIdPass::pass(&mut moves, settings);
 
     let calculated_values = calculation::calculate_values(&moves, settings);

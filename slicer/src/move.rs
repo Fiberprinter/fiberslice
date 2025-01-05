@@ -1,4 +1,6 @@
-use geo::{line_string, Coord, MultiPolygon, Polygon};
+use std::collections::LinkedList;
+
+use geo::{line_string, Coord, EuclideanDistance, MultiPolygon, Polygon};
 use glam::{vec2, Vec4};
 use log::info;
 use serde::{Deserialize, Serialize};
@@ -35,13 +37,162 @@ impl CommandPass for EvalIdPass {
 
         for command in cmds.iter_mut() {
             match command {
-                Command::MoveAndExtrude { id, .. } => *id = Some(gen.next_id()),
-                Command::MoveAndExtrudeFiber { id, .. } => *id = Some(gen.next_id()),
+                Command::MoveAndExtrude { id, .. }
+                | Command::MoveAndExtrudeFiber { id, .. }
+                | Command::MoveAndExtrudeFiberAndCut { id, .. } => *id = Some(gen.next_id()),
                 _ => {}
             }
         }
 
         info!("Gen last id {}", gen.current)
+    }
+}
+
+pub struct MergeFiberPass {}
+
+impl CommandPass for MergeFiberPass {
+    fn pass(cmds: &mut Vec<Command>, settings: &crate::Settings) {
+        let mut current_index = 0;
+        while current_index < cmds.len() {
+            if let Some(chain) = FiberChain::find_next(cmds, current_index, settings) {
+                info!("Fiber Chain {:?}", chain);
+
+                if chain.start_index == chain.end_index {
+                    // assume that the chain is a single move
+                    let (start, end, thickness, width) = match cmds[chain.start_index] {
+                        Command::MoveAndExtrudeFiber {
+                            start,
+                            end,
+                            thickness,
+                            width,
+                            ..
+                        } => (start, end, thickness, width),
+                        _ => unreachable!(),
+                    };
+
+                    cmds[chain.start_index] = Command::MoveAndExtrudeFiberAndCut {
+                        start,
+                        end,
+                        thickness,
+                        width,
+                        id: None,
+                        cut_pos: settings.fiber.cut_before,
+                    };
+                } else if chain.length >= settings.fiber.min_length {
+                    // backtrace where to cut
+                    chain.find_cut_and_set(cmds, settings.fiber.cut_before);
+                }
+
+                current_index = chain.end_index + 1;
+            } else {
+                current_index += 1;
+            }
+        }
+    }
+}
+
+#[derive(Debug, Clone)]
+struct FiberChain {
+    start_index: usize,
+    end_index: usize,
+    length: f32,
+}
+
+impl FiberChain {
+    fn find_next(
+        cmds: &[Command],
+        mut current_index: usize,
+        settings: &crate::Settings,
+    ) -> Option<FiberChain> {
+        let start_index = current_index;
+        let mut last_direction = None;
+        let mut length = 0.0;
+
+        while current_index < cmds.len() {
+            match cmds[current_index] {
+                Command::MoveAndExtrudeFiber { start, end, .. } => {
+                    let direction = vec2(end.x - start.x, end.y - start.y).normalize();
+
+                    if let Some(last_dir) = last_direction {
+                        let angle = direction.angle_to(last_dir);
+
+                        if angle.abs() <= settings.fiber.max_angle {
+                            length += start.euclidean_distance(&end);
+                            last_direction = Some(direction);
+
+                            current_index += 1;
+                        } else {
+                            return Some(FiberChain {
+                                start_index,
+                                end_index: current_index - 1,
+                                length,
+                            });
+                        }
+                    } else {
+                        length += start.euclidean_distance(&end);
+
+                        current_index += 1;
+                    }
+                }
+                _ => {
+                    if start_index == current_index {
+                        return None;
+                    } else {
+                        return Some(FiberChain {
+                            start_index,
+                            end_index: current_index - 1,
+                            length,
+                        });
+                    }
+                }
+            }
+        }
+
+        if start_index == current_index {
+            None
+        } else {
+            Some(FiberChain {
+                start_index,
+                end_index: current_index - 1,
+                length,
+            })
+        }
+    }
+
+    fn find_cut_and_set(&self, cmds: &mut [Command], cut_before: f32) {
+        let mut distance_backtraced = 0.0;
+
+        for i in (self.start_index..=self.end_index).rev() {
+            match cmds[i] {
+                Command::MoveAndExtrudeFiber {
+                    start,
+                    end,
+                    thickness,
+                    width,
+                    ..
+                } => {
+                    distance_backtraced += start.euclidean_distance(&end);
+
+                    if distance_backtraced >= cut_before {
+                        let cut_pos = cut_before;
+
+                        cmds[i] = Command::MoveAndExtrudeFiberAndCut {
+                            start,
+                            end,
+                            thickness,
+                            width,
+                            id: None,
+                            cut_pos,
+                        };
+
+                        return;
+                    }
+                }
+                _ => {}
+            }
+        }
+
+        unreachable!()
     }
 }
 
@@ -231,6 +382,23 @@ pub enum Command {
         /// The extrusion width
         width: f32,
     },
+    MoveAndExtrudeFiberAndCut {
+        id: Option<MoveId>,
+        ///Start point of the move
+        start: Coord<f32>,
+
+        ///End point of the move
+        end: Coord<f32>,
+
+        ///The height thickness of the move
+        thickness: f32,
+
+        /// The extrusion width
+        width: f32,
+
+        cut_pos: f32,
+    },
+    CutFiber,
     ///Change the layer height
     LayerChange {
         ///The height the print head should move to
@@ -290,7 +458,7 @@ impl Command {
     pub fn needs_filament(&self) -> bool {
         match self {
             Command::MoveAndExtrude { .. } => true,
-            Command::MoveAndExtrudeFiber { .. } => true,
+            Command::MoveAndExtrudeFiberAndCut { .. } => true,
             _ => false,
         }
     }

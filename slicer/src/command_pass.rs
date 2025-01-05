@@ -78,6 +78,13 @@ impl CommandPass for SlowDownLayerPass {
                                     width: _width,
                                     thickness: _thickness,
                                     ..
+                                }
+                                | Command::MoveAndExtrudeFiberAndCut {
+                                    start,
+                                    end,
+                                    width: _width,
+                                    thickness: _thickness,
+                                    ..
                                 } => {
                                     let x_diff = end.x - start.x;
                                     let y_diff = end.y - start.y;
@@ -128,6 +135,7 @@ impl CommandPass for SlowDownLayerPass {
                                     layer_height = *z;
                                 }
                                 Command::NoAction
+                                | Command::CutFiber
                                 | Command::ChangeObject { .. }
                                 | Command::ChangeType { .. } => {}
                             }
