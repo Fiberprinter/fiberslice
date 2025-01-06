@@ -1,5 +1,3 @@
-use std::collections::LinkedList;
-
 use geo::{line_string, Coord, EuclideanDistance, MultiPolygon, Polygon};
 use glam::{vec2, Vec4};
 use log::info;
@@ -33,8 +31,6 @@ impl CommandPass for EvalIdPass {
     fn pass(cmds: &mut Vec<Command>, _settings: &crate::Settings) {
         let mut gen = MoveIdGenerator::new();
 
-        info!("command len {}", cmds.len());
-
         for command in cmds.iter_mut() {
             match command {
                 Command::MoveAndExtrude { id, .. }
@@ -43,8 +39,6 @@ impl CommandPass for EvalIdPass {
                 _ => {}
             }
         }
-
-        info!("Gen last id {}", gen.current)
     }
 }
 
@@ -70,17 +64,49 @@ impl CommandPass for MergeFiberPass {
                         _ => unreachable!(),
                     };
 
-                    cmds[chain.start_index] = Command::MoveAndExtrudeFiberAndCut {
-                        start,
-                        end,
-                        thickness,
-                        width,
-                        id: None,
-                        cut_pos: settings.fiber.cut_before,
-                    };
+                    if chain.length >= settings.fiber.min_length {
+                        cmds[chain.start_index] = Command::MoveAndExtrudeFiberAndCut {
+                            start,
+                            end,
+                            thickness,
+                            width,
+                            id: None,
+                            cut_pos: settings.fiber.cut_before,
+                        };
+                    } else {
+                        cmds[chain.start_index] = Command::MoveAndExtrude {
+                            start,
+                            end,
+                            thickness,
+                            width,
+                            id: None,
+                        };
+                    }
                 } else if chain.length >= settings.fiber.min_length {
                     // backtrace where to cut
                     chain.find_cut_and_set(cmds, settings.fiber.cut_before);
+                } else {
+                    // change fiber chain to normal moves
+                    for i in chain.start_index..=chain.end_index {
+                        let (start, end, thickness, width) = match cmds[i] {
+                            Command::MoveAndExtrudeFiber {
+                                start,
+                                end,
+                                thickness,
+                                width,
+                                ..
+                            } => (start, end, thickness, width),
+                            _ => unreachable!(),
+                        };
+
+                        cmds[i] = Command::MoveAndExtrude {
+                            start,
+                            end,
+                            thickness,
+                            width,
+                            id: None,
+                        };
+                    }
                 }
 
                 current_index = chain.end_index + 1;
@@ -112,11 +138,13 @@ impl FiberChain {
             match cmds[current_index] {
                 Command::MoveAndExtrudeFiber { start, end, .. } => {
                     let direction = vec2(end.x - start.x, end.y - start.y).normalize();
+                    info!("Direction: {:?}  {:?}", direction, last_direction);
 
                     if let Some(last_dir) = last_direction {
                         let angle = direction.angle_to(last_dir);
+                        info!("Angle: {}", angle.to_degrees());
 
-                        if angle.abs() <= settings.fiber.max_angle {
+                        if angle.to_degrees().abs() <= settings.fiber.max_angle {
                             length += start.euclidean_distance(&end);
                             last_direction = Some(direction);
 
@@ -130,6 +158,7 @@ impl FiberChain {
                         }
                     } else {
                         length += start.euclidean_distance(&end);
+                        last_direction = Some(direction);
 
                         current_index += 1;
                     }

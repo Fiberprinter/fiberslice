@@ -746,6 +746,13 @@ impl UiWidgetComponent for FiberSettings {
             settings_default.min_length,
             ui,
         );
+        show_f32(
+            &mut self.max_angle,
+            "Max Angle",
+            Some("°"),
+            settings_default.max_angle,
+            ui,
+        );
 
         show_optional_setting(
             &mut self.wall_pattern,
