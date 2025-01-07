@@ -265,7 +265,20 @@ Clustering models"
 
         root.awaken(&triangle_vertices);
 
-        root.transform(Mat4::from_translation(vec3(0.0, -min.xzy().y, 0.0)));
+        let center = (min + max) / 2.0;
+
+        {
+            let global_state_read = GLOBAL_STATE.read();
+            let gloabal_state = global_state_read.as_ref().unwrap();
+            let x = gloabal_state.slicer.read().settings.print_x;
+            let y = gloabal_state.slicer.read().settings.print_y;
+
+            root.transform(Mat4::from_translation(vec3(
+                (x / 2.0) - center.x,
+                -min.xzy().y,
+                (y / 2.0) - center.xzy().z,
+            )));
+        }
 
         process_tracking.set_progress(0.95);
 

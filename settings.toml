@@ -107,7 +107,7 @@ wall_ranges = ""
 enabled = true
 
 [fiber.infill.setting]
-partial_infill_type = "Cubic"
+partial_infill_type = "Triangle"
 infill_percentage = 0.019999999552965164
 width = 1
 spacing = 12

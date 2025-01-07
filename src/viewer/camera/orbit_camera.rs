@@ -95,10 +95,7 @@ impl OrbitCamera {
     }
 
     pub fn set_preferred_distance(&mut self, bounding_box: &BoundingBox) {
-        let bounding_box_diagonal = bounding_box.diagonal();
-        let half_diagonal = bounding_box_diagonal.length() / 2.0;
-        let half_fov = self.fovy / 2.0;
-        self.distance = half_diagonal / half_fov.tan();
+        self.distance = bounding_box.diagonal().length();
         self.update();
     }
 

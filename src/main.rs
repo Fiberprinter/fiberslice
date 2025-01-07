@@ -321,8 +321,6 @@ impl ApplicationHandler<RootEvent> for Application {
 
         *GLOBAL_STATE.write() = Some(global_state.clone());
 
-        window.set_visible(true);
-
         {
             global_state.viewer.set_mode(prelude::Mode::default());
             let slicer_read = global_state.slicer.read();
@@ -339,7 +337,15 @@ impl ApplicationHandler<RootEvent> for Application {
                 settings.print_y,
                 settings.print_z,
             );
+
+            global_state
+                .camera_event_writer
+                .send(CameraEvent::UpdatePreferredDistance(
+                    global_state.viewer.volume_box(),
+                ));
         }
+
+        window.set_visible(true);
 
         self.state = Some(ApplicationState {
             window,

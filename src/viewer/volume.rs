@@ -1,4 +1,4 @@
-use glam::{vec3, vec4, Vec2, Vec4};
+use glam::{vec3, Vec4};
 
 use crate::{
     geometry::{mesh::construct_triangle_vertices, BoundingBox},
@@ -8,6 +8,7 @@ use crate::{
 
 #[derive(Debug)]
 pub struct Volume {
+    pub bounding_box: BoundingBox,
     pub bed: Model<Vertex>,
     pub grid_model: Model<Vertex>,
     pub r#box: Model<Vertex>,
@@ -16,6 +17,7 @@ pub struct Volume {
 impl Volume {
     pub fn instance() -> Self {
         Self {
+            bounding_box: BoundingBox::new(vec3(0.0, 0.0, 0.0), vec3(0.0, 0.0, 0.0)),
             bed: Model::create(),
             r#box: Model::create(),
             grid_model: Model::create(),
@@ -39,11 +41,12 @@ impl Volume {
             Vec4::new(0.4, 0.4, 0.4, 0.5),
         );
 
-        let grid = Grid::from(bounding_box);
+        // let grid = Grid::from(bounding_box);
 
+        self.bounding_box = bounding_box;
         self.bed.awaken(&vertices);
         self.r#box.awaken(&visual.wires);
-        self.grid_model.awaken(&grid.to_visual(10.0));
+        self.grid_model.awaken(&[]); //&grid.to_visual(10.0));
     }
 
     pub fn render<'a>(&'a self, render_pass: &mut wgpu::RenderPass<'a>) {
@@ -56,6 +59,7 @@ impl Volume {
     }
 }
 
+/*
 #[derive(Debug)]
 pub struct Grid {
     min: Vec2,
@@ -110,3 +114,5 @@ impl Grid {
         vertices
     }
 }
+
+*/

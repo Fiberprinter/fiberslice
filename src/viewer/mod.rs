@@ -19,6 +19,7 @@ use winit::{
 };
 
 use crate::{
+    geometry::BoundingBox,
     input::{interact::InteractiveModel, MouseClickEvent, MouseMotionEvent},
     prelude::{Mode, PrepareMode, WgpuContext},
     render::{RenderDescriptor, Vertex},
@@ -144,6 +145,10 @@ impl Viewer {
             .write()
             .update(global_state.clone())
             .expect("Failed to update mask server");
+    }
+
+    pub fn volume_box(&self) -> BoundingBox {
+        *self.env_server.read().volume_box()
     }
 }
 

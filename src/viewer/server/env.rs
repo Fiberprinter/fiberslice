@@ -1,6 +1,7 @@
 use std::fmt::Debug;
 
 use crate::{
+    geometry::BoundingBox,
     prelude::WgpuContext,
     viewer::{volume::Volume, RenderServer},
 };
@@ -23,6 +24,10 @@ impl RenderServer for EnvironmentServer {
 }
 
 impl EnvironmentServer {
+    pub fn volume_box(&self) -> &BoundingBox {
+        &self.volume.bounding_box
+    }
+
     pub fn update_printer_dimension(&mut self, x: f32, y: f32, z: f32) {
         self.volume.awaken(x, y, z);
     }
