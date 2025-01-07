@@ -23,10 +23,7 @@ impl Volume {
     }
 
     pub fn awaken(&mut self, x: f32, y: f32, z: f32) {
-        let bounding_box = BoundingBox::new(
-            vec3(-(x / 2.0).abs(), 0.0, -(y / 2.0).abs()),
-            vec3((x / 2.0).abs(), z.abs(), (y / 2.0).abs()),
-        );
+        let bounding_box = BoundingBox::new(vec3(0.0, 0.0, 0.0), vec3(x.abs(), z.abs(), y.abs()));
 
         let visual = bounding_box.to_select_visual(0.005);
 

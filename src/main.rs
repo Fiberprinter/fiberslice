@@ -5,6 +5,7 @@
     Please refer to the terms and conditions stated therein.
 */
 
+use glam::vec3;
 use input::InputEvent;
 use log::{info, LevelFilter};
 use once_cell::sync::OnceCell;
@@ -278,7 +279,8 @@ impl ApplicationHandler<RootEvent> for Application {
 
         let (_, _, render_adapter) = render::RenderAdapter::create(&wgpu_context);
 
-        let (_, camera_event_writer, camera_adapter) = viewer::CameraAdapter::create(&wgpu_context);
+        let (_, camera_event_writer, mut camera_adapter) =
+            viewer::CameraAdapter::create(&wgpu_context);
         camera_event_writer.send(CameraEvent::CameraOrientationChanged(
             viewer::Orientation::Default,
         ));
@@ -325,6 +327,12 @@ impl ApplicationHandler<RootEvent> for Application {
             global_state.viewer.set_mode(prelude::Mode::default());
             let slicer_read = global_state.slicer.read();
             let settings = &slicer_read.settings;
+
+            camera_adapter.init_target(vec3(
+                settings.print_x / 2.0,
+                settings.print_z * 0.25,
+                settings.print_y / 2.0,
+            ));
 
             global_state.viewer.update_printer_dimension(
                 settings.print_x,

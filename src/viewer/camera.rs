@@ -53,6 +53,12 @@ pub struct CameraAdapter {
     event_reader: EventReader<CameraEvent>,
 }
 
+impl CameraAdapter {
+    pub fn init_target(&mut self, target: Vec3) {
+        self.camera.target = target;
+    }
+}
+
 impl FrameHandle<'_, RootEvent, CameraResult, Viewport> for CameraAdapter {
     fn handle_frame(
         &'_ mut self,
@@ -223,12 +229,12 @@ pub trait HandleOrientation {
 impl HandleOrientation for OrbitCamera {
     fn handle_orientation(&mut self, orientation: Orientation) {
         let (yaw, pitch) = match orientation {
-            Orientation::Default => (PI / 8.0, PI / 4.0),
-            Orientation::Diagonal => (PI / 8.0, PI / 4.0),
-            Orientation::Top => (0.0, PI / 2.0),
-            Orientation::Left => (PI / 2.0, 0.0),
-            Orientation::Right => (-PI / 2.0, 0.0),
-            Orientation::Front => (0.0, 0.0),
+            Orientation::Default => (PI + (PI / 8.0), PI / 4.0),
+            Orientation::Diagonal => (PI + (PI / 8.0), PI / 4.0),
+            Orientation::Top => (PI, PI / 2.0),
+            Orientation::Left => (-PI / 2.0, 0.0),
+            Orientation::Right => (PI / 2.0, 0.0),
+            Orientation::Front => (PI, 0.0),
         };
 
         self.set_yaw(yaw);
