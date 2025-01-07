@@ -1,533 +1,516 @@
-[00:00:00.000] (7bd591a8b9c0) INFO   Starting up version 0.1.0
-[00:00:00.197] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.000] (70a1366c2a40) INFO   Starting up version 0.1.0
+[00:00:00.122] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
 	Searching for implicit layer manifest files
-[00:00:00.197] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.197] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.122] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.122] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
 	   In following locations:
-[00:00:00.197] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.197] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.122] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.122] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
 	      /home/gotzi/.config/vulkan/implicit_layer.d
-[00:00:00.197] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.197] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.122] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.122] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
 	      /etc/xdg/vulkan/implicit_layer.d
-[00:00:00.197] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.197] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.122] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.122] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
 	      /etc/vulkan/implicit_layer.d
-[00:00:00.198] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.198] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
-	      /home/gotzi/snap/code/179/.local/share/vulkan/implicit_layer.d
-[00:00:00.198] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.198] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
-	      /home/gotzi/snap/code/179/vulkan/implicit_layer.d
-[00:00:00.198] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.198] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
-	      /snap/code/179/usr/share/vulkan/implicit_layer.d
-[00:00:00.198] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.198] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.122] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.122] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
+	      /home/gotzi/.local/share/vulkan/implicit_layer.d
+[00:00:00.122] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.122] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
+	      /home/gotzi/.local/share/flatpak/exports/share/vulkan/implicit_layer.d
+[00:00:00.122] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.122] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
+	      /var/lib/flatpak/exports/share/vulkan/implicit_layer.d
+[00:00:00.122] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.122] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
 	      /usr/local/share/vulkan/implicit_layer.d
-[00:00:00.198] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.198] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.122] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.122] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
 	      /usr/share/vulkan/implicit_layer.d
-[00:00:00.198] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.198] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.122] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.122] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
 	      /var/lib/snapd/desktop/vulkan/implicit_layer.d
-[00:00:00.199] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.199] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.122] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.122] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
 	   Found the following files:
-[00:00:00.199] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.199] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
-	      /usr/share/vulkan/implicit_layer.d/nvidia_layers.json
-[00:00:00.199] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.199] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.122] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.122] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
 	      /usr/share/vulkan/implicit_layer.d/VkLayer_MESA_device_select.json
-[00:00:00.199] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.199] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
-	Found manifest file /usr/share/vulkan/implicit_layer.d/nvidia_layers.json (file version 1.0.0)
-[00:00:00.199] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.199] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.122] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.122] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
+	      /usr/share/vulkan/implicit_layer.d/nvidia_layers.json
+[00:00:00.122] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.122] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
 	Found manifest file /usr/share/vulkan/implicit_layer.d/VkLayer_MESA_device_select.json (file version 1.0.0)
-[00:00:00.199] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.200] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.122] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.123] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
+	Found manifest file /usr/share/vulkan/implicit_layer.d/nvidia_layers.json (file version 1.0.0)
+[00:00:00.123] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.123] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
 	Searching for explicit layer manifest files
-[00:00:00.200] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.200] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.123] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.123] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
 	   In following locations:
-[00:00:00.200] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.200] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.123] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.123] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
 	      /home/gotzi/.config/vulkan/explicit_layer.d
-[00:00:00.200] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.200] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.123] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.123] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
 	      /etc/xdg/vulkan/explicit_layer.d
-[00:00:00.200] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.200] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.123] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.123] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
 	      /etc/vulkan/explicit_layer.d
-[00:00:00.200] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.200] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
-	      /home/gotzi/snap/code/179/.local/share/vulkan/explicit_layer.d
-[00:00:00.200] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.200] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
-	      /home/gotzi/snap/code/179/vulkan/explicit_layer.d
-[00:00:00.200] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.200] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
-	      /snap/code/179/usr/share/vulkan/explicit_layer.d
-[00:00:00.201] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.201] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.123] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.123] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
+	      /home/gotzi/.local/share/vulkan/explicit_layer.d
+[00:00:00.123] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.123] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
+	      /home/gotzi/.local/share/flatpak/exports/share/vulkan/explicit_layer.d
+[00:00:00.123] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.123] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
+	      /var/lib/flatpak/exports/share/vulkan/explicit_layer.d
+[00:00:00.123] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.123] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
 	      /usr/local/share/vulkan/explicit_layer.d
-[00:00:00.201] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.201] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.123] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.123] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
 	      /usr/share/vulkan/explicit_layer.d
-[00:00:00.201] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.201] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.123] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.123] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
 	      /var/lib/snapd/desktop/vulkan/explicit_layer.d
-[00:00:00.201] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.201] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.123] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.123] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
 	   Found the following files:
-[00:00:00.201] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.201] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.123] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.123] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
 	      /usr/share/vulkan/explicit_layer.d/VkLayer_INTEL_nullhw.json
-[00:00:00.201] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.201] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.123] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.123] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
 	      /usr/share/vulkan/explicit_layer.d/VkLayer_MESA_overlay.json
-[00:00:00.201] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.201] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.123] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.123] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
 	      /usr/share/vulkan/explicit_layer.d/VkLayer_khronos_validation.json
-[00:00:00.201] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.201] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.123] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.123] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
 	Found manifest file /usr/share/vulkan/explicit_layer.d/VkLayer_INTEL_nullhw.json (file version 1.0.0)
-[00:00:00.201] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.201] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.123] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.123] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
 	Found manifest file /usr/share/vulkan/explicit_layer.d/VkLayer_MESA_overlay.json (file version 1.0.0)
-[00:00:00.202] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.202] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.123] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.123] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
 	Found manifest file /usr/share/vulkan/explicit_layer.d/VkLayer_khronos_validation.json (file version 1.2.0)
-[00:00:00.202] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.202] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.123] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.123] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
 	Searching for driver manifest files
-[00:00:00.202] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.202] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.123] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.123] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
 	   In following locations:
-[00:00:00.202] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.202] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.123] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.123] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
 	      /home/gotzi/.config/vulkan/icd.d
-[00:00:00.202] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.202] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.123] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.123] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
 	      /etc/xdg/vulkan/icd.d
-[00:00:00.202] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.202] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.123] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.123] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
 	      /etc/vulkan/icd.d
-[00:00:00.202] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.203] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
-	      /home/gotzi/snap/code/179/.local/share/vulkan/icd.d
-[00:00:00.203] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.203] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
-	      /home/gotzi/snap/code/179/vulkan/icd.d
-[00:00:00.203] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.203] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
-	      /snap/code/179/usr/share/vulkan/icd.d
-[00:00:00.203] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.203] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.124] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.124] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
+	      /home/gotzi/.local/share/vulkan/icd.d
+[00:00:00.124] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.124] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
+	      /home/gotzi/.local/share/flatpak/exports/share/vulkan/icd.d
+[00:00:00.124] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.124] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
+	      /var/lib/flatpak/exports/share/vulkan/icd.d
+[00:00:00.124] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.124] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
 	      /usr/local/share/vulkan/icd.d
-[00:00:00.203] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.203] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.124] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.124] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
 	      /usr/share/vulkan/icd.d
-[00:00:00.203] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.203] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.124] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.124] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
 	      /var/lib/snapd/desktop/vulkan/icd.d
-[00:00:00.203] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.203] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.124] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.124] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
 	   Found the following files:
-[00:00:00.203] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.203] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
-	      /usr/share/vulkan/icd.d/radeon_icd.x86_64.json
-[00:00:00.203] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.203] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
-	      /usr/share/vulkan/icd.d/intel_hasvk_icd.i686.json
-[00:00:00.203] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.203] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.124] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.124] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
 	      /usr/share/vulkan/icd.d/virtio_icd.x86_64.json
-[00:00:00.204] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.204] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
-	      /usr/share/vulkan/icd.d/virtio_icd.i686.json
-[00:00:00.204] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.204] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
-	      /usr/share/vulkan/icd.d/radeon_icd.i686.json
-[00:00:00.204] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.204] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
-	      /usr/share/vulkan/icd.d/intel_icd.x86_64.json
-[00:00:00.204] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.204] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
-	      /usr/share/vulkan/icd.d/lvp_icd.i686.json
-[00:00:00.204] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.204] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.124] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.124] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
 	      /usr/share/vulkan/icd.d/nvidia_icd.json
-[00:00:00.204] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.204] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
-	      /usr/share/vulkan/icd.d/intel_icd.i686.json
-[00:00:00.204] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.204] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
-	      /usr/share/vulkan/icd.d/intel_hasvk_icd.x86_64.json
-[00:00:00.204] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.204] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.124] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.124] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
 	      /usr/share/vulkan/icd.d/lvp_icd.x86_64.json
-[00:00:00.204] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.204] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
-	Found ICD manifest file /usr/share/vulkan/icd.d/radeon_icd.x86_64.json, version 1.0.0
-[00:00:00.204] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.205] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
-	Found ICD manifest file /usr/share/vulkan/icd.d/intel_hasvk_icd.i686.json, version 1.0.0
-[00:00:00.205] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.205] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
-	/usr/lib/i386-linux-gnu/libvulkan_intel_hasvk.so: wrong ELF class: ELFCLASS32
-[00:00:00.205] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.205] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
-	Requested ICD /usr/lib/i386-linux-gnu/libvulkan_intel_hasvk.so was wrong bit-type. Ignoring this JSON
-[00:00:00.205] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.205] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.124] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.124] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
+	      /usr/share/vulkan/icd.d/intel_icd.x86_64.json
+[00:00:00.124] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.124] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
+	      /usr/share/vulkan/icd.d/intel_hasvk_icd.x86_64.json
+[00:00:00.124] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.124] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
+	      /usr/share/vulkan/icd.d/radeon_icd.x86_64.json
+[00:00:00.124] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.124] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
 	Found ICD manifest file /usr/share/vulkan/icd.d/virtio_icd.x86_64.json, version 1.0.0
-[00:00:00.205] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.205] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
-	Found ICD manifest file /usr/share/vulkan/icd.d/virtio_icd.i686.json, version 1.0.0
-[00:00:00.205] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.205] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
-	/usr/lib/i386-linux-gnu/libvulkan_virtio.so: wrong ELF class: ELFCLASS32
-[00:00:00.205] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.205] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
-	Requested ICD /usr/lib/i386-linux-gnu/libvulkan_virtio.so was wrong bit-type. Ignoring this JSON
-[00:00:00.205] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.205] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
-	Found ICD manifest file /usr/share/vulkan/icd.d/radeon_icd.i686.json, version 1.0.0
-[00:00:00.206] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.206] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
-	/usr/lib/i386-linux-gnu/libvulkan_radeon.so: wrong ELF class: ELFCLASS32
-[00:00:00.206] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.206] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
-	Requested ICD /usr/lib/i386-linux-gnu/libvulkan_radeon.so was wrong bit-type. Ignoring this JSON
-[00:00:00.206] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.206] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
-	Found ICD manifest file /usr/share/vulkan/icd.d/intel_icd.x86_64.json, version 1.0.0
-[00:00:00.206] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.206] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
-	Found ICD manifest file /usr/share/vulkan/icd.d/lvp_icd.i686.json, version 1.0.0
-[00:00:00.206] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.206] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
-	/usr/lib/i386-linux-gnu/libvulkan_lvp.so: wrong ELF class: ELFCLASS32
-[00:00:00.206] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.206] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
-	Requested ICD /usr/lib/i386-linux-gnu/libvulkan_lvp.so was wrong bit-type. Ignoring this JSON
-[00:00:00.206] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.206] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.124] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.124] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
 	Found ICD manifest file /usr/share/vulkan/icd.d/nvidia_icd.json, version 1.0.0
-[00:00:00.206] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.206] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
-	Found ICD manifest file /usr/share/vulkan/icd.d/intel_icd.i686.json, version 1.0.0
-[00:00:00.207] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.207] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
-	/usr/lib/i386-linux-gnu/libvulkan_intel.so: wrong ELF class: ELFCLASS32
-[00:00:00.207] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.207] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
-	Requested ICD /usr/lib/i386-linux-gnu/libvulkan_intel.so was wrong bit-type. Ignoring this JSON
-[00:00:00.207] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.207] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
-	Found ICD manifest file /usr/share/vulkan/icd.d/intel_hasvk_icd.x86_64.json, version 1.0.0
-[00:00:00.207] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.207] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.124] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.124] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
 	Found ICD manifest file /usr/share/vulkan/icd.d/lvp_icd.x86_64.json, version 1.0.0
-[00:00:00.207] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.254] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.124] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.124] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
+	Found ICD manifest file /usr/share/vulkan/icd.d/intel_icd.x86_64.json, version 1.0.0
+[00:00:00.124] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.124] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
+	Found ICD manifest file /usr/share/vulkan/icd.d/intel_hasvk_icd.x86_64.json, version 1.0.0
+[00:00:00.124] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.124] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
+	Found ICD manifest file /usr/share/vulkan/icd.d/radeon_icd.x86_64.json, version 1.0.0
+[00:00:00.124] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.152] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
 	Insert instance layer "VK_LAYER_KHRONOS_validation" (libVkLayer_khronos_validation.so)
-[00:00:00.254] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.255] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.152] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.152] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
 	Insert instance layer "VK_LAYER_MESA_device_select" (libVkLayer_MESA_device_select.so)
-[00:00:00.255] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.255] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.152] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.152] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
 	vkCreateInstance layer callstack setup to:
-[00:00:00.255] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.255] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.152] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.152] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
 	   <Application>
-[00:00:00.255] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.255] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.153] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.153] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
 	     ||
-[00:00:00.255] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.255] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.153] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.153] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
 	   <Loader>
-[00:00:00.255] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.255] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.153] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.153] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
 	     ||
-[00:00:00.255] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.255] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.153] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.153] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
 	   VK_LAYER_MESA_device_select
-[00:00:00.255] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.255] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.153] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.153] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
 	           Type: Implicit
-[00:00:00.256] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.256] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.153] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.153] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
 	               Disable Env Var:  NODEVICE_SELECT
-[00:00:00.256] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.256] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.153] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.153] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
 	           Manifest: /usr/share/vulkan/implicit_layer.d/VkLayer_MESA_device_select.json
-[00:00:00.256] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.256] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.153] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.153] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
 	           Library:  libVkLayer_MESA_device_select.so
-[00:00:00.256] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.256] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.153] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.153] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
 	     ||
-[00:00:00.256] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.256] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.153] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.153] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
 	   VK_LAYER_KHRONOS_validation
-[00:00:00.256] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.256] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.153] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.153] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
 	           Type: Explicit
-[00:00:00.256] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.256] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.153] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.153] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
 	           Manifest: /usr/share/vulkan/explicit_layer.d/VkLayer_khronos_validation.json
-[00:00:00.256] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.256] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.153] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.153] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
 	           Library:  libVkLayer_khronos_validation.so
-[00:00:00.256] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.256] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.153] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.153] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
 	     ||
-[00:00:00.256] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.257] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.153] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.153] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
 	   <Drivers>
-[00:00:00.257] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.260] (7bd591a8b9c0) WARN   GENERAL [Loader Message (0x0)]
+[00:00:00.153] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.155] (70a1366c2a40) WARN   GENERAL [Loader Message (0x0)]
 	terminator_CreateInstance: Received return code -3 from call to vkCreateInstance in ICD /usr/lib/x86_64-linux-gnu/libvulkan_virtio.so. Skipping this driver.
-[00:00:00.260] (7bd591a8b9c0) WARN   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.275] (7bd591a8b9c0) INFO   VALIDATION [WARNING-CreateInstance-status-message (0x23dfd876)]
-	Validation Information: [ WARNING-CreateInstance-status-message ] Object 0: handle = 0x58bb6f96c3f0, type = VK_OBJECT_TYPE_INSTANCE; | MessageID = 0x23dfd876 | vkCreateInstance():  Khronos Validation Layer Active:
+[00:00:00.155] (70a1366c2a40) WARN   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.181] (70a1366c2a40) INFO   VALIDATION [WARNING-CreateInstance-status-message (0x23dfd876)]
+	Validation Information: [ WARNING-CreateInstance-status-message ] Object 0: handle = 0x5ac26b70c070, type = VK_OBJECT_TYPE_INSTANCE; | MessageID = 0x23dfd876 | vkCreateInstance():  Khronos Validation Layer Active:
     Settings File: None. Default location is /home/gotzi/Projects/fiberslice-5d\vk_layer_settings.txt.
     Current Enables: VK_VALIDATION_FEATURE_ENABLE_SYNCHRONIZATION_VALIDATION.
     Current Disables: None.
 
-[00:00:00.275] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.288] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.181] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.189] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
 	linux_read_sorted_physical_devices:
-[00:00:00.288] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.288] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.189] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.189] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
 	     Original order:
-[00:00:00.288] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.288] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
-	           [0] llvmpipe (LLVM 17.0.6, 256 bits)
-[00:00:00.288] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.289] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
-	           [1] NVIDIA GeForce GTX 1660 Ti
-[00:00:00.289] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.289] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.189] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.189] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
+	           [0] Intel(R) Xe Graphics (TGL GT2)
+[00:00:00.189] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.189] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
+	           [1] llvmpipe (LLVM 17.0.6, 256 bits)
+[00:00:00.189] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.189] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
+	           [2] NVIDIA GeForce RTX 3060 Laptop GPU
+[00:00:00.189] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.189] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
 	     Sorted order:
-[00:00:00.289] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.289] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
-	           [0] NVIDIA GeForce GTX 1660 Ti  
-[00:00:00.289] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.289] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
-	           [1] llvmpipe (LLVM 17.0.6, 256 bits)  
-[00:00:00.289] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.289] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.189] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.189] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
+	           [0] NVIDIA GeForce RTX 3060 Laptop GPU  
+[00:00:00.190] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.190] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
+	           [1] Intel(R) Xe Graphics (TGL GT2)  
+[00:00:00.190] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.190] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
+	           [2] llvmpipe (LLVM 17.0.6, 256 bits)  
+[00:00:00.190] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.190] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
 	linux_read_sorted_physical_devices:
-[00:00:00.289] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.289] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.190] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.190] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
 	     Original order:
-[00:00:00.289] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.289] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
-	           [0] llvmpipe (LLVM 17.0.6, 256 bits)
-[00:00:00.289] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.289] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
-	           [1] NVIDIA GeForce GTX 1660 Ti
-[00:00:00.289] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.289] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.190] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.190] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
+	           [0] Intel(R) Xe Graphics (TGL GT2)
+[00:00:00.190] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.190] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
+	           [1] llvmpipe (LLVM 17.0.6, 256 bits)
+[00:00:00.190] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.190] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
+	           [2] NVIDIA GeForce RTX 3060 Laptop GPU
+[00:00:00.190] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.190] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
 	     Sorted order:
-[00:00:00.290] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.290] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
-	           [0] NVIDIA GeForce GTX 1660 Ti  
-[00:00:00.290] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.290] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
-	           [1] llvmpipe (LLVM 17.0.6, 256 bits)  
-[00:00:00.290] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.290] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.190] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.190] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
+	           [0] NVIDIA GeForce RTX 3060 Laptop GPU  
+[00:00:00.190] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.190] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
+	           [1] Intel(R) Xe Graphics (TGL GT2)  
+[00:00:00.190] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.190] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
+	           [2] llvmpipe (LLVM 17.0.6, 256 bits)  
+[00:00:00.190] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.190] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
 	linux_read_sorted_physical_devices:
-[00:00:00.290] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.290] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.190] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.190] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
 	     Original order:
-[00:00:00.290] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.290] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
-	           [0] llvmpipe (LLVM 17.0.6, 256 bits)
-[00:00:00.290] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.290] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
-	           [1] NVIDIA GeForce GTX 1660 Ti
-[00:00:00.290] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.290] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.190] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.190] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
+	           [0] Intel(R) Xe Graphics (TGL GT2)
+[00:00:00.190] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.190] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
+	           [1] llvmpipe (LLVM 17.0.6, 256 bits)
+[00:00:00.190] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.190] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
+	           [2] NVIDIA GeForce RTX 3060 Laptop GPU
+[00:00:00.190] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.190] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
 	     Sorted order:
-[00:00:00.290] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.290] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
-	           [0] NVIDIA GeForce GTX 1660 Ti  
-[00:00:00.290] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.290] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
-	           [1] llvmpipe (LLVM 17.0.6, 256 bits)  
-[00:00:00.291] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.291] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.190] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.190] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
+	           [0] NVIDIA GeForce RTX 3060 Laptop GPU  
+[00:00:00.190] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.190] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
+	           [1] Intel(R) Xe Graphics (TGL GT2)  
+[00:00:00.190] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.190] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
+	           [2] llvmpipe (LLVM 17.0.6, 256 bits)  
+[00:00:00.190] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.190] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
 	linux_read_sorted_physical_devices:
-[00:00:00.291] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.291] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.190] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.190] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
 	     Original order:
-[00:00:00.291] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.291] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
-	           [0] llvmpipe (LLVM 17.0.6, 256 bits)
-[00:00:00.291] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.291] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
-	           [1] NVIDIA GeForce GTX 1660 Ti
-[00:00:00.291] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.291] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.190] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.190] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
+	           [0] Intel(R) Xe Graphics (TGL GT2)
+[00:00:00.190] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.190] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
+	           [1] llvmpipe (LLVM 17.0.6, 256 bits)
+[00:00:00.190] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.190] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
+	           [2] NVIDIA GeForce RTX 3060 Laptop GPU
+[00:00:00.190] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.190] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
 	     Sorted order:
-[00:00:00.291] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.291] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
-	           [0] NVIDIA GeForce GTX 1660 Ti  
-[00:00:00.291] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.291] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
-	           [1] llvmpipe (LLVM 17.0.6, 256 bits)  
-[00:00:00.291] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.292] (7bd591a8b9c0) INFO   Enabling debug utils
-[00:00:00.292] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.190] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.190] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
+	           [0] NVIDIA GeForce RTX 3060 Laptop GPU  
+[00:00:00.190] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.190] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
+	           [1] Intel(R) Xe Graphics (TGL GT2)  
+[00:00:00.190] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.190] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
+	           [2] llvmpipe (LLVM 17.0.6, 256 bits)  
+[00:00:00.190] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.191] (70a1366c2a40) INFO   Enabling debug utils
+[00:00:00.192] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
 	linux_read_sorted_physical_devices:
-[00:00:00.292] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.292] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.192] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.192] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
 	     Original order:
-[00:00:00.293] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.293] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
-	           [0] llvmpipe (LLVM 17.0.6, 256 bits)
-[00:00:00.293] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.293] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
-	           [1] NVIDIA GeForce GTX 1660 Ti
-[00:00:00.293] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.293] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.192] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.192] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
+	           [0] Intel(R) Xe Graphics (TGL GT2)
+[00:00:00.192] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.192] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
+	           [1] llvmpipe (LLVM 17.0.6, 256 bits)
+[00:00:00.192] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.192] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
+	           [2] NVIDIA GeForce RTX 3060 Laptop GPU
+[00:00:00.192] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.192] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
 	     Sorted order:
-[00:00:00.293] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.293] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
-	           [0] NVIDIA GeForce GTX 1660 Ti  
-[00:00:00.293] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.293] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
-	           [1] llvmpipe (LLVM 17.0.6, 256 bits)  
-[00:00:00.293] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.293] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.192] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.192] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
+	           [0] NVIDIA GeForce RTX 3060 Laptop GPU  
+[00:00:00.192] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.192] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
+	           [1] Intel(R) Xe Graphics (TGL GT2)  
+[00:00:00.192] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.192] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
+	           [2] llvmpipe (LLVM 17.0.6, 256 bits)  
+[00:00:00.192] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.192] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
 	linux_read_sorted_physical_devices:
-[00:00:00.293] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.293] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.192] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.192] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
 	     Original order:
-[00:00:00.293] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.293] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
-	           [0] llvmpipe (LLVM 17.0.6, 256 bits)
-[00:00:00.293] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.293] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
-	           [1] NVIDIA GeForce GTX 1660 Ti
-[00:00:00.294] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.294] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.192] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.192] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
+	           [0] Intel(R) Xe Graphics (TGL GT2)
+[00:00:00.192] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.192] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
+	           [1] llvmpipe (LLVM 17.0.6, 256 bits)
+[00:00:00.192] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.192] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
+	           [2] NVIDIA GeForce RTX 3060 Laptop GPU
+[00:00:00.192] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.192] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
 	     Sorted order:
-[00:00:00.294] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.294] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
-	           [0] NVIDIA GeForce GTX 1660 Ti  
-[00:00:00.294] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.294] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
-	           [1] llvmpipe (LLVM 17.0.6, 256 bits)  
-[00:00:00.294] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.296] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.192] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.192] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
+	           [0] NVIDIA GeForce RTX 3060 Laptop GPU  
+[00:00:00.192] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.192] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
+	           [1] Intel(R) Xe Graphics (TGL GT2)  
+[00:00:00.192] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.192] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
+	           [2] llvmpipe (LLVM 17.0.6, 256 bits)  
+[00:00:00.192] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.193] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
 	linux_read_sorted_physical_devices:
-[00:00:00.296] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.296] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.193] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.193] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
 	     Original order:
-[00:00:00.297] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.297] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
-	           [0] llvmpipe (LLVM 17.0.6, 256 bits)
-[00:00:00.297] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.297] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
-	           [1] NVIDIA GeForce GTX 1660 Ti
-[00:00:00.297] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.297] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.193] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.193] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
+	           [0] Intel(R) Xe Graphics (TGL GT2)
+[00:00:00.193] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.193] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
+	           [1] llvmpipe (LLVM 17.0.6, 256 bits)
+[00:00:00.193] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.193] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
+	           [2] NVIDIA GeForce RTX 3060 Laptop GPU
+[00:00:00.193] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.193] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
 	     Sorted order:
-[00:00:00.297] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.297] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
-	           [0] NVIDIA GeForce GTX 1660 Ti  
-[00:00:00.297] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.297] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
-	           [1] llvmpipe (LLVM 17.0.6, 256 bits)  
-[00:00:00.297] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.297] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.193] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.193] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
+	           [0] NVIDIA GeForce RTX 3060 Laptop GPU  
+[00:00:00.193] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.193] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
+	           [1] Intel(R) Xe Graphics (TGL GT2)  
+[00:00:00.193] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.193] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
+	           [2] llvmpipe (LLVM 17.0.6, 256 bits)  
+[00:00:00.193] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.193] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
 	linux_read_sorted_physical_devices:
-[00:00:00.297] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.297] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.193] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.193] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
 	     Original order:
-[00:00:00.297] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.297] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
-	           [0] llvmpipe (LLVM 17.0.6, 256 bits)
-[00:00:00.297] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.298] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
-	           [1] NVIDIA GeForce GTX 1660 Ti
-[00:00:00.298] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.298] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.193] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.193] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
+	           [0] Intel(R) Xe Graphics (TGL GT2)
+[00:00:00.193] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.193] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
+	           [1] llvmpipe (LLVM 17.0.6, 256 bits)
+[00:00:00.193] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.193] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
+	           [2] NVIDIA GeForce RTX 3060 Laptop GPU
+[00:00:00.193] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.193] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
 	     Sorted order:
-[00:00:00.298] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.298] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
-	           [0] NVIDIA GeForce GTX 1660 Ti  
-[00:00:00.298] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.298] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
-	           [1] llvmpipe (LLVM 17.0.6, 256 bits)  
-[00:00:00.298] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.303] (7bd591a8b9c0) INFO   Adapter AdapterInfo { name: "NVIDIA GeForce GTX 1660 Ti", vendor: 4318, device: 8578, device_type: DiscreteGpu, driver: "NVIDIA", driver_info: "550.120", backend: Vulkan }
-[00:00:00.303] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.193] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.193] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
+	           [0] NVIDIA GeForce RTX 3060 Laptop GPU  
+[00:00:00.193] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.193] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
+	           [1] Intel(R) Xe Graphics (TGL GT2)  
+[00:00:00.193] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.193] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
+	           [2] llvmpipe (LLVM 17.0.6, 256 bits)  
+[00:00:00.193] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.195] (70a1366c2a40) INFO   Adapter AdapterInfo { name: "NVIDIA GeForce RTX 3060 Laptop GPU", vendor: 4318, device: 9504, device_type: DiscreteGpu, driver: "NVIDIA", driver_info: "550.120", backend: Vulkan }
+[00:00:00.195] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
 	Inserted device layer "VK_LAYER_KHRONOS_validation" (libVkLayer_khronos_validation.so)
-[00:00:00.303] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.304] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.195] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.195] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
 	Failed to find vkGetDeviceProcAddr in layer "libVkLayer_MESA_device_select.so"
-[00:00:00.304] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.304] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.195] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.195] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
 	vkCreateDevice layer callstack setup to:
-[00:00:00.304] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.304] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.195] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.195] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
 	   <Application>
-[00:00:00.304] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.304] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.195] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.195] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
 	     ||
-[00:00:00.304] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.304] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.195] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.195] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
 	   <Loader>
-[00:00:00.304] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.304] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.195] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.195] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
 	     ||
-[00:00:00.304] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.304] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.195] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.195] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
 	   VK_LAYER_KHRONOS_validation
-[00:00:00.304] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.304] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.195] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.195] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
 	           Type: Explicit
-[00:00:00.304] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.304] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.195] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.196] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
 	           Manifest: /usr/share/vulkan/explicit_layer.d/VkLayer_khronos_validation.json
-[00:00:00.305] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.305] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.196] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.196] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
 	           Library:  libVkLayer_khronos_validation.so
-[00:00:00.305] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.305] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.196] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.196] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
 	     ||
-[00:00:00.305] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.305] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.196] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.196] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
 	   <Device>
-[00:00:00.305] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.305] (7bd591a8b9c0) INFO   GENERAL [Loader Message (0x0)]
-	       Using "NVIDIA GeForce GTX 1660 Ti" with driver: "libGLX_nvidia.so.0"
-[00:00:00.305] (7bd591a8b9c0) INFO   	objects: (type: INSTANCE, hndl: 0x58bb6f96c3f0, name: ?)
-[00:00:00.351] (7bd591a8b9c0) INFO   VALIDATION [WARNING-cache-file-error (0xb8515d13)]
+[00:00:00.196] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.196] (70a1366c2a40) INFO   GENERAL [Loader Message (0x0)]
+	       Using "NVIDIA GeForce RTX 3060 Laptop GPU" with driver: "libGLX_nvidia.so.0"
+[00:00:00.196] (70a1366c2a40) INFO   	objects: (type: INSTANCE, hndl: 0x5ac26b70c070, name: ?)
+[00:00:00.230] (70a1366c2a40) INFO   VALIDATION [WARNING-cache-file-error (0xb8515d13)]
 	Validation Information: [ WARNING-cache-file-error ] | MessageID = 0xb8515d13 | vkCreateDevice():  Cannot open shader validation cache at /home/gotzi/.cache/shader_validation_cache-1000.bin for reading (it may not exist yet)
-[00:00:00.545] (7bd591a8b9c0) INFO   Handling event: CameraOrientationChanged(Default)
-[00:00:00.545] (7bd591a8b9c0) INFO   Adapter: "CameraAdapter"
-[00:00:19.963] (7bd591a8b9c0) INFO   Handling event: ShowProgressBar(0, "gearwheel.bin.stl   ")
-[00:00:19.963] (7bd591a8b9c0) INFO   Adapter: "UiAdapter"
-[00:00:19.996] (7bd591a8b9c0) INFO   Handling event: ShowSuccess("Object loaded")
-[00:00:19.996] (7bd591a8b9c0) INFO   Adapter: "UiAdapter"
-[00:00:20.004] (7bd591a8b9c0) INFO   Closing toast: gearwheel.bin.stl   
-[00:00:21.649] (7bd591a8b9c0) INFO   Handling event: ShowProgressBar(1, "Slicing model       ")
-[00:00:21.649] (7bd591a8b9c0) INFO   Adapter: "UiAdapter"
-[00:00:22.525] (7bd591a8b9c0) INFO   Handling event: ShowSuccess("Slicing finished")
-[00:00:22.525] (7bd591a8b9c0) INFO   Adapter: "UiAdapter"
-[00:00:23.074] (7bd58a2006c0) INFO   Trace Vertices: 2362572
-[00:00:23.523] (7bd591a8b9c0) INFO   Handling event: ShowSuccess("Gcode loaded")
-[00:00:23.523] (7bd591a8b9c0) INFO   Adapter: "UiAdapter"
-[00:00:23.529] (7bd591a8b9c0) INFO   Closing toast: Slicing model       
-[00:00:38.607] (7bd591a8b9c0) INFO   Handling event: ShowProgressBar(1, "Slicing model       ")
-[00:00:38.608] (7bd591a8b9c0) INFO   Adapter: "UiAdapter"
+[00:00:00.366] (70a1366c2a40) INFO   Handling event: CameraOrientationChanged(Default)
+[00:00:00.366] (70a1366c2a40) INFO   Adapter: "CameraAdapter"
+[00:00:07.546] (70a1366c2a40) INFO   Handling event: ShowProgressBar(0, "Cube                ")
+[00:00:07.546] (70a1366c2a40) INFO   Adapter: "UiAdapter"
+[00:00:07.546] (70a1366c2a40) INFO   Handling event: ShowSuccess("Object loaded")
+[00:00:07.546] (70a1366c2a40) INFO   Adapter: "UiAdapter"
+[00:00:07.550] (70a1366c2a40) INFO   Closing toast: Cube                
+[00:00:21.238] (70a1366c2a40) INFO   Handling event: ShowProgressBar(0, "Cube                ")
+[00:00:21.238] (70a1366c2a40) INFO   Adapter: "UiAdapter"
+[00:00:21.238] (70a1366c2a40) INFO   Handling event: ShowSuccess("Object loaded")
+[00:00:21.238] (70a1366c2a40) INFO   Adapter: "UiAdapter"
+[00:00:21.242] (70a1366c2a40) INFO   Closing toast: Cube                

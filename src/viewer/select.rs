@@ -54,7 +54,7 @@ impl Selector {
 
         self.grouped_transform = None;
 
-        self.update();
+        self.update_hitbox();
     }
 
     pub fn select(&mut self, model: Arc<dyn InteractiveModel>) {
@@ -72,7 +72,7 @@ impl Selector {
 
         self.grouped_transform = None;
 
-        self.update();
+        self.update_hitbox();
     }
 
     fn deselect(&mut self, model: &Arc<dyn InteractiveModel>) {
@@ -84,10 +84,12 @@ impl Selector {
         }
 
         println!("Deselect {:?}", self.selected.len());
-        self.update();
+        self.update_hitbox();
     }
 
-    fn update(&mut self) {
+    fn update_hitbox(&mut self) {
+        self.selected.retain(|model| !model.is_destroyed());
+
         let (min, max) = if self.selected.len() == 1 {
             self.select_box.transform(self.selected[0].transformation());
             self.select_box_lines
@@ -174,13 +176,22 @@ impl Selector {
         }
     }
 
+    pub fn update(&mut self) {
+        let len = self.selected.len();
+        self.selected.retain(|model| !model.is_destroyed());
+
+        if len != self.selected.len() {
+            self.update_hitbox();
+        }
+    }
+
     pub fn selected(&self) -> &[Arc<dyn InteractiveModel>] {
         &self.selected
     }
 
     pub fn clear(&mut self) {
         self.selected.clear();
-        self.update();
+        self.update_hitbox();
     }
 
     pub fn delete_selected(&mut self) {
@@ -189,7 +200,7 @@ impl Selector {
         });
 
         self.selected.clear();
-        self.update();
+        self.update_hitbox();
     }
 
     pub fn render<'a>(&'a self, render_pass: &mut wgpu::RenderPass<'a>) {

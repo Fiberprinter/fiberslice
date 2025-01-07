@@ -129,6 +129,9 @@ impl Viewer {
 
     pub fn update(&self, global_state: &GlobalState<RootEvent>) {
         // self.env_server.write().update(global_state);
+        self.object_selector.write().update();
+        self.mask_selector.write().update();
+
         self.sliced_object_server
             .write()
             .update(global_state.clone())
@@ -320,6 +323,24 @@ impl Viewer {
         self.mask_server
             .write()
             .load_from_bytes(name.to_string(), bytes);
+    }
+
+    pub fn delete_object(&self, obj: &Arc<CADObject>) {
+        self.object_selector.write().select(obj.clone());
+        self.object_selector.write().delete_selected();
+    }
+
+    pub fn select_object(&self, obj: &Arc<CADObject>) {
+        self.object_selector.write().select(obj.clone());
+    }
+
+    pub fn delete_mask(&self, obj: &Arc<CADObject>) {
+        self.mask_selector.write().select(obj.clone());
+        self.mask_selector.write().delete_selected();
+    }
+
+    pub fn select_mask(&self, obj: &Arc<CADObject>) {
+        self.mask_selector.write().select(obj.clone());
     }
 }
 

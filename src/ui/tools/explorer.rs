@@ -1,6 +1,7 @@
-use egui::Color32;
+use egui::{ClippedPrimitive, Color32, Id};
 
 use crate::{
+    prelude::Destroyable,
     ui::{api::trim_text, UiState},
     GlobalState, RootEvent,
 };
@@ -48,6 +49,7 @@ impl Tool for ExplorerTool<'_> {
                     ui.add_space(5.0);
 
                     egui::ScrollArea::vertical()
+                        .id_salt(Id::new("objects explorer"))
                         .max_height(200.0)
                         .show(ui, |ui| {
                             ui.vertical_centered(|ui| {
@@ -61,9 +63,14 @@ impl Tool for ExplorerTool<'_> {
                                             ui.label(trim_text::<15, 4>(&name));
                                             ui.add_space(10.0);
 
-                                            ui.button("Select");
+                                            if ui.button("Select").clicked() {
+                                                global_state.viewer.select_object(&object);
+                                            }
                                             ui.add_space(5.0);
-                                            ui.button("Delete");
+
+                                            if ui.button("Delete").clicked() {
+                                                object.destroy();
+                                            }
                                         });
                                     }
                                 });
@@ -76,6 +83,7 @@ impl Tool for ExplorerTool<'_> {
                     ui.add_space(5.0);
 
                     egui::ScrollArea::vertical()
+                        .id_salt(Id::new("masks explorer"))
                         .max_height(200.0)
                         .show(ui, |ui| {
                             ui.vertical_centered(|ui| {
@@ -89,9 +97,14 @@ impl Tool for ExplorerTool<'_> {
                                             ui.label(trim_text::<15, 4>(&name));
                                             ui.add_space(10.0);
 
-                                            ui.button("Select");
+                                            if ui.button("Select").clicked() {
+                                                global_state.viewer.select_mask(&mask);
+                                            }
                                             ui.add_space(5.0);
-                                            ui.button("Delete");
+
+                                            if ui.button("Delete").clicked() {
+                                                mask.destroy();
+                                            }
                                         });
                                     }
                                 });

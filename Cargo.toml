@@ -40,7 +40,7 @@ bytemuck = "1.21.0"
 simple-logging = "2.0.2"
 log = "0.4.21"
 egui-toast = { git = "https://github.com/GodGotzi/egui-toast.git" }
-# puffin_egui = { git = "https://github.com/EmbarkStudios/puffin" }
+puffin_egui = { git = "https://github.com/tedsteen/puffin.git", branch = "upgrade-egui" }
 futures-channel = "0.3.31"
 
 egui_code_editor = "0.2.11"
