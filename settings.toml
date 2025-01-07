@@ -1,20 +1,20 @@
-layer_height = 0.25
-nozzle_diameter = 0.6000000238418579
+layer_height = 0.6000000238418579
+nozzle_diameter = 0.800000011920929
 retract_length = 0.800000011920929
 retract_lift_z = 0.6000000238418579
 retract_speed = 35.0
-infill_percentage = 0.10000000149011612
+infill_percentage = 0.20000000298023224
 inner_perimeters_first = true
-number_of_perimeters = 3
+number_of_perimeters = 6
 top_layers = 3
 bottom_layers = 3
-print_x = 200.0
-print_y = 200.0
-print_z = 200.0
+print_x = 210.0
+print_y = 210.0
+print_z = 210.0
 minimum_retract_distance = 1.0
-infill_perimeter_overlap_percentage = 0.019999999552965164
+infill_perimeter_overlap_percentage = 0.25
 solid_infill_type = "Rectilinear"
-partial_infill_type = "Cubic"
+partial_infill_type = "Linear"
 starting_instructions = """
 G90 ; use absolute coordinates 
 M83 ; extruder relative mode
@@ -85,8 +85,8 @@ bed_temp = 60.0
 [fiber]
 diameter = 0.15000000596046448
 cut_before = 20.0
-min_length = 20.0
-max_angle = 30.0
+min_length = 25.0
+max_angle = 45.0
 speed_factor = 1.399999976158142
 acceleration_factor = 1.0
 jerk_factor = 1.0
@@ -101,16 +101,17 @@ alternating_layer_spacing = 0
 alternating_wall_width = 1
 alternating_wall_spacing = 1
 alternating_step = 1
+wall_ranges = "1-2"
 
 [fiber.infill]
 enabled = true
 
 [fiber.infill.setting]
-infill = "Linear"
-infill_percentage = 0.05000000074505806
+infill = "Triangle"
+infill_percentage = 0.019999999552965164
 width = 1
 spacing = 12
-solid_infill = true
+solid_infill = false
 air_spacing = false
 
 [fan]

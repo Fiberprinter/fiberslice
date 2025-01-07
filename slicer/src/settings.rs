@@ -932,6 +932,14 @@ pub mod fiber {
 
     use super::OptionalSetting;
 
+    use nom::{
+        character::complete::{char, digit1},
+        combinator::map_res,
+        multi::separated_list1,
+        sequence::separated_pair,
+        IResult, Parser,
+    };
+
     #[derive(EnumIter, Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
     pub enum WallPatternType {
         Alternating,
@@ -949,6 +957,35 @@ pub mod fiber {
         pub alternating_wall_spacing: usize,
 
         pub alternating_step: usize,
+
+        pub wall_ranges: String,
+    }
+
+    impl WallPattern {
+        pub fn parse_range(&self) -> IResult<&str, Vec<u32>> {
+            if self.wall_ranges.is_empty() {
+                return Ok(("", vec![]));
+            }
+
+            let single = map_res(digit1, str::parse);
+            let range = map_res(
+                separated_pair(digit1, char('-'), digit1),
+                |(start, end): (&str, &str)| -> Result<Vec<u32>, std::num::ParseIntError> {
+                    let start = start.parse::<u32>()?;
+                    let end = end.parse::<u32>()?;
+                    Ok((start..=end).collect())
+                },
+            );
+
+            let range_or_single = nom::branch::alt((range, single.map(|n| vec![n])));
+            let mut ranges = separated_list1(char(','), range_or_single);
+            ranges(&self.wall_ranges)
+                .map(|(rest, ranges)| (rest, ranges.into_iter().flatten().collect()))
+        }
+
+        pub fn is_valid(&self) -> bool {
+            self.parse_range().is_ok()
+        }
     }
 
     #[derive(Serialize, Deserialize, Debug, Clone)]
@@ -993,6 +1030,7 @@ pub mod fiber {
                         alternating_wall_width: 1,
                         alternating_wall_spacing: 1,
                         alternating_step: 1,
+                        wall_ranges: "".to_string(),
                     },
                     enabled: true,
                 },

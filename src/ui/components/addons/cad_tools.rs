@@ -14,18 +14,18 @@ use crate::{
 #[derive(Debug, Clone, Copy, PartialEq, Eq, EnumIter, EnumCount)]
 pub enum CADTool {
     Import,
-    AddCone,
     AddCube,
     AddCylinder,
+    AddCone,
     ObjectMode,
     MaskMode,
 }
 
 const CAD_TOOL_LABELS: [(&str, CADTool); CADTool::COUNT] = [
     ("Import CAD Model", CADTool::Import),
-    ("Add Cone", CADTool::AddCone),
     ("Add Cube", CADTool::AddCube),
     ("Add Cylinder", CADTool::AddCylinder),
+    ("Add Cone", CADTool::AddCone),
     ("Object Mode", CADTool::ObjectMode),
     ("Mask Mode", CADTool::MaskMode),
 ];
@@ -158,13 +158,13 @@ impl CADTools {
                                 crate::ui::Mode::Prepare(crate::prelude::PrepareMode::Objects) => {
                                     shared_state.1.viewer.load_object_from_bytes(
                                         "Cone",
-                                        include_bytes!("../../../assets/unitCube.binary.stl"),
+                                        include_bytes!("../../../assets/cone.stl"),
                                     );
                                 }
                                 crate::ui::Mode::Prepare(crate::prelude::PrepareMode::Masks) => {
                                     shared_state.1.viewer.load_mask_from_bytes(
                                         "Cone",
-                                        include_bytes!("../../../assets/unitCube.binary.stl"),
+                                        include_bytes!("../../../assets/cone.stl"),
                                     );
                                 }
                                 _ => {}
@@ -172,14 +172,14 @@ impl CADTools {
                             CADTool::AddCube => match mode {
                                 crate::ui::Mode::Prepare(crate::prelude::PrepareMode::Objects) => {
                                     shared_state.1.viewer.load_object_from_bytes(
-                                        "Cone",
-                                        include_bytes!("../../../assets/unitCube.binary.stl"),
+                                        "Cube",
+                                        include_bytes!("../../../assets/cube.stl"),
                                     );
                                 }
                                 crate::ui::Mode::Prepare(crate::prelude::PrepareMode::Masks) => {
                                     shared_state.1.viewer.load_mask_from_bytes(
-                                        "Cone",
-                                        include_bytes!("../../../assets/unitCube.binary.stl"),
+                                        "Cube",
+                                        include_bytes!("../../../assets/cube.stl"),
                                     );
                                 }
                                 _ => {}
@@ -187,14 +187,14 @@ impl CADTools {
                             CADTool::AddCylinder => match mode {
                                 crate::ui::Mode::Prepare(crate::prelude::PrepareMode::Objects) => {
                                     shared_state.1.viewer.load_object_from_bytes(
-                                        "Cone",
-                                        include_bytes!("../../../assets/unitCube.binary.stl"),
+                                        "Cylinder",
+                                        include_bytes!("../../../assets/cylinder.stl"),
                                     );
                                 }
                                 crate::ui::Mode::Prepare(crate::prelude::PrepareMode::Masks) => {
                                     shared_state.1.viewer.load_mask_from_bytes(
-                                        "Cone",
-                                        include_bytes!("../../../assets/unitCube.binary.stl"),
+                                        "Cylinder",
+                                        include_bytes!("../../../assets/cylinder.stl"),
                                     );
                                 }
                                 _ => {}

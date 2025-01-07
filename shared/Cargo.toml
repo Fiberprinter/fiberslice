@@ -8,6 +8,6 @@ egui = "0.30.0"
 
 glam = "0.29.0"
 nom_stl = "0.2.2"
-thiserror = "1.0.64"
+thiserror = "^2.0"
 parking_lot = "0.12.3"
 atomic_float = "1.1.0"

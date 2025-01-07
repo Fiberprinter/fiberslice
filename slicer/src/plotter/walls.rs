@@ -8,55 +8,54 @@ use crate::{Move, MoveChain, MoveType, TraceType};
 
 use super::polygon_operations::PolygonOperations;
 
-/*
-let is_wall_space = |layer_num: usize, wall_num: usize| {
-    // Calculate the layer's pattern
-    let layer_cycle_length = pattern_layer_space + pattern_layer_width;
-    let layer_position = layer_num % layer_cycle_length;
-    if layer_position < pattern_layer_space {
-        // Entire layer is space
-        true
-    } else {
-        // Calculate the wall's pattern
-        let wall_cycle_length = pattern_wall_space + pattern_wall_width;
-        let wall_position = wall_num % wall_cycle_length;
-        wall_position < pattern_wall_space
-    }
-};
-*/
-
 pub fn determine_move_type(
     settings: &LayerSettings,
+    number_of_walls: usize,
     wall: usize,
     layer: usize,
     trace_type: TraceType,
+    wall_ranges: &[u32],
 ) -> MoveType {
     if settings.fiber.wall_pattern.is_enabled() {
-        match settings.fiber.wall_pattern.pattern {
-            crate::fiber::WallPatternType::Alternating => {
-                let layer_cycle_length = settings.fiber.wall_pattern.alternating_layer_spacing
-                    + settings.fiber.wall_pattern.alternating_layer_width;
-                let layer_position = layer % layer_cycle_length;
+        let wall = if !wall_ranges.is_empty() {
+            wall_ranges
+                .iter()
+                .find(|wall_index| ((number_of_walls + 1 - wall) as u32) == **wall_index)
+                .map(|wall| number_of_walls + 1 - (*wall as usize))
+        } else {
+            Some(number_of_walls + 1 - wall)
+        };
 
-                if layer_position < settings.fiber.wall_pattern.alternating_layer_spacing {
-                    // Entire layer is space
-                    return MoveType::WithoutFiber(trace_type);
-                } else {
-                    // Calculate the wall's pattern
-                    let wall_cycle_length = settings.fiber.wall_pattern.alternating_wall_spacing
-                        + settings.fiber.wall_pattern.alternating_wall_width;
-                    let wall_position = (wall
-                        + (layer * settings.fiber.wall_pattern.alternating_step))
-                        % wall_cycle_length;
+        if let Some(wall) = wall {
+            match settings.fiber.wall_pattern.pattern {
+                crate::fiber::WallPatternType::Alternating => {
+                    let layer_cycle_length = settings.fiber.wall_pattern.alternating_layer_spacing
+                        + settings.fiber.wall_pattern.alternating_layer_width;
+                    let layer_position = layer % layer_cycle_length;
 
-                    if wall_position < settings.fiber.wall_pattern.alternating_wall_spacing {
+                    if layer_position < settings.fiber.wall_pattern.alternating_layer_spacing {
+                        // Entire layer is space
                         return MoveType::WithoutFiber(trace_type);
                     } else {
-                        return MoveType::WithFiber(trace_type);
+                        // Calculate the wall's pattern
+                        let wall_cycle_length =
+                            settings.fiber.wall_pattern.alternating_wall_spacing
+                                + settings.fiber.wall_pattern.alternating_wall_width;
+                        let wall_position = (wall
+                            + (layer * settings.fiber.wall_pattern.alternating_step))
+                            % wall_cycle_length;
+
+                        if wall_position < settings.fiber.wall_pattern.alternating_wall_spacing {
+                            return MoveType::WithoutFiber(trace_type);
+                        } else {
+                            return MoveType::WithFiber(trace_type);
+                        }
                     }
                 }
+                crate::fiber::WallPatternType::Full => MoveType::WithFiber(trace_type),
             }
-            crate::fiber::WallPatternType::Full => MoveType::WithFiber(trace_type),
+        } else {
+            MoveType::WithoutFiber(trace_type)
         }
     } else {
         MoveType::WithoutFiber(trace_type)
@@ -67,8 +66,10 @@ pub fn inset_polygon_recursive(
     poly: &MultiPolygon<f32>,
     settings: &LayerSettings,
     outer_perimeter: bool,
+    number_of_walls: usize,
     walls_left: usize,
     layer: usize,
+    wall_ranges: &[u32],
 ) -> Option<MoveChain> {
     let mut move_chains = vec![];
     let inset_poly = poly.offset_from(
@@ -89,14 +90,23 @@ pub fn inset_polygon_recursive(
             .circular_tuple_windows::<(_, _)>()
             .map(|(&_start, &end)| {
                 let move_type = if outer_perimeter {
-                    determine_move_type(settings, walls_left + 1, layer, TraceType::WallOuter)
+                    determine_move_type(
+                        settings,
+                        number_of_walls,
+                        walls_left + 1,
+                        layer,
+                        TraceType::WallOuter,
+                        wall_ranges,
+                    )
                     // MoveType::WithoutFiber(TraceType::WallOuter)
                 } else {
                     determine_move_type(
                         settings,
+                        number_of_walls,
                         walls_left + 1,
                         layer,
                         TraceType::InteriorWallOuter,
+                        wall_ranges,
                     )
                     // MoveType::WithoutFiber(TraceType::InteriorWallOuter)
                 };
@@ -120,14 +130,23 @@ pub fn inset_polygon_recursive(
         for interior in polygon.interiors() {
             let mut moves = vec![];
             let move_type = if outer_perimeter {
-                determine_move_type(settings, walls_left + 1, layer, TraceType::WallInner)
+                determine_move_type(
+                    settings,
+                    number_of_walls,
+                    walls_left + 1,
+                    layer,
+                    TraceType::WallInner,
+                    wall_ranges,
+                )
                 // MoveType::WithoutFiber(TraceType::WallInner)
             } else {
                 determine_move_type(
                     settings,
+                    number_of_walls,
                     walls_left + 1,
                     layer,
                     TraceType::InteriorWallInner,
+                    wall_ranges,
                 )
                 // MoveType::WithoutFiber(TraceType::InteriorWallInner)
             };
@@ -164,8 +183,10 @@ pub fn inset_polygon_recursive(
                     &MultiPolygon::from(polygon_rec),
                     settings,
                     false,
+                    number_of_walls,
                     walls_left - 1,
                     layer,
+                    wall_ranges,
                 ) {
                     inner_chains.push(mc);
                 }

@@ -804,6 +804,19 @@ impl UiWidgetComponent for FiberSettings {
             ui,
         );
 
+        let last = self.wall_pattern.wall_ranges.clone();
+
+        show_str(
+            &mut self.wall_pattern.wall_ranges,
+            "Wall Ranges",
+            &settings_default.wall_pattern.wall_ranges,
+            ui,
+        );
+
+        if !self.wall_pattern.is_valid() {
+            self.wall_pattern.wall_ranges = last;
+        }
+
         show_optional_setting(
             &mut self.infill,
             "Infill Fibers",
@@ -958,6 +971,16 @@ fn show_bool(
         }
 
         show_reset_button(value, default, ui);
+        response
+    })
+    .inner
+}
+
+fn show_str(value: &mut String, description: &str, default: &str, ui: &mut Ui) -> Response {
+    ui.horizontal(|ui| {
+        crate::config::gui::settings::SETTINGS_LABEL.label(ui, description);
+        let response = ui.text_edit_singleline(value);
+        show_reset_button(value, default.to_string(), ui);
         response
     })
     .inner

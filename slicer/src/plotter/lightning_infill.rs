@@ -9,7 +9,7 @@ use rand::thread_rng;
 use rayon::iter::{IntoParallelRefMutIterator, ParallelIterator};
 
 use crate::settings::LayerSettings;
-use crate::{Move, MoveChain, TraceType, MoveType, Slice};
+use crate::{Move, MoveChain, MoveType, Slice, TraceType};
 
 use super::polygon_operations::PolygonOperations;
 

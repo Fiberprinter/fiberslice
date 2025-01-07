@@ -363,8 +363,8 @@ impl Slice {
         let layer_settings = settings.get_layer_settings(layer, (bottom_height + top_height) / 2.0);
 
         Ok(Slice {
-            main_polygon: multi_polygon.clone(),
-            remaining_area: multi_polygon.simplify_vw(&0.0001),
+            main_polygon: multi_polygon.simplify_vw(&0.001),
+            remaining_area: multi_polygon.simplify_vw(&0.001),
             support_interface: None,
             support_tower: None,
             chains: vec![],

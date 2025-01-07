@@ -22,10 +22,20 @@ use rayon::iter::{IntoParallelRefIterator, ParallelIterator};
 use walls::*;
 
 pub trait Plotter {
-    fn slice_walls_into_chains(&mut self, number_of_perimeters: usize, layer: usize);
+    fn slice_walls_into_chains(
+        &mut self,
+        number_of_perimeters: usize,
+        wall_ranges: &[u32],
+        layer: usize,
+    );
     fn shrink_layer(&mut self);
-    fn fill_remaining_area_partially(&mut self, layer_count: usize, ctx: &PassContext);
-    fn fill_remaining_area(&mut self, solid: bool, layer_count: usize, ctx: &PassContext);
+    fn fill_remaining_area_partially(
+        &mut self,
+        layer_count: usize,
+        fill_ratio: f32,
+        ctx: &PassContext,
+    );
+    fn fill_remaining_area(&mut self, solid: bool, layer: usize, ctx: &PassContext);
     fn fill_solid_subtracted_area(
         &mut self,
         other: &MultiPolygon<f32>,
@@ -36,7 +46,7 @@ pub trait Plotter {
     fn fill_solid_top_layer(
         &mut self,
         layer_above: &MultiPolygon<f32>,
-        layer_count: usize,
+        layer: usize,
         ctx: &PassContext,
     );
     fn generate_skirt(
@@ -51,7 +61,12 @@ pub trait Plotter {
 }
 
 impl Plotter for Slice {
-    fn slice_walls_into_chains(&mut self, number_of_perimeters: usize, layer: usize) {
+    fn slice_walls_into_chains(
+        &mut self,
+        number_of_perimeters: usize,
+        wall_ranges: &[u32],
+        layer: usize,
+    ) {
         let mut new_chains = self
             .remaining_area
             .iter()
@@ -61,8 +76,10 @@ impl Plotter for Slice {
                     &multi,
                     &self.layer_settings,
                     true,
+                    number_of_perimeters,
                     number_of_perimeters - 1,
                     layer,
+                    wall_ranges,
                 )
             })
             .collect::<Vec<_>>();
@@ -102,17 +119,16 @@ impl Plotter for Slice {
         }
     }
 
-    fn fill_remaining_area_partially(&mut self, layer_count: usize, ctx: &PassContext) {
+    fn fill_remaining_area_partially(
+        &mut self,
+        layer_count: usize,
+        fill_ratio: f32,
+        ctx: &PassContext,
+    ) {
         let mut remaining_polygons = vec![];
 
         //For each region still available fill wih infill
         for poly in self.remaining_area.iter() {
-            let fill_ratio = if ctx.is_fiber_pass() {
-                self.layer_settings.fiber.infill.infill_percentage
-            } else {
-                self.layer_settings.infill_percentage
-            };
-
             let new_moves = partial_infill_polygon(
                 poly,
                 &self.layer_settings,
@@ -134,9 +150,7 @@ impl Plotter for Slice {
                 .for_each(|poly| remaining_polygons.push(poly));
         }
 
-        if ctx.is_subtract_pass() {
-            self.remaining_area = MultiPolygon(remaining_polygons)
-        }
+        self.remaining_area = MultiPolygon(remaining_polygons)
     }
 
     fn fill_remaining_area(&mut self, solid: bool, layer_count: usize, ctx: &PassContext) {
@@ -176,9 +190,7 @@ impl Plotter for Slice {
             }
         }
 
-        if ctx.is_subtract_pass() {
-            self.remaining_area = MultiPolygon(vec![])
-        }
+        self.remaining_area = MultiPolygon(vec![])
     }
 
     fn fill_solid_subtracted_area(

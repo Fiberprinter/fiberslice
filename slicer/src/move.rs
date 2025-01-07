@@ -1,6 +1,5 @@
 use geo::{line_string, Coord, EuclideanDistance, MultiPolygon, Polygon};
 use glam::{vec2, Vec4};
-use log::info;
 use serde::{Deserialize, Serialize};
 use strum_macros::EnumCount;
 

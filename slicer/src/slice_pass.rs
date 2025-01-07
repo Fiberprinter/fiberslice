@@ -38,24 +38,6 @@ impl PassContext {
         }
     }
 
-    pub fn subtract(self) -> Self {
-        Self {
-            subtract: true,
-            ..self
-        }
-    }
-
-    pub fn no_subtract(self) -> Self {
-        Self {
-            subtract: false,
-            ..self
-        }
-    }
-
-    pub fn is_subtract_pass(&self) -> bool {
-        self.subtract
-    }
-
     pub fn move_from_trace_type(&self, trace_type: TraceType) -> MoveType {
         if self.fiber {
             MoveType::WithFiber(trace_type)
@@ -190,11 +172,21 @@ pub struct WallPass {}
 impl SlicePass for WallPass {
     fn pass(slices: &mut Vec<Slice>, settings: &Settings) -> Result<(), SlicerErrors> {
         // display_state_update("Generating Moves: Walls", send_messages);
+        let (_, wall_ranges) = settings
+            .fiber
+            .wall_pattern
+            .parse_range()
+            .unwrap_or((&settings.fiber.wall_pattern.wall_ranges, Vec::new()));
+
         slices
             .par_iter_mut()
             .enumerate()
             .for_each(|(layer_num, slice)| {
-                slice.slice_walls_into_chains(settings.number_of_perimeters, layer_num);
+                slice.slice_walls_into_chains(
+                    settings.number_of_perimeters,
+                    &wall_ranges,
+                    layer_num,
+                );
             });
         Ok(())
     }
@@ -339,13 +331,15 @@ impl SlicePass for FiberInfillPass {
                         if !settings.fiber.infill.air_spacing {
                             slice.fill_remaining_area_partially(
                                 layer_num,
-                                &&PassContext::new().without_fiber().subtract(),
+                                settings.fiber.infill.infill_percentage,
+                                &PassContext::new().without_fiber(),
                             );
                         }
                     } else {
                         slice.fill_remaining_area_partially(
                             layer_num,
-                            &PassContext::new().with_fiber().subtract(),
+                            settings.fiber.infill.infill_percentage,
+                            &PassContext::new().with_fiber(),
                         );
                     }
                 });
