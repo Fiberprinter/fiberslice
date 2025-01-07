@@ -990,12 +990,12 @@ pub mod fiber {
 
     #[derive(Serialize, Deserialize, Debug, Clone)]
     pub struct Infill {
-        pub infill: PartialInfillTypes,
+        pub partial_infill_type: PartialInfillTypes,
         pub infill_percentage: f32,
         pub width: usize,
         pub spacing: usize,
         pub solid_infill: bool,
-        pub air_spacing: bool,
+        pub air_space: bool,
     }
 
     #[derive(Serialize, Deserialize, Debug, Clone)]
@@ -1037,11 +1037,11 @@ pub mod fiber {
 
                 infill: OptionalSetting {
                     setting: Infill {
-                        infill: PartialInfillTypes::Linear,
+                        partial_infill_type: PartialInfillTypes::Linear,
                         infill_percentage: 0.2,
                         width: 1,
                         spacing: 1,
-                        air_spacing: false,
+                        air_space: false,
                         solid_infill: false,
                     },
                     enabled: true,

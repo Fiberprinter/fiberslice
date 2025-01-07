@@ -135,6 +135,7 @@ impl Plotter for Slice {
                 fill_ratio,
                 layer_count,
                 self.get_height(),
+                self.layer_settings.fiber.infill.partial_infill_type,
                 ctx,
             );
 
@@ -169,7 +170,7 @@ impl Plotter for Slice {
                     self.chains.push(chain);
                 }
             } else {
-                let fill_ratio = if ctx.is_fiber_pass() {
+                let fill_ratio = if ctx.is_fiber() {
                     self.layer_settings.fiber.infill.infill_percentage
                 } else {
                     self.layer_settings.infill_percentage
@@ -181,6 +182,7 @@ impl Plotter for Slice {
                     fill_ratio,
                     layer_count,
                     self.get_height(),
+                    self.layer_settings.partial_infill_type,
                     ctx,
                 );
 

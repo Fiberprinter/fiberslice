@@ -172,7 +172,6 @@ fn generate_moves(
             ShrinkPass::pass(slices, settings)?;
 
             //Handle Perimeters
-
             WallPass::pass(slices, settings)?;
 
             //Handle Bridging

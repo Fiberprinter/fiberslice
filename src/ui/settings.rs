@@ -821,7 +821,7 @@ impl UiWidgetComponent for FiberSettings {
             &mut self.infill,
             "Infill Fibers",
             |setting, ui| {
-                show_combo(&mut setting.infill, "Infill Type", ui);
+                show_combo(&mut setting.partial_infill_type, "Infill Type", ui);
                 show_f32(
                     &mut setting.infill_percentage,
                     "Infill Percentage",
@@ -846,7 +846,7 @@ impl UiWidgetComponent for FiberSettings {
                     false,
                     ui,
                 );
-                show_bool(&mut setting.air_spacing, "Air Spacing", None, false, ui);
+                show_bool(&mut setting.air_space, "Air Spacing", None, false, ui);
             },
             true,
             ui,

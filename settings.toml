@@ -14,7 +14,7 @@ print_z = 210.0
 minimum_retract_distance = 1.0
 infill_perimeter_overlap_percentage = 0.25
 solid_infill_type = "Rectilinear"
-partial_infill_type = "Triangle"
+partial_infill_type = "Linear"
 starting_instructions = """
 G90 ; use absolute coordinates 
 M83 ; extruder relative mode
@@ -86,7 +86,7 @@ bed_temp = 60.0
 diameter = 0.15000000596046448
 cut_before = 20.0
 min_length = 25.0
-max_angle = 30.0
+max_angle = 45.0
 speed_factor = 1.399999976158142
 acceleration_factor = 1.0
 jerk_factor = 1.0
@@ -107,12 +107,12 @@ wall_ranges = ""
 enabled = true
 
 [fiber.infill.setting]
-infill = "Linear"
+partial_infill_type = "Cubic"
 infill_percentage = 0.019999999552965164
 width = 1
 spacing = 12
 solid_infill = true
-air_spacing = false
+air_space = false
 
 [fan]
 fan_speed = 100.0

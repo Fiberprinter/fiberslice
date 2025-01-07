@@ -8,6 +8,7 @@ use crate::settings::Settings;
 use crate::{MoveType, Object, PartialInfillTypes, Slice, TraceType};
 use geo::prelude::*;
 use geo::*;
+use log::info;
 use rayon::prelude::*;
 
 #[derive(Debug)]
@@ -15,6 +16,7 @@ pub struct PassContext {
     fiber: bool,
 }
 
+#[allow(dead_code)]
 impl PassContext {
     pub fn new() -> Self {
         Self { fiber: false }
@@ -42,7 +44,7 @@ impl PassContext {
         }
     }
 
-    pub fn is_fiber_pass(&self) -> bool {
+    pub fn is_fiber(&self) -> bool {
         self.fiber
     }
 }
@@ -324,7 +326,8 @@ impl SlicePass for FiberInfillPass {
                 .enumerate()
                 .for_each(|(layer_num, slice)| {
                     if ((layer_num + 1) % cycle_length) < spacing {
-                        if !settings.fiber.infill.air_spacing {
+                        if !settings.fiber.infill.air_space {
+                            info!("Filling remaining area without fiber");
                             slice.fill_remaining_area_partially(
                                 layer_num,
                                 settings.fiber.infill.infill_percentage,

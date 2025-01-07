@@ -123,6 +123,7 @@ pub fn partial_infill_polygon(
     fill_ratio: f32,
     _layer_count: usize,
     layer_height: f32,
+    partial_infill_type: PartialInfillTypes,
     ctx: &PassContext,
 ) -> Vec<MoveChain> {
     if fill_ratio < f32::EPSILON {
@@ -130,12 +131,6 @@ pub fn partial_infill_polygon(
     }
 
     let fill_type = ctx.move_from_trace_type(TraceType::Infill);
-
-    let partial_infill_type = if ctx.is_fiber_pass() {
-        settings.fiber.infill.infill
-    } else {
-        settings.partial_infill_type
-    };
 
     match partial_infill_type {
         PartialInfillTypes::Linear => partial_linear_fill_polygon(
