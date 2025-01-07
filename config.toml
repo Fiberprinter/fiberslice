@@ -1,1 +1,7 @@
 settings_path = "settings.toml"
+
+[theme_color]
+r = 102
+g = 197
+b = 238
+a = 255

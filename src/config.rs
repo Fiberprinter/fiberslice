@@ -5,8 +5,23 @@
 use serde::Deserialize;
 
 #[derive(Debug, Clone, Deserialize)]
+pub struct Color {
+    pub r: u8,
+    pub g: u8,
+    pub b: u8,
+    pub a: u8,
+}
+
+impl From<&Color> for egui::Color32 {
+    fn from(color: &Color) -> Self {
+        egui::Color32::from_rgba_premultiplied(color.r, color.g, color.b, color.a)
+    }
+}
+
+#[derive(Debug, Clone, Deserialize)]
 pub struct Config {
     pub settings_path: String,
+    pub theme_color: Color,
 }
 
 pub mod default {

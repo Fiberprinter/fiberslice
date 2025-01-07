@@ -429,7 +429,7 @@ impl Plotter for Slice {
                     let retraction_wipe = &self.layer_settings.retraction_wipe;
 
                     let ordered: Vec<Coord<f32>> = if chain.is_loop {
-                        //fixme this is bad
+                        //fixme this is bad, yes I know but I don't care
                         chain
                             .moves
                             .iter()
