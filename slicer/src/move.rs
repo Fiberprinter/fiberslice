@@ -49,8 +49,6 @@ impl CommandPass for MergeFiberPass {
         let mut current_index = 0;
         while current_index < cmds.len() {
             if let Some(chain) = FiberChain::find_next(cmds, current_index, settings) {
-                info!("Fiber Chain {:?}", chain);
-
                 if chain.start_index == chain.end_index {
                     // assume that the chain is a single move
                     let (start, end, thickness, width) = match cmds[chain.start_index] {
@@ -72,6 +70,9 @@ impl CommandPass for MergeFiberPass {
                             width,
                             id: None,
                             cut_pos: settings.fiber.cut_before,
+
+                            #[cfg(debug_assertions)]
+                            debug: format!("Cut at {}", settings.fiber.cut_before),
                         };
                     } else {
                         cmds[chain.start_index] = Command::MoveAndExtrude {
@@ -80,6 +81,9 @@ impl CommandPass for MergeFiberPass {
                             thickness,
                             width,
                             id: None,
+
+                            #[cfg(debug_assertions)]
+                            debug: format!("Fiber Chain too short"),
                         };
                     }
                 } else if chain.length >= settings.fiber.min_length {
@@ -105,6 +109,9 @@ impl CommandPass for MergeFiberPass {
                             thickness,
                             width,
                             id: None,
+
+                            #[cfg(debug_assertions)]
+                            debug: format!("Fiber Chain too short"),
                         };
                     }
                 }
@@ -126,7 +133,7 @@ struct FiberChain {
 
 impl FiberChain {
     fn find_next(
-        cmds: &[Command],
+        cmds: &mut [Command],
         mut current_index: usize,
         settings: &crate::Settings,
     ) -> Option<FiberChain> {
@@ -138,11 +145,12 @@ impl FiberChain {
             match cmds[current_index] {
                 Command::MoveAndExtrudeFiber { start, end, .. } => {
                     let direction = vec2(end.x - start.x, end.y - start.y).normalize();
-                    info!("Direction: {:?}  {:?}", direction, last_direction);
 
                     if let Some(last_dir) = last_direction {
                         let angle = direction.angle_to(last_dir);
-                        info!("Angle: {}", angle.to_degrees());
+
+                        #[cfg(debug_assertions)]
+                        cmds[current_index].set_debug(format!("Angle: {}", angle.to_degrees()));
 
                         if angle.to_degrees().abs() <= settings.fiber.max_angle {
                             length += start.euclidean_distance(&end);
@@ -212,6 +220,9 @@ impl FiberChain {
                             width,
                             id: None,
                             cut_pos,
+
+                            #[cfg(debug_assertions)]
+                            debug: format!("Cut at {}", cut_pos),
                         };
 
                         return;
@@ -396,6 +407,9 @@ pub enum Command {
 
         /// The extrusion width
         width: f32,
+
+        #[cfg(debug_assertions)]
+        debug: String,
     },
     MoveAndExtrudeFiber {
         id: Option<MoveId>,
@@ -410,6 +424,9 @@ pub enum Command {
 
         /// The extrusion width
         width: f32,
+
+        #[cfg(debug_assertions)]
+        debug: String,
     },
     MoveAndExtrudeFiberAndCut {
         id: Option<MoveId>,
@@ -426,8 +443,10 @@ pub enum Command {
         width: f32,
 
         cut_pos: f32,
+
+        #[cfg(debug_assertions)]
+        debug: String,
     },
-    CutFiber,
     ///Change the layer height
     LayerChange {
         ///The height the print head should move to
@@ -481,6 +500,18 @@ pub enum Command {
     },
     ///Used in optimization , should be optimized out
     NoAction,
+}
+
+impl Command {
+    #[cfg(debug_assertions)]
+    pub fn set_debug(&mut self, debug: String) {
+        match self {
+            Command::MoveAndExtrude { debug: d, .. }
+            | Command::MoveAndExtrudeFiber { debug: d, .. }
+            | Command::MoveAndExtrudeFiberAndCut { debug: d, .. } => d.push_str(&debug),
+            _ => {}
+        }
+    }
 }
 
 impl Command {
@@ -677,6 +708,9 @@ impl MoveChain {
                         thickness,
                         width: m.width,
                         id: None,
+
+                        #[cfg(debug_assertions)]
+                        debug: format!("{:?}", print_type),
                     });
                     current_loc = m.end;
                 }
@@ -692,6 +726,9 @@ impl MoveChain {
                         thickness,
                         width: m.width,
                         id: None,
+
+                        #[cfg(debug_assertions)]
+                        debug: format!("{:?}", print_type),
                     });
                     current_loc = m.end;
                 }

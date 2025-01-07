@@ -12,7 +12,6 @@ pub fn unary_optimizer(cmds: &mut Vec<Command>) {
         Command::MoveAndExtrude { start, end, .. }
         | Command::MoveAndExtrudeFiber { start, end, .. }
         | Command::MoveAndExtrudeFiberAndCut { start, end, .. } => start != end,
-        Command::CutFiber => true,
         Command::LayerChange { .. } => true,
         Command::ChangeObject { .. } => true,
         Command::ChangeType { .. } => true,
@@ -71,6 +70,9 @@ pub fn binary_optimizer(cmds: &mut Vec<Command>, settings: &Settings) {
                                 thickness: f_thick,
                                 width: s_width,
                                 id: None,
+
+                                #[cfg(debug_assertions)]
+                                debug: format!("{:?} -> {:?}", f_start, s_end),
                             });
                         }
                     }
@@ -447,6 +449,9 @@ mod tests {
                 thickness: 0.3,
                 width: 0.4,
                 id: None,
+
+                #[cfg(debug_assertions)]
+                debug: "".to_string(),
             })
             .collect::<Vec<Command>>();
 
@@ -490,6 +495,9 @@ mod tests {
                     thickness: 0.3,
                     width: 0.4,
                     id: None,
+
+                    #[cfg(debug_assertions)]
+                    debug: "".to_string(),
                 }),
         );
 

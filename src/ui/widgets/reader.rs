@@ -164,7 +164,7 @@ impl<'a> EfficientReader<'a> {
         let scroll_delta = ui.ctx().input(|input| input.smooth_scroll_delta.y);
 
         if ui.ui_contains_pointer() && self.view.size < line_breaks.len() {
-            self.view.offset = ((self.view.offset as f32 - scroll_delta).max(0.0) as usize)
+            self.view.offset = ((self.view.offset as f32 - scroll_delta * 0.1).max(0.0) as usize)
                 .min(line_breaks.len() - 1);
         }
 

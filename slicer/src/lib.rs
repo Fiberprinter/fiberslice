@@ -14,7 +14,7 @@ use tower::create_towers;
 mod calculation;
 mod command_pass;
 mod error;
-mod gcode;
+pub mod gcode;
 mod mask;
 mod r#move;
 mod optimizer;
@@ -25,8 +25,6 @@ mod tower;
 mod utils;
 mod warning;
 
-pub use gcode::build_gcode;
-pub use gcode::write_gcode;
 pub use gcode::SlicedGCode;
 pub use mask::Mask;
 
@@ -111,12 +109,12 @@ pub fn slice(
     process.set_progress(0.7);
     SlowDownLayerPass::pass(&mut moves, settings);
 
-    process.set_task("Calculating Values".to_string());
-    process.set_progress(0.75);
-
     MergeFiberPass::pass(&mut moves, settings);
 
     EvalIdPass::pass(&mut moves, settings);
+
+    process.set_task("Calculating Values".to_string());
+    process.set_progress(0.75);
 
     let calculated_values = calculation::calculate_values(&moves, settings);
 

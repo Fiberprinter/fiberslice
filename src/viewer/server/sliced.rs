@@ -4,7 +4,9 @@ use std::sync::Arc;
 
 use native_dialog::FileDialog;
 use shared::process::Process;
-use slicer::{build_gcode, write_gcode, SliceResult, SlicedGCode};
+use slicer::gcode::mem::GCodeMemoryWriter;
+use slicer::gcode::GCodeFileWriter;
+use slicer::{gcode::write_gcode, SliceResult, SlicedGCode};
 use tokio::sync::oneshot::Receiver;
 use tokio::task::JoinHandle;
 use wgpu::util::DeviceExt;
@@ -178,7 +180,11 @@ impl SlicedObjectServer {
             process.set_task("Build GCode".to_string());
             process.set_progress(0.9);
 
-            let sliced_gcode = build_gcode(&slice_result.moves, &slice_result.settings).unwrap();
+            let mut writer = GCodeMemoryWriter::new();
+            let navigator =
+                write_gcode(&slice_result.moves, &slice_result.settings, &mut writer).unwrap();
+
+            let sliced_gcode = writer.finish(navigator);
 
             process.set_progress(1.0);
 
@@ -208,6 +214,7 @@ impl SlicedObjectServer {
                 };
 
                 let mut writer = BufWriter::new(file);
+                let mut writer = GCodeFileWriter::new(&mut writer);
 
                 match write_gcode(&toolpath.moves, &toolpath.settings, &mut writer) {
                     Ok(_) => {

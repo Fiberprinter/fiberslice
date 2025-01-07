@@ -125,6 +125,7 @@ impl SlicedObject {
                     end,
                     thickness,
                     width,
+                    ..
                 } => {
                     let start = Vec3::new(
                         start.x - settings.print_x / 2.0,

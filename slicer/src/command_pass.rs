@@ -135,7 +135,6 @@ impl CommandPass for SlowDownLayerPass {
                                     layer_height = *z;
                                 }
                                 Command::NoAction
-                                | Command::CutFiber
                                 | Command::ChangeObject { .. }
                                 | Command::ChangeType { .. } => {}
                             }
