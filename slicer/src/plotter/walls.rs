@@ -1,6 +1,7 @@
 use geo::prelude::*;
 use geo::*;
 
+use glam::vec2;
 use itertools::Itertools;
 
 use crate::settings::LayerSettings;
@@ -62,6 +63,46 @@ pub fn determine_move_type(
     }
 }
 
+pub fn seam<'a>(points: &'a [Coord<f32>]) -> Vec<&'a Coord<f32>> {
+    if points.len() < 3 {
+        return points.iter().collect();
+    }
+
+    let mut last_direction = None;
+    let (mut max_angle, mut index) = (0.0, None);
+
+    let start = points.last().unwrap();
+
+    for (i, end) in points.iter().enumerate() {
+        let start = vec2(start.x, start.y);
+        let end = vec2(end.x, end.y);
+        let direction = end - start;
+
+        if let Some(last_direction) = last_direction {
+            let angle = direction.angle_to(last_direction).abs();
+            if angle > max_angle {
+                max_angle = angle;
+
+                index = Some(i);
+            }
+        } else {
+            index = Some(i)
+        }
+
+        last_direction = Some(direction);
+    }
+
+    let wanted_start_index = index.unwrap_or(0);
+
+    // rotate the iterator to the wanted start index
+    points
+        .iter()
+        .cycle()
+        .skip(wanted_start_index)
+        .take(points.len())
+        .collect()
+}
+
 pub fn inset_polygon_recursive(
     poly: &MultiPolygon<f32>,
     settings: &LayerSettings,
@@ -83,10 +124,12 @@ pub fn inset_polygon_recursive(
     for raw_polygon in inset_poly.0.iter() {
         let polygon = raw_polygon.simplify(&0.01);
         let mut outer_chains = vec![];
-        let moves: Vec<Move> = polygon
-            .exterior()
-            .0
-            .iter()
+
+        let seamed_poly = seam(&polygon.exterior().0);
+        let start_point = seamed_poly[0].clone();
+
+        let moves: Vec<Move> = seamed_poly
+            .into_iter()
             .circular_tuple_windows::<(_, _)>()
             .map(|(&_start, &end)| {
                 let move_type = if outer_perimeter {
@@ -98,14 +141,13 @@ pub fn inset_polygon_recursive(
                         TraceType::WallOuter,
                         wall_ranges,
                     )
-                    // MoveType::WithoutFiber(TraceType::WallOuter)
                 } else {
                     determine_move_type(
                         settings,
                         number_of_walls,
                         walls_left + 1,
                         layer,
-                        TraceType::InteriorWallOuter,
+                        TraceType::WallInner,
                         wall_ranges,
                     )
                     // MoveType::WithoutFiber(TraceType::InteriorWallOuter)
@@ -122,7 +164,7 @@ pub fn inset_polygon_recursive(
             .collect();
 
         outer_chains.push(MoveChain {
-            start_point: polygon.exterior()[0],
+            start_point,
             moves,
             is_loop: true,
         });
@@ -135,10 +177,9 @@ pub fn inset_polygon_recursive(
                     number_of_walls,
                     walls_left + 1,
                     layer,
-                    TraceType::WallInner,
+                    TraceType::InteriorWallOuter,
                     wall_ranges,
                 )
-                // MoveType::WithoutFiber(TraceType::WallInner)
             } else {
                 determine_move_type(
                     settings,
@@ -148,10 +189,12 @@ pub fn inset_polygon_recursive(
                     TraceType::InteriorWallInner,
                     wall_ranges,
                 )
-                // MoveType::WithoutFiber(TraceType::InteriorWallInner)
             };
 
-            for (&_start, &end) in interior.0.iter().circular_tuple_windows::<(_, _)>() {
+            let seamed_poly = seam(&interior.0);
+            let start_point = seamed_poly[0].clone();
+
+            for (&_start, &end) in seamed_poly.into_iter().circular_tuple_windows::<(_, _)>() {
                 moves.push(Move {
                     end,
                     move_type,
@@ -162,7 +205,7 @@ pub fn inset_polygon_recursive(
             }
 
             outer_chains.push(MoveChain {
-                start_point: interior.0[0],
+                start_point,
                 moves,
                 is_loop: true,
             });
@@ -222,4 +265,18 @@ pub fn inset_polygon_recursive(
                 is_loop: true,
             }
         })
+}
+
+#[test]
+fn test_seam() {
+    let points = [
+        Coord { x: -10.6, y: 1.7 },
+        Coord { x: -4.1, y: 6.7 },
+        Coord { x: -5.0, y: -1.7 },
+    ];
+
+    println!("{:?}", points);
+    println!("{:?}", seam(&points));
+
+    panic!("Test not implemented");
 }

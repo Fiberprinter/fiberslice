@@ -1,0 +1,12 @@
+/home/gotzi/Projects/fiberslice-5d/slicer/target/debug/deps/libecolor-b8867eb1f4c24595.rmeta: /home/gotzi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ecolor-0.30.0/src/lib.rs /home/gotzi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ecolor-0.30.0/src/color32.rs /home/gotzi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ecolor-0.30.0/src/hsva_gamma.rs /home/gotzi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ecolor-0.30.0/src/hsva.rs /home/gotzi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ecolor-0.30.0/src/rgba.rs /home/gotzi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ecolor-0.30.0/src/hex_color_runtime.rs
+
+/home/gotzi/Projects/fiberslice-5d/slicer/target/debug/deps/libecolor-b8867eb1f4c24595.rlib: /home/gotzi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ecolor-0.30.0/src/lib.rs /home/gotzi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ecolor-0.30.0/src/color32.rs /home/gotzi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ecolor-0.30.0/src/hsva_gamma.rs /home/gotzi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ecolor-0.30.0/src/hsva.rs /home/gotzi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ecolor-0.30.0/src/rgba.rs /home/gotzi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ecolor-0.30.0/src/hex_color_runtime.rs
+
+/home/gotzi/Projects/fiberslice-5d/slicer/target/debug/deps/ecolor-b8867eb1f4c24595.d: /home/gotzi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ecolor-0.30.0/src/lib.rs /home/gotzi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ecolor-0.30.0/src/color32.rs /home/gotzi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ecolor-0.30.0/src/hsva_gamma.rs /home/gotzi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ecolor-0.30.0/src/hsva.rs /home/gotzi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ecolor-0.30.0/src/rgba.rs /home/gotzi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ecolor-0.30.0/src/hex_color_runtime.rs
+
+/home/gotzi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ecolor-0.30.0/src/lib.rs:
+/home/gotzi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ecolor-0.30.0/src/color32.rs:
+/home/gotzi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ecolor-0.30.0/src/hsva_gamma.rs:
+/home/gotzi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ecolor-0.30.0/src/hsva.rs:
+/home/gotzi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ecolor-0.30.0/src/rgba.rs:
+/home/gotzi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ecolor-0.30.0/src/hex_color_runtime.rs:
