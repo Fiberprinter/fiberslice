@@ -11,6 +11,7 @@ pub trait PolygonOperations {
 
     fn union_with(&self, other: &MultiPolygon<f32>) -> MultiPolygon<f32>;
 
+    #[allow(dead_code)]
     fn xor_with(&self, other: &MultiPolygon<f32>) -> MultiPolygon<f32>;
 }
 

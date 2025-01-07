@@ -64,6 +64,7 @@ pub struct ProfileExtrusion {
     profile_end: TraceCrossSection,
 }
 
+#[allow(dead_code)]
 impl ProfileExtrusion {
     pub fn new(profile_start: TraceCrossSection, profile_end: TraceCrossSection) -> Self {
         Self {
@@ -134,6 +135,7 @@ impl From<ProfileExtrusion> for SelectBox {
     }
 }
 
+#[allow(dead_code)]
 impl SelectBox {
     pub fn with_color(mut self, triangle: Vec4, wire: Vec4) -> Self {
         self.triangle_color = Some(triangle);

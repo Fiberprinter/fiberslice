@@ -13,15 +13,11 @@ use rayon::prelude::*;
 #[derive(Debug)]
 pub struct PassContext {
     fiber: bool,
-    subtract: bool,
 }
 
 impl PassContext {
     pub fn new() -> Self {
-        Self {
-            fiber: false,
-            subtract: true,
-        }
+        Self { fiber: false }
     }
 
     pub fn with_fiber(self) -> Self {

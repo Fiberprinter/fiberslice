@@ -1,4 +1,4 @@
-use egui::{ClippedPrimitive, Color32, Id};
+use egui::{Color32, Id};
 
 use crate::{
     prelude::Destroyable,

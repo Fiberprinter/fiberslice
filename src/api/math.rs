@@ -2,21 +2,7 @@ use std::ops::AddAssign;
 
 use glam::Vec3;
 
-use super::{FlipYZ, Reverse};
-
-pub trait DirectMul {
-    fn direct_mul(&self, other: &Self) -> Self;
-}
-
-impl DirectMul for Vec3 {
-    fn direct_mul(&self, other: &Self) -> Self {
-        Vec3 {
-            x: self.x * other.x,
-            y: self.y * other.y,
-            z: self.z * other.z,
-        }
-    }
-}
+use super::FlipYZ;
 
 impl FlipYZ for Vec3 {
     fn flip(&mut self) {
@@ -29,12 +15,6 @@ impl FlipYZ for (Vec3, Vec3, Vec3) {
         self.0.flip();
         self.1.flip();
         self.2.flip();
-    }
-}
-
-impl Reverse for (Vec3, Vec3, Vec3) {
-    fn reverse(&mut self) {
-        std::mem::swap(&mut self.0, &mut self.2);
     }
 }
 

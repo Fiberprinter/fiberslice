@@ -135,6 +135,7 @@ impl TowerRing {
         self.elements.first() == self.elements.last() && self.elements.len() > 3
     }
 
+    #[allow(dead_code)]
     fn join_rings(mut first: TowerRing, second: TowerRing) -> Self {
         TowerRing::join_rings_in_place(&mut first, second);
 

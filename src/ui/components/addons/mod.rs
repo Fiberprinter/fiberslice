@@ -122,7 +122,7 @@ impl AddonsState {
     pub fn new() -> Self {
         Self {
             gizmo_tools: GizmoTools::default(),
-            cad_tools: cad_tools::CADTools::default(),
+            cad_tools: cad_tools::CADTools,
             enabled: true,
         }
     }

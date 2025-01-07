@@ -165,6 +165,7 @@ impl FiberChain {
                         }
                     } else {
                         length += start.euclidean_distance(&end);
+
                         last_direction = Some(direction);
 
                         current_index += 1;

@@ -167,6 +167,7 @@ pub fn state_optomizer(cmds: &mut Vec<Command>) {
     }
 }
 
+#[allow(dead_code)]
 pub fn arc_optomizer(cmds: &mut Vec<Command>) {
     let mut ranges = vec![];
 

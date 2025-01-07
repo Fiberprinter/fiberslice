@@ -30,7 +30,7 @@ const CAD_TOOL_LABELS: [(&str, CADTool); CADTool::COUNT] = [
     ("Mask Mode", CADTool::MaskMode),
 ];
 
-#[derive(Debug, Default)]
+#[derive(Debug)]
 pub struct CADTools;
 
 impl CADTools {

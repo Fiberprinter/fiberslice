@@ -22,6 +22,7 @@ pub fn lerp(a: f32, b: f32, f: f32) -> f32 {
     a + f * (b - a)
 }
 
+#[allow(dead_code)]
 ///Function to generate a unit bisector of the angle p0,p1,p2 that will always be inside the angle to the left
 pub fn directional_unit_bisector_left(p0: &Coord<f32>, p1: &Coord<f32>, p2: &Coord<f32>) -> Vec2 {
     let v1 = Vec2::new(p0.x - p1.x, p0.y - p1.y);
