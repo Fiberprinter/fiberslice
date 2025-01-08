@@ -3,7 +3,7 @@ nozzle_diameter = 0.800000011920929
 retract_length = 0.800000011920929
 retract_lift_z = 0.6000000238418579
 retract_speed = 35.0
-infill_percentage = 0.20000000298023224
+infill_percentage = 0.15000000596046448
 inner_perimeters_first = true
 number_of_perimeters = 3
 top_layers = 3
@@ -86,7 +86,7 @@ bed_temp = 60.0
 diameter = 0.15000000596046448
 cut_before = 20.0
 min_length = 25.0
-max_angle = 45.0
+max_angle = 135.0
 speed_factor = 1.399999976158142
 acceleration_factor = 1.0
 jerk_factor = 1.0
@@ -97,7 +97,7 @@ enabled = true
 [fiber.wall_pattern.setting]
 pattern = "Alternating"
 alternating_layer_width = 1
-alternating_layer_spacing = 0
+alternating_layer_spacing = 2
 alternating_wall_width = 1
 alternating_wall_spacing = 1
 alternating_step = 1
@@ -108,10 +108,10 @@ enabled = true
 
 [fiber.infill.setting]
 partial_infill_type = "Triangle"
-infill_percentage = 0.019999999552965164
+infill_percentage = 0.10000000149011612
 width = 1
-spacing = 12
-solid_infill = true
+spacing = 5
+solid_infill = false
 air_space = false
 
 [fan]

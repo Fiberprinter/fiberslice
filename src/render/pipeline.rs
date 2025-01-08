@@ -5,7 +5,7 @@ use wgpu::{BindGroupLayout, Device};
 pub struct PipelineBuilder {
     device: Arc<Device>,
     primitive: Option<wgpu::PrimitiveState>,
-    depth_stencil: Option<wgpu::DepthStencilState>,
+    depth_stencil: Option<Option<wgpu::DepthStencilState>>,
 }
 
 impl PipelineBuilder {
@@ -23,7 +23,7 @@ impl PipelineBuilder {
     }
 
     #[allow(dead_code)]
-    pub fn with_depth_stencil(mut self, depth_stencil: wgpu::DepthStencilState) -> Self {
+    pub fn with_depth_stencil(mut self, depth_stencil: Option<wgpu::DepthStencilState>) -> Self {
         self.depth_stencil = Some(depth_stencil);
         self
     }
@@ -88,17 +88,14 @@ impl PipelineBuilder {
                     unclipped_depth: false,
                     conservative: false,
                 }),
-                depth_stencil: Some(self.depth_stencil.unwrap_or(wgpu::DepthStencilState {
+                depth_stencil: self.depth_stencil.unwrap_or(Some(wgpu::DepthStencilState {
                     format: wgpu::TextureFormat::Depth32Float,
                     depth_write_enabled: true,
                     depth_compare: wgpu::CompareFunction::Less,
                     stencil: wgpu::StencilState::default(),
                     bias: wgpu::DepthBiasState::default(),
                 })),
-                multisample: wgpu::MultisampleState {
-                    count: 1,
-                    ..Default::default()
-                },
+                multisample: wgpu::MultisampleState::default(),
                 multiview: None,
                 cache: None,
             })

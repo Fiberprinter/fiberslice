@@ -547,6 +547,14 @@ impl Viewer {
             }
         }
     }
+
+    pub fn render_textures(&self, mut render_descriptor: RenderDescriptor, _mode: Mode) {
+        let env_server_read = self.env_server.read();
+
+        if let Some((_, mut render_pass)) = render_descriptor.pass() {
+            env_server_read.render_textures(&mut render_pass);
+        }
+    }
 }
 
 unsafe impl Send for Viewer {}
