@@ -33,7 +33,6 @@ impl RenderServer for EnvironmentServer {
                 unclipped_depth: false,
                 conservative: false,
             })
-            .with_depth_stencil(None)
             .build(
                 "Texture Pipeline",
                 include_str!("../../render/texture_shader.wgsl"),
@@ -47,7 +46,7 @@ impl RenderServer for EnvironmentServer {
                 context.surface_format,
             );
 
-        let logo_bytes = include_bytes!("../../../assets/icons/main_icon.png");
+        let logo_bytes = include_bytes!("../../../assets/icons/build_plate_img.png");
         let logo_texture = Texture::from_bytes(&context.device, &context.queue, logo_bytes, "Logo")
             .expect("Error when creating Texture");
 
@@ -79,7 +78,11 @@ impl RenderServer for EnvironmentServer {
     }
 
     fn render<'a>(&'a self, render_pass: &mut wgpu::RenderPass<'a>) {
-        self.volume.render(render_pass);
+        render_pass.set_pipeline(&self.texture_pipeline);
+
+        render_pass.set_bind_group(3, &self.logo_bind_group, &[]);
+
+        self.logo.render_without_color(render_pass);
     }
 }
 
@@ -91,37 +94,32 @@ impl EnvironmentServer {
     pub fn update_printer_dimension(&mut self, x: f32, y: f32, z: f32) {
         self.volume.awaken(x, y, z);
 
-        let height = x * 0.1;
-        let width = x * 0.1;
-
         let vertices = &[
             TextureVertex {
-                position: [x, 0.0, height],
+                position: [x, -0.25, y],
                 tex_coords: [1.0, 0.0],
             },
             TextureVertex {
-                position: [x - width, 0.0, height],
+                position: [0.0, -0.25, y],
                 tex_coords: [0.0, 0.0],
             },
             TextureVertex {
-                position: [x, 0.0, 0.0],
+                position: [x, -0.25, 0.0],
                 tex_coords: [1.0, 1.0],
             },
             TextureVertex {
-                position: [x - width, 0.0, height],
+                position: [0.0, -0.25, y],
                 tex_coords: [0.0, 0.0],
             },
             TextureVertex {
-                position: [x - width, 0.0, 0.0],
+                position: [0.0, -0.25, 0.0],
                 tex_coords: [0.0, 1.0],
             },
             TextureVertex {
-                position: [x, 0.0, 0.0],
+                position: [x, -0.25, 0.0],
                 tex_coords: [1.0, 1.0],
             },
         ];
-
-        log::info!("Awaken Logo");
 
         self.logo.awaken(vertices);
     }
@@ -130,12 +128,5 @@ impl EnvironmentServer {
         self.volume.render_lines(render_pass);
     }
 
-    pub fn render_textures<'a>(&'a self, render_pass: &mut wgpu::RenderPass<'a>) {
-        render_pass.set_pipeline(&self.texture_pipeline);
-
-        render_pass.set_bind_group(3, &self.logo_bind_group, &[]);
-
-        // println!("Render Logo");
-        self.logo.render_without_color(render_pass);
-    }
+    pub fn render_textures<'a>(&'a self, render_pass: &mut wgpu::RenderPass<'a>) {}
 }
