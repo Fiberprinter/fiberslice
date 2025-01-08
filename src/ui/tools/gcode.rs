@@ -57,13 +57,13 @@ impl Tool for GCodeTool<'_> {
                 220,
             );
 
-            egui::Window::new("GCode")
-                .open(&mut self.state.enabled)
-                .movable(!self.state.anchored)
-                .collapsible(false)
-                .frame(frame)
-                .show(ctx, |ui| {
-                    global_state.viewer.sliced_gcode(|sliced_gcode| {
+            global_state.viewer.sliced_gcode(|sliced_gcode| {
+                egui::Window::new("GCode")
+                    .open(&mut self.state.enabled)
+                    .movable(!self.state.anchored)
+                    .collapsible(false)
+                    .frame(frame)
+                    .show(ctx, |ui| {
                         EfficientReader::new(&mut self.state.view)
                             .id_source("code editor")
                             .with_fontsize(14.0)
@@ -72,9 +72,10 @@ impl Tool for GCodeTool<'_> {
                             .with_numlines(true)
                             // .with_focus(Some(ReadSection::new(0, 20)))
                             .show(ui, &sliced_gcode.gcode, &sliced_gcode.line_breaks);
+
+                        pointer_over_tool = ui.ui_contains_pointer();
                     });
-                    pointer_over_tool = ui.ui_contains_pointer();
-                });
+            });
         }
 
         pointer_over_tool

@@ -261,7 +261,7 @@ impl Viewer {
         }
     }
 
-    pub fn set_transparent_vision(&self, b: bool) {
+    pub fn enable_transparent_vision(&self, b: bool) {
         self.transparent_vision
             .store(b, std::sync::atomic::Ordering::Relaxed);
 
