@@ -1,7 +1,10 @@
 use std::fmt::Debug;
 
 use glam::{vec3, vec4, Vec3};
+use volume::Volume;
 use wgpu::BindGroup;
+
+mod volume;
 
 use crate::{
     geometry::{mesh::construct_triangle_vertices, BoundingBox},
@@ -10,7 +13,7 @@ use crate::{
         model::{Model, TransformMut},
         PipelineBuilder, Renderable, Texture, TextureVertex, Vertex,
     },
-    viewer::{volume::Volume, RenderServer},
+    viewer::RenderServer,
 };
 
 #[derive(Debug)]
@@ -42,7 +45,7 @@ impl RenderServer for EnvironmentServer {
             })
             .build(
                 "Texture Pipeline",
-                include_str!("../../render/texture_shader.wgsl"),
+                include_str!("../../../render/texture_shader.wgsl"),
                 &[
                     &context.camera_bind_group_layout,
                     &context.light_bind_group_layout,
@@ -53,7 +56,7 @@ impl RenderServer for EnvironmentServer {
                 context.surface_format,
             );
 
-        let logo_bytes = include_bytes!("../../../assets/icons/build_plate_img.png");
+        let logo_bytes = include_bytes!("../../../../assets/icons/build_plate_img.png");
         let logo_texture = Texture::from_bytes(&context.device, &context.queue, logo_bytes, "Logo")
             .expect("Error when creating Texture");
 
@@ -64,11 +67,11 @@ impl RenderServer for EnvironmentServer {
                 entries: &[
                     wgpu::BindGroupEntry {
                         binding: 0,
-                        resource: wgpu::BindingResource::TextureView(logo_texture.view()), // CHANGED!
+                        resource: wgpu::BindingResource::TextureView(logo_texture.view()),
                     },
                     wgpu::BindGroupEntry {
                         binding: 1,
-                        resource: wgpu::BindingResource::Sampler(logo_texture.sampler()), // CHANGED!
+                        resource: wgpu::BindingResource::Sampler(logo_texture.sampler()),
                     },
                 ],
                 label: Some("logo_bind_group"),
@@ -80,7 +83,6 @@ impl RenderServer for EnvironmentServer {
             texture_pipeline,
 
             reflect: Model::create(),
-            // flap: Model::create(),
             logo: Model::create(),
             logo_texture,
             logo_bind_group,
@@ -89,7 +91,6 @@ impl RenderServer for EnvironmentServer {
 
     fn render<'a>(&'a self, render_pass: &mut wgpu::RenderPass<'a>) {
         self.reflect.render(render_pass);
-        // self.flap.render(render_pass);
 
         render_pass.set_pipeline(&self.texture_pipeline);
 

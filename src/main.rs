@@ -12,10 +12,11 @@ use once_cell::sync::OnceCell;
 use parking_lot::RwLock;
 use std::{sync::Arc, time::Instant};
 use ui::UiEvent;
-use viewer::{tracker::ProcessTracker, CameraEvent};
+use viewer::CameraEvent;
 
 use prelude::{
-    Adapter, EventWriter, FrameHandle, GlobalContext, Shared, SharedMut, Viewport, WgpuContext,
+    tracker::ProcessTracker, Adapter, EventWriter, FrameHandle, GlobalContext, Shared, SharedMut,
+    Viewport, WgpuContext,
 };
 
 mod api;

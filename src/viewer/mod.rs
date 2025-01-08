@@ -33,8 +33,6 @@ pub use camera::*;
 pub mod select;
 pub mod server;
 pub mod trace;
-pub mod tracker;
-pub mod volume;
 
 pub struct Visual<const T: usize, const W: usize> {
     pub vertices: [Vertex; T],

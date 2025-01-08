@@ -10,7 +10,8 @@ use winit::{
 pub use crate::error::Error;
 use crate::{GlobalState, RootEvent};
 
-pub mod shared;
+mod shared;
+pub mod tracker;
 
 pub use shared::*;
 
