@@ -46,11 +46,6 @@ impl Process {
             .store(true, std::sync::atomic::Ordering::Relaxed);
     }
 
-    pub fn close_safely(&self) {
-        self.closed_safely
-            .store(true, std::sync::atomic::Ordering::Relaxed);
-    }
-
     pub fn task(&self) -> String {
         self.task.read().clone()
     }
@@ -61,10 +56,5 @@ impl Process {
 
     pub fn is_closed(&self) -> bool {
         self.closed.load(std::sync::atomic::Ordering::Relaxed)
-    }
-
-    pub fn is_closed_safely(&self) -> bool {
-        self.closed_safely
-            .load(std::sync::atomic::Ordering::Relaxed)
     }
 }
