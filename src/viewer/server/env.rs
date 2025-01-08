@@ -96,27 +96,27 @@ impl EnvironmentServer {
 
         let vertices = &[
             TextureVertex {
-                position: [x, 10.0, y],
+                position: [x, 0.0, height],
                 tex_coords: [1.0, 0.0],
             },
             TextureVertex {
-                position: [0.0, 10.0, y],
+                position: [x - width, 0.0, height],
                 tex_coords: [0.0, 0.0],
             },
             TextureVertex {
-                position: [x, 10.0, 0.0],
+                position: [x, 0.0, 0.0],
                 tex_coords: [1.0, 1.0],
             },
             TextureVertex {
-                position: [0.0, 10.0, y],
+                position: [x - width, 0.0, height],
                 tex_coords: [0.0, 0.0],
             },
             TextureVertex {
-                position: [0.0, 10.0, 0.0],
+                position: [x - width, 0.0, 0.0],
                 tex_coords: [0.0, 1.0],
             },
             TextureVertex {
-                position: [x, 10.0, 0.0],
+                position: [x, 0.0, 0.0],
                 tex_coords: [1.0, 1.0],
             },
         ];
