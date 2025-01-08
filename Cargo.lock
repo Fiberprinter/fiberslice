@@ -1041,6 +1041,7 @@ dependencies = [
 name = "fiberslice-5d"
 version = "0.1.0"
 dependencies = [
+ "anyhow",
  "atomic_float",
  "bytemuck",
  "egui",

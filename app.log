@@ -1,2010 +1,509 @@
-[00:00:00.000] (75abdc918a40) INFO   Starting up version 0.1.0
-[00:00:00.119] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.000] (71ada2aeaa40) INFO   Starting up version 0.1.0
+[00:00:00.122] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	Searching for implicit layer manifest files
-[00:00:00.119] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.119] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.122] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.122] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	   In following locations:
-[00:00:00.119] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.119] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.122] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.122] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	      /home/gotzi/.config/vulkan/implicit_layer.d
-[00:00:00.119] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.119] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.122] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.122] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	      /etc/xdg/vulkan/implicit_layer.d
-[00:00:00.119] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.119] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.122] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.122] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	      /etc/vulkan/implicit_layer.d
-[00:00:00.119] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.119] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.122] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.122] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	      /home/gotzi/.local/share/vulkan/implicit_layer.d
-[00:00:00.119] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.119] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.122] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.122] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	      /home/gotzi/.local/share/flatpak/exports/share/vulkan/implicit_layer.d
-[00:00:00.119] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.119] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.122] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.122] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	      /var/lib/flatpak/exports/share/vulkan/implicit_layer.d
-[00:00:00.119] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.119] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.122] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.122] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	      /usr/local/share/vulkan/implicit_layer.d
-[00:00:00.119] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.119] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.122] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.122] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	      /usr/share/vulkan/implicit_layer.d
-[00:00:00.119] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.119] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.122] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.122] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	      /var/lib/snapd/desktop/vulkan/implicit_layer.d
-[00:00:00.119] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.119] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.122] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.122] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	   Found the following files:
-[00:00:00.119] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.119] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.122] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.122] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	      /usr/share/vulkan/implicit_layer.d/VkLayer_MESA_device_select.json
-[00:00:00.119] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.119] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.122] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.122] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	      /usr/share/vulkan/implicit_layer.d/nvidia_layers.json
-[00:00:00.119] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.119] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.122] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.122] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	Found manifest file /usr/share/vulkan/implicit_layer.d/VkLayer_MESA_device_select.json (file version 1.0.0)
-[00:00:00.119] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.119] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.122] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.122] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	Found manifest file /usr/share/vulkan/implicit_layer.d/nvidia_layers.json (file version 1.0.0)
-[00:00:00.119] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.119] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.122] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.122] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	Searching for explicit layer manifest files
-[00:00:00.119] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.119] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.122] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.122] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	   In following locations:
-[00:00:00.119] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.119] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.122] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.122] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	      /home/gotzi/.config/vulkan/explicit_layer.d
-[00:00:00.119] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.119] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.122] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.122] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	      /etc/xdg/vulkan/explicit_layer.d
-[00:00:00.119] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.119] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.122] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.123] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	      /etc/vulkan/explicit_layer.d
-[00:00:00.119] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.119] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.123] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.123] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	      /home/gotzi/.local/share/vulkan/explicit_layer.d
-[00:00:00.119] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.119] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.123] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.123] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	      /home/gotzi/.local/share/flatpak/exports/share/vulkan/explicit_layer.d
-[00:00:00.119] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.119] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.123] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.123] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	      /var/lib/flatpak/exports/share/vulkan/explicit_layer.d
-[00:00:00.119] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.120] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.123] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.123] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	      /usr/local/share/vulkan/explicit_layer.d
-[00:00:00.120] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.120] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.123] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.123] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	      /usr/share/vulkan/explicit_layer.d
-[00:00:00.120] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.120] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.123] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.123] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	      /var/lib/snapd/desktop/vulkan/explicit_layer.d
-[00:00:00.120] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.120] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.123] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.123] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	   Found the following files:
-[00:00:00.120] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.120] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.123] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.123] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	      /usr/share/vulkan/explicit_layer.d/VkLayer_INTEL_nullhw.json
-[00:00:00.120] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.120] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.123] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.123] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	      /usr/share/vulkan/explicit_layer.d/VkLayer_MESA_overlay.json
-[00:00:00.120] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.120] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.123] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.123] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	      /usr/share/vulkan/explicit_layer.d/VkLayer_khronos_validation.json
-[00:00:00.120] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.120] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.123] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.123] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	Found manifest file /usr/share/vulkan/explicit_layer.d/VkLayer_INTEL_nullhw.json (file version 1.0.0)
-[00:00:00.120] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.120] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.123] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.123] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	Found manifest file /usr/share/vulkan/explicit_layer.d/VkLayer_MESA_overlay.json (file version 1.0.0)
-[00:00:00.120] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.120] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.123] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.123] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	Found manifest file /usr/share/vulkan/explicit_layer.d/VkLayer_khronos_validation.json (file version 1.2.0)
-[00:00:00.120] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.120] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.123] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.123] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	Searching for driver manifest files
-[00:00:00.120] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.120] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.123] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.123] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	   In following locations:
-[00:00:00.120] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.120] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.123] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.123] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	      /home/gotzi/.config/vulkan/icd.d
-[00:00:00.120] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.120] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.123] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.123] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	      /etc/xdg/vulkan/icd.d
-[00:00:00.120] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.120] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.123] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.123] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	      /etc/vulkan/icd.d
-[00:00:00.120] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.120] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.123] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.123] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	      /home/gotzi/.local/share/vulkan/icd.d
-[00:00:00.120] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.120] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.123] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.123] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	      /home/gotzi/.local/share/flatpak/exports/share/vulkan/icd.d
-[00:00:00.120] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.120] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.123] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.123] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	      /var/lib/flatpak/exports/share/vulkan/icd.d
-[00:00:00.120] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.120] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.123] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.123] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	      /usr/local/share/vulkan/icd.d
-[00:00:00.120] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.120] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.123] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.123] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	      /usr/share/vulkan/icd.d
-[00:00:00.120] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.120] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.123] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.123] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	      /var/lib/snapd/desktop/vulkan/icd.d
-[00:00:00.120] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.121] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.124] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.124] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	   Found the following files:
-[00:00:00.121] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.121] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.124] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.124] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	      /usr/share/vulkan/icd.d/virtio_icd.x86_64.json
-[00:00:00.121] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.121] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.124] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.124] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	      /usr/share/vulkan/icd.d/nvidia_icd.json
-[00:00:00.121] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.121] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.124] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.124] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	      /usr/share/vulkan/icd.d/lvp_icd.x86_64.json
-[00:00:00.121] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.121] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.124] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.124] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	      /usr/share/vulkan/icd.d/intel_icd.x86_64.json
-[00:00:00.121] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.121] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.124] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.124] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	      /usr/share/vulkan/icd.d/intel_hasvk_icd.x86_64.json
-[00:00:00.121] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.121] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.124] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.124] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	      /usr/share/vulkan/icd.d/radeon_icd.x86_64.json
-[00:00:00.121] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.121] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.124] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.124] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	Found ICD manifest file /usr/share/vulkan/icd.d/virtio_icd.x86_64.json, version 1.0.0
-[00:00:00.121] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.121] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.124] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.124] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	Found ICD manifest file /usr/share/vulkan/icd.d/nvidia_icd.json, version 1.0.0
-[00:00:00.121] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.121] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.124] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.124] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	Found ICD manifest file /usr/share/vulkan/icd.d/lvp_icd.x86_64.json, version 1.0.0
-[00:00:00.121] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.121] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.124] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.124] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	Found ICD manifest file /usr/share/vulkan/icd.d/intel_icd.x86_64.json, version 1.0.0
-[00:00:00.121] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.121] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.124] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.124] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	Found ICD manifest file /usr/share/vulkan/icd.d/intel_hasvk_icd.x86_64.json, version 1.0.0
-[00:00:00.121] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.121] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.124] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.124] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	Found ICD manifest file /usr/share/vulkan/icd.d/radeon_icd.x86_64.json, version 1.0.0
-[00:00:00.121] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.150] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.124] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.154] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	Insert instance layer "VK_LAYER_KHRONOS_validation" (libVkLayer_khronos_validation.so)
-[00:00:00.150] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.150] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.154] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.154] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	Insert instance layer "VK_LAYER_MESA_device_select" (libVkLayer_MESA_device_select.so)
-[00:00:00.150] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.150] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.154] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.154] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	vkCreateInstance layer callstack setup to:
-[00:00:00.150] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.150] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.154] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.154] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	   <Application>
-[00:00:00.150] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.150] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.154] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.154] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	     ||
-[00:00:00.150] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.150] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.154] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.154] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	   <Loader>
-[00:00:00.150] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.150] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.155] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.155] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	     ||
-[00:00:00.150] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.150] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.155] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.155] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	   VK_LAYER_MESA_device_select
-[00:00:00.150] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.150] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.155] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.155] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	           Type: Implicit
-[00:00:00.150] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.150] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.155] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.155] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	               Disable Env Var:  NODEVICE_SELECT
-[00:00:00.150] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.150] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.155] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.155] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	           Manifest: /usr/share/vulkan/implicit_layer.d/VkLayer_MESA_device_select.json
-[00:00:00.150] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.150] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.155] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.155] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	           Library:  libVkLayer_MESA_device_select.so
-[00:00:00.150] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.150] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.155] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.155] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	     ||
-[00:00:00.150] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.150] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.155] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.155] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	   VK_LAYER_KHRONOS_validation
-[00:00:00.150] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.150] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.155] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.155] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	           Type: Explicit
-[00:00:00.151] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.151] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.155] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.155] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	           Manifest: /usr/share/vulkan/explicit_layer.d/VkLayer_khronos_validation.json
-[00:00:00.151] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.151] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.155] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.155] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	           Library:  libVkLayer_khronos_validation.so
-[00:00:00.151] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.151] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.155] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.155] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	     ||
-[00:00:00.151] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.151] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.155] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.155] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	   <Drivers>
-[00:00:00.151] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.152] (75abdc918a40) WARN   GENERAL [Loader Message (0x0)]
+[00:00:00.155] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.157] (71ada2aeaa40) WARN   GENERAL [Loader Message (0x0)]
 	terminator_CreateInstance: Received return code -3 from call to vkCreateInstance in ICD /usr/lib/x86_64-linux-gnu/libvulkan_virtio.so. Skipping this driver.
-[00:00:00.152] (75abdc918a40) WARN   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.161] (75abdc918a40) INFO   VALIDATION [WARNING-CreateInstance-status-message (0x23dfd876)]
-	Validation Information: [ WARNING-CreateInstance-status-message ] Object 0: handle = 0x573e974fe730, type = VK_OBJECT_TYPE_INSTANCE; | MessageID = 0x23dfd876 | vkCreateInstance():  Khronos Validation Layer Active:
+[00:00:00.157] (71ada2aeaa40) WARN   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.172] (71ada2aeaa40) INFO   VALIDATION [WARNING-CreateInstance-status-message (0x23dfd876)]
+	Validation Information: [ WARNING-CreateInstance-status-message ] Object 0: handle = 0x61647c0098d0, type = VK_OBJECT_TYPE_INSTANCE; | MessageID = 0x23dfd876 | vkCreateInstance():  Khronos Validation Layer Active:
     Settings File: None. Default location is /home/gotzi/Projects/fiberslice-5d\vk_layer_settings.txt.
     Current Enables: VK_VALIDATION_FEATURE_ENABLE_SYNCHRONIZATION_VALIDATION.
     Current Disables: None.
 
-[00:00:00.161] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.163] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.172] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.174] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	linux_read_sorted_physical_devices:
-[00:00:00.163] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.163] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.175] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.175] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	     Original order:
-[00:00:00.163] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.163] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.175] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.175] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	           [0] Intel(R) Xe Graphics (TGL GT2)
-[00:00:00.163] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.163] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.175] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.175] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	           [1] llvmpipe (LLVM 17.0.6, 256 bits)
-[00:00:00.163] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.163] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.175] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.175] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	           [2] NVIDIA GeForce RTX 3060 Laptop GPU
-[00:00:00.163] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.163] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.175] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.175] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	     Sorted order:
-[00:00:00.163] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.163] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.175] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.175] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	           [0] NVIDIA GeForce RTX 3060 Laptop GPU  
-[00:00:00.163] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.163] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.175] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.175] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	           [1] Intel(R) Xe Graphics (TGL GT2)  
-[00:00:00.163] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.163] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.175] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.175] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	           [2] llvmpipe (LLVM 17.0.6, 256 bits)  
-[00:00:00.163] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.163] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.175] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.175] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	linux_read_sorted_physical_devices:
-[00:00:00.163] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.163] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.175] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.175] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	     Original order:
-[00:00:00.163] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.163] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.175] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.175] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	           [0] Intel(R) Xe Graphics (TGL GT2)
-[00:00:00.163] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.163] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.175] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.175] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	           [1] llvmpipe (LLVM 17.0.6, 256 bits)
-[00:00:00.163] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.163] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.175] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.175] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	           [2] NVIDIA GeForce RTX 3060 Laptop GPU
-[00:00:00.163] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.163] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.175] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.175] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	     Sorted order:
-[00:00:00.163] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.163] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.176] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.176] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	           [0] NVIDIA GeForce RTX 3060 Laptop GPU  
-[00:00:00.163] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.163] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.176] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.176] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	           [1] Intel(R) Xe Graphics (TGL GT2)  
-[00:00:00.163] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.163] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.176] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.176] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	           [2] llvmpipe (LLVM 17.0.6, 256 bits)  
-[00:00:00.163] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.163] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.176] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.176] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	linux_read_sorted_physical_devices:
-[00:00:00.163] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.163] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.176] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.176] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	     Original order:
-[00:00:00.164] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.164] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.176] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.176] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	           [0] Intel(R) Xe Graphics (TGL GT2)
-[00:00:00.164] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.164] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.176] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.176] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	           [1] llvmpipe (LLVM 17.0.6, 256 bits)
-[00:00:00.164] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.164] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.176] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.176] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	           [2] NVIDIA GeForce RTX 3060 Laptop GPU
-[00:00:00.164] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.164] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.176] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.176] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	     Sorted order:
-[00:00:00.164] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.164] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.176] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.176] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	           [0] NVIDIA GeForce RTX 3060 Laptop GPU  
-[00:00:00.164] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.164] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.176] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.176] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	           [1] Intel(R) Xe Graphics (TGL GT2)  
-[00:00:00.164] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.164] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.176] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.176] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	           [2] llvmpipe (LLVM 17.0.6, 256 bits)  
-[00:00:00.164] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.164] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.176] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.176] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	linux_read_sorted_physical_devices:
-[00:00:00.164] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.164] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.176] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.176] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	     Original order:
-[00:00:00.164] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.164] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.176] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.177] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	           [0] Intel(R) Xe Graphics (TGL GT2)
-[00:00:00.164] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.164] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.177] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.177] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	           [1] llvmpipe (LLVM 17.0.6, 256 bits)
-[00:00:00.164] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.164] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.177] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.177] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	           [2] NVIDIA GeForce RTX 3060 Laptop GPU
-[00:00:00.164] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.164] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.177] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.177] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	     Sorted order:
-[00:00:00.164] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.164] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.177] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.177] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	           [0] NVIDIA GeForce RTX 3060 Laptop GPU  
-[00:00:00.164] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.164] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.177] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.177] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	           [1] Intel(R) Xe Graphics (TGL GT2)  
-[00:00:00.164] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.164] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.177] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.177] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	           [2] llvmpipe (LLVM 17.0.6, 256 bits)  
-[00:00:00.164] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.164] (75abdc918a40) INFO   Enabling debug utils
-[00:00:00.165] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.177] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.177] (71ada2aeaa40) INFO   Enabling debug utils
+[00:00:00.180] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	linux_read_sorted_physical_devices:
-[00:00:00.165] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.165] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.180] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.180] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	     Original order:
-[00:00:00.165] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.165] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.180] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.180] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	           [0] Intel(R) Xe Graphics (TGL GT2)
-[00:00:00.165] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.165] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.180] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.180] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	           [1] llvmpipe (LLVM 17.0.6, 256 bits)
-[00:00:00.165] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.165] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.180] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.180] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	           [2] NVIDIA GeForce RTX 3060 Laptop GPU
-[00:00:00.165] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.165] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.180] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.180] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	     Sorted order:
-[00:00:00.165] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.165] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.180] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.180] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	           [0] NVIDIA GeForce RTX 3060 Laptop GPU  
-[00:00:00.165] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.165] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.181] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.181] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	           [1] Intel(R) Xe Graphics (TGL GT2)  
-[00:00:00.165] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.165] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.181] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.181] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	           [2] llvmpipe (LLVM 17.0.6, 256 bits)  
-[00:00:00.165] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.165] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.181] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.181] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	linux_read_sorted_physical_devices:
-[00:00:00.165] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.165] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.181] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.181] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	     Original order:
-[00:00:00.166] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.166] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.181] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.181] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	           [0] Intel(R) Xe Graphics (TGL GT2)
-[00:00:00.166] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.166] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.181] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.181] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	           [1] llvmpipe (LLVM 17.0.6, 256 bits)
-[00:00:00.166] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.166] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.181] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.181] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	           [2] NVIDIA GeForce RTX 3060 Laptop GPU
-[00:00:00.166] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.166] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.181] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.181] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	     Sorted order:
-[00:00:00.166] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.166] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.181] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.181] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	           [0] NVIDIA GeForce RTX 3060 Laptop GPU  
-[00:00:00.166] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.166] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.181] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.181] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	           [1] Intel(R) Xe Graphics (TGL GT2)  
-[00:00:00.166] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.166] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.181] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.181] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	           [2] llvmpipe (LLVM 17.0.6, 256 bits)  
-[00:00:00.166] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.167] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.181] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.197] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	linux_read_sorted_physical_devices:
-[00:00:00.167] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.167] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.197] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.197] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	     Original order:
-[00:00:00.167] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.167] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.197] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.197] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	           [0] Intel(R) Xe Graphics (TGL GT2)
-[00:00:00.167] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.167] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.197] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.198] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	           [1] llvmpipe (LLVM 17.0.6, 256 bits)
-[00:00:00.167] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.167] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.198] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.198] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	           [2] NVIDIA GeForce RTX 3060 Laptop GPU
-[00:00:00.167] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.167] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.198] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.198] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	     Sorted order:
-[00:00:00.167] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.167] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.198] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.198] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	           [0] NVIDIA GeForce RTX 3060 Laptop GPU  
-[00:00:00.167] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.167] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.198] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.198] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	           [1] Intel(R) Xe Graphics (TGL GT2)  
-[00:00:00.167] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.167] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.198] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.198] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	           [2] llvmpipe (LLVM 17.0.6, 256 bits)  
-[00:00:00.167] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.167] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.198] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.198] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	linux_read_sorted_physical_devices:
-[00:00:00.167] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.167] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.198] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.198] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	     Original order:
-[00:00:00.167] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.167] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.198] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.198] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	           [0] Intel(R) Xe Graphics (TGL GT2)
-[00:00:00.167] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.167] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.198] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.198] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	           [1] llvmpipe (LLVM 17.0.6, 256 bits)
-[00:00:00.167] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.167] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.198] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.198] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	           [2] NVIDIA GeForce RTX 3060 Laptop GPU
-[00:00:00.167] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.167] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.198] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.198] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	     Sorted order:
-[00:00:00.167] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.167] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.198] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.198] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	           [0] NVIDIA GeForce RTX 3060 Laptop GPU  
-[00:00:00.167] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.167] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.198] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.198] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	           [1] Intel(R) Xe Graphics (TGL GT2)  
-[00:00:00.167] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.167] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.198] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.198] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	           [2] llvmpipe (LLVM 17.0.6, 256 bits)  
-[00:00:00.167] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.169] (75abdc918a40) INFO   Adapter AdapterInfo { name: "NVIDIA GeForce RTX 3060 Laptop GPU", vendor: 4318, device: 9504, device_type: DiscreteGpu, driver: "NVIDIA", driver_info: "550.120", backend: Vulkan }
-[00:00:00.169] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.198] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.201] (71ada2aeaa40) INFO   Adapter AdapterInfo { name: "NVIDIA GeForce RTX 3060 Laptop GPU", vendor: 4318, device: 9504, device_type: DiscreteGpu, driver: "NVIDIA", driver_info: "550.120", backend: Vulkan }
+[00:00:00.201] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	Inserted device layer "VK_LAYER_KHRONOS_validation" (libVkLayer_khronos_validation.so)
-[00:00:00.169] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.169] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.201] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.201] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	Failed to find vkGetDeviceProcAddr in layer "libVkLayer_MESA_device_select.so"
-[00:00:00.169] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.169] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.201] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.201] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	vkCreateDevice layer callstack setup to:
-[00:00:00.169] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.169] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.202] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.202] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	   <Application>
-[00:00:00.169] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.169] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.202] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.202] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	     ||
-[00:00:00.169] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.169] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.202] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.202] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	   <Loader>
-[00:00:00.169] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.169] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.202] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.202] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	     ||
-[00:00:00.169] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.169] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.202] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.202] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	   VK_LAYER_KHRONOS_validation
-[00:00:00.169] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.169] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.202] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.202] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	           Type: Explicit
-[00:00:00.169] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.169] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.202] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.202] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	           Manifest: /usr/share/vulkan/explicit_layer.d/VkLayer_khronos_validation.json
-[00:00:00.169] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.169] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.202] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.202] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	           Library:  libVkLayer_khronos_validation.so
-[00:00:00.169] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.169] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.202] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.202] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	     ||
-[00:00:00.169] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.169] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.202] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.202] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	   <Device>
-[00:00:00.169] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.170] (75abdc918a40) INFO   GENERAL [Loader Message (0x0)]
+[00:00:00.202] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.202] (71ada2aeaa40) INFO   GENERAL [Loader Message (0x0)]
 	       Using "NVIDIA GeForce RTX 3060 Laptop GPU" with driver: "libGLX_nvidia.so.0"
-[00:00:00.170] (75abdc918a40) INFO   	objects: (type: INSTANCE, hndl: 0x573e974fe730, name: ?)
-[00:00:00.202] (75abdc918a40) INFO   VALIDATION [WARNING-cache-file-error (0xb8515d13)]
+[00:00:00.202] (71ada2aeaa40) INFO   	objects: (type: INSTANCE, hndl: 0x61647c0098d0, name: ?)
+[00:00:00.239] (71ada2aeaa40) INFO   VALIDATION [WARNING-cache-file-error (0xb8515d13)]
 	Validation Information: [ WARNING-cache-file-error ] | MessageID = 0xb8515d13 | vkCreateDevice():  Cannot open shader validation cache at /home/gotzi/.cache/shader_validation_cache-1000.bin for reading (it may not exist yet)
-[00:00:00.278] (75abdc918a40) INFO   Failed to load slicer settings: TOML parse error at line 109, column 1
-    |
-109 | [fiber.infill.setting]
-    | ^^^^^^^^^^^^^^^^^^^^^^
-missing field `partial_infill_type`
-
-[00:00:00.363] (75abdc918a40) INFO   Handling event: CameraOrientationChanged(Default)
-[00:00:00.363] (75abdc918a40) INFO   Adapter: "CameraAdapter"
-[00:00:07.129] (75abdc918a40) INFO   Handling event: ShowProgressBar(0, "Cube                ")
-[00:00:07.129] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:00:07.129] (75abdc918a40) INFO   Handling event: ShowSuccess("Object loaded")
-[00:00:07.129] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:00:07.134] (75abdc918a40) INFO   Closing toast: Cube                
-[00:00:08.625] (75aba52006c0) INFO   Filling remaining area without fiber
-[00:00:08.625] (75ab93e006c0) INFO   Filling remaining area without fiber
-[00:00:08.625] (75ab93a006c0) INFO   Filling remaining area without fiber
-[00:00:08.625] (75aba4e006c0) INFO   Filling remaining area without fiber
-[00:00:08.625] (75aba4a006c0) INFO   Filling remaining area without fiber
-[00:00:08.625] (75ab936006c0) INFO   Filling remaining area without fiber
-[00:00:08.625] (75ab986006c0) INFO   Filling remaining area without fiber
-[00:00:08.626] (75aba46006c0) INFO   Filling remaining area without fiber
-[00:00:08.626] (75aba52006c0) INFO   Filling remaining area without fiber
-[00:00:08.628] (75ab93e006c0) INFO   Filling remaining area without fiber
-[00:00:08.628] (75ab93a006c0) INFO   Filling remaining area without fiber
-[00:00:08.628] (75aba4a006c0) INFO   Filling remaining area without fiber
-[00:00:08.628] (75aba4e006c0) INFO   Filling remaining area without fiber
-[00:00:08.628] (75aba46006c0) INFO   Filling remaining area without fiber
-[00:00:08.628] (75ab986006c0) INFO   Filling remaining area without fiber
-[00:00:08.628] (75ab936006c0) INFO   Filling remaining area without fiber
-[00:00:08.628] (75ab93e006c0) INFO   Filling remaining area without fiber
-[00:00:08.629] (75ab93a006c0) INFO   Filling remaining area without fiber
-[00:00:08.629] (75aba52006c0) INFO   Filling remaining area without fiber
-[00:00:08.629] (75aba4e006c0) INFO   Filling remaining area without fiber
-[00:00:08.629] (75ab986006c0) INFO   Filling remaining area without fiber
-[00:00:08.629] (75ab936006c0) INFO   Filling remaining area without fiber
-[00:00:08.629] (75aba4a006c0) INFO   Filling remaining area without fiber
-[00:00:08.629] (75aba46006c0) INFO   Filling remaining area without fiber
-[00:00:08.629] (75ab93e006c0) INFO   Filling remaining area without fiber
-[00:00:08.629] (75ab93a006c0) INFO   Filling remaining area without fiber
-[00:00:08.629] (75aba4e006c0) INFO   Filling remaining area without fiber
-[00:00:08.630] (75aba46006c0) INFO   Filling remaining area without fiber
-[00:00:08.630] (75aba4a006c0) INFO   Filling remaining area without fiber
-[00:00:08.630] (75ab93e006c0) INFO   Filling remaining area without fiber
-[00:00:08.630] (75ab936006c0) INFO   Filling remaining area without fiber
-[00:00:08.630] (75ab986006c0) INFO   Filling remaining area without fiber
-[00:00:08.630] (75aba52006c0) INFO   Filling remaining area without fiber
-[00:00:08.630] (75aba4e006c0) INFO   Filling remaining area without fiber
-[00:00:08.630] (75abdc918a40) INFO   Handling event: ShowProgressBar(1, "Slicing model       ")
-[00:00:08.630] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:00:08.630] (75aba46006c0) INFO   Filling remaining area without fiber
-[00:00:08.630] (75aba4a006c0) INFO   Filling remaining area without fiber
-[00:00:08.631] (75ab93e006c0) INFO   Filling remaining area without fiber
-[00:00:08.631] (75aba52006c0) INFO   Filling remaining area without fiber
-[00:00:08.631] (75ab986006c0) INFO   Filling remaining area without fiber
-[00:00:08.631] (75aba4e006c0) INFO   Filling remaining area without fiber
-[00:00:08.631] (75aba46006c0) INFO   Filling remaining area without fiber
-[00:00:08.631] (75aba4a006c0) INFO   Filling remaining area without fiber
-[00:00:08.631] (75ab93e006c0) INFO   Filling remaining area without fiber
-[00:00:08.632] (75ab936006c0) INFO   Filling remaining area without fiber
-[00:00:08.632] (75aba52006c0) INFO   Filling remaining area without fiber
-[00:00:08.632] (75ab986006c0) INFO   Filling remaining area without fiber
-[00:00:08.632] (75aba4e006c0) INFO   Filling remaining area without fiber
-[00:00:08.632] (75aba46006c0) INFO   Filling remaining area without fiber
-[00:00:08.632] (75aba4a006c0) INFO   Filling remaining area without fiber
-[00:00:08.632] (75ab936006c0) INFO   Filling remaining area without fiber
-[00:00:08.632] (75ab986006c0) INFO   Filling remaining area without fiber
-[00:00:08.633] (75ab93e006c0) INFO   Filling remaining area without fiber
-[00:00:08.633] (75aba52006c0) INFO   Filling remaining area without fiber
-[00:00:08.633] (75aba4e006c0) INFO   Filling remaining area without fiber
-[00:00:08.633] (75aba46006c0) INFO   Filling remaining area without fiber
-[00:00:08.633] (75aba4a006c0) INFO   Filling remaining area without fiber
-[00:00:08.633] (75ab936006c0) INFO   Filling remaining area without fiber
-[00:00:08.633] (75ab986006c0) INFO   Filling remaining area without fiber
-[00:00:08.633] (75ab93e006c0) INFO   Filling remaining area without fiber
-[00:00:08.633] (75aba52006c0) INFO   Filling remaining area without fiber
-[00:00:08.634] (75aba4e006c0) INFO   Filling remaining area without fiber
-[00:00:08.634] (75aba4a006c0) INFO   Filling remaining area without fiber
-[00:00:08.634] (75aba46006c0) INFO   Filling remaining area without fiber
-[00:00:08.634] (75ab986006c0) INFO   Filling remaining area without fiber
-[00:00:08.634] (75ab93e006c0) INFO   Filling remaining area without fiber
-[00:00:08.634] (75ab936006c0) INFO   Filling remaining area without fiber
-[00:00:08.634] (75aba52006c0) INFO   Filling remaining area without fiber
-[00:00:08.634] (75aba4e006c0) INFO   Filling remaining area without fiber
-[00:00:08.635] (75aba4a006c0) INFO   Filling remaining area without fiber
-[00:00:08.635] (75ab986006c0) INFO   Filling remaining area without fiber
-[00:00:08.635] (75ab93a006c0) INFO   Filling remaining area without fiber
-[00:00:08.635] (75ab93e006c0) INFO   Filling remaining area without fiber
-[00:00:08.635] (75aba52006c0) INFO   Filling remaining area without fiber
-[00:00:08.635] (75aba4e006c0) INFO   Filling remaining area without fiber
-[00:00:08.635] (75ab93e006c0) INFO   Filling remaining area without fiber
-[00:00:08.635] (75aba4a006c0) INFO   Filling remaining area without fiber
-[00:00:08.636] (75ab986006c0) INFO   Filling remaining area without fiber
-[00:00:08.636] (75ab936006c0) INFO   Filling remaining area without fiber
-[00:00:08.636] (75aba52006c0) INFO   Filling remaining area without fiber
-[00:00:08.636] (75ab986006c0) INFO   Filling remaining area without fiber
-[00:00:08.637] (75ab93a006c0) INFO   Filling remaining area without fiber
-[00:00:08.637] (75aba4a006c0) INFO   Filling remaining area without fiber
-[00:00:08.637] (75ab93e006c0) INFO   Filling remaining area without fiber
-[00:00:08.782] (75abdc918a40) INFO   Handling event: ShowSuccess("Slicing finished")
-[00:00:08.782] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:00:08.901] (75abda8006c0) INFO   Trace Vertices: 584388
-[00:00:09.027] (75abdc918a40) INFO   Handling event: ShowSuccess("Gcode loaded")
-[00:00:09.027] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:00:09.031] (75abdc918a40) INFO   Closing toast: Slicing model       
-[00:00:11.736] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(33607)
-[00:00:11.736] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:00:11.761] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(32654)
-[00:00:11.762] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:00:11.785] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(31850)
-[00:00:11.785] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:00:11.807] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(31448)
-[00:00:11.807] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:00:11.830] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(31195)
-[00:00:11.830] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:00:11.852] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(30793)
-[00:00:11.852] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:00:11.873] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(30644)
-[00:00:11.874] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:00:11.896] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(29989)
-[00:00:11.896] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:00:11.918] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(29587)
-[00:00:11.918] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:00:11.940] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(28783)
-[00:00:11.940] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:00:11.962] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(28381)
-[00:00:11.962] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:00:11.983] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(28232)
-[00:00:11.983] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:00:12.070] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(27979)
-[00:00:12.070] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:00:12.093] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(27577)
-[00:00:12.093] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:00:12.115] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(27175)
-[00:00:12.115] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:00:12.136] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(26773)
-[00:00:12.136] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:00:12.157] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(26624)
-[00:00:12.157] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:00:12.178] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(25969)
-[00:00:12.178] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:00:12.199] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(25567)
-[00:00:12.199] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:00:12.221] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(25418)
-[00:00:12.221] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:00:12.242] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(25165)
-[00:00:12.242] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:00:12.264] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(25016)
-[00:00:12.264] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:00:12.306] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(24763)
-[00:00:12.306] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:00:12.328] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(24212)
-[00:00:12.328] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:00:12.350] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(23810)
-[00:00:12.350] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:00:12.372] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(23557)
-[00:00:12.372] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:00:12.393] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(23408)
-[00:00:12.393] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:00:12.414] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(23155)
-[00:00:12.414] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:00:12.435] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(22351)
-[00:00:12.435] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:00:19.168] (75aba4e006c0) INFO   Filling remaining area without fiber
-[00:00:19.168] (75aba4e006c0) INFO   Filling remaining area without fiber
-[00:00:19.168] (75aba52006c0) INFO   Filling remaining area without fiber
-[00:00:19.168] (75aba4a006c0) INFO   Filling remaining area without fiber
-[00:00:19.168] (75ab936006c0) INFO   Filling remaining area without fiber
-[00:00:19.170] (75abdc918a40) INFO   Handling event: ShowProgressBar(1, "Slicing model       ")
-[00:00:19.170] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:00:19.170] (75ab986006c0) INFO   Filling remaining area without fiber
-[00:00:19.171] (75ab93a006c0) INFO   Filling remaining area without fiber
-[00:00:19.171] (75ab93e006c0) INFO   Filling remaining area without fiber
-[00:00:19.172] (75aba46006c0) INFO   Filling remaining area without fiber
-[00:00:19.172] (75ab936006c0) INFO   Filling remaining area without fiber
-[00:00:19.173] (75aba52006c0) INFO   Filling remaining area without fiber
-[00:00:19.175] (75ab93a006c0) INFO   Filling remaining area without fiber
-[00:00:19.176] (75ab986006c0) INFO   Filling remaining area without fiber
-[00:00:19.176] (75ab93e006c0) INFO   Filling remaining area without fiber
-[00:00:19.178] (75ab936006c0) INFO   Filling remaining area without fiber
-[00:00:19.178] (75ab93a006c0) INFO   Filling remaining area without fiber
-[00:00:19.178] (75aba52006c0) INFO   Filling remaining area without fiber
-[00:00:19.178] (75aba4e006c0) INFO   Filling remaining area without fiber
-[00:00:19.180] (75aba4a006c0) INFO   Filling remaining area without fiber
-[00:00:19.180] (75aba46006c0) INFO   Filling remaining area without fiber
-[00:00:19.181] (75ab986006c0) INFO   Filling remaining area without fiber
-[00:00:19.182] (75ab93e006c0) INFO   Filling remaining area without fiber
-[00:00:19.183] (75ab936006c0) INFO   Filling remaining area without fiber
-[00:00:19.183] (75ab93a006c0) INFO   Filling remaining area without fiber
-[00:00:19.185] (75aba46006c0) INFO   Filling remaining area without fiber
-[00:00:19.187] (75ab986006c0) INFO   Filling remaining area without fiber
-[00:00:19.188] (75aba4a006c0) INFO   Filling remaining area without fiber
-[00:00:19.188] (75ab936006c0) INFO   Filling remaining area without fiber
-[00:00:19.189] (75ab93e006c0) INFO   Filling remaining area without fiber
-[00:00:19.189] (75aba4e006c0) INFO   Filling remaining area without fiber
-[00:00:19.190] (75aba46006c0) INFO   Filling remaining area without fiber
-[00:00:19.191] (75ab93a006c0) INFO   Filling remaining area without fiber
-[00:00:19.191] (75aba52006c0) INFO   Filling remaining area without fiber
-[00:00:19.194] (75ab986006c0) INFO   Filling remaining area without fiber
-[00:00:19.194] (75aba4e006c0) INFO   Filling remaining area without fiber
-[00:00:19.194] (75ab936006c0) INFO   Filling remaining area without fiber
-[00:00:19.195] (75aba4a006c0) INFO   Filling remaining area without fiber
-[00:00:19.195] (75ab93a006c0) INFO   Filling remaining area without fiber
-[00:00:19.196] (75aba46006c0) INFO   Filling remaining area without fiber
-[00:00:19.196] (75aba52006c0) INFO   Filling remaining area without fiber
-[00:00:19.199] (75ab93e006c0) INFO   Filling remaining area without fiber
-[00:00:19.199] (75aba4e006c0) INFO   Filling remaining area without fiber
-[00:00:19.200] (75ab93a006c0) INFO   Filling remaining area without fiber
-[00:00:19.201] (75aba46006c0) INFO   Filling remaining area without fiber
-[00:00:19.201] (75aba52006c0) INFO   Filling remaining area without fiber
-[00:00:19.202] (75ab936006c0) INFO   Filling remaining area without fiber
-[00:00:19.202] (75aba4a006c0) INFO   Filling remaining area without fiber
-[00:00:19.203] (75ab986006c0) INFO   Filling remaining area without fiber
-[00:00:19.205] (75aba4e006c0) INFO   Filling remaining area without fiber
-[00:00:19.206] (75aba46006c0) INFO   Filling remaining area without fiber
-[00:00:19.208] (75ab986006c0) INFO   Filling remaining area without fiber
-[00:00:19.208] (75aba52006c0) INFO   Filling remaining area without fiber
-[00:00:19.209] (75ab936006c0) INFO   Filling remaining area without fiber
-[00:00:19.209] (75ab93e006c0) INFO   Filling remaining area without fiber
-[00:00:19.209] (75ab93a006c0) INFO   Filling remaining area without fiber
-[00:00:19.210] (75aba4a006c0) INFO   Filling remaining area without fiber
-[00:00:19.211] (75aba46006c0) INFO   Filling remaining area without fiber
-[00:00:19.213] (75ab986006c0) INFO   Filling remaining area without fiber
-[00:00:19.215] (75ab936006c0) INFO   Filling remaining area without fiber
-[00:00:19.217] (75aba46006c0) INFO   Filling remaining area without fiber
-[00:00:19.217] (75aba4e006c0) INFO   Filling remaining area without fiber
-[00:00:19.217] (75ab93a006c0) INFO   Filling remaining area without fiber
-[00:00:19.218] (75aba4a006c0) INFO   Filling remaining area without fiber
-[00:00:19.218] (75aba52006c0) INFO   Filling remaining area without fiber
-[00:00:19.218] (75ab93e006c0) INFO   Filling remaining area without fiber
-[00:00:19.219] (75ab986006c0) INFO   Filling remaining area without fiber
-[00:00:19.222] (75ab936006c0) INFO   Filling remaining area without fiber
-[00:00:19.222] (75aba46006c0) INFO   Filling remaining area without fiber
-[00:00:19.222] (75aba4e006c0) INFO   Filling remaining area without fiber
-[00:00:19.222] (75ab93a006c0) INFO   Filling remaining area without fiber
-[00:00:19.223] (75ab93e006c0) INFO   Filling remaining area without fiber
-[00:00:19.223] (75aba4a006c0) INFO   Filling remaining area without fiber
-[00:00:19.225] (75aba46006c0) INFO   Filling remaining area without fiber
-[00:00:19.225] (75aba52006c0) INFO   Filling remaining area without fiber
-[00:00:19.226] (75ab986006c0) INFO   Filling remaining area without fiber
-[00:00:19.226] (75aba4a006c0) INFO   Filling remaining area without fiber
-[00:00:19.228] (75ab93a006c0) INFO   Filling remaining area without fiber
-[00:00:19.228] (75ab936006c0) INFO   Filling remaining area without fiber
-[00:00:19.229] (75ab986006c0) INFO   Filling remaining area without fiber
-[00:00:19.229] (75ab986006c0) INFO   Filling remaining area without fiber
-[00:00:19.230] (75ab93e006c0) INFO   Filling remaining area without fiber
-[00:00:19.230] (75aba4e006c0) INFO   Filling remaining area without fiber
-[00:00:19.231] (75ab936006c0) INFO   Filling remaining area without fiber
-[00:00:21.663] (75abdc918a40) INFO   Handling event: ShowSuccess("Slicing finished")
-[00:00:21.663] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:00:24.293] (75abda8006c0) INFO   Trace Vertices: 14689584
-[00:00:27.175] (75abdc918a40) INFO   Handling event: ShowSuccess("Gcode loaded")
-[00:00:27.175] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:00:27.178] (75abdc918a40) INFO   Closing toast: Slicing model       
-[00:00:33.369] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(655440)
-[00:00:33.369] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:00:33.389] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(648902)
-[00:00:33.389] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:00:33.428] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(642240)
-[00:00:33.428] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:00:33.447] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(629040)
-[00:00:33.447] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:00:33.467] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(622502)
-[00:00:33.467] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:00:33.486] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(609302)
-[00:00:33.486] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:00:33.505] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(602640)
-[00:00:33.505] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:00:33.524] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(596102)
-[00:00:33.524] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:00:33.543] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(589440)
-[00:00:33.543] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:00:33.562] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(582902)
-[00:00:33.562] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:00:33.582] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(569702)
-[00:00:33.582] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:00:33.620] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(563040)
-[00:00:33.620] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:00:33.639] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(556502)
-[00:00:33.639] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:00:33.658] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(549840)
-[00:00:33.658] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:00:33.697] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(536640)
-[00:00:33.697] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:00:33.718] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(530102)
-[00:00:33.718] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:00:33.738] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(510240)
-[00:00:33.738] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:00:33.758] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(497040)
-[00:00:33.758] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:00:33.777] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(483840)
-[00:00:33.777] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:00:33.795] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(477302)
-[00:00:33.795] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:00:33.814] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(464102)
-[00:00:33.814] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:00:33.870] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(457440)
-[00:00:33.870] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:00:33.888] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(450902)
-[00:00:33.888] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:00:33.907] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(444240)
-[00:00:33.907] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:00:33.926] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(437702)
-[00:00:33.926] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:00:33.963] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(431040)
-[00:00:33.963] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:00:34.036] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(424502)
-[00:00:34.036] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:00:45.192] (75aba4a006c0) INFO   Filling remaining area without fiber
-[00:00:45.192] (75aba52006c0) INFO   Filling remaining area without fiber
-[00:00:45.192] (75aba52006c0) INFO   Filling remaining area without fiber
-[00:00:45.192] (75ab93a006c0) INFO   Filling remaining area without fiber
-[00:00:45.192] (75ab93e006c0) INFO   Filling remaining area without fiber
-[00:00:45.192] (75ab936006c0) INFO   Filling remaining area without fiber
-[00:00:45.192] (75aba46006c0) INFO   Filling remaining area without fiber
-[00:00:45.192] (75ab986006c0) INFO   Filling remaining area without fiber
-[00:00:45.192] (75aba4a006c0) INFO   Filling remaining area without fiber
-[00:00:45.193] (75ab93e006c0) INFO   Filling remaining area without fiber
-[00:00:45.193] (75ab93a006c0) INFO   Filling remaining area without fiber
-[00:00:45.193] (75aba52006c0) INFO   Filling remaining area without fiber
-[00:00:45.193] (75ab936006c0) INFO   Filling remaining area without fiber
-[00:00:45.193] (75aba46006c0) INFO   Filling remaining area without fiber
-[00:00:45.193] (75ab986006c0) INFO   Filling remaining area without fiber
-[00:00:45.193] (75aba4a006c0) INFO   Filling remaining area without fiber
-[00:00:45.193] (75ab93e006c0) INFO   Filling remaining area without fiber
-[00:00:45.193] (75ab936006c0) INFO   Filling remaining area without fiber
-[00:00:45.193] (75ab93a006c0) INFO   Filling remaining area without fiber
-[00:00:45.193] (75aba52006c0) INFO   Filling remaining area without fiber
-[00:00:45.193] (75aba46006c0) INFO   Filling remaining area without fiber
-[00:00:45.194] (75ab986006c0) INFO   Filling remaining area without fiber
-[00:00:45.194] (75ab93e006c0) INFO   Filling remaining area without fiber
-[00:00:45.194] (75ab936006c0) INFO   Filling remaining area without fiber
-[00:00:45.194] (75ab93a006c0) INFO   Filling remaining area without fiber
-[00:00:45.194] (75aba46006c0) INFO   Filling remaining area without fiber
-[00:00:45.194] (75aba4a006c0) INFO   Filling remaining area without fiber
-[00:00:45.194] (75ab93e006c0) INFO   Filling remaining area without fiber
-[00:00:45.194] (75aba4e006c0) INFO   Filling remaining area without fiber
-[00:00:45.194] (75aba52006c0) INFO   Filling remaining area without fiber
-[00:00:45.194] (75ab986006c0) INFO   Filling remaining area without fiber
-[00:00:45.195] (75ab936006c0) INFO   Filling remaining area without fiber
-[00:00:45.195] (75ab93a006c0) INFO   Filling remaining area without fiber
-[00:00:45.195] (75aba46006c0) INFO   Filling remaining area without fiber
-[00:00:45.195] (75aba4a006c0) INFO   Filling remaining area without fiber
-[00:00:45.195] (75ab936006c0) INFO   Filling remaining area without fiber
-[00:00:45.195] (75aba4e006c0) INFO   Filling remaining area without fiber
-[00:00:45.195] (75aba52006c0) INFO   Filling remaining area without fiber
-[00:00:45.195] (75aba46006c0) INFO   Filling remaining area without fiber
-[00:00:45.195] (75ab93a006c0) INFO   Filling remaining area without fiber
-[00:00:45.195] (75aba52006c0) INFO   Filling remaining area without fiber
-[00:00:45.195] (75ab986006c0) INFO   Filling remaining area without fiber
-[00:00:45.195] (75ab936006c0) INFO   Filling remaining area without fiber
-[00:00:45.196] (75aba4e006c0) INFO   Filling remaining area without fiber
-[00:00:45.196] (75aba46006c0) INFO   Filling remaining area without fiber
-[00:00:45.196] (75aba4a006c0) INFO   Filling remaining area without fiber
-[00:00:45.196] (75abdc918a40) INFO   Handling event: ShowProgressBar(1, "Slicing model       ")
-[00:00:45.196] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:00:45.196] (75ab986006c0) INFO   Filling remaining area without fiber
-[00:00:45.196] (75aba52006c0) INFO   Filling remaining area without fiber
-[00:00:45.196] (75ab936006c0) INFO   Filling remaining area without fiber
-[00:00:45.196] (75aba4e006c0) INFO   Filling remaining area without fiber
-[00:00:45.196] (75aba46006c0) INFO   Filling remaining area without fiber
-[00:00:45.196] (75ab93a006c0) INFO   Filling remaining area without fiber
-[00:00:45.197] (75aba4a006c0) INFO   Filling remaining area without fiber
-[00:00:45.197] (75ab986006c0) INFO   Filling remaining area without fiber
-[00:00:45.197] (75ab93e006c0) INFO   Filling remaining area without fiber
-[00:00:45.197] (75ab936006c0) INFO   Filling remaining area without fiber
-[00:00:45.197] (75aba4e006c0) INFO   Filling remaining area without fiber
-[00:00:45.197] (75aba46006c0) INFO   Filling remaining area without fiber
-[00:00:45.197] (75ab93a006c0) INFO   Filling remaining area without fiber
-[00:00:45.197] (75aba4a006c0) INFO   Filling remaining area without fiber
-[00:00:45.197] (75ab986006c0) INFO   Filling remaining area without fiber
-[00:00:45.198] (75ab93e006c0) INFO   Filling remaining area without fiber
-[00:00:45.198] (75aba4a006c0) INFO   Filling remaining area without fiber
-[00:00:45.198] (75aba52006c0) INFO   Filling remaining area without fiber
-[00:00:45.198] (75ab93a006c0) INFO   Filling remaining area without fiber
-[00:00:45.198] (75aba52006c0) INFO   Filling remaining area without fiber
-[00:00:45.198] (75ab986006c0) INFO   Filling remaining area without fiber
-[00:00:45.198] (75aba4e006c0) INFO   Filling remaining area without fiber
-[00:00:45.198] (75aba46006c0) INFO   Filling remaining area without fiber
-[00:00:45.198] (75ab93e006c0) INFO   Filling remaining area without fiber
-[00:00:45.199] (75ab936006c0) INFO   Filling remaining area without fiber
-[00:00:45.199] (75aba46006c0) INFO   Filling remaining area without fiber
-[00:00:45.199] (75aba4e006c0) INFO   Filling remaining area without fiber
-[00:00:45.199] (75aba4a006c0) INFO   Filling remaining area without fiber
-[00:00:45.199] (75ab986006c0) INFO   Filling remaining area without fiber
-[00:00:45.199] (75ab936006c0) INFO   Filling remaining area without fiber
-[00:00:45.199] (75aba46006c0) INFO   Filling remaining area without fiber
-[00:00:45.199] (75aba4a006c0) INFO   Filling remaining area without fiber
-[00:00:45.199] (75ab986006c0) INFO   Filling remaining area without fiber
-[00:00:45.200] (75aba46006c0) INFO   Filling remaining area without fiber
-[00:00:45.200] (75ab936006c0) INFO   Filling remaining area without fiber
-[00:00:45.200] (75aba46006c0) INFO   Filling remaining area without fiber
-[00:00:45.200] (75ab93e006c0) INFO   Filling remaining area without fiber
-[00:00:45.330] (75abdc918a40) INFO   Handling event: ShowSuccess("Slicing finished")
-[00:00:45.330] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:00:45.752] (75abda8006c0) INFO   Trace Vertices: 2366064
-[00:00:46.180] (75abdc918a40) INFO   Handling event: ShowSuccess("Gcode loaded")
-[00:00:46.180] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:00:46.188] (75abdc918a40) INFO   Closing toast: Slicing model       
-[00:01:22.592] (75abdc918a40) INFO   Handling event: ShowProgressBar(1, "Slicing model       ")
-[00:01:22.592] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:22.593] (75ab93e006c0) INFO   Filling remaining area without fiber
-[00:01:22.593] (75ab93e006c0) INFO   Filling remaining area without fiber
-[00:01:22.593] (75ab93e006c0) INFO   Filling remaining area without fiber
-[00:01:22.593] (75ab93e006c0) INFO   Filling remaining area without fiber
-[00:01:22.593] (75aba46006c0) INFO   Filling remaining area without fiber
-[00:01:22.593] (75aba4e006c0) INFO   Filling remaining area without fiber
-[00:01:22.593] (75aba4a006c0) INFO   Filling remaining area without fiber
-[00:01:22.593] (75aba52006c0) INFO   Filling remaining area without fiber
-[00:01:22.593] (75ab936006c0) INFO   Filling remaining area without fiber
-[00:01:22.593] (75aba46006c0) INFO   Filling remaining area without fiber
-[00:01:22.593] (75ab93a006c0) INFO   Filling remaining area without fiber
-[00:01:22.593] (75aba4e006c0) INFO   Filling remaining area without fiber
-[00:01:22.593] (75aba52006c0) INFO   Filling remaining area without fiber
-[00:01:22.593] (75ab986006c0) INFO   Filling remaining area without fiber
-[00:01:22.593] (75aba46006c0) INFO   Filling remaining area without fiber
-[00:01:22.593] (75aba4a006c0) INFO   Filling remaining area without fiber
-[00:01:22.593] (75aba4e006c0) INFO   Filling remaining area without fiber
-[00:01:22.594] (75aba52006c0) INFO   Filling remaining area without fiber
-[00:01:22.594] (75ab986006c0) INFO   Filling remaining area without fiber
-[00:01:22.594] (75aba4a006c0) INFO   Filling remaining area without fiber
-[00:01:22.594] (75aba4e006c0) INFO   Filling remaining area without fiber
-[00:01:22.594] (75aba52006c0) INFO   Filling remaining area without fiber
-[00:01:22.594] (75ab986006c0) INFO   Filling remaining area without fiber
-[00:01:22.594] (75aba46006c0) INFO   Filling remaining area without fiber
-[00:01:22.594] (75aba4a006c0) INFO   Filling remaining area without fiber
-[00:01:22.594] (75aba4e006c0) INFO   Filling remaining area without fiber
-[00:01:22.594] (75ab936006c0) INFO   Filling remaining area without fiber
-[00:01:22.594] (75ab986006c0) INFO   Filling remaining area without fiber
-[00:01:22.594] (75aba52006c0) INFO   Filling remaining area without fiber
-[00:01:22.594] (75aba46006c0) INFO   Filling remaining area without fiber
-[00:01:22.594] (75ab93e006c0) INFO   Filling remaining area without fiber
-[00:01:22.594] (75aba4a006c0) INFO   Filling remaining area without fiber
-[00:01:22.595] (75aba4e006c0) INFO   Filling remaining area without fiber
-[00:01:22.595] (75ab936006c0) INFO   Filling remaining area without fiber
-[00:01:22.595] (75aba46006c0) INFO   Filling remaining area without fiber
-[00:01:22.595] (75aba52006c0) INFO   Filling remaining area without fiber
-[00:01:22.595] (75ab93e006c0) INFO   Filling remaining area without fiber
-[00:01:22.595] (75ab93a006c0) INFO   Filling remaining area without fiber
-[00:01:22.595] (75ab936006c0) INFO   Filling remaining area without fiber
-[00:01:22.595] (75aba4e006c0) INFO   Filling remaining area without fiber
-[00:01:22.595] (75ab986006c0) INFO   Filling remaining area without fiber
-[00:01:22.595] (75aba52006c0) INFO   Filling remaining area without fiber
-[00:01:22.595] (75ab93e006c0) INFO   Filling remaining area without fiber
-[00:01:22.595] (75ab936006c0) INFO   Filling remaining area without fiber
-[00:01:22.595] (75ab93a006c0) INFO   Filling remaining area without fiber
-[00:01:22.595] (75aba4e006c0) INFO   Filling remaining area without fiber
-[00:01:22.595] (75ab986006c0) INFO   Filling remaining area without fiber
-[00:01:22.595] (75aba46006c0) INFO   Filling remaining area without fiber
-[00:01:22.596] (75aba4a006c0) INFO   Filling remaining area without fiber
-[00:01:22.596] (75ab936006c0) INFO   Filling remaining area without fiber
-[00:01:22.596] (75aba52006c0) INFO   Filling remaining area without fiber
-[00:01:22.596] (75ab93a006c0) INFO   Filling remaining area without fiber
-[00:01:22.596] (75aba4e006c0) INFO   Filling remaining area without fiber
-[00:01:22.596] (75ab986006c0) INFO   Filling remaining area without fiber
-[00:01:22.596] (75aba46006c0) INFO   Filling remaining area without fiber
-[00:01:22.596] (75aba4a006c0) INFO   Filling remaining area without fiber
-[00:01:22.596] (75ab93a006c0) INFO   Filling remaining area without fiber
-[00:01:22.596] (75aba52006c0) INFO   Filling remaining area without fiber
-[00:01:22.596] (75ab986006c0) INFO   Filling remaining area without fiber
-[00:01:22.596] (75aba46006c0) INFO   Filling remaining area without fiber
-[00:01:22.596] (75aba4a006c0) INFO   Filling remaining area without fiber
-[00:01:22.597] (75ab93a006c0) INFO   Filling remaining area without fiber
-[00:01:22.597] (75aba4e006c0) INFO   Filling remaining area without fiber
-[00:01:22.597] (75aba52006c0) INFO   Filling remaining area without fiber
-[00:01:22.597] (75aba46006c0) INFO   Filling remaining area without fiber
-[00:01:22.597] (75ab93e006c0) INFO   Filling remaining area without fiber
-[00:01:22.597] (75aba4a006c0) INFO   Filling remaining area without fiber
-[00:01:22.597] (75ab93a006c0) INFO   Filling remaining area without fiber
-[00:01:22.597] (75ab986006c0) INFO   Filling remaining area without fiber
-[00:01:22.597] (75aba52006c0) INFO   Filling remaining area without fiber
-[00:01:22.597] (75aba46006c0) INFO   Filling remaining area without fiber
-[00:01:22.597] (75ab93e006c0) INFO   Filling remaining area without fiber
-[00:01:22.597] (75aba4a006c0) INFO   Filling remaining area without fiber
-[00:01:22.597] (75ab93a006c0) INFO   Filling remaining area without fiber
-[00:01:22.597] (75ab986006c0) INFO   Filling remaining area without fiber
-[00:01:22.598] (75aba52006c0) INFO   Filling remaining area without fiber
-[00:01:22.598] (75ab936006c0) INFO   Filling remaining area without fiber
-[00:01:22.598] (75ab93e006c0) INFO   Filling remaining area without fiber
-[00:01:22.598] (75ab93a006c0) INFO   Filling remaining area without fiber
-[00:01:22.598] (75aba4a006c0) INFO   Filling remaining area without fiber
-[00:01:22.598] (75ab986006c0) INFO   Filling remaining area without fiber
-[00:01:22.598] (75aba52006c0) INFO   Filling remaining area without fiber
-[00:01:22.598] (75ab93e006c0) INFO   Filling remaining area without fiber
-[00:01:22.598] (75ab936006c0) INFO   Filling remaining area without fiber
-[00:01:22.598] (75aba46006c0) INFO   Filling remaining area without fiber
-[00:01:22.598] (75ab93a006c0) INFO   Filling remaining area without fiber
-[00:01:22.598] (75aba4a006c0) INFO   Filling remaining area without fiber
-[00:01:22.598] (75ab986006c0) INFO   Filling remaining area without fiber
-[00:01:22.598] (75aba52006c0) INFO   Filling remaining area without fiber
-[00:01:22.598] (75aba46006c0) INFO   Filling remaining area without fiber
-[00:01:22.599] (75ab93a006c0) INFO   Filling remaining area without fiber
-[00:01:22.599] (75aba4a006c0) INFO   Filling remaining area without fiber
-[00:01:22.599] (75aba52006c0) INFO   Filling remaining area without fiber
-[00:01:22.599] (75ab986006c0) INFO   Filling remaining area without fiber
-[00:01:22.599] (75ab93e006c0) INFO   Filling remaining area without fiber
-[00:01:22.599] (75aba46006c0) INFO   Filling remaining area without fiber
-[00:01:22.599] (75ab93a006c0) INFO   Filling remaining area without fiber
-[00:01:22.599] (75aba52006c0) INFO   Filling remaining area without fiber
-[00:01:22.599] (75ab986006c0) INFO   Filling remaining area without fiber
-[00:01:22.599] (75ab936006c0) INFO   Filling remaining area without fiber
-[00:01:22.599] (75aba46006c0) INFO   Filling remaining area without fiber
-[00:01:22.599] (75ab93a006c0) INFO   Filling remaining area without fiber
-[00:01:22.599] (75ab93e006c0) INFO   Filling remaining area without fiber
-[00:01:22.600] (75ab936006c0) INFO   Filling remaining area without fiber
-[00:01:22.600] (75ab986006c0) INFO   Filling remaining area without fiber
-[00:01:22.600] (75ab93a006c0) INFO   Filling remaining area without fiber
-[00:01:22.600] (75ab93e006c0) INFO   Filling remaining area without fiber
-[00:01:22.600] (75ab936006c0) INFO   Filling remaining area without fiber
-[00:01:22.600] (75aba46006c0) INFO   Filling remaining area without fiber
-[00:01:22.600] (75ab986006c0) INFO   Filling remaining area without fiber
-[00:01:22.600] (75ab93e006c0) INFO   Filling remaining area without fiber
-[00:01:22.600] (75aba46006c0) INFO   Filling remaining area without fiber
-[00:01:22.601] (75ab93a006c0) INFO   Filling remaining area without fiber
-[00:01:22.601] (75aba46006c0) INFO   Filling remaining area without fiber
-[00:01:22.601] (75aba52006c0) INFO   Filling remaining area without fiber
-[00:01:22.601] (75aba4a006c0) INFO   Filling remaining area without fiber
-[00:01:22.601] (75aba4e006c0) INFO   Filling remaining area without fiber
-[00:01:22.601] (75ab986006c0) INFO   Filling remaining area without fiber
-[00:01:22.601] (75ab93a006c0) INFO   Filling remaining area without fiber
-[00:01:22.601] (75aba46006c0) INFO   Filling remaining area without fiber
-[00:01:22.601] (75aba52006c0) INFO   Filling remaining area without fiber
-[00:01:22.602] (75aba4a006c0) INFO   Filling remaining area without fiber
-[00:01:22.602] (75aba46006c0) INFO   Filling remaining area without fiber
-[00:01:22.602] (75aba4e006c0) INFO   Filling remaining area without fiber
-[00:01:22.602] (75ab93e006c0) INFO   Filling remaining area without fiber
-[00:01:22.602] (75ab986006c0) INFO   Filling remaining area without fiber
-[00:01:22.602] (75aba52006c0) INFO   Filling remaining area without fiber
-[00:01:22.602] (75aba46006c0) INFO   Filling remaining area without fiber
-[00:01:22.602] (75ab93a006c0) INFO   Filling remaining area without fiber
-[00:01:22.602] (75aba4a006c0) INFO   Filling remaining area without fiber
-[00:01:22.602] (75ab986006c0) INFO   Filling remaining area without fiber
-[00:01:22.602] (75aba52006c0) INFO   Filling remaining area without fiber
-[00:01:22.602] (75aba4e006c0) INFO   Filling remaining area without fiber
-[00:01:22.602] (75ab93e006c0) INFO   Filling remaining area without fiber
-[00:01:22.603] (75aba4a006c0) INFO   Filling remaining area without fiber
-[00:01:22.603] (75ab93a006c0) INFO   Filling remaining area without fiber
-[00:01:22.603] (75ab986006c0) INFO   Filling remaining area without fiber
-[00:01:22.603] (75aba52006c0) INFO   Filling remaining area without fiber
-[00:01:22.603] (75ab93e006c0) INFO   Filling remaining area without fiber
-[00:01:22.603] (75aba4e006c0) INFO   Filling remaining area without fiber
-[00:01:22.603] (75aba4e006c0) INFO   Filling remaining area without fiber
-[00:01:22.603] (75aba4e006c0) INFO   Filling remaining area without fiber
-[00:01:22.603] (75aba4e006c0) INFO   Filling remaining area without fiber
-[00:01:22.603] (75aba4a006c0) INFO   Filling remaining area without fiber
-[00:01:22.603] (75ab93a006c0) INFO   Filling remaining area without fiber
-[00:01:22.603] (75aba52006c0) INFO   Filling remaining area without fiber
-[00:01:22.603] (75ab93e006c0) INFO   Filling remaining area without fiber
-[00:01:22.603] (75ab986006c0) INFO   Filling remaining area without fiber
-[00:01:22.603] (75aba4e006c0) INFO   Filling remaining area without fiber
-[00:01:22.604] (75aba4a006c0) INFO   Filling remaining area without fiber
-[00:01:22.604] (75ab93a006c0) INFO   Filling remaining area without fiber
-[00:01:22.604] (75ab93e006c0) INFO   Filling remaining area without fiber
-[00:01:22.604] (75aba52006c0) INFO   Filling remaining area without fiber
-[00:01:22.604] (75ab936006c0) INFO   Filling remaining area without fiber
-[00:01:22.604] (75aba46006c0) INFO   Filling remaining area without fiber
-[00:01:22.762] (75abdc918a40) INFO   Handling event: ShowSuccess("Slicing finished")
-[00:01:22.762] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:23.176] (75abda8006c0) INFO   Trace Vertices: 2532384
-[00:01:23.518] (75abdc918a40) INFO   Handling event: ShowSuccess("Gcode loaded")
-[00:01:23.518] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:23.521] (75abdc918a40) INFO   Closing toast: Slicing model       
-[00:01:35.457] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(44816)
-[00:01:35.457] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:35.542] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(43530)
-[00:01:35.542] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:35.559] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(42866)
-[00:01:35.559] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:35.577] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(42213)
-[00:01:35.577] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:35.594] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(41544)
-[00:01:35.594] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:35.663] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(40857)
-[00:01:35.663] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:35.730] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(40189)
-[00:01:35.730] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:35.747] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(39505)
-[00:01:35.747] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:35.780] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(38813)
-[00:01:35.780] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:35.798] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(38127)
-[00:01:35.798] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:35.814] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(37437)
-[00:01:35.814] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:35.848] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(36760)
-[00:01:35.848] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:35.865] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(35397)
-[00:01:35.865] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:35.883] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(33998)
-[00:01:35.883] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:35.900] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(32602)
-[00:01:35.900] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:35.917] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(31883)
-[00:01:35.917] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:35.933] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(31177)
-[00:01:35.934] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:35.950] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(30481)
-[00:01:35.950] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:35.970] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(29135)
-[00:01:35.970] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:36.003] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(28444)
-[00:01:36.003] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:36.031] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(27735)
-[00:01:36.031] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:36.049] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(26347)
-[00:01:36.049] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:36.067] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(24962)
-[00:01:36.067] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:36.084] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(23606)
-[00:01:36.084] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:36.101] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(22916)
-[00:01:36.101] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:36.118] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(22238)
-[00:01:36.118] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:36.134] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(21573)
-[00:01:36.134] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:36.201] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(20221)
-[00:01:36.201] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:36.218] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(18876)
-[00:01:36.219] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:36.236] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(17574)
-[00:01:36.236] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:36.254] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(16284)
-[00:01:36.254] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:36.270] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(14990)
-[00:01:36.270] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:36.287] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(14351)
-[00:01:36.287] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:36.337] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(13734)
-[00:01:36.337] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:36.354] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(13103)
-[00:01:36.354] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:36.370] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(11878)
-[00:01:36.370] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:36.387] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(11286)
-[00:01:36.387] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:36.404] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(10104)
-[00:01:36.404] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:36.421] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(9517)
-[00:01:36.421] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:36.471] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(8931)
-[00:01:36.471] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:36.509] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(8331)
-[00:01:36.509] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:36.528] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(7750)
-[00:01:36.528] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:36.546] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(6568)
-[00:01:36.546] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:36.563] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(5988)
-[00:01:36.563] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:36.613] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(5426)
-[00:01:36.613] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:36.662] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(4860)
-[00:01:36.662] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:36.680] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(4319)
-[00:01:36.680] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:36.700] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(3758)
-[00:01:36.700] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:36.718] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(3200)
-[00:01:36.718] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:36.735] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(2639)
-[00:01:36.735] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:36.753] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(1443)
-[00:01:36.753] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:36.771] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(785)
-[00:01:36.771] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:36.789] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(24)
-[00:01:36.789] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:37.203] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(785)
-[00:01:37.203] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:37.221] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(1443)
-[00:01:37.221] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:37.238] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(2102)
-[00:01:37.238] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:37.310] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(2639)
-[00:01:37.310] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:37.346] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(3200)
-[00:01:37.346] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:37.367] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(3758)
-[00:01:37.367] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:37.403] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(4319)
-[00:01:37.403] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:37.426] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(4860)
-[00:01:37.426] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:37.451] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(5988)
-[00:01:37.451] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:37.499] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(7163)
-[00:01:37.499] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:37.523] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(7750)
-[00:01:37.523] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:37.547] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(8931)
-[00:01:37.547] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:37.571] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(9517)
-[00:01:37.571] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:37.596] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(11286)
-[00:01:37.596] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:37.620] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(12482)
-[00:01:37.620] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:37.644] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(13734)
-[00:01:37.644] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:37.669] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(14990)
-[00:01:37.669] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:37.694] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(16284)
-[00:01:37.695] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:37.719] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(17574)
-[00:01:37.719] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:37.743] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(18876)
-[00:01:37.743] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:37.768] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(20221)
-[00:01:37.768] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:37.792] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(21573)
-[00:01:37.792] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:37.817] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(22916)
-[00:01:37.817] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:37.841] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(24292)
-[00:01:37.841] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:37.866] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(25658)
-[00:01:37.866] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:37.891] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(27035)
-[00:01:37.891] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:37.916] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(28444)
-[00:01:37.916] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:37.941] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(30481)
-[00:01:37.941] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:37.966] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(31883)
-[00:01:37.966] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:37.992] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(32602)
-[00:01:37.992] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:38.016] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(34710)
-[00:01:38.016] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:38.033] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(36070)
-[00:01:38.033] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:38.050] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(38127)
-[00:01:38.050] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:38.067] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(38813)
-[00:01:38.067] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:38.084] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(40189)
-[00:01:38.084] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:38.101] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(41544)
-[00:01:38.101] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:38.118] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(42866)
-[00:01:38.118] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:38.135] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(44161)
-[00:01:38.135] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:38.152] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(45450)
-[00:01:38.152] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:38.168] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(46082)
-[00:01:38.168] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:38.185] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(47329)
-[00:01:38.185] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:38.201] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(47944)
-[00:01:38.201] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:38.217] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(48555)
-[00:01:38.218] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:38.234] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(49147)
-[00:01:38.234] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:38.251] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(50337)
-[00:01:38.251] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:38.267] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(51510)
-[00:01:38.267] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:38.284] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(52100)
-[00:01:38.284] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:38.301] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(53270)
-[00:01:38.301] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:38.317] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(53848)
-[00:01:38.317] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:38.334] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(54980)
-[00:01:38.334] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:38.351] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(56089)
-[00:01:38.351] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:38.367] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(56645)
-[00:01:38.367] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:38.384] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(57760)
-[00:01:38.384] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:38.401] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(58848)
-[00:01:38.401] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:38.419] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(59390)
-[00:01:38.419] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:38.436] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(60433)
-[00:01:38.436] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:38.453] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(62033)
-[00:01:38.453] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:38.470] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(63100)
-[00:01:38.470] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:38.488] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(64691)
-[00:01:38.488] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:38.505] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(65757)
-[00:01:38.505] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:38.523] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(67863)
-[00:01:38.523] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:38.540] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(68386)
-[00:01:38.540] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:38.558] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(69927)
-[00:01:38.558] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:38.575] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(70939)
-[00:01:38.575] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:38.592] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(71932)
-[00:01:38.592] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:38.610] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(72434)
-[00:01:38.610] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:38.627] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(72947)
-[00:01:38.627] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:38.660] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(73986)
-[00:01:38.660] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:38.677] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(75022)
-[00:01:38.677] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:38.694] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(75551)
-[00:01:38.694] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:38.711] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(76061)
-[00:01:38.711] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:38.728] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(77149)
-[00:01:38.728] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:38.744] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(77710)
-[00:01:38.744] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:38.879] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(75551)
-[00:01:38.879] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:38.897] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(72947)
-[00:01:38.898] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:38.915] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(68386)
-[00:01:38.915] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:38.932] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(65757)
-[00:01:38.932] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:38.949] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(64167)
-[00:01:38.949] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:38.965] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(62569)
-[00:01:38.965] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:38.982] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(61502)
-[00:01:38.982] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:39.000] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(60433)
-[00:01:39.000] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:39.016] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(59390)
-[00:01:39.016] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:39.033] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(57760)
-[00:01:39.033] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:39.050] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(56089)
-[00:01:39.050] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:39.083] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(54417)
-[00:01:39.083] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:39.101] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(53270)
-[00:01:39.101] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:39.135] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(52100)
-[00:01:39.135] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:39.152] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(51510)
-[00:01:39.152] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:39.169] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(49758)
-[00:01:39.169] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:39.187] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(47944)
-[00:01:39.187] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:39.204] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(46706)
-[00:01:39.204] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:39.221] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(45450)
-[00:01:39.221] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:39.238] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(44161)
-[00:01:39.238] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:39.255] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(42866)
-[00:01:39.256] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:39.272] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(42213)
-[00:01:39.272] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:39.289] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(41544)
-[00:01:39.289] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:39.307] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(40857)
-[00:01:39.307] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:39.324] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(39505)
-[00:01:39.324] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:39.342] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(38813)
-[00:01:39.342] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:39.358] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(37437)
-[00:01:39.358] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:39.375] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(36070)
-[00:01:39.375] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:39.391] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(35397)
-[00:01:39.391] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:39.408] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(34710)
-[00:01:39.408] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:39.424] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(33998)
-[00:01:39.424] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:39.441] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(33294)
-[00:01:39.441] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:39.458] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(32602)
-[00:01:39.458] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:39.475] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(31177)
-[00:01:39.475] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:39.492] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(29825)
-[00:01:39.492] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:39.508] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(28444)
-[00:01:39.508] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:39.525] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(26347)
-[00:01:39.525] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:39.543] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(25658)
-[00:01:39.543] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:39.559] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(24962)
-[00:01:39.560] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:39.576] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(24292)
-[00:01:39.576] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:39.625] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(23606)
-[00:01:39.625] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:39.659] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(22916)
-[00:01:39.659] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:39.711] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(22238)
-[00:01:39.711] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:39.728] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(21573)
-[00:01:39.728] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:39.745] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(20897)
-[00:01:39.745] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:39.762] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(20221)
-[00:01:39.762] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:39.779] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(19539)
-[00:01:39.779] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:39.796] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(18876)
-[00:01:39.796] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:39.837] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(17574)
-[00:01:39.837] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:39.862] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(16923)
-[00:01:39.862] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:39.886] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(14990)
-[00:01:39.886] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:39.910] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(13103)
-[00:01:39.910] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:39.933] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(11286)
-[00:01:39.933] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:39.957] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(10104)
-[00:01:39.957] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:39.980] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(9517)
-[00:01:39.980] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:40.003] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(8931)
-[00:01:40.003] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:40.050] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(8331)
-[00:01:40.050] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:40.074] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(7750)
-[00:01:40.074] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:40.097] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(7163)
-[00:01:40.097] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:40.145] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(5988)
-[00:01:40.145] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:40.169] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(5426)
-[00:01:40.169] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:40.192] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(4860)
-[00:01:40.192] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:40.216] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(4319)
-[00:01:40.216] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:40.239] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(3758)
-[00:01:40.239] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:40.263] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(2639)
-[00:01:40.263] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:40.286] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(2102)
-[00:01:40.286] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:40.309] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(785)
-[00:01:40.309] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:40.332] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(24)
-[00:01:40.332] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:40.636] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(1443)
-[00:01:40.636] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:40.653] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(3200)
-[00:01:40.653] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:40.670] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(3758)
-[00:01:40.670] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:40.686] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(4860)
-[00:01:40.687] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:40.703] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(5426)
-[00:01:40.703] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:40.720] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(5988)
-[00:01:40.720] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:40.736] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(7750)
-[00:01:40.736] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:40.753] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(8331)
-[00:01:40.753] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:40.769] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(8931)
-[00:01:40.769] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:40.786] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(9517)
-[00:01:40.786] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:40.803] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(10104)
-[00:01:40.803] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:40.819] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(10685)
-[00:01:40.819] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:40.836] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(11286)
-[00:01:40.836] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:40.853] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(11878)
-[00:01:40.853] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:40.869] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(12482)
-[00:01:40.869] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:40.903] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(13103)
-[00:01:40.903] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:40.952] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(14990)
-[00:01:40.952] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:40.969] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(15639)
-[00:01:40.969] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:40.987] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(16923)
-[00:01:40.987] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:41.004] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(18216)
-[00:01:41.004] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:41.021] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(19539)
-[00:01:41.021] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:41.038] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(20897)
-[00:01:41.038] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:41.055] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(21573)
-[00:01:41.055] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:41.071] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(22916)
-[00:01:41.071] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:41.088] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(24292)
-[00:01:41.088] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:41.105] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(25658)
-[00:01:41.106] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:41.123] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(27035)
-[00:01:41.123] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:41.140] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(28444)
-[00:01:41.140] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:41.156] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(30481)
-[00:01:41.156] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:41.173] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(32602)
-[00:01:41.173] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:41.190] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(35397)
-[00:01:41.190] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:41.207] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(36760)
-[00:01:41.207] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:41.224] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(37437)
-[00:01:41.224] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:41.241] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(38813)
-[00:01:41.241] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:41.257] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(39505)
-[00:01:41.257] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:41.273] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(40189)
-[00:01:41.274] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:41.290] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(42213)
-[00:01:41.290] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:41.310] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(44161)
-[00:01:41.310] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:41.338] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(46706)
-[00:01:41.338] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:41.365] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(49758)
-[00:01:41.365] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:41.383] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(51510)
-[00:01:41.383] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:41.400] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(52100)
-[00:01:41.400] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:41.417] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(52686)
-[00:01:41.417] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:41.434] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(53848)
-[00:01:41.434] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:41.451] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(55540)
-[00:01:41.451] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:41.468] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(57206)
-[00:01:41.468] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:41.484] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(57760)
-[00:01:41.484] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:41.501] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(58299)
-[00:01:41.501] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:41.678] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(58848)
-[00:01:41.678] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:41.715] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(60433)
-[00:01:41.715] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:41.735] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(63622)
-[00:01:41.735] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:41.755] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(64167)
-[00:01:41.755] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:41.776] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(65225)
-[00:01:41.776] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:41.850] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(63622)
-[00:01:41.850] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:41.867] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(60433)
-[00:01:41.868] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:41.885] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(54417)
-[00:01:41.885] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:41.902] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(49147)
-[00:01:41.902] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:41.919] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(44816)
-[00:01:41.919] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:41.936] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(42213)
-[00:01:41.937] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:41.953] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(39505)
-[00:01:41.953] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:41.970] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(36760)
-[00:01:41.970] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:41.986] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(34710)
-[00:01:41.986] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:42.004] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(32602)
-[00:01:42.004] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:42.020] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(30481)
-[00:01:42.020] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:42.037] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(29135)
-[00:01:42.037] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:42.053] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(27735)
-[00:01:42.053] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:42.070] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(25658)
-[00:01:42.070] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:42.086] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(23606)
-[00:01:42.086] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:42.103] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(21573)
-[00:01:42.103] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:42.120] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(18876)
-[00:01:42.120] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:42.137] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(15639)
-[00:01:42.137] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:42.153] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(13734)
-[00:01:42.153] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:42.171] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(13103)
-[00:01:42.171] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:42.189] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(12482)
-[00:01:42.189] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:42.205] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(11878)
-[00:01:42.205] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:42.247] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(13103)
-[00:01:42.247] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:55.360] (75aba52006c0) INFO   Filling remaining area without fiber
-[00:01:55.360] (75aba52006c0) INFO   Filling remaining area without fiber
-[00:01:55.360] (75aba52006c0) INFO   Filling remaining area without fiber
-[00:01:55.360] (75aba52006c0) INFO   Filling remaining area without fiber
-[00:01:55.360] (75ab936006c0) INFO   Filling remaining area without fiber
-[00:01:55.360] (75aba4a006c0) INFO   Filling remaining area without fiber
-[00:01:55.360] (75aba4e006c0) INFO   Filling remaining area without fiber
-[00:01:55.360] (75aba46006c0) INFO   Filling remaining area without fiber
-[00:01:55.360] (75ab986006c0) INFO   Filling remaining area without fiber
-[00:01:55.360] (75aba52006c0) INFO   Filling remaining area without fiber
-[00:01:55.361] (75ab936006c0) INFO   Filling remaining area without fiber
-[00:01:55.361] (75ab93e006c0) INFO   Filling remaining area without fiber
-[00:01:55.361] (75ab93a006c0) INFO   Filling remaining area without fiber
-[00:01:55.361] (75aba4a006c0) INFO   Filling remaining area without fiber
-[00:01:55.361] (75aba46006c0) INFO   Filling remaining area without fiber
-[00:01:55.361] (75ab986006c0) INFO   Filling remaining area without fiber
-[00:01:55.361] (75aba52006c0) INFO   Filling remaining area without fiber
-[00:01:55.361] (75ab936006c0) INFO   Filling remaining area without fiber
-[00:01:55.361] (75aba4e006c0) INFO   Filling remaining area without fiber
-[00:01:55.361] (75abdc918a40) INFO   Handling event: ShowProgressBar(1, "Slicing model       ")
-[00:01:55.361] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:55.361] (75aba4a006c0) INFO   Filling remaining area without fiber
-[00:01:55.361] (75ab986006c0) INFO   Filling remaining area without fiber
-[00:01:55.361] (75ab936006c0) INFO   Filling remaining area without fiber
-[00:01:55.361] (75aba46006c0) INFO   Filling remaining area without fiber
-[00:01:55.361] (75aba4e006c0) INFO   Filling remaining area without fiber
-[00:01:55.361] (75ab93a006c0) INFO   Filling remaining area without fiber
-[00:01:55.361] (75aba4a006c0) INFO   Filling remaining area without fiber
-[00:01:55.362] (75ab93e006c0) INFO   Filling remaining area without fiber
-[00:01:55.362] (75ab986006c0) INFO   Filling remaining area without fiber
-[00:01:55.362] (75ab936006c0) INFO   Filling remaining area without fiber
-[00:01:55.362] (75aba52006c0) INFO   Filling remaining area without fiber
-[00:01:55.362] (75ab93a006c0) INFO   Filling remaining area without fiber
-[00:01:55.362] (75aba4a006c0) INFO   Filling remaining area without fiber
-[00:01:55.362] (75ab93e006c0) INFO   Filling remaining area without fiber
-[00:01:55.362] (75aba46006c0) INFO   Filling remaining area without fiber
-[00:01:55.362] (75ab986006c0) INFO   Filling remaining area without fiber
-[00:01:55.362] (75aba4e006c0) INFO   Filling remaining area without fiber
-[00:01:55.362] (75ab93a006c0) INFO   Filling remaining area without fiber
-[00:01:55.362] (75ab936006c0) INFO   Filling remaining area without fiber
-[00:01:55.362] (75aba4a006c0) INFO   Filling remaining area without fiber
-[00:01:55.362] (75ab93e006c0) INFO   Filling remaining area without fiber
-[00:01:55.362] (75aba46006c0) INFO   Filling remaining area without fiber
-[00:01:55.362] (75ab986006c0) INFO   Filling remaining area without fiber
-[00:01:55.362] (75aba4e006c0) INFO   Filling remaining area without fiber
-[00:01:55.362] (75ab93a006c0) INFO   Filling remaining area without fiber
-[00:01:55.362] (75ab936006c0) INFO   Filling remaining area without fiber
-[00:01:55.363] (75aba46006c0) INFO   Filling remaining area without fiber
-[00:01:55.363] (75ab986006c0) INFO   Filling remaining area without fiber
-[00:01:55.363] (75aba4e006c0) INFO   Filling remaining area without fiber
-[00:01:55.363] (75aba4a006c0) INFO   Filling remaining area without fiber
-[00:01:55.363] (75ab936006c0) INFO   Filling remaining area without fiber
-[00:01:55.363] (75ab93a006c0) INFO   Filling remaining area without fiber
-[00:01:55.363] (75aba52006c0) INFO   Filling remaining area without fiber
-[00:01:55.363] (75ab93e006c0) INFO   Filling remaining area without fiber
-[00:01:55.363] (75aba4a006c0) INFO   Filling remaining area without fiber
-[00:01:55.363] (75aba4e006c0) INFO   Filling remaining area without fiber
-[00:01:55.363] (75ab936006c0) INFO   Filling remaining area without fiber
-[00:01:55.363] (75ab93a006c0) INFO   Filling remaining area without fiber
-[00:01:55.363] (75aba52006c0) INFO   Filling remaining area without fiber
-[00:01:55.364] (75aba4a006c0) INFO   Filling remaining area without fiber
-[00:01:55.364] (75ab986006c0) INFO   Filling remaining area without fiber
-[00:01:55.364] (75ab936006c0) INFO   Filling remaining area without fiber
-[00:01:55.364] (75aba4a006c0) INFO   Filling remaining area without fiber
-[00:01:55.364] (75ab93a006c0) INFO   Filling remaining area without fiber
-[00:01:55.364] (75aba52006c0) INFO   Filling remaining area without fiber
-[00:01:55.364] (75ab986006c0) INFO   Filling remaining area without fiber
-[00:01:55.364] (75aba4a006c0) INFO   Filling remaining area without fiber
-[00:01:55.364] (75aba52006c0) INFO   Filling remaining area without fiber
-[00:01:55.364] (75aba4a006c0) INFO   Filling remaining area without fiber
-[00:01:55.365] (75ab936006c0) INFO   Filling remaining area without fiber
-[00:01:55.365] (75aba4a006c0) INFO   Filling remaining area without fiber
-[00:01:55.365] (75ab93a006c0) INFO   Filling remaining area without fiber
-[00:01:55.365] (75aba52006c0) INFO   Filling remaining area without fiber
-[00:01:55.365] (75ab986006c0) INFO   Filling remaining area without fiber
-[00:01:55.365] (75aba4a006c0) INFO   Filling remaining area without fiber
-[00:01:55.365] (75ab936006c0) INFO   Filling remaining area without fiber
-[00:01:55.365] (75ab93a006c0) INFO   Filling remaining area without fiber
-[00:01:55.365] (75aba52006c0) INFO   Filling remaining area without fiber
-[00:01:55.365] (75aba4a006c0) INFO   Filling remaining area without fiber
-[00:01:55.365] (75ab986006c0) INFO   Filling remaining area without fiber
-[00:01:55.365] (75ab936006c0) INFO   Filling remaining area without fiber
-[00:01:55.365] (75aba4a006c0) INFO   Filling remaining area without fiber
-[00:01:55.365] (75aba46006c0) INFO   Filling remaining area without fiber
-[00:01:55.366] (75ab986006c0) INFO   Filling remaining area without fiber
-[00:01:55.366] (75ab936006c0) INFO   Filling remaining area without fiber
-[00:01:55.366] (75aba52006c0) INFO   Filling remaining area without fiber
-[00:01:55.366] (75aba4e006c0) INFO   Filling remaining area without fiber
-[00:01:55.366] (75aba4a006c0) INFO   Filling remaining area without fiber
-[00:01:55.366] (75ab93e006c0) INFO   Filling remaining area without fiber
-[00:01:55.366] (75ab986006c0) INFO   Filling remaining area without fiber
-[00:01:55.366] (75ab936006c0) INFO   Filling remaining area without fiber
-[00:01:55.366] (75aba4e006c0) INFO   Filling remaining area without fiber
-[00:01:55.366] (75aba4a006c0) INFO   Filling remaining area without fiber
-[00:01:55.366] (75ab93e006c0) INFO   Filling remaining area without fiber
-[00:01:55.366] (75aba52006c0) INFO   Filling remaining area without fiber
-[00:01:55.367] (75ab986006c0) INFO   Filling remaining area without fiber
-[00:01:55.367] (75ab936006c0) INFO   Filling remaining area without fiber
-[00:01:55.367] (75ab93a006c0) INFO   Filling remaining area without fiber
-[00:01:55.367] (75aba4a006c0) INFO   Filling remaining area without fiber
-[00:01:55.367] (75ab93e006c0) INFO   Filling remaining area without fiber
-[00:01:55.367] (75aba52006c0) INFO   Filling remaining area without fiber
-[00:01:55.367] (75aba4e006c0) INFO   Filling remaining area without fiber
-[00:01:55.367] (75ab986006c0) INFO   Filling remaining area without fiber
-[00:01:55.367] (75ab93a006c0) INFO   Filling remaining area without fiber
-[00:01:55.367] (75aba46006c0) INFO   Filling remaining area without fiber
-[00:01:55.367] (75ab93e006c0) INFO   Filling remaining area without fiber
-[00:01:55.367] (75aba52006c0) INFO   Filling remaining area without fiber
-[00:01:55.367] (75aba4e006c0) INFO   Filling remaining area without fiber
-[00:01:55.367] (75ab986006c0) INFO   Filling remaining area without fiber
-[00:01:55.368] (75ab93a006c0) INFO   Filling remaining area without fiber
-[00:01:55.368] (75aba52006c0) INFO   Filling remaining area without fiber
-[00:01:55.368] (75aba4e006c0) INFO   Filling remaining area without fiber
-[00:01:55.368] (75ab93e006c0) INFO   Filling remaining area without fiber
-[00:01:55.368] (75ab986006c0) INFO   Filling remaining area without fiber
-[00:01:55.368] (75ab93a006c0) INFO   Filling remaining area without fiber
-[00:01:55.368] (75aba4a006c0) INFO   Filling remaining area without fiber
-[00:01:55.368] (75aba52006c0) INFO   Filling remaining area without fiber
-[00:01:55.368] (75aba4e006c0) INFO   Filling remaining area without fiber
-[00:01:55.368] (75ab93e006c0) INFO   Filling remaining area without fiber
-[00:01:55.368] (75ab986006c0) INFO   Filling remaining area without fiber
-[00:01:55.368] (75ab93a006c0) INFO   Filling remaining area without fiber
-[00:01:55.369] (75aba4a006c0) INFO   Filling remaining area without fiber
-[00:01:55.369] (75aba52006c0) INFO   Filling remaining area without fiber
-[00:01:55.369] (75aba4e006c0) INFO   Filling remaining area without fiber
-[00:01:55.369] (75ab93e006c0) INFO   Filling remaining area without fiber
-[00:01:55.369] (75ab986006c0) INFO   Filling remaining area without fiber
-[00:01:55.369] (75ab93a006c0) INFO   Filling remaining area without fiber
-[00:01:55.369] (75aba52006c0) INFO   Filling remaining area without fiber
-[00:01:55.369] (75aba4e006c0) INFO   Filling remaining area without fiber
-[00:01:55.369] (75ab93e006c0) INFO   Filling remaining area without fiber
-[00:01:55.369] (75ab986006c0) INFO   Filling remaining area without fiber
-[00:01:55.369] (75aba4a006c0) INFO   Filling remaining area without fiber
-[00:01:55.369] (75ab93a006c0) INFO   Filling remaining area without fiber
-[00:01:55.369] (75aba52006c0) INFO   Filling remaining area without fiber
-[00:01:55.370] (75aba4e006c0) INFO   Filling remaining area without fiber
-[00:01:55.370] (75ab93e006c0) INFO   Filling remaining area without fiber
-[00:01:55.370] (75ab986006c0) INFO   Filling remaining area without fiber
-[00:01:55.370] (75aba4a006c0) INFO   Filling remaining area without fiber
-[00:01:55.370] (75aba46006c0) INFO   Filling remaining area without fiber
-[00:01:55.370] (75aba4e006c0) INFO   Filling remaining area without fiber
-[00:01:55.370] (75ab93e006c0) INFO   Filling remaining area without fiber
-[00:01:55.370] (75ab936006c0) INFO   Filling remaining area without fiber
-[00:01:55.370] (75aba52006c0) INFO   Filling remaining area without fiber
-[00:01:55.370] (75ab93e006c0) INFO   Filling remaining area without fiber
-[00:01:55.371] (75ab93e006c0) INFO   Filling remaining area without fiber
-[00:01:55.371] (75ab936006c0) INFO   Filling remaining area without fiber
-[00:01:55.371] (75ab936006c0) INFO   Filling remaining area without fiber
-[00:01:55.371] (75aba4e006c0) INFO   Filling remaining area without fiber
-[00:01:55.371] (75ab93a006c0) INFO   Filling remaining area without fiber
-[00:01:55.371] (75ab936006c0) INFO   Filling remaining area without fiber
-[00:01:55.371] (75ab986006c0) INFO   Filling remaining area without fiber
-[00:01:55.371] (75aba52006c0) INFO   Filling remaining area without fiber
-[00:01:55.371] (75aba46006c0) INFO   Filling remaining area without fiber
-[00:01:55.371] (75ab93a006c0) INFO   Filling remaining area without fiber
-[00:01:55.371] (75aba4a006c0) INFO   Filling remaining area without fiber
-[00:01:55.371] (75ab93e006c0) INFO   Filling remaining area without fiber
-[00:01:55.544] (75abdc918a40) INFO   Handling event: ShowSuccess("Slicing finished")
-[00:01:55.544] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:56.024] (75abda8006c0) INFO   Trace Vertices: 3219660
-[00:01:56.457] (75abdc918a40) INFO   Handling event: ShowSuccess("Gcode loaded")
-[00:01:56.457] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:56.460] (75abdc918a40) INFO   Closing toast: Slicing model       
-[00:01:58.333] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(20316)
-[00:01:58.333] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:58.352] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(21609)
-[00:01:58.352] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:58.372] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(22932)
-[00:01:58.372] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:58.391] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(24290)
-[00:01:58.391] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:58.409] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(24966)
-[00:01:58.409] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:58.427] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(25631)
-[00:01:58.427] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:58.481] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(26309)
-[00:01:58.481] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:58.499] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(29375)
-[00:01:58.499] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:58.517] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(30045)
-[00:01:58.517] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:58.535] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(30741)
-[00:01:58.535] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:58.553] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(31430)
-[00:01:58.553] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:58.571] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(32118)
-[00:01:58.571] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:58.589] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(32818)
-[00:01:58.590] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:58.608] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(33527)
-[00:01:58.608] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:58.626] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(34218)
-[00:01:58.626] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:58.644] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(34908)
-[00:01:58.644] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:58.679] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(35564)
-[00:01:58.679] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:58.787] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(36966)
-[00:01:58.787] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:58.806] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(39422)
-[00:01:58.806] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:58.824] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(40114)
-[00:01:58.824] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:58.968] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(39422)
-[00:01:58.968] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:58.988] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(36966)
-[00:01:58.988] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:59.006] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(36260)
-[00:01:59.006] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:59.062] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(35564)
-[00:01:59.062] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:59.134] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(36966)
-[00:01:59.134] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:59.171] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(39422)
-[00:01:59.171] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:59.190] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(40114)
-[00:01:59.190] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:59.209] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(40818)
-[00:01:59.209] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:59.308] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(41530)
-[00:01:59.308] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:59.639] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(40818)
-[00:01:59.639] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:59.677] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(40114)
-[00:01:59.677] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:59.697] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(39422)
-[00:01:59.698] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:01:59.757] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(36966)
-[00:01:59.757] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:02:00.238] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(39422)
-[00:02:00.238] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:02:00.258] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(40114)
-[00:02:00.258] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:02:00.278] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(40818)
-[00:02:00.278] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:02:00.298] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(42217)
-[00:02:00.298] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:02:00.415] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(42890)
-[00:02:00.415] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:02:00.513] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(43580)
-[00:02:00.513] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:02:00.593] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(44257)
-[00:02:00.593] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:02:00.632] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(44947)
-[00:02:00.632] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:02:00.691] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(45633)
-[00:02:00.691] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:02:00.711] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(46325)
-[00:02:00.711] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:02:00.731] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(47009)
-[00:02:00.731] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:02:00.751] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(47677)
-[00:02:00.751] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:02:00.772] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(50223)
-[00:02:00.772] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:02:00.834] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(50892)
-[00:02:00.834] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:02:00.862] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(51545)
-[00:02:00.862] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:02:00.889] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(53495)
-[00:02:00.889] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:02:00.944] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(54129)
-[00:02:00.944] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:02:00.971] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(54761)
-[00:02:00.971] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:02:01.027] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(55385)
-[00:02:01.027] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:02:01.054] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(56008)
-[00:02:01.054] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:02:01.109] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(56623)
-[00:02:01.109] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:02:01.286] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(56008)
-[00:02:01.286] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:02:01.313] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(54129)
-[00:02:01.313] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:02:01.340] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(52840)
-[00:02:01.340] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:02:01.366] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(51545)
-[00:02:01.366] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:02:01.488] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(50892)
-[00:02:01.489] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:02:01.702] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(50223)
-[00:02:01.703] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:02:01.811] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(47677)
-[00:02:01.812] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:02:01.829] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(47009)
-[00:02:01.829] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:02:02.208] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(47677)
-[00:02:02.208] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:02:02.259] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(50223)
-[00:02:02.259] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:02:02.294] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(50892)
-[00:02:02.294] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:02:02.614] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(51545)
-[00:02:02.614] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:02:02.648] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(52209)
-[00:02:02.648] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:02:02.683] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(52840)
-[00:02:02.683] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:02:02.717] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(53495)
-[00:02:02.717] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:02:02.804] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(54129)
-[00:02:02.804] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:02:02.821] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(54761)
-[00:02:02.821] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:02:02.838] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(55385)
-[00:02:02.838] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:02:02.872] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(56008)
-[00:02:02.872] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:02:02.923] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(56623)
-[00:02:02.923] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:02:02.957] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(57234)
-[00:02:02.957] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:02:02.974] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(57826)
-[00:02:02.974] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:02:02.992] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(60038)
-[00:02:02.992] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:02:03.010] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(60617)
-[00:02:03.010] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:02:03.028] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(61212)
-[00:02:03.028] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:02:03.064] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(61790)
-[00:02:03.064] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:02:03.082] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(62380)
-[00:02:03.082] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:02:03.100] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(62966)
-[00:02:03.100] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:02:03.118] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(63550)
-[00:02:03.118] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:02:03.136] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(64128)
-[00:02:03.136] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:02:03.153] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(64697)
-[00:02:03.154] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:02:03.188] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(65260)
-[00:02:03.188] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:02:03.243] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(65820)
-[00:02:03.243] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:02:03.262] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(66369)
-[00:02:03.262] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:02:03.280] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(66925)
-[00:02:03.280] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:02:03.300] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(69560)
-[00:02:03.300] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:02:03.319] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(70099)
-[00:02:03.319] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:02:03.356] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(70648)
-[00:02:03.356] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:02:03.375] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(71190)
-[00:02:03.375] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:02:03.413] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(72233)
-[00:02:03.413] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:02:03.432] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(72770)
-[00:02:03.432] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:02:03.451] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(73833)
-[00:02:03.451] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:02:03.470] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(74369)
-[00:02:03.470] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:02:03.508] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(74900)
-[00:02:03.508] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:02:03.637] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(74369)
-[00:02:03.637] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:02:03.656] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(73833)
-[00:02:03.656] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:02:03.676] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(72770)
-[00:02:03.676] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:02:03.695] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(71710)
-[00:02:03.695] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:02:03.714] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(71190)
-[00:02:03.714] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:02:03.733] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(70099)
-[00:02:03.733] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:02:03.790] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(69560)
-[00:02:03.790] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:02:03.837] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(69006)
-[00:02:03.837] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:02:03.864] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(66369)
-[00:02:03.864] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:02:03.891] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(65820)
-[00:02:03.891] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:02:03.946] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(65260)
-[00:02:03.946] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:02:04.025] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(64697)
-[00:02:04.025] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:02:04.052] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(64128)
-[00:02:04.052] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:02:04.105] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(63550)
-[00:02:04.105] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:02:04.158] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(62966)
-[00:02:04.158] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:02:04.184] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(61212)
-[00:02:04.184] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:02:04.210] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(57826)
-[00:02:04.211] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:02:04.229] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(57234)
-[00:02:04.229] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:02:04.246] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(56623)
-[00:02:04.246] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:02:04.299] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(55385)
-[00:02:04.299] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:02:04.317] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(50892)
-[00:02:04.317] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:02:04.335] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(46325)
-[00:02:04.335] (75abdc918a40) INFO   Adapter: "UiAdapter"
-[00:02:04.352] (75abdc918a40) INFO   Handling event: GCodeReaderLookAt(42890)
-[00:02:04.352] (75abdc918a40) INFO   Adapter: "UiAdapter"
+[00:00:00.395] (71ada2aeaa40) INFO   Awaken Logo
+[00:00:00.458] (71ada2aeaa40) INFO   Handling event: CameraOrientationChanged(Default)
+[00:00:00.458] (71ada2aeaa40) INFO   Adapter: "CameraAdapter"
+[00:00:00.458] (71ada2aeaa40) INFO   Handling event: UpdatePreferredDistance(BoundingBox { max: Vec3(210.0, 210.0, 210.0), min: Vec3(0.0, 0.0, 0.0), init_max: Vec3(210.0, 210.0, 210.0), init_min: Vec3(0.0, 0.0, 0.0) })
+[00:00:00.458] (71ada2aeaa40) INFO   Adapter: "CameraAdapter"

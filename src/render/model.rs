@@ -192,8 +192,6 @@ impl<T> Renderable for Model<T> {
         };
 
         render_pass.set_bind_group(2, &self.transform_bind_group, &[]);
-        // render_pass.set_bind_group(3, &self.color_bind_group, &[]);
-
         render_pass.set_vertex_buffer(0, buffer.slice(..));
         render_pass.draw(0..*size, 0..1);
     }

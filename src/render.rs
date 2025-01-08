@@ -41,7 +41,7 @@ const MSAA_SAMPLE_COUNT: u32 = 1;
 pub enum RenderEvent {}
 
 struct RenderState {
-    depth_texture_view: wgpu::TextureView,
+    depth_texture: Texture,
 
     camera_uniform: CameraUniform,
     camera_buffer: wgpu::Buffer,
@@ -117,7 +117,7 @@ impl RenderAdapter {
             label: Some("Render Pass"),
             color_attachments: &[Some(rpass_color_attachment)],
             depth_stencil_attachment: Some(wgpu::RenderPassDepthStencilAttachment {
-                view: &self.render_state.depth_texture_view,
+                view: self.render_state.depth_texture.view(),
                 depth_ops: Some(wgpu::Operations {
                     load: wgpu::LoadOp::Clear(1.0),
                     store: wgpu::StoreOp::Store,
@@ -164,7 +164,7 @@ impl RenderAdapter {
             label: Some("Render Pass"),
             color_attachments: &[Some(rpass_color_attachment)],
             depth_stencil_attachment: Some(wgpu::RenderPassDepthStencilAttachment {
-                view: &self.render_state.depth_texture_view,
+                view: self.render_state.depth_texture.view(),
                 depth_ops: Some(wgpu::Operations {
                     load: wgpu::LoadOp::Clear(1.0),
                     store: wgpu::StoreOp::Store,
@@ -189,6 +189,53 @@ impl RenderAdapter {
         global_state
             .viewer
             .render_secondary(descriptor, *global_state.ui_state.mode.read());
+    }
+
+    pub fn render_textures(
+        &self,
+        encoder: &mut CommandEncoder,
+        texture_view: &wgpu::TextureView,
+        viewport: &Viewport,
+        global_state: &GlobalState<RootEvent>,
+    ) {
+        let rpass_color_attachment = wgpu::RenderPassColorAttachment {
+            view: texture_view,
+            resolve_target: None,
+            ops: wgpu::Operations {
+                load: wgpu::LoadOp::Load,
+                store: wgpu::StoreOp::Store,
+            },
+        };
+
+        let pass_descriptor = wgpu::RenderPassDescriptor {
+            label: Some("Render Pass"),
+            color_attachments: &[Some(rpass_color_attachment)],
+            depth_stencil_attachment: Some(wgpu::RenderPassDepthStencilAttachment {
+                view: self.render_state.depth_texture.view(),
+                depth_ops: Some(wgpu::Operations {
+                    load: wgpu::LoadOp::Clear(1.0),
+                    store: wgpu::StoreOp::Store,
+                }),
+                stencil_ops: None,
+            }),
+            timestamp_writes: None,
+            occlusion_query_set: None,
+        };
+
+        let descriptor = RenderDescriptor {
+            pipelines: &self.pipelines,
+            bind_groups: &[
+                &self.render_state.camera_bind_group,
+                &self.render_state.light_bind_group,
+            ],
+            encoder,
+            viewport,
+            pass_descriptor,
+        };
+
+        global_state
+            .viewer
+            .render_textures(descriptor, *global_state.ui_state.mode.read());
     }
 }
 
@@ -235,6 +282,7 @@ impl<'a> FrameHandle<'a, RootEvent, (), (Option<UiUpdateOutput>, &CameraResult)>
 
         self.render(&mut encoder, &view, &viewport, &state);
         self.render_secondary(&mut encoder, &view, &viewport, &state);
+        self.render_textures(&mut encoder, &view, &viewport, &state);
 
         self.egui_rpass
             .add_textures(&wgpu_context.device, &wgpu_context.queue, &tdelta)
@@ -273,7 +321,7 @@ impl<'a> FrameHandle<'a, RootEvent, (), (Option<UiUpdateOutput>, &CameraResult)>
         match event {
             winit::event::WindowEvent::Resized(size) => {
                 if size.width > 0 && size.height > 0 {
-                    self.render_state.depth_texture_view = Texture::create_depth_texture(
+                    self.render_state.depth_texture = Texture::create_depth_texture(
                         &wgpu_context.device,
                         &wgpu_context.surface_config,
                         MSAA_SAMPLE_COUNT,
@@ -291,7 +339,7 @@ impl<'a> FrameHandle<'a, RootEvent, (), (Option<UiUpdateOutput>, &CameraResult)>
                 let size = wgpu_context.window.inner_size();
 
                 if size.width > 0 && size.height > 0 {
-                    self.render_state.depth_texture_view = Texture::create_depth_texture(
+                    self.render_state.depth_texture = Texture::create_depth_texture(
                         &wgpu_context.device,
                         &wgpu_context.surface_config,
                         MSAA_SAMPLE_COUNT,
@@ -314,7 +362,7 @@ impl<'a> Adapter<'a, RootEvent, (), (), (Option<UiUpdateOutput>, &CameraResult),
     for RenderAdapter
 {
     fn create(context: &WgpuContext) -> AdapterCreation<(), RenderEvent, Self> {
-        let depth_texture_view = Texture::create_depth_texture(
+        let depth_texture = Texture::create_depth_texture(
             &context.device,
             &context.surface_config,
             MSAA_SAMPLE_COUNT,
@@ -367,7 +415,7 @@ impl<'a> Adapter<'a, RootEvent, (), (), (Option<UiUpdateOutput>, &CameraResult),
             });
 
         let render_state = RenderState {
-            depth_texture_view,
+            depth_texture,
 
             camera_uniform,
             camera_buffer,
