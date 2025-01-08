@@ -233,6 +233,7 @@ impl<'a> FrameHandle<'a, RootEvent, (), (Option<UiUpdateOutput>, &CameraResult)>
             screen_descriptor,
         } = ui_output.unwrap();
 
+        // self.render_transparent(&mut encoder, &view, &viewport, &state);
         self.render(&mut encoder, &view, &viewport, &state);
         self.render_secondary(&mut encoder, &view, &viewport, &state);
 

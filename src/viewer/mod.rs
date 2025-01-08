@@ -459,7 +459,7 @@ impl Viewer {
     pub fn render(&self, mut render_descriptor: RenderDescriptor, mode: Mode) {
         let env_server_read = self.env_server.read();
         let sliced_object_server_read = self.sliced_object_server.read();
-        let model_server_read = self.object_server.read();
+        let object_server_read = self.object_server.read();
         let mask_server_read = self.mask_server.read();
 
         if let Some((pipelines, mut render_pass)) = render_descriptor.pass() {
@@ -468,24 +468,29 @@ impl Viewer {
                     // custom pipeline by server
                     sliced_object_server_read.render(&mut render_pass);
 
-                    // render_pass.set_pipeline(&pipelines.back_cull);
-
                     render_pass.set_pipeline(&pipelines.no_cull);
                     env_server_read.render(&mut render_pass);
 
                     render_pass.set_pipeline(&pipelines.line);
                     env_server_read.render_line(&mut render_pass);
                     sliced_object_server_read.render_travel(&mut render_pass);
+
+                    render_pass.set_pipeline(&pipelines.back_cull);
+                    mask_server_read.render(&mut render_pass);
+                    object_server_read.render(&mut render_pass);
                 }
                 Mode::Prepare(PrepareMode::Objects) => {
                     render_pass.set_pipeline(&pipelines.back_cull);
-                    model_server_read.render(&mut render_pass);
+                    object_server_read.render(&mut render_pass);
 
                     render_pass.set_pipeline(&pipelines.no_cull);
                     env_server_read.render(&mut render_pass);
 
                     render_pass.set_pipeline(&pipelines.line);
                     env_server_read.render_line(&mut render_pass);
+
+                    render_pass.set_pipeline(&pipelines.back_cull);
+                    mask_server_read.render(&mut render_pass);
                 }
                 Mode::Prepare(PrepareMode::Masks) => {
                     render_pass.set_pipeline(&pipelines.back_cull);
@@ -496,14 +501,15 @@ impl Viewer {
 
                     render_pass.set_pipeline(&pipelines.line);
                     env_server_read.render_line(&mut render_pass);
+
+                    render_pass.set_pipeline(&pipelines.back_cull);
+                    object_server_read.render(&mut render_pass);
                 }
             };
         }
     }
 
     pub fn render_secondary(&self, mut render_descriptor: RenderDescriptor, mode: Mode) {
-        let model_server_read = self.object_server.read();
-        let mask_server_read = self.mask_server.read();
         let trace_selector_read = self.trace_selector.read();
         let object_selector_read = self.object_selector.read();
         let mask_selector_read = self.mask_selector.read();
@@ -519,10 +525,6 @@ impl Viewer {
                         render_pass.set_pipeline(&pipelines.no_cull);
                         trace_selector_read.render(&mut render_pass);
                     }
-
-                    render_pass.set_pipeline(&pipelines.back_cull);
-                    mask_server_read.render(&mut render_pass);
-                    model_server_read.render(&mut render_pass);
                 }
                 Mode::Prepare(PrepareMode::Objects) => {
                     render_pass.set_pipeline(&pipelines.line);
@@ -530,9 +532,6 @@ impl Viewer {
 
                     render_pass.set_pipeline(&pipelines.no_cull);
                     object_selector_read.render(&mut render_pass);
-
-                    render_pass.set_pipeline(&pipelines.back_cull);
-                    mask_server_read.render(&mut render_pass);
                 }
                 Mode::Prepare(PrepareMode::Masks) => {
                     render_pass.set_pipeline(&pipelines.line);
@@ -540,47 +539,6 @@ impl Viewer {
 
                     render_pass.set_pipeline(&pipelines.no_cull);
                     mask_selector_read.render(&mut render_pass);
-
-                    render_pass.set_pipeline(&pipelines.back_cull);
-                    model_server_read.render(&mut render_pass);
-                }
-            }
-        }
-    }
-
-    pub fn render_transparent(&self, mut render_descriptor: RenderDescriptor, mode: Mode) {
-        let model_server_read = self.object_server.read();
-        let mask_server_read = self.mask_server.read();
-        let trace_selector_read = self.trace_selector.read();
-        let object_selector_read = self.object_selector.read();
-        let mask_selector_read = self.mask_selector.read();
-
-        if let Some((pipelines, mut render_pass)) = render_descriptor.pass() {
-            match mode {
-                Mode::Preview => {
-                    render_pass.set_pipeline(&pipelines.back_cull);
-                    mask_server_read.render(&mut render_pass);
-                    model_server_read.render(&mut render_pass);
-                }
-                Mode::Prepare(PrepareMode::Objects) => {
-                    render_pass.set_pipeline(&pipelines.line);
-                    object_selector_read.render_wire(&mut render_pass);
-
-                    render_pass.set_pipeline(&pipelines.no_cull);
-                    object_selector_read.render(&mut render_pass);
-
-                    render_pass.set_pipeline(&pipelines.back_cull);
-                    mask_server_read.render(&mut render_pass);
-                }
-                Mode::Prepare(PrepareMode::Masks) => {
-                    render_pass.set_pipeline(&pipelines.line);
-                    mask_selector_read.render_wire(&mut render_pass);
-
-                    render_pass.set_pipeline(&pipelines.no_cull);
-                    mask_selector_read.render(&mut render_pass);
-
-                    render_pass.set_pipeline(&pipelines.back_cull);
-                    model_server_read.render(&mut render_pass);
                 }
             }
         }
