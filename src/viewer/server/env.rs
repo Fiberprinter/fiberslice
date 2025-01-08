@@ -154,26 +154,32 @@ const fn build_plate_vertices(x: f32, y: f32, _z: f32) -> [TextureVertex; 6] {
     [
         TextureVertex {
             position: [x, -0.25, y],
+            normal: [0.0, 1.0, 0.0],
             tex_coords: [1.0, 0.0],
         },
         TextureVertex {
             position: [0.0, -0.25, y],
+            normal: [0.0, 1.0, 0.0],
             tex_coords: [0.0, 0.0],
         },
         TextureVertex {
             position: [x, -0.25, 0.0],
+            normal: [0.0, 1.0, 0.0],
             tex_coords: [1.0, 1.0],
         },
         TextureVertex {
             position: [0.0, -0.25, y],
+            normal: [0.0, 1.0, 0.0],
             tex_coords: [0.0, 0.0],
         },
         TextureVertex {
             position: [0.0, -0.25, 0.0],
+            normal: [0.0, 1.0, 0.0],
             tex_coords: [0.0, 1.0],
         },
         TextureVertex {
             position: [x, -0.25, 0.0],
+            normal: [0.0, 1.0, 0.0],
             tex_coords: [1.0, 1.0],
         },
     ]

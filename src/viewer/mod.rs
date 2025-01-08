@@ -465,7 +465,6 @@ impl Viewer {
         if let Some((pipelines, mut render_pass)) = render_descriptor.pass() {
             match mode {
                 Mode::Preview => {
-                    // custom pipeline by server
                     sliced_object_server_read.render(&mut render_pass);
 
                     render_pass.set_pipeline(&pipelines.no_cull);

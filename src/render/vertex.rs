@@ -46,6 +46,7 @@ impl Vertex {
 #[derive(Copy, Clone, Debug, bytemuck::Pod, bytemuck::Zeroable)]
 pub struct TextureVertex {
     pub position: [f32; 3],
+    pub normal: [f32; 3],
     pub tex_coords: [f32; 2],
 }
 
@@ -70,6 +71,11 @@ impl TextureVertex {
                 wgpu::VertexAttribute {
                     offset: mem::size_of::<[f32; 3]>() as wgpu::BufferAddress,
                     shader_location: 1,
+                    format: wgpu::VertexFormat::Float32x3,
+                },
+                wgpu::VertexAttribute {
+                    offset: mem::size_of::<[f32; 6]>() as wgpu::BufferAddress,
+                    shader_location: 2,
                     format: wgpu::VertexFormat::Float32x2,
                 },
             ],

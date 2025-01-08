@@ -22,7 +22,8 @@ var<uniform> transform: Transform;
 
 struct VertexInput {
     @location(0) position: vec3<f32>,
-    @location(1) tex_coords: vec2<f32>,
+    @location(1) normal: vec3<f32>,
+    @location(2) tex_coords: vec2<f32>,
 }
 
 struct VertexOutput {
@@ -45,7 +46,7 @@ fn vs_main(
     out.world_position = pos.xyz;
     out.clip_position = camera.view_proj * pos;
     out.camera_view_pos = camera.view_pos;
-    out.world_normal = vec3<f32>(0.0, 1.0, 0.0);
+    out.world_normal = in.normal;
 
     return out;
 }
