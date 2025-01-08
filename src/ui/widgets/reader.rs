@@ -17,7 +17,6 @@ pub struct EfficientReader<'a> {
     editable: bool,
 
     view: &'a mut ReadSection,
-    focus: Option<ReadSection>,
 }
 
 impl Hash for EfficientReader<'_> {
@@ -29,7 +28,6 @@ impl Hash for EfficientReader<'_> {
     }
 }
 
-#[allow(dead_code)]
 impl<'a> EfficientReader<'a> {
     pub fn new(view: &'a mut ReadSection) -> Self {
         EfficientReader {
@@ -41,7 +39,6 @@ impl<'a> EfficientReader<'a> {
             shrink: false,
             editable: false,
             view,
-            focus: None,
         }
     }
 
@@ -89,10 +86,6 @@ impl<'a> EfficientReader<'a> {
         EfficientReader { syntax, ..self }
     }
 
-    pub fn with_focus(self, focus: Option<ReadSection>) -> Self {
-        EfficientReader { focus, ..self }
-    }
-
     pub fn format(&self, ty: TokenType) -> egui::text::TextFormat {
         let font_id = egui::FontId::monospace(self.fontsize);
         let color = self.theme.type_color(ty);
@@ -100,11 +93,7 @@ impl<'a> EfficientReader<'a> {
     }
 
     fn numlines_show(&mut self, ui: &mut egui::Ui) {
-        let ReadSection { offset, size } = if let Some(focus) = self.focus.as_ref() {
-            *focus
-        } else {
-            *self.view
-        };
+        let ReadSection { offset, size } = *self.view;
 
         let counter = ((offset + 1)..=(size + offset))
             .map(|i| i.to_string())
@@ -129,11 +118,7 @@ impl<'a> EfficientReader<'a> {
                         ui.fonts(|f| f.layout_job(layout_job))
                     };
 
-                    let ReadSection { offset, size } = if let Some(focus) = self.focus.as_ref() {
-                        *focus
-                    } else {
-                        *self.view
-                    };
+                    let ReadSection { offset, size } = *self.view;
 
                     let char_start = if offset == 0 {
                         0
