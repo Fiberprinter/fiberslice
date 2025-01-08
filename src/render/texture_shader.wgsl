@@ -27,8 +27,10 @@ struct VertexInput {
 
 struct VertexOutput {
     @builtin(position) clip_position: vec4<f32>,
-    @location(0) world_position: vec3<f32>,
-    @location(1) tex_coords: vec2<f32>,
+    @location(0) world_normal: vec3<f32>,
+    @location(1) world_position: vec3<f32>,
+    @location(2) camera_view_pos: vec4<f32>,
+    @location(3) tex_coords: vec2<f32>,
 }
 
 @vertex
@@ -42,6 +44,8 @@ fn vs_main(
 
     out.world_position = pos.xyz;
     out.clip_position = camera.view_proj * pos;
+    out.camera_view_pos = camera.view_pos;
+    out.world_normal = vec3<f32>(0.0, 1.0, 0.0);
 
     return out;
 }
@@ -53,6 +57,27 @@ var s_diffuse: sampler;
 
 @fragment
 fn fs_main(in: VertexOutput) -> @location(0) vec4<f32> {
+    let ambient_color = light.color.xyz * light.color.a;
 
-    return textureSample(t_diffuse, s_diffuse, in.tex_coords);
+    let light_dir = normalize(light.position.xyz - in.world_position);
+
+    let diffuse_strength = max(dot(in.world_normal, light_dir), 0.0);
+    let diffuse_color = light.color.xyz * diffuse_strength;
+
+    // This would be lighting modeled after the Phong model only.
+    //let view_dir = normalize(camera.view_pos.xyz - in.world_position);
+    //let reflect_dir = reflect(-light_dir, in.world_normal);
+    //let specular_strength = pow(max(dot(view_dir, reflect_dir), 0.0), 32.0);
+
+    // Blinn-Phong lighsting.
+    let view_dir = normalize(in.camera_view_pos.xyz - in.world_position);
+    let half_dir = normalize(view_dir + light_dir);
+    let specular_strength = pow(max(dot(in.world_normal, half_dir), 0.0), 32.0);
+
+    let specular_color = light.color.xyz * specular_strength;
+
+    let color = textureSample(t_diffuse, s_diffuse, in.tex_coords);
+    let result = (ambient_color + diffuse_color + specular_color) * color.xyz;
+
+    return vec4<f32>(result, color.a);
 }

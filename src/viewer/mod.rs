@@ -548,11 +548,41 @@ impl Viewer {
         }
     }
 
-    pub fn render_textures(&self, mut render_descriptor: RenderDescriptor, _mode: Mode) {
-        let env_server_read = self.env_server.read();
+    pub fn render_transparent(&self, mut render_descriptor: RenderDescriptor, mode: Mode) {
+        let model_server_read = self.object_server.read();
+        let mask_server_read = self.mask_server.read();
+        let trace_selector_read = self.trace_selector.read();
+        let object_selector_read = self.object_selector.read();
+        let mask_selector_read = self.mask_selector.read();
 
-        if let Some((_, mut render_pass)) = render_descriptor.pass() {
-            env_server_read.render_textures(&mut render_pass);
+        if let Some((pipelines, mut render_pass)) = render_descriptor.pass() {
+            match mode {
+                Mode::Preview => {
+                    render_pass.set_pipeline(&pipelines.back_cull);
+                    mask_server_read.render(&mut render_pass);
+                    model_server_read.render(&mut render_pass);
+                }
+                Mode::Prepare(PrepareMode::Objects) => {
+                    render_pass.set_pipeline(&pipelines.line);
+                    object_selector_read.render_wire(&mut render_pass);
+
+                    render_pass.set_pipeline(&pipelines.no_cull);
+                    object_selector_read.render(&mut render_pass);
+
+                    render_pass.set_pipeline(&pipelines.back_cull);
+                    mask_server_read.render(&mut render_pass);
+                }
+                Mode::Prepare(PrepareMode::Masks) => {
+                    render_pass.set_pipeline(&pipelines.line);
+                    mask_selector_read.render_wire(&mut render_pass);
+
+                    render_pass.set_pipeline(&pipelines.no_cull);
+                    mask_selector_read.render(&mut render_pass);
+
+                    render_pass.set_pipeline(&pipelines.back_cull);
+                    model_server_read.render(&mut render_pass);
+                }
+            }
         }
     }
 }
