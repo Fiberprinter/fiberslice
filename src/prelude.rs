@@ -59,6 +59,8 @@ pub struct WgpuContext {
     pub camera_bind_group_layout: wgpu::BindGroupLayout,
     pub transform_bind_group_layout: wgpu::BindGroupLayout,
     pub color_bind_group_layout: wgpu::BindGroupLayout,
+
+    pub texture_bind_group_layout: wgpu::BindGroupLayout,
 }
 
 impl WgpuContext {
@@ -155,6 +157,31 @@ impl WgpuContext {
                 label: None,
             });
 
+        let texture_bind_group_layout =
+            device.create_bind_group_layout(&wgpu::BindGroupLayoutDescriptor {
+                entries: &[
+                    wgpu::BindGroupLayoutEntry {
+                        binding: 0,
+                        visibility: wgpu::ShaderStages::FRAGMENT,
+                        ty: wgpu::BindingType::Texture {
+                            multisampled: false,
+                            view_dimension: wgpu::TextureViewDimension::D2,
+                            sample_type: wgpu::TextureSampleType::Float { filterable: true },
+                        },
+                        count: None,
+                    },
+                    wgpu::BindGroupLayoutEntry {
+                        binding: 1,
+                        visibility: wgpu::ShaderStages::FRAGMENT,
+                        // This should match the filterable field of the
+                        // corresponding Texture entry above.
+                        ty: wgpu::BindingType::Sampler(wgpu::SamplerBindingType::Filtering),
+                        count: None,
+                    },
+                ],
+                label: Some("texture_bind_group_layout"),
+            });
+
         let size = window.inner_size();
         let surface_format = surface.get_capabilities(&adapter).formats[0];
         let surface_config = wgpu::SurfaceConfiguration {
@@ -182,6 +209,8 @@ impl WgpuContext {
             camera_bind_group_layout,
             transform_bind_group_layout,
             color_bind_group_layout,
+
+            texture_bind_group_layout,
         })
     }
 }

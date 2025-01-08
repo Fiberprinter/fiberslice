@@ -474,7 +474,7 @@ impl Viewer {
                     env_server_read.render(&mut render_pass);
 
                     render_pass.set_pipeline(&pipelines.line);
-                    env_server_read.render_wire(&mut render_pass);
+                    env_server_read.render_line(&mut render_pass);
                     sliced_object_server_read.render_travel(&mut render_pass);
                 }
                 Mode::Prepare(PrepareMode::Objects) => {
@@ -485,7 +485,7 @@ impl Viewer {
                     env_server_read.render(&mut render_pass);
 
                     render_pass.set_pipeline(&pipelines.line);
-                    env_server_read.render_wire(&mut render_pass);
+                    env_server_read.render_line(&mut render_pass);
                 }
                 Mode::Prepare(PrepareMode::Masks) => {
                     render_pass.set_pipeline(&pipelines.back_cull);
@@ -495,7 +495,7 @@ impl Viewer {
                     env_server_read.render(&mut render_pass);
 
                     render_pass.set_pipeline(&pipelines.line);
-                    env_server_read.render_wire(&mut render_pass);
+                    env_server_read.render_line(&mut render_pass);
                 }
             };
         }

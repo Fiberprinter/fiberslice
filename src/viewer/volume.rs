@@ -8,10 +8,10 @@ use crate::{
 
 #[derive(Debug)]
 pub struct Volume {
-    pub bounding_box: BoundingBox,
-    pub bed: Model<Vertex>,
-    pub grid_model: Model<Vertex>,
-    pub r#box: Model<Vertex>,
+    bounding_box: BoundingBox,
+    bed: Model<Vertex>,
+    // grid_model: Model<Vertex>,
+    r#box: Model<Vertex>,
 }
 
 impl Volume {
@@ -20,7 +20,7 @@ impl Volume {
             bounding_box: BoundingBox::new(vec3(0.0, 0.0, 0.0), vec3(0.0, 0.0, 0.0)),
             bed: Model::create(),
             r#box: Model::create(),
-            grid_model: Model::create(),
+            // grid_model: Model::create(),
         }
     }
 
@@ -46,7 +46,11 @@ impl Volume {
         self.bounding_box = bounding_box;
         self.bed.awaken(&vertices);
         self.r#box.awaken(&visual.wires);
-        self.grid_model.awaken(&[]); //&grid.to_visual(10.0));
+        // self.grid_model.awaken(&[]); //&grid.to_visual(10.0));
+    }
+
+    pub fn bounding_box(&self) -> &BoundingBox {
+        &self.bounding_box
     }
 
     pub fn render<'a>(&'a self, render_pass: &mut wgpu::RenderPass<'a>) {
@@ -55,7 +59,7 @@ impl Volume {
 
     pub fn render_lines<'a>(&'a self, render_pass: &mut wgpu::RenderPass<'a>) {
         self.r#box.render(render_pass);
-        self.grid_model.render(render_pass);
+        // self.grid_model.render(render_pass);
     }
 }
 
