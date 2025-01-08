@@ -9,7 +9,6 @@ pub struct Process {
     progress: AtomicF32,
     finished: AtomicBool,
     closed: AtomicBool,
-    closed_safely: AtomicBool,
 }
 
 impl Process {
@@ -19,7 +18,6 @@ impl Process {
             progress: AtomicF32::new(0.0),
             finished: AtomicBool::new(false),
             closed: AtomicBool::new(false),
-            closed_safely: AtomicBool::new(false),
         }
     }
 

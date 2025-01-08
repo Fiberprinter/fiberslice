@@ -1,4 +1,3 @@
-#![allow(dead_code)]
 [package]
 name = "fiberslice-5d"
 version = "0.1.0"

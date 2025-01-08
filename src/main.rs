@@ -7,7 +7,7 @@
 
 use glam::vec3;
 use input::InputEvent;
-use log::{info, LevelFilter};
+use log::info;
 use once_cell::sync::OnceCell;
 use parking_lot::RwLock;
 use std::{sync::Arc, time::Instant};
@@ -110,7 +110,7 @@ async fn main() -> Result<(), EventLoopError> {
     puffin::set_scopes_on(true);
 
     #[cfg(debug_assertions)]
-    simple_logging::log_to_file("app.log", LevelFilter::Info).unwrap();
+    simple_logging::log_to_file("app.log", log::LevelFilter::Info).unwrap();
 
     const VERSION: &str = env!("CARGO_PKG_VERSION");
     info!("Starting up version {}", VERSION);

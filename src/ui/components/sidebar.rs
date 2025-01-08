@@ -118,14 +118,14 @@ impl<'a> Settingsbar<'a> {
                         SettingMode::Global => {
                             ui.heading("Global Settings");
 
-                            ui.add_space(10.0);
+                            ui.separator();
 
                             self.show_global_settings(ui, shared_state);
                         }
                         SettingMode::Mask => {
                             ui.heading("Mask Settings");
 
-                            ui.add_space(10.0);
+                            ui.separator();
 
                             self.show_mask_settings(ui, shared_state);
                         }
@@ -195,9 +195,18 @@ impl<'a> Settingsbar<'a> {
     fn show_mask_settings(
         &mut self,
         ui: &mut Ui,
-        _shared_state: &(UiState, GlobalState<RootEvent>),
+        shared_state: &(UiState, GlobalState<RootEvent>),
     ) {
-        ui.label("Mask Settings");
+        let masks = shared_state.1.viewer.masks();
+
+        if masks.is_empty() {
+            let text =
+                RichText::new("No Masks").font(FontId::new(35.0, egui::FontFamily::Monospace));
+
+            ui.centered_and_justified(|ui| {
+                ui.label(text);
+            });
+        }
     }
 }
 
