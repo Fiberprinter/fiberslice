@@ -5,11 +5,15 @@
     Please refer to the terms and conditions stated therein.
 */
 
+use api::size_fixed::StaticSizedLabel;
+use api::trim_text;
 use egui::*;
 use settings::UiSetting;
 
 use crate::config;
+use crate::prelude::Destroyable;
 use crate::ui::boundary::Boundary;
+use crate::ui::widgets::list::ListBuilder;
 use crate::ui::widgets::switch::{Switch, SwitchTab};
 use crate::ui::widgets::tabbed::{Tab, Tabbed};
 use crate::ui::*;
@@ -123,10 +127,6 @@ impl<'a> Settingsbar<'a> {
                             self.show_global_settings(ui, shared_state);
                         }
                         SettingMode::Mask => {
-                            ui.heading("Mask Settings");
-
-                            ui.separator();
-
                             self.show_mask_settings(ui, shared_state);
                         }
                     }
@@ -206,6 +206,47 @@ impl<'a> Settingsbar<'a> {
             ui.centered_and_justified(|ui| {
                 ui.label(text);
             });
+        } else {
+            ui.heading("Masks");
+
+            ui.separator();
+
+            egui::ScrollArea::vertical()
+                .id_salt(Id::new("masks explorer"))
+                .max_height(200.0)
+                .show(ui, |ui| {
+                    ListBuilder::new()
+                        .with_cell_height(25.0)
+                        .entries(masks.len())
+                        .fill(0)
+                        .show(ui, |mut list| {
+                            for (name, mask) in masks.iter() {
+                                list.entry(|ui| {
+                                    ui.horizontal_centered(|ui| {
+                                        StaticSizedLabel::new(50.0)
+                                            .label(ui, trim_text::<15, 4>(name));
+
+                                        ui.add_space(10.0);
+
+                                        if ui.button("Select").clicked() {
+                                            shared_state.1.viewer.select_mask(mask);
+                                        }
+                                        ui.add_space(5.0);
+
+                                        if ui.button("Delete").clicked() {
+                                            mask.destroy();
+                                        }
+                                    });
+                                });
+                            }
+                        });
+                });
+
+            ui.add_space(10.0);
+
+            ui.heading("Mask Settings");
+
+            ui.separator();
         }
     }
 }

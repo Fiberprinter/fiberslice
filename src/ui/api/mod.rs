@@ -9,6 +9,6 @@ pub fn trim_text<const T: usize, const E: usize>(text: &str) -> String {
     if text.len() > T {
         format!("{}...{}", &text[..=T - E], &text[text.len() - E..])
     } else {
-        format!("{:20}", text)
+        format!("{}{}", text, " ".repeat(T - text.len()))
     }
 }

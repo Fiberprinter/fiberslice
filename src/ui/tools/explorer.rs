@@ -2,7 +2,11 @@ use egui::{Color32, Id};
 
 use crate::{
     prelude::Destroyable,
-    ui::{api::trim_text, UiState},
+    ui::{
+        api::{size_fixed::StaticSizedLabel, trim_text},
+        widgets::list::ListBuilder,
+        UiState,
+    },
     GlobalState, RootEvent,
 };
 
@@ -52,29 +56,31 @@ impl Tool for ExplorerTool<'_> {
                         .id_salt(Id::new("objects explorer"))
                         .max_height(200.0)
                         .show(ui, |ui| {
-                            ui.vertical_centered(|ui| {
-                                ui.vertical(|ui| {
-                                    for (i, (name, object)) in objects.into_iter().enumerate() {
-                                        if i > 0 {
-                                            ui.separator();
-                                        }
+                            ListBuilder::new()
+                                .with_cell_height(25.0)
+                                .entries(objects.len())
+                                .fill(10)
+                                .show(ui, |mut list| {
+                                    for (name, object) in objects.into_iter() {
+                                        list.entry(|ui| {
+                                            ui.horizontal_centered(|ui| {
+                                                StaticSizedLabel::new(50.0)
+                                                    .label(ui, trim_text::<15, 4>(&name));
 
-                                        ui.horizontal(|ui| {
-                                            ui.label(trim_text::<15, 4>(&name));
-                                            ui.add_space(10.0);
+                                                ui.add_space(10.0);
 
-                                            if ui.button("Select").clicked() {
-                                                global_state.viewer.select_object(&object);
-                                            }
-                                            ui.add_space(5.0);
+                                                if ui.button("Select").clicked() {
+                                                    global_state.viewer.select_object(&object);
+                                                }
+                                                ui.add_space(5.0);
 
-                                            if ui.button("Delete").clicked() {
-                                                object.destroy();
-                                            }
+                                                if ui.button("Delete").clicked() {
+                                                    object.destroy();
+                                                }
+                                            });
                                         });
                                     }
                                 });
-                            });
                         });
 
                     ui.add_space(10.0);
@@ -86,29 +92,31 @@ impl Tool for ExplorerTool<'_> {
                         .id_salt(Id::new("masks explorer"))
                         .max_height(200.0)
                         .show(ui, |ui| {
-                            ui.vertical_centered(|ui| {
-                                ui.vertical(|ui| {
-                                    for (i, (name, mask)) in masks.into_iter().enumerate() {
-                                        if i > 0 {
-                                            ui.separator();
-                                        }
+                            ListBuilder::new()
+                                .with_cell_height(25.0)
+                                .entries(masks.len())
+                                .fill(10)
+                                .show(ui, |mut list| {
+                                    for (name, mask) in masks.into_iter() {
+                                        list.entry(|ui| {
+                                            ui.horizontal_centered(|ui| {
+                                                StaticSizedLabel::new(50.0)
+                                                    .label(ui, trim_text::<15, 4>(&name));
 
-                                        ui.horizontal(|ui| {
-                                            ui.label(trim_text::<15, 4>(&name));
-                                            ui.add_space(10.0);
+                                                ui.add_space(10.0);
 
-                                            if ui.button("Select").clicked() {
-                                                global_state.viewer.select_mask(&mask);
-                                            }
-                                            ui.add_space(5.0);
+                                                if ui.button("Select").clicked() {
+                                                    global_state.viewer.select_mask(&mask);
+                                                }
+                                                ui.add_space(5.0);
 
-                                            if ui.button("Delete").clicked() {
-                                                mask.destroy();
-                                            }
+                                                if ui.button("Delete").clicked() {
+                                                    mask.destroy();
+                                                }
+                                            });
                                         });
                                     }
                                 });
-                            });
                         });
 
                     pointer_over_tool = ui.ui_contains_pointer();
