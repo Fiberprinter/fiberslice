@@ -218,7 +218,6 @@ impl<'a> Settingsbar<'a> {
                     ListBuilder::new()
                         .with_cell_height(25.0)
                         .entries(masks.len())
-                        .fill(0)
                         .show(ui, |mut list| {
                             for (name, mask) in masks.iter() {
                                 list.entry(|ui| {

@@ -12,7 +12,7 @@ impl ListBuilder {
     pub fn new() -> Self {
         Self {
             count: 0,
-            fill: 10,
+            fill: 0,
             cell_height: 20.0,
             builder: egui_grid::GridBuilder::new(),
         }
@@ -40,6 +40,7 @@ impl ListBuilder {
         self
     }
 
+    #[allow(dead_code)]
     pub fn fill(mut self, fill: usize) -> Self {
         if self.count >= fill {
             self.fill = fill;

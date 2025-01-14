@@ -1,4 +1,4 @@
-use egui::{Color32, Id};
+use egui::{vec2, Color32, FontId, Id, RichText};
 
 use crate::{
     prelude::Destroyable,
@@ -52,72 +52,92 @@ impl Tool for ExplorerTool<'_> {
                     ui.heading("Objects");
                     ui.add_space(5.0);
 
-                    egui::ScrollArea::vertical()
-                        .id_salt(Id::new("objects explorer"))
-                        .max_height(200.0)
-                        .show(ui, |ui| {
-                            ListBuilder::new()
-                                .with_cell_height(25.0)
-                                .entries(objects.len())
-                                .fill(10)
-                                .show(ui, |mut list| {
-                                    for (name, object) in objects.into_iter() {
-                                        list.entry(|ui| {
-                                            ui.horizontal_centered(|ui| {
-                                                StaticSizedLabel::new(50.0)
-                                                    .label(ui, trim_text::<15, 4>(&name));
+                    ui.allocate_ui(vec2(ui.available_width(), 100.0), |ui| {
+                        if objects.is_empty() {
+                            let text = RichText::new("No Objects")
+                                .font(FontId::new(35.0, egui::FontFamily::Monospace));
 
-                                                ui.add_space(10.0);
+                            ui.centered_and_justified(|ui| {
+                                ui.label(text);
+                            });
+                        } else {
+                            egui::ScrollArea::vertical()
+                                .id_salt(Id::new("objects explorer"))
+                                .show(ui, |ui| {
+                                    ListBuilder::new()
+                                        .with_cell_height(25.0)
+                                        .entries(objects.len())
+                                        .show(ui, |mut list| {
+                                            for (name, object) in objects.into_iter() {
+                                                list.entry(|ui| {
+                                                    ui.horizontal_centered(|ui| {
+                                                        StaticSizedLabel::new(50.0)
+                                                            .label(ui, trim_text::<15, 4>(&name));
 
-                                                if ui.button("Select").clicked() {
-                                                    global_state.viewer.select_object(&object);
-                                                }
-                                                ui.add_space(5.0);
+                                                        ui.add_space(10.0);
 
-                                                if ui.button("Delete").clicked() {
-                                                    object.destroy();
-                                                }
-                                            });
+                                                        if ui.button("Select").clicked() {
+                                                            global_state
+                                                                .viewer
+                                                                .select_object(&object);
+                                                        }
+                                                        ui.add_space(5.0);
+
+                                                        if ui.button("Delete").clicked() {
+                                                            object.destroy();
+                                                        }
+                                                    });
+                                                });
+                                            }
                                         });
-                                    }
                                 });
-                        });
+                        }
+                    });
 
                     ui.add_space(10.0);
 
                     ui.heading("Masks");
                     ui.add_space(5.0);
 
-                    egui::ScrollArea::vertical()
-                        .id_salt(Id::new("masks explorer"))
-                        .max_height(200.0)
-                        .show(ui, |ui| {
-                            ListBuilder::new()
-                                .with_cell_height(25.0)
-                                .entries(masks.len())
-                                .fill(10)
-                                .show(ui, |mut list| {
-                                    for (name, mask) in masks.into_iter() {
-                                        list.entry(|ui| {
-                                            ui.horizontal_centered(|ui| {
-                                                StaticSizedLabel::new(50.0)
-                                                    .label(ui, trim_text::<15, 4>(&name));
+                    ui.allocate_ui(vec2(ui.available_width(), 100.0), |ui| {
+                        if masks.is_empty() {
+                            let text = RichText::new("No Masks")
+                                .font(FontId::new(35.0, egui::FontFamily::Monospace));
 
-                                                ui.add_space(10.0);
+                            ui.centered_and_justified(|ui| {
+                                ui.label(text);
+                            });
+                        } else {
+                            egui::ScrollArea::vertical()
+                                .id_salt(Id::new("masks explorer"))
+                                .show(ui, |ui| {
+                                    ListBuilder::new()
+                                        .with_cell_height(25.0)
+                                        .entries(masks.len())
+                                        .show(ui, |mut list| {
+                                            for (name, mask) in masks.into_iter() {
+                                                list.entry(|ui| {
+                                                    ui.horizontal_centered(|ui| {
+                                                        StaticSizedLabel::new(50.0)
+                                                            .label(ui, trim_text::<15, 4>(&name));
 
-                                                if ui.button("Select").clicked() {
-                                                    global_state.viewer.select_mask(&mask);
-                                                }
-                                                ui.add_space(5.0);
+                                                        ui.add_space(10.0);
 
-                                                if ui.button("Delete").clicked() {
-                                                    mask.destroy();
-                                                }
-                                            });
+                                                        if ui.button("Select").clicked() {
+                                                            global_state.viewer.select_mask(&mask);
+                                                        }
+                                                        ui.add_space(5.0);
+
+                                                        if ui.button("Delete").clicked() {
+                                                            mask.destroy();
+                                                        }
+                                                    });
+                                                });
+                                            }
                                         });
-                                    }
                                 });
-                        });
+                        }
+                    });
 
                     pointer_over_tool = ui.ui_contains_pointer();
                 });
