@@ -1,6 +1,6 @@
 <div align="center">
 <h1 align="center">
-<img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-markdown-open.svg" width="100" />
+![main_icon_blue](https://github.com/user-attachments/assets/b8105295-afdb-4ccb-93b9-518fb60d1348)  
 <br>fiberslice
 </h1>
 <h3>◦ Slice enforcing fibers into objects</h3>
