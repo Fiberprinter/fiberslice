@@ -755,124 +755,134 @@ impl UiWidgetComponent for FiberSettings {
         );
 
         show_optional_setting(
-            &mut self.wall_pattern,
-            "Wall Fibers",
-            |setting, ui| {
-                show_combo(&mut setting.pattern, "Pattern", ui);
+            &mut self.continuous,
+            "Continous Fiber",
+            |_setting, _ui| {},
+            true,
+            ui,
+        );
 
-                match setting.pattern {
-                    fiber::WallPatternType::Alternating => {
-                        show_usize(
-                            &mut setting.alternating_layer_spacing,
-                            "Layer Pattern
+        if !self.continuous.is_enabled() {
+            show_optional_setting(
+                &mut self.wall_pattern,
+                "Wall Fibers",
+                |setting, ui| {
+                    show_combo(&mut setting.pattern, "Pattern", ui);
+
+                    match setting.pattern {
+                        fiber::WallPatternType::Alternating => {
+                            show_usize(
+                                &mut setting.alternating_layer_spacing,
+                                "Layer Pattern
                              Spacing",
-                            None,
-                            1,
-                            ui,
-                        );
+                                None,
+                                1,
+                                ui,
+                            );
 
-                        show_usize(
-                            &mut setting.alternating_layer_width,
-                            "Layer Pattern Width",
-                            None,
-                            1,
-                            ui,
-                        );
+                            show_usize(
+                                &mut setting.alternating_layer_width,
+                                "Layer Pattern Width",
+                                None,
+                                1,
+                                ui,
+                            );
 
-                        show_usize(
-                            &mut setting.alternating_wall_spacing,
-                            "Wall Pattern Spacing",
-                            None,
-                            1,
-                            ui,
-                        );
+                            show_usize(
+                                &mut setting.alternating_wall_spacing,
+                                "Wall Pattern Spacing",
+                                None,
+                                1,
+                                ui,
+                            );
 
-                        show_usize(
-                            &mut setting.alternating_wall_width,
-                            "Wall Pattern Width",
-                            None,
-                            1,
-                            ui,
-                        );
+                            show_usize(
+                                &mut setting.alternating_wall_width,
+                                "Wall Pattern Width",
+                                None,
+                                1,
+                                ui,
+                            );
 
-                        show_usize(&mut setting.alternating_step, "Step", None, 1, ui);
+                            show_usize(&mut setting.alternating_step, "Step", None, 1, ui);
+                        }
+                        fiber::WallPatternType::Full => {}
                     }
-                    fiber::WallPatternType::Full => {}
-                }
-            },
-            true,
-            ui,
-        );
+                },
+                true,
+                ui,
+            );
 
-        let last = self.wall_pattern.wall_ranges.clone();
+            let last = self.wall_pattern.wall_ranges.clone();
 
-        show_str(
-            &mut self.wall_pattern.wall_ranges,
-            "Wall Ranges",
-            &settings_default.wall_pattern.wall_ranges,
-            ui,
-        );
+            show_str(
+                &mut self.wall_pattern.wall_ranges,
+                "Wall Ranges",
+                &settings_default.wall_pattern.wall_ranges,
+                ui,
+            );
 
-        if !self.wall_pattern.is_valid() {
-            self.wall_pattern.wall_ranges = last;
+            if !self.wall_pattern.is_valid() {
+                self.wall_pattern.wall_ranges = last;
+            }
+
+            show_optional_setting(
+                &mut self.infill,
+                "Infill Fibers",
+                |setting, ui| {
+                    show_combo(&mut setting.partial_infill_type, "Infill Type", ui);
+                    show_f32(
+                        &mut setting.infill_percentage,
+                        "Infill Percentage",
+                        None,
+                        0.2,
+                        ui,
+                    );
+
+                    show_usize(&mut setting.width, "Pattern Width", Some("Layers"), 1, ui);
+                    show_usize(
+                        &mut setting.spacing,
+                        "Pattern Spacing",
+                        Some("Layers"),
+                        1,
+                        ui,
+                    );
+
+                    show_bool(
+                        &mut setting.solid_infill,
+                        "Fiber Solid Infill",
+                        None,
+                        false,
+                        ui,
+                    );
+                    show_bool(&mut setting.air_space, "Air Spacing", None, false, ui);
+                },
+                true,
+                ui,
+            );
+
+            show_f32(
+                &mut self.speed_factor,
+                "Speed Factor",
+                None,
+                settings_default.speed_factor,
+                ui,
+            );
+            show_f32(
+                &mut self.acceleration_factor,
+                "Acceleration Factor",
+                None,
+                settings_default.acceleration_factor,
+                ui,
+            );
+            show_f32(
+                &mut self.jerk_factor,
+                "Jerk Factor",
+                None,
+                settings_default.jerk_factor,
+                ui,
+            );
         }
-
-        show_optional_setting(
-            &mut self.infill,
-            "Infill Fibers",
-            |setting, ui| {
-                show_combo(&mut setting.partial_infill_type, "Infill Type", ui);
-                show_f32(
-                    &mut setting.infill_percentage,
-                    "Infill Percentage",
-                    None,
-                    0.2,
-                    ui,
-                );
-
-                show_usize(&mut setting.width, "Pattern Width", Some("Layers"), 1, ui);
-                show_usize(
-                    &mut setting.spacing,
-                    "Pattern Spacing",
-                    Some("Layers"),
-                    1,
-                    ui,
-                );
-
-                show_bool(
-                    &mut setting.solid_infill,
-                    "Fiber Solid Infill",
-                    None,
-                    false,
-                    ui,
-                );
-                show_bool(&mut setting.air_space, "Air Spacing", None, false, ui);
-            },
-            true,
-            ui,
-        );
-
-        show_f32(
-            &mut self.speed_factor,
-            "Speed Factor",
-            None,
-            settings_default.speed_factor,
-            ui,
-        );
-        show_f32(
-            &mut self.acceleration_factor,
-            "Acceleration Factor",
-            None,
-            settings_default.acceleration_factor,
-            ui,
-        );
-        show_f32(
-            &mut self.jerk_factor,
-            "Jerk Factor",
-            None,
-            settings_default.jerk_factor,
-            ui,
-        );
     }
 }
 

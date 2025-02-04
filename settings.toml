@@ -14,7 +14,7 @@ print_z = 210.0
 minimum_retract_distance = 1.0
 infill_perimeter_overlap_percentage = 0.10000000149011612
 solid_infill_type = "Rectilinear"
-partial_infill_type = "Linear"
+partial_infill_type = "Triangle"
 starting_instructions = """
 G90 ; use absolute coordinates 
 M83 ; extruder relative mode
@@ -107,7 +107,7 @@ wall_ranges = ""
 enabled = true
 
 [fiber.infill.setting]
-partial_infill_type = "Triangle"
+partial_infill_type = "Linear"
 infill_percentage = 0.10000000149011612
 width = 1
 spacing = 5

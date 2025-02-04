@@ -999,10 +999,16 @@ pub mod fiber {
     }
 
     #[derive(Serialize, Deserialize, Debug, Clone)]
+    pub struct ContinuousFiberSettings {}
+
+    #[derive(Serialize, Deserialize, Debug, Clone)]
     pub struct FiberSettings {
         pub diameter: f32,
         pub cut_before: f32,
         pub min_length: f32,
+
+        pub continuous: OptionalSetting<ContinuousFiberSettings>,
+
         pub max_angle: f32,
 
         pub wall_pattern: OptionalSetting<WallPattern>,
@@ -1021,6 +1027,11 @@ pub mod fiber {
                 cut_before: 20.0,
                 min_length: 25.0,
                 max_angle: 45.0,
+
+                continuous: OptionalSetting {
+                    setting: ContinuousFiberSettings {},
+                    enabled: false,
+                },
 
                 wall_pattern: OptionalSetting {
                     setting: WallPattern {
