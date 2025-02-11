@@ -21,8 +21,6 @@ impl Ray {
         let ndc_x = 1.0 - (2.0 * (position.0 - x)) / width;
         let ndc_y = (2.0 * (position.1 - y)) / height - 1.0; // flip y-axis
 
-        println!("ndc_x: {}, ndc_y: {}", ndc_x, ndc_y);
-
         // Clip space coordinates
         let clip_coords = glam::Vec4::new(ndc_x, ndc_y, -1.0, 1.0);
 
