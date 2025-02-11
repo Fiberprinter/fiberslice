@@ -30,7 +30,7 @@ impl UiSetting for slicer::Settings {
     fn show_general(&mut self, ui: &mut egui::Ui) {
         show_f32(&mut self.layer_height, "Layer height", Some("mm"), 0.0, ui);
 
-        egui::CollapsingHeader::new("Extrustion Width")
+        egui::CollapsingHeader::new("Extrusion Width")
             .default_open(true)
             .show(ui, |ui| {
                 ExtrusionMovementParameter(&mut self.extrusion_width).show(ui);
@@ -733,6 +733,27 @@ impl UiWidgetComponent for FiberSettings {
             ui,
         );
         show_f32(
+            &mut self.speed_factor,
+            "Speed Factor",
+            None,
+            settings_default.speed_factor,
+            ui,
+        );
+        show_f32(
+            &mut self.acceleration_factor,
+            "Acceleration Factor",
+            None,
+            settings_default.acceleration_factor,
+            ui,
+        );
+        show_f32(
+            &mut self.jerk_factor,
+            "Jerk Factor",
+            None,
+            settings_default.jerk_factor,
+            ui,
+        );
+        show_f32(
             &mut self.cut_before,
             "Cut Before",
             Some("mm"),
@@ -858,28 +879,6 @@ impl UiWidgetComponent for FiberSettings {
                     show_bool(&mut setting.air_space, "Air Spacing", None, false, ui);
                 },
                 true,
-                ui,
-            );
-
-            show_f32(
-                &mut self.speed_factor,
-                "Speed Factor",
-                None,
-                settings_default.speed_factor,
-                ui,
-            );
-            show_f32(
-                &mut self.acceleration_factor,
-                "Acceleration Factor",
-                None,
-                settings_default.acceleration_factor,
-                ui,
-            );
-            show_f32(
-                &mut self.jerk_factor,
-                "Jerk Factor",
-                None,
-                settings_default.jerk_factor,
                 ui,
             );
         }
