@@ -988,6 +988,12 @@ pub mod fiber {
         }
     }
 
+    pub struct CornerDeAcceleration {
+        pub min_angle: f32,
+        pub distance: f32,
+        pub steps: usize,
+    }
+
     #[derive(Serialize, Deserialize, Debug, Clone)]
     pub struct Infill {
         pub partial_infill_type: PartialInfillTypes,
