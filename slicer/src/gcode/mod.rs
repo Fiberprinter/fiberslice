@@ -123,7 +123,7 @@ pub fn write_gcode(
     let mut current_object = None;
 
     let mut navigator = Navigator::new(cmds.len());
-
+    
     let start = convert_instructions(
         settings.starting_instructions.clone(),
         current_z,
@@ -167,7 +167,15 @@ pub fn write_gcode(
 
     for cmd in cmds {
         match cmd {
-            Command::MoveTo { end, .. } => writeln!(writer, "G1 X{:.5} Y{:.5}", end.x, end.y)?,
+            Command::MoveTo { end, .. } => {                
+                writeln!(writer, "G1 X{:.5} Y{:.5}", end.x, end.y)?
+            },
+            Command::TravelFromWalls { 
+                end
+            } => {
+                writeln!(writer, "M300; Pause")?;
+                writeln!(writer, "G1 X{:.5} Y{:.5}", end.x, end.y)?
+            }
             Command::MoveAndExtrude {
                 id,
                 start,
@@ -241,15 +249,15 @@ pub fn write_gcode(
                 #[cfg(debug_assertions)]
                 writeln!(
                     writer,
-                    "G1 X{:.5} Y{:.5} E{:.5} D{:.5} ;{}",
-                    end.x, end.y, extrude, extrude, debug
+                    "G1 X{:.5} Y{:.5} E{:.5} ;{}",
+                    end.x, end.y, extrude, debug
                 )?;
 
                 #[cfg(not(debug_assertions))]
                 writeln!(
                     writer,
-                    "G1 X{:.5} Y{:.5} E{:.5} D{:.5}",
-                    end.x, end.y, extrude, extrude
+                    "G1 X{:.5} Y{:.5} E{:.5}",
+                    end.x, end.y, extrude
                 )?;
             }
             Command::MoveAndExtrudeFiberAndCut {
@@ -267,7 +275,7 @@ pub fn write_gcode(
                 navigator.record_trace(id.expect("Id's not eval yet!"), writer.line_count());
 
                 let (start, end) = (vec2(start.x, start.y), vec2(end.x, end.y));
-
+                println!("Helpajsdnhajshdjhbjashdhgd");
                 // direction from end to start
                 let direction = start - end;
                 let length = direction.length();

@@ -109,7 +109,7 @@ pub fn slice(
     process.set_progress(0.7);
     SlowDownLayerPass::pass(&mut moves, settings);
 
-    MergeFiberPass::pass(&mut moves, settings);
+    // MergeFiberPass::pass(&mut moves, settings);
 
     EvalIdPass::pass(&mut moves, settings);
 

@@ -247,7 +247,7 @@ pub struct Move {
     pub move_type: MoveType,
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 /// A chain of moves that should happen in order
 pub struct MoveChain {
     ///start point for the chain of moves. Needed as Moves don't contain there own start point.
@@ -343,6 +343,20 @@ impl std::fmt::Display for TraceType {
 }
 
 impl TraceType {
+    pub fn is_wall(&self) -> bool {
+        match self {
+            TraceType::TopSolidInfill => false,
+            TraceType::SolidInfill => false,
+            TraceType::Infill => false,
+            TraceType::WallOuter => true,
+            TraceType::WallInner => true,
+            TraceType::InteriorWallOuter => true,
+            TraceType::InteriorWallInner => true,
+            TraceType::Bridging => false,
+            TraceType::Support => false,
+        }
+    }
+
     pub fn into_color_vec4(&self) -> Vec4 {
         match self {
             TraceType::TopSolidInfill => Vec4::new(1.0, 0.0, 0.0, 1.0),
@@ -390,6 +404,10 @@ impl MoveType {
 pub enum Command {
     ///Move to a specific location without extrusion
     MoveTo {
+        ///The end point of the move
+        end: Coord<f32>,
+    },
+    TravelFromWalls {
         ///The end point of the move
         end: Coord<f32>,
     },

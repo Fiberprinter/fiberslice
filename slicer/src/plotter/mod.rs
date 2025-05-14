@@ -425,7 +425,9 @@ impl Plotter for Slice {
                 },
             });
 
-            for chain in self.fixed_chains.drain(..).chain(self.chains.drain(..)) {
+            
+            // self.fixed_chains.drain(..).chain(self.chains.drain(..)).tuple_windows();
+            for (chain, next_chain) in self.fixed_chains.drain(..).chain(self.chains.drain(..)).tuple_windows() {
                 let retraction_length = self.layer_settings.retraction_length;
                 let retract_command = if self.layer_settings.retraction_wipe.is_enabled() {
                     let retraction_wipe = &self.layer_settings.retraction_wipe;
@@ -529,9 +531,18 @@ impl Plotter for Slice {
                     }
                 };
 
-                commands.push(Command::MoveTo {
-                    end: chain.start_point,
-                });
+                if chain.moves[0].move_type.print_type().unwrap_or(TraceType::WallOuter).is_wall()
+                    && !next_chain.moves[0].move_type.print_type().unwrap_or(TraceType::WallOuter).is_wall()
+                {
+                    commands.push(Command::TravelFromWalls {
+                        end: chain.start_point,
+                    });
+                } else {
+                    commands.push(Command::MoveTo {
+                        end: chain.start_point,
+                    });
+                }
+
                 commands.append(&mut chain.create_commands(&self.layer_settings, layer_thickness));
 
                 commands.push(retract_command);

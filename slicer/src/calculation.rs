@@ -23,6 +23,15 @@ pub fn calculate_values(moves: &[Command], settings: &Settings) -> CalculatedVal
                     values.total_time += d / current_speed;
                 }
             }
+            Command::TravelFromWalls { end } => {
+                let x_diff = end.x - current_pos.x;
+                let y_diff = end.y - current_pos.y;
+                let d = ((x_diff * x_diff) + (y_diff * y_diff)).sqrt();
+                current_pos = *end;
+                if current_speed != 0.0 {
+                    values.total_time += d / current_speed;
+                }
+            }
             Command::MoveAndExtrude {
                 start,
                 end,

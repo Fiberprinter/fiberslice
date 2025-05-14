@@ -291,6 +291,7 @@ impl SlicePass for TopAndBottomLayersPass {
             })
             .for_each(|(layer_num, slice)| {
                 slice.fill_remaining_area(true, layer_num, &PassContext::new().without_fiber());
+                println!("There is some top bottom fill");
             });
         Ok(())
     }
