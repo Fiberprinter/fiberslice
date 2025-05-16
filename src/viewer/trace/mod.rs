@@ -6,6 +6,7 @@ use mesh::{TraceMesher, TRACE_MESH_VERTICES};
 use shared::process::Process;
 use slicer::{Command, TraceType};
 use tree::TraceTree;
+use vertex::TraceVertex;
 use wgpu::BufferAddress;
 
 use crate::render::Vertex;
@@ -252,4 +253,195 @@ impl SlicedObject {
     pub fn from_file(path: &str, settings: &slicer::Settings) -> Result<Self, ()> {
         todo!()
     }
+}
+
+pub fn from_commands_into_layers(
+    commands: &[slicer::Command],
+    settings: &slicer::Settings,
+) -> Result<Vec<Vec<TraceVertex>>, ()> {
+    let mut layers = Vec::new();
+
+    // let mut current_state = StateChange::default();
+    let mut current_type = None;
+    let mut current_layer = 0;
+    let mut current_height_z = 0.0;
+
+    let mut last_position = Vec3::ZERO;
+
+    let mut count_map = HashMap::new();
+
+    let mut root = TraceTree::create_root();
+
+    let mut mesher = TraceMesher::new();
+
+    let mut fiber_mesher = TraceMesher::new();
+    fiber_mesher.set_color(FIBER_COLOR);
+
+    // let mut fiber_wire_mesher = LineMesher::new();
+    // fiber_wire_mesher.set_color(FIBER_COLOR);
+
+    let mut travel_vertices = Vec::new();
+
+    for command in commands {
+        if let Some(ty) = current_type {
+            mesher.set_type(ty);
+        }
+        mesher.set_current_layer(current_layer);
+        mesher.set_color(current_type.unwrap_or(TraceType::Infill).into_color_vec4());
+
+        if let Some(ty) = current_type {
+            fiber_mesher.set_type(ty);
+        }
+        fiber_mesher.set_current_layer(current_layer);
+
+        match command {
+            slicer::Command::MoveTo { end } => {
+                let start = last_position;
+                let end = Vec3::new(
+                    end.x - settings.print_x / 2.0,
+                    current_height_z,
+                    end.y - settings.print_y / 2.0,
+                );
+
+                travel_vertices.push(Vertex {
+                    position: start.to_array(),
+                    normal: [0.0; 3],
+                    color: TRAVEL_COLOR.to_array(),
+                });
+
+                travel_vertices.push(Vertex {
+                    position: end.to_array(),
+                    normal: [0.0; 3],
+                    color: TRAVEL_COLOR.to_array(),
+                });
+
+                let travel = TraceTree::create_travel(2, start, end);
+
+                root.push(travel);
+
+                last_position = end;
+            }
+            slicer::Command::MoveAndExtrude {
+                id,
+                start,
+                end,
+                thickness,
+                width,
+                ..
+            } => {
+                let start = Vec3::new(
+                    start.x - settings.print_x / 2.0,
+                    current_height_z - thickness / 2.0,
+                    start.y - settings.print_y / 2.0,
+                );
+                let end = Vec3::new(
+                    end.x - settings.print_x / 2.0,
+                    current_height_z - thickness / 2.0,
+                    end.y - settings.print_y / 2.0,
+                );
+
+                if let Some(ty) = current_type {
+                    count_map.entry(ty).and_modify(|e| *e += 1).or_insert(1);
+                }
+
+                let (offset, hitbox) = mesher.next(start, end, *thickness, *width, true);
+
+                let tree_move = TraceTree::create_move(
+                    hitbox,
+                    id.expect("Id's not evaluted yet!"),
+                    current_type.unwrap_or(TraceType::Infill),
+                    offset as u64,
+                    TRACE_MESH_VERTICES as BufferAddress,
+                );
+
+                root.push(tree_move);
+
+                count_map
+                    .entry(current_type.unwrap_or(TraceType::Infill))
+                    .and_modify(|e| *e += 1)
+                    .or_insert(1);
+
+                last_position = end;
+            }
+            slicer::Command::MoveAndExtrudeFiberAndCut {
+                id,
+                start,
+                end,
+                thickness,
+                width,
+                ..
+            }
+            | slicer::Command::MoveAndExtrudeFiber {
+                id,
+                start,
+                end,
+                thickness,
+                width,
+                ..
+            } => {
+                mesher.set_color(FIBER_COLOR);
+
+                let start = Vec3::new(
+                    start.x - settings.print_x / 2.0,
+                    current_height_z - thickness / 2.0,
+                    start.y - settings.print_y / 2.0,
+                );
+                let end = Vec3::new(
+                    end.x - settings.print_x / 2.0,
+                    current_height_z - thickness / 2.0,
+                    end.y - settings.print_y / 2.0,
+                );
+
+                if let Some(ty) = current_type {
+                    count_map.entry(ty).and_modify(|e| *e += 1).or_insert(1);
+                }
+
+                let (offset, hitbox) = fiber_mesher.next(start, end, *thickness, *width, false);
+
+                let tree_move = TraceTree::create_fiber(
+                    hitbox,
+                    id.expect("Id's not evaluated yet!"),
+                    current_type.unwrap_or(TraceType::Infill),
+                    offset as u64,
+                    TRACE_MESH_VERTICES as BufferAddress,
+                );
+
+                root.push(tree_move);
+
+                /*
+                let offset = fiber_wire_mesher.next(start, end);
+
+                let fiber = TraceTree::create_fiber(offset as u64, start, end);
+
+                root.push(fiber);
+                */
+
+                last_position = end;
+            }
+            slicer::Command::LayerChange { z, index } => {
+                current_layer = *index;
+                current_height_z = *z;
+
+                let layer_vertices = mesher.finish();
+                layers.push(layer_vertices);
+                mesher = TraceMesher::new();
+            }
+            slicer::Command::SetState { .. } => {}
+            slicer::Command::ChangeType { print_type } => current_type = Some(*print_type),
+            _ => {}
+        }
+
+        if !command.needs_filament() {
+            mesher.finish_chain();
+        }
+    }
+
+    let last_layer_vertices = mesher.finish();
+    let fiber_vertices = fiber_mesher.finish();
+
+    layers.push(last_layer_vertices);
+
+    //  log::info!("Trace Vertices: {}", trace_vertices.len());
+
+    Ok(layers)
 }

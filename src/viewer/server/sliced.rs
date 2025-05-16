@@ -11,10 +11,11 @@ use tokio::sync::oneshot::Receiver;
 use tokio::task::JoinHandle;
 use wgpu::util::DeviceExt;
 
+use crate::config::gui::TOOL_TOGGLE_BUTTON;
 use crate::input::hitbox::HitboxRoot;
 use crate::render::{ColorBinding, PipelineBuilder, Renderable};
 use crate::viewer::trace::vertex::{TraceContext, TraceVertex};
-use crate::viewer::trace::SlicedObject;
+use crate::viewer::trace::{from_commands_into_layers, SlicedObject};
 use crate::viewer::RenderServer;
 use crate::QUEUE;
 use crate::{prelude::WgpuContext, GlobalState, RootEvent};
@@ -223,6 +224,30 @@ impl SlicedObjectServer {
                     Err(e) => {
                         println!("Failed to save gcode: {:?}", e);
                     }
+                }
+            }
+        }
+    }
+
+    pub fn export_stl_layers(&self) {
+        if let Some(toolpath) = self.sliced_object.as_ref() {
+            let path = FileDialog::new()
+                .set_title("Export Stl Layers")
+                .show_open_single_dir()
+                .unwrap();
+
+            if let Some(path) = path {
+                let layers =
+                    from_commands_into_layers(&toolpath.moves, &toolpath.settings).unwrap();
+
+                for layer_vertices in layers {
+                    let mut triangles = Vec::new();
+
+                    (0..triangles.len())
+                        .step_by(3)
+                        .fold(Vec::new(), |triangles, vertex| {});
+
+                    stl_io::write_stl(writer, mesh)
                 }
             }
         }

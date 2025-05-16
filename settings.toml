@@ -8,13 +8,13 @@ inner_perimeters_first = true
 number_of_perimeters = 3
 top_layers = 3
 bottom_layers = 3
-print_x = 210.0
-print_y = 210.0
-print_z = 210.0
+print_x = 256.0
+print_y = 256.0
+print_z = 256.0
 minimum_retract_distance = 1.0
 infill_perimeter_overlap_percentage = 0.25
 solid_infill_type = "Rectilinear"
-partial_infill_type = "Linear"
+partial_infill_type = "Triangle"
 starting_instructions = """
 G90 ; use absolute coordinates 
 M83 ; extruder relative mode
@@ -92,12 +92,12 @@ acceleration_factor = 1.0
 jerk_factor = 1.0
 
 [fiber.continuous]
-enabled = true
+enabled = false
 
 [fiber.continuous.setting]
 
 [fiber.wall_pattern]
-enabled = true
+enabled = false
 
 [fiber.wall_pattern.setting]
 pattern = "Alternating"
@@ -109,7 +109,7 @@ alternating_step = 1
 wall_ranges = ""
 
 [fiber.infill]
-enabled = true
+enabled = false
 
 [fiber.infill.setting]
 partial_infill_type = "Linear"

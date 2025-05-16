@@ -288,6 +288,19 @@ fn show_buttons(shared_state: &(UiState, GlobalState<RootEvent>), ui: &mut Ui) {
             shared_state.1.viewer.export_gcode();
         }
 
+        let export_stl_layers_button = Button::new("Export Layers as STL")
+            .min_size(Vec2::new(ui.available_width() * 0.5, 20.0));
+
+        if ui
+            .add_enabled(
+                shared_state.1.viewer.already_sliced(),
+                export_stl_layers_button,
+            )
+            .clicked()
+        {
+            shared_state.1.viewer.export_stl_layers();
+        }
+
         let rich_text = RichText::new("Slice")
             .color(Color32::BLACK)
             .font(FontId::new(18.0, egui::FontFamily::Monospace));
