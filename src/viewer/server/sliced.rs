@@ -2,6 +2,7 @@ use std::fs::File;
 use std::io::BufWriter;
 use std::sync::Arc;
 
+use image::imageops::FilterType::Triangle;
 use native_dialog::FileDialog;
 use shared::process::Process;
 use slicer::gcode::mem::GCodeMemoryWriter;
@@ -14,7 +15,7 @@ use wgpu::util::DeviceExt;
 use crate::config::gui::TOOL_TOGGLE_BUTTON;
 use crate::input::hitbox::HitboxRoot;
 use crate::render::{ColorBinding, PipelineBuilder, Renderable};
-use crate::viewer::trace::vertex::{TraceContext, TraceVertex};
+use crate::viewer::trace::vertex::{self, TraceContext, TraceVertex};
 use crate::viewer::trace::{from_commands_into_layers, SlicedObject};
 use crate::viewer::RenderServer;
 use crate::QUEUE;
@@ -240,14 +241,36 @@ impl SlicedObjectServer {
                 let layers =
                     from_commands_into_layers(&toolpath.moves, &toolpath.settings).unwrap();
 
-                for layer_vertices in layers {
-                    let mut triangles = Vec::new();
+                for (layer, layer_vertices) in layers.into_iter().enumerate() {
+                    // let mut triangles = Vec::new();
 
-                    (0..triangles.len())
+                    let triangles = (0..layer_vertices.len())
                         .step_by(3)
-                        .fold(Vec::new(), |triangles, vertex| {});
+                        .fold(Vec::new(), |mut triangles, vertex| {
+                            let p1 = &layer_vertices[vertex];
+                            let p2 = &layer_vertices[vertex + 1];
+                            let p3 = &layer_vertices[vertex + 2];
+                            
+                            let triangle = stl_io::Triangle {
+                                normal: stl_io::Vector::new([layer_vertices[vertex].normal[0], layer_vertices[vertex].normal[1], layer_vertices[vertex].normal[2]]),
+                                vertices: [
+                                    stl_io::Vector::new([p1.position[0], p1.position[1], p1.position[2]]),
+                                    stl_io::Vector::new([p2.position[0], p2.position[1], p2.position[2]]),
+                                        stl_io::Vector::new([p3.position[0], p3.position[1], p3.position[2]]),
+                                ],
+                            };
 
-                    stl_io::write_stl(writer, mesh)
+                            triangles.push(triangle);
+                            triangles
+                        });
+
+                    let mut writer = File::create(path.join(format!("layer_{}.stl", layer)))
+                        .expect("Failed to create file");
+
+                    stl_io::write_stl(
+                        &mut writer,
+                        triangles.iter(),
+                    ).expect("Failed to write STL file");
                 }
             }
         }

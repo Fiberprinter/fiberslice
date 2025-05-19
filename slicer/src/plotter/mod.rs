@@ -477,27 +477,6 @@ impl Plotter for Slice {
                             (retaction_distance, next_point)
                         })
                         .collect::<Vec<_>>();
-                    /*
-                    if chain.is_loop && chain.moves.len() > 3{
-                        if let [m2,m1,..] = ordered[ordered.len()-3..ordered.len()]{
-                            if let Some(m0) = ordered.first() {
-                                //let m1 = chain.start_point ;
-                                //inset the first move
-                                let bisector = directional_unit_bisector_left(&m0, &m1, &m2);
-
-                                let scaled_bisector = bisector.scale(self.layer_settings.extrusion_width.exterior_surface_perimeter);
-
-                                let inset_point = Coord::from((m1.x - scaled_bisector.x,m1.y - scaled_bisector.y));
-
-                                println!("{:?} {:?} {:?} ",m0,m1,m2);
-                                println!("{:?} {:?} {:?} ",bisector,scaled_bisector,inset_point);
-
-                                wipe_moves.insert(0,(0.0,inset_point))
-
-
-                            }
-                        }
-                    }*/
 
                     if remaining_distance > 0.0 {
                         if let Some((distance, _)) = wipe_moves.last_mut() {

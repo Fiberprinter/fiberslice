@@ -292,7 +292,7 @@ impl Viewer {
     }
 
     pub fn export_stl_layers(&self) {
-        self.sliced_object_server.write().export();
+        self.sliced_object_server.write().export_stl_layers();
     }
 }
 
